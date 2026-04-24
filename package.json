@@ -1,0 +1,42 @@
+{
+	"name": "app-pecuaria-api",
+	"version": "1.0.0",
+	"description": "Backend - Sistema de Gestão Reprodutiva de Gado PO",
+	"main": "dist/index.js",
+	"repository": "https://github.com/LukeSkywalker32/app-pecuaria-api.git",
+	"author": "Luke Skywalker <luke.skywalker31@outlook.com>",
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"lint": "biome lint src/",
+		"format": "biome format --write src/",
+		"format:check": "biome format src/",
+		"prisma:generate": "prisma generate",
+		"prisma:push": "prisma db push",
+		"prisma:studio": "prisma studio"
+	},
+	"dependencies": {
+		"@prisma/client": "^7.8.0",
+		"bcryptjs": "^3.0.3",
+		"cors": "^2.8.6",
+		"dotenv": "^17.4.2",
+		"express": "^5.2.1",
+		"jsonwebtoken": "^9.0.3",
+		"prisma": "^7.8.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.13",
+		"@types/bcryptjs": "^3.0.0",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.6",
+		"@types/jsonwebtoken": "^9.0.10",
+		"@types/node": "^25.6.0",
+		"nodemon": "^3.1.14",
+		"ts-node": "^10.9.2",
+		"tsx": "^4.21.0",
+		"typescript": "^6.0.3"
+	}
+}
