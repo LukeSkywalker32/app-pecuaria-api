@@ -1,15 +1,15 @@
 export interface JwtPayload {
-	userId: string;
-	herdId: string;
-	nomeCompleto: string;
-	role: "admin" | "owner" | "farmmanager" | "veterinario";
-	permissoes: string[];
-	iat?: number;
-	exp?: number;
+   userId: string;
+   farmId: string;
+   fullName: string;
+   role: "admin" | "owner" | "farmmanager" | "veterinarian";
+   permissions: string[];
+   iat?: number;
+   exp?: number;
 }
 
 export interface TokenResponse {
-	accessToken: string;
-	refreshToken: string;
-	expiresIn: string;
+   accessToken: string;
+   refreshToken: string;
+   expiresIn: string;
 }

@@ -11,11 +11,11 @@ export const JWT_EXPIRE = process.env.JWT_EXPIRE || "7d";
 export const JWT_REFRESH_EXPIRE = process.env.JWT_REFRESH_EXPIRE || "10d";
 export const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
-// Validações
+// Validations
 if (!JWT_SECRET) {
-	throw new Error("JWT_SECRET não configurado");
+   throw new Error("JWT_SECRET not configured");
 }
 
 if (!DATABASE_URL) {
-	throw new Error("DATABASE_URL não configurado");
+   throw new Error("DATABASE_URL not configured");
 }

@@ -11,394 +11,394 @@ datasource db {
 } 
 
 // ========================================
-// MODELO: FAZENDA (Herd)
+// MODEL: FARM
 // ========================================
 
-model Fazenda {
+model Farm {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  nome              String
-  localizacao       String
+  name              String
+  location          String
   cnpj              String?
   logoUrl           String?
   
-  ativo             Boolean  @default(true)
-  criadoEm          DateTime @default(now())
-  atualizadoEm      DateTime @updatedAt
+  active            Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  // Relacionamentos
-  usuarios          Usuario[]
-  animais           Animal[]
-  pastos            Pasto[]
+  // Relationships
+  users             User[]
+  animals           Animal[]
+  pastures          Pasture[]
   
-  @@map("fazendas")
+  @@map("farms")
 }
 
 // ========================================
-// MODELO: USUÁRIO
+// MODEL: USER
 // ========================================
 
-model Usuario {
+model User {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  // Dados pessoais
-  nomeCompleto        String
+  // Personal data
+  fullName            String
   email               String   @unique
-  telefone            String?
+  phone               String?
   
-  // Autenticação
-  senha               String
-  role                Permissao @default(veterinario)
-  ativo               Boolean  @default(true)
+  // Authentication
+  password            String
+  role                Permission @default(veterinarian)
+  active              Boolean  @default(true)
   
-  // Dados profissionais (para veterinários)
-  crv                 String?  // CRV obrigatório para vet
-  crmv                String?  // Conselho Regional Medicina Veterinária
-  dataFormatura       DateTime?
-  especialidades      String[] // ["Reprodução", "Obstetrícia"]
+  // Professional data (for veterinarians)
+  crv                 String?  // CRV required for vet
+  crmv                String?  // Regional Veterinary Medicine Council
+  graduationDate      DateTime?
+  specialties         String[] // ["Reproduction", "Obstetrics"]
   
-  // Reset de senha
-  tokenResetSenha     String?
-  expiracaoResetSenha DateTime?
+  // Password reset
+  resetPasswordToken  String?
+  resetPasswordExpires DateTime?
   
-  // Relacionamento
-  fazendaId           String   @db.ObjectId
-  fazenda             Fazenda  @relation(fields: [fazendaId], references: [id], onDelete: Cascade)
+  // Relationship
+  farmId              String   @db.ObjectId
+  farm                Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
   
-  // Auditoria
-  ultimoLogin         DateTime?
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  // Audit
+  lastLogin           DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@unique([fazendaId, email])
-  @@map("usuarios")
+  @@unique([farmId, email])
+  @@map("users")
 }
 
 // ========================================
-// ENUM: PERMISSÕES (Roles)
+// ENUM: PERMISSIONS (Roles)
 // ========================================
-enum Permissao {
+enum Permission {
   admin
   owner
   farmmanager
-  veterinario
+  veterinarian
 }
 
 // ========================================
-// MODELO: ANIMAL
+// MODEL: ANIMAL
 // ========================================
 model Animal {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  // Identificação
+  // Identification
   chipId              String   @unique
-  brincoAtual         String?  @unique
-  historicoBrincos    HistoricoBrinco[]
+  currentEarTag       String?  @unique
+  earTagHistory       EarTagHistory[]
   
-  // Dados básicos
-  nome                String
-  raca                String
-  sexo                String   // "M" ou "F"
-  dataNascimento      DateTime
+  // Basic data
+  name                String
+  breed               String
+  gender              String   // "M" or "F"
+  birthDate           DateTime
   
-  // Genealogia
-  paiId               String?  @db.ObjectId
-  maeId               String?  @db.ObjectId
+  // Genealogy
+  sireId              String?  @db.ObjectId
+  damId               String?  @db.ObjectId
   
-  // Localização
-  pastoId             String?  @db.ObjectId
-  pastoNome           String?
+  // Location
+  pastureId           String?  @db.ObjectId
+  pastureName         String?
   
   // Status
-  status              String   @default("ativo") // "ativo", "morto", "vendido"
-  dataMorte           DateTime?
+  status              String   @default("active") // "active", "dead", "sold"
+  deathDate           DateTime?
   
-  // Relacionamento
-  fazendaId           String   @db.ObjectId
-  fazenda             Fazenda  @relation(fields: [fazendaId], references: [id], onDelete: Cascade)
+  // Relationship
+  farmId              String   @db.ObjectId
+  farm                Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
   
-  // Auditoria
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  // Audit
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@unique([fazendaId, chipId])
-  @@map("animais")
+  @@unique([farmId, chipId])
+  @@map("animals")
 }
 
 // ========================================
-// MODELO: HISTÓRICO DE BRINCOS
+// MODEL: EAR TAG HISTORY
 // ========================================
-model HistoricoBrinco {
+model EarTagHistory {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  numeroBrinco        String
+  earTagNumber        String
   animalId            String   @db.ObjectId
   animal              Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   
-  dataColocacao       DateTime
-  dataRemocao         DateTime?
-  motivo              String?
+  placementDate       DateTime
+  removalDate         DateTime?
+  reason              String?
   
-  fazendaId           String   @db.ObjectId
+  farmId              String   @db.ObjectId
   
-  criadoEm            DateTime @default(now())
+  createdAt           DateTime @default(now())
 
-  @@map("historico_brincos")
+  @@map("ear_tag_history")
 }
 
 // ========================================
-// MODELO: PASTO
+// MODEL: PASTURE
 // ========================================
-model Pasto {
+model Pasture {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  nome                String
+  name                String
   hectares            Float
-  tipo                String   // "nativa", "plantada", "irrigada", "confinamento", "quarentena"
-  capacidadeAnimais   Int
-  animaisAtuais       Int      @default(0)
-  ativo               Boolean  @default(true)
+  type                String   // "native", "planted", "irrigated", "feedlot", "quarantine"
+  animalCapacity      Int
+  currentAnimals      Int      @default(0)
+  active              Boolean  @default(true)
   
-  fazendaId           String   @db.ObjectId
-  fazenda             Fazenda  @relation(fields: [fazendaId], references: [id], onDelete: Cascade)
+  farmId              String   @db.ObjectId
+  farm                Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
   
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@unique([fazendaId, nome])
-  @@map("pastos")
+  @@unique([farmId, name])
+  @@map("pastures")
 }
 
 // ========================================
-// MODELO: CIO
+// MODEL: ESTRUS (Heat)
 // ========================================
-model CIO {
+model Estrus {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
   animalId            String   @db.ObjectId
-  data                DateTime
-  intensidade         String   // "Fraco", "Normal", "Forte"
-  detectadoPor        String
-  proximoCio          DateTime // Auto-calculado (data + 21 dias)
+  date                DateTime
+  intensity           String   // "Weak", "Normal", "Strong"
+  detectedBy          String
+  nextEstrus          DateTime // Auto-calculated (date + 21 days)
   
-  fazendaId           String   @db.ObjectId
+  farmId              String   @db.ObjectId
   
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@map("cios")
+  @@map("estrus")
 }
 
 // ========================================
-// MODELO: PRENHEZ
+// MODEL: PREGNANCY
 // ========================================
-model Prenhez {
+model Pregnancy {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
   animalId            String   @db.ObjectId
-  tentativas          Tentativa[]
+  attempts            Attempt[]
   
-  statusAtual         String   @default("nao_iniciada") // "nao_iniciada", "prenha", "vazia", "absorcao"
-  dataStatusAtual     DateTime @default(now())
+  currentStatus       String   @default("not_started") // "not_started", "pregnant", "empty", "absorption"
+  currentStatusDate   DateTime @default(now())
   
-  fazendaId           String   @db.ObjectId
+  farmId              String   @db.ObjectId
   
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@map("prenhezes")
+  @@map("pregnancies")
 }
 
 // ========================================
-// MODELO: TENTATIVA DE PRENHEZ
+// MODEL: PREGNANCY ATTEMPT
 // ========================================
-model Tentativa {
+model Attempt {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  numero              Int
-  prenhezId           String   @db.ObjectId
-  prenhez             Prenhez  @relation(fields: [prenhezId], references: [id], onDelete: Cascade)
+  number              Int
+  pregnancyId         String   @db.ObjectId
+  pregnancy           Pregnancy @relation(fields: [pregnancyId], references: [id], onDelete: Cascade)
   
-  // Cobertura
-  dataCobertura       DateTime
-  tipoCobertura       String   // "MONTA", "INSEMINACAO"
-  touroId             String?  @db.ObjectId
-  nomeSemen           String?
-  tecnico             String?
-  dataPartoEstimada   DateTime // Auto-calculado (data + 283 dias)
+  // Mating
+  matingDate          DateTime
+  matingType          String   // "NATURAL", "AI" (Artificial Insemination)
+  bullId              String?  @db.ObjectId
+  semenName           String?
+  technician          String?
+  estimatedBirthDate  DateTime // Auto-calculated (date + 283 days)
   
-  // Ultrassons (relacionamentos via model Ultrassom)
-  ultrassons          Ultrassom[]
+  // Ultrasounds
+  ultrasounds         Ultrasound[]
   
-  // Parto
-  partoId             String?  @db.ObjectId
+  // Birth
+  birthId             String?  @db.ObjectId
   
-  statusTentativa     String   @default("em_andamento") // "em_andamento", "sucesso", "falha"
-  observacoes         String?
+  attemptStatus       String   @default("in_progress") // "in_progress", "success", "failed"
+  notes               String?
   
-  criadoEm            DateTime @default(now())
+  createdAt           DateTime @default(now())
 
-  @@map("tentativas")
+  @@map("attempts")
 }
 
 // ========================================
-// MODELO: ULTRASSOM
+// MODEL: ULTRASOUND
 // ========================================
-model Ultrassom {
+model Ultrasound {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  tentativaId         String   @db.ObjectId
-  tentativa           Tentativa @relation(fields: [tentativaId], references: [id], onDelete: Cascade)
+  attemptId           String   @db.ObjectId
+  attempt             Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   
-  dias                Int      // 30, 60, 260
-  resultado           String   // "PRENHA", "VAZIA", "ABSORCAO", "VIAVEL"
-  observacoes         String?
-  veterinarioId       String?  @db.ObjectId
+  days                Int      // 30, 60, 260
+  result              String   // "PREGNANT", "EMPTY", "ABSORPTION", "VIABLE"
+  notes               String?
+  veterinarianId      String?  @db.ObjectId
   
-  dataUltrassom       DateTime @default(now())
+  ultrasoundDate      DateTime @default(now())
 
-  @@map("ultrassons")
+  @@map("ultrasounds")
 }
 
 // ========================================
-// MODELO: PARTO/NASCIMENTO
+// MODEL: BIRTH
 // ========================================
-model Parto {
+model Birth {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  maeId               String   @db.ObjectId
-  prenhezId           String?  @db.ObjectId
+  damId               String   @db.ObjectId
+  pregnancyId         String?  @db.ObjectId
   
-  dataParto           DateTime
-  horaParto           String?
+  birthDate           DateTime
+  birthTime           String?
   
-  // Tipo de nascimento
-  tipoNascimento      String   // "normal", "ajuda", "cesaria"
+  // Birth type
+  birthType           String   // "normal", "assisted", "c-section"
   
-  // Veterinário que atendeu
-  veterinarioId       String?  @db.ObjectId
-  veterinarioNome     String?
-  veterinarioCrv      String?
+  // Attending Veterinarian
+  veterinarianId      String?  @db.ObjectId
+  veterinarianName    String?
+  veterinarianCrv     String?
   
-  // Bezerro
-  sexoBezerro         String?  // "M", "F"
-  pesoBezerro         Float?
-  brincoBezerro       String?
-  chipBezerro         String?
-  statusBezerro       String   @default("pendente") // "pendente", "completo"
+  // Calf
+  calfGender          String?  // "M", "F"
+  calfWeight          Float?
+  calfEarTag          String?
+  calfChip            String?
+  calfStatus          String   @default("pending") // "pending", "complete"
   
-  // Óbito
-  situacao            String   @default("normal") // "normal", "obito"
-  motivoObito         String?
+  // Death
+  situation           String   @default("normal") // "normal", "dead"
+  deathReason         String?
   
-  observacoes         String?
+  notes               String?
   
-  fazendaId           String   @db.ObjectId
+  farmId              String   @db.ObjectId
   
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@map("partos")
+  @@map("births")
 }
 
 // ========================================
-// MODELO: VACINAÇÃO
+// MODEL: VACCINATION
 // ========================================
-model Vacinacao {
-  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
-  
-  animalId            String   @db.ObjectId
-  
-  tipoVacina          String   // "Raiva", "Febre Aftosa", etc
-  marca               String
-  lote                String
-  
-  dataVacinacao       DateTime
-  dataValidade        DateTime
-  proximaDose          DateTime?
-  
-  fotoUrl             String?
-  reacao              String?  // Reações adversas
-  veterinarioId       String?  @db.ObjectId
-  
-  fazendaId           String   @db.ObjectId
-  
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
-
-  @@map("vacinacoes")
-}
-
-// ========================================
-// MODELO: MANEJO (Movimentação)
-// ========================================
-model Manejo {
+model Vaccination {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
   animalId            String   @db.ObjectId
   
-  pastoOrigem         String
-  pastoDestino        String
-  dataMovimentacao    DateTime
-  motivo              String   // "Rotação normal", "Manejo reprodutivo", etc
+  vaccineType         String   // "Rabies", "Foot-and-mouth", etc
+  brand               String
+  batch               String
   
-  funcionario         String   // Nome de quem fez
-  batchId             String?  // Para movimentações em lote
-  totalDoLote         Int?
+  vaccinationDate     DateTime
+  expirationDate      DateTime
+  nextDoseDate        DateTime?
   
-  fazendaId           String   @db.ObjectId
+  photoUrl            String?
+  reaction            String?  // Adverse reactions
+  veterinarianId      String?  @db.ObjectId
   
-  criadoEm            DateTime @default(now())
+  farmId              String   @db.ObjectId
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  @@map("manejos")
+  @@map("vaccinations")
 }
 
 // ========================================
-// MODELO: MORTALIDADE
+// MODEL: MANAGEMENT (Movement)
 // ========================================
-model Mortalidade {
+model Management {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
   animalId            String   @db.ObjectId
   
-  dataMorte           DateTime
-  horaMorte           String?
-  localMorte          String   // Nome do pasto ou local
+  originPasture       String
+  destinationPasture  String
+  movementDate        DateTime
+  reason              String   // "Normal rotation", "Reproductive management", etc
   
-  causaMorte          String
-  gravidade           String?  // "Leve", "Moderada", "Severa"
+  employee            String   // Name of who did it
+  batchId             String?  // For batch movements
+  batchTotal          Int?
   
-  necropsia           Boolean  @default(false)
-  descarte            String?
+  farmId              String   @db.ObjectId
   
-  fotos               String[] // URLs das fotos
-  
-  origem              String?  // "parto", "manejo", "doença"
-  partoId             String?  @db.ObjectId
-  
-  observacoes         String?
-  
-  fazendaId           String   @db.ObjectId
-  
-  criadoEm            DateTime @default(now())
-  atualizadoEm        DateTime @updatedAt
+  createdAt           DateTime @default(now())
 
-  @@map("mortalidades")
+  @@map("managements")
 }
 
 // ========================================
-// MODELO: TOKEN DE RESET SENHA
+// MODEL: MORTALITY
 // ========================================
-model TokenResetSenha {
+model Mortality {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   
-  usuarioId           String   @db.ObjectId
-  codigo              String   @unique
+  animalId            String   @db.ObjectId
+  
+  deathDate           DateTime
+  deathTime           String?
+  deathLocation       String   // Pasture name or location
+  
+  causeOfDeath        String
+  severity            String?  // "Mild", "Moderate", "Severe"
+  
+  necropsy            Boolean  @default(false)
+  disposal            String?
+  
+  photos              String[] // Photo URLs
+  
+  origin              String?  // "birth", "management", "disease"
+  birthId             String?  @db.ObjectId
+  
+  notes               String?
+  
+  farmId              String   @db.ObjectId
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("mortalities")
+}
+
+// ========================================
+// MODEL: PASSWORD RESET TOKEN
+// ========================================
+model PasswordResetToken {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  userId              String   @db.ObjectId
+  code                String   @unique
   expiresAt           DateTime
-  usado               Boolean  @default(false)
+  used                Boolean  @default(false)
   
-  fazendaId           String   @db.ObjectId
+  farmId              String   @db.ObjectId
   
-  criadoEm            DateTime @default(now())
+  createdAt           DateTime @default(now())
 
-  @@map("tokens_reset_senha")
+  @@map("password_reset_tokens")
 }

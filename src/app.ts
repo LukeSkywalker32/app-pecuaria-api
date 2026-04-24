@@ -1,17 +1,17 @@
 import cors from "cors";
 import express from "express";
 import { CORS_ORIGIN } from "./config/env";
-import authRoutes from "./modules/auth/routes/authRoutes";
-import { errorHandler } from "./shared/middleware/errorHandler";
+import { errorHandler } from "./shared/middlewares/errorHandler";
+import authRoutes from "./modules/auth/routes/auth.routes";
 
 const app = express();
 
-// Middlewares globais
+// Global Middlewares
 app.use(
-	cors({
-		origin: CORS_ORIGIN?.split(","),
-		credentials: true,
-	}),
+   cors({
+      origin: CORS_ORIGIN?.split(","),
+      credentials: true,
+   }),
 );
 
 app.use(express.json());
@@ -19,13 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // Health Check
 app.get("/health", (req, res) => {
-	res.json({ status: "ok", timestamp: new Date().toISOString() });
+   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-//Routes
+// Routes
 app.use("/api/auth", authRoutes);
 
-//Error Handler (deve ser o ultimo middleware)
+// Error Handler (must be the last middleware)
 app.use(errorHandler);
 
 export default app;

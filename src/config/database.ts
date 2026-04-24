@@ -1,16 +1,17 @@
-import mongoose from "mongoose";
-import { DATABASE_URL } from "./env";
+import { PrismaClient } from "@prisma/client";
+
+export const prisma = new PrismaClient();
 
 export async function connectDataBase() {
-	try {
-		await mongoose.connect(DATABASE_URL);
-		console.log("🚀 Conectado ao MongoDB");
-	} catch (error) {
-		console.error("Erro ao conectar ao MongoDB", error);
-		throw error;
-	}
+   try {
+      await prisma.$connect();
+      console.log("🚀 Connected to Database");
+   } catch (error) {
+      console.error("Error connecting to Database", error);
+      throw error;
+   }
 }
 
-export function disconnectDataBase() {
-	return mongoose.disconnect();
+export async function disconnectDataBase() {
+   return prisma.$disconnect();
 }
