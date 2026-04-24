@@ -1,6 +1,6 @@
 import type { ConfirmResetRequest, ForgotPasswordRequest, LoginRequest } from "../types/auth.types";
 
-export function validateLogin(data: LoginRequest): void {
+function validateLogin(data: LoginRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
       throw new Error("farmId is required");
@@ -14,9 +14,7 @@ export function validateLogin(data: LoginRequest): void {
       throw new Error("Invalid password (minimum 6 characters)");
    }
 }
-
-// Validate forgot password request
-export function validateForgotPassword(data: ForgotPasswordRequest): void {
+function validateForgotPassword(data: ForgotPasswordRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
       throw new Error("Farm is required");
@@ -27,11 +25,7 @@ export function validateForgotPassword(data: ForgotPasswordRequest): void {
       throw new Error("Invalid email");
    }
 }
-
-/**
- * Validate password reset confirmation
- */
-export function validateConfirmReset(data: ConfirmResetRequest): void {
+function validateConfirmReset(data: ConfirmResetRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
       throw new Error("Farm is required");
@@ -57,23 +51,10 @@ export function validateConfirmReset(data: ConfirmResetRequest): void {
       throw new Error("Password must contain uppercase, lowercase, number and special character");
    }
 }
-
-/**
- * Validate email format
- */
 function validateEmail(email: string): boolean {
    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    return regex.test(email);
 }
-
-/**
- * Validate password strength
- * - Minimum 8 characters
- * - At least 1 uppercase
- * - At least 1 lowercase
- * - At least 1 number
- * - At least 1 special character
- */
 function hasStrongPassword(password: string): boolean {
    const hasUppercase = /[A-Z]/.test(password);
    const hasLowercase = /[a-z]/.test(password);
@@ -87,4 +68,6 @@ export default {
    validateLogin,
    validateForgotPassword,
    validateConfirmReset,
+   validateEmail,
+   hasStrongPassword,
 };

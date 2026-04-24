@@ -1,22 +1,22 @@
 // ========================================
+/** biome-ignore-all lint/suspicious/noConsole: <explanation> */
 // AUTHENTICATION SERVICE
 // ========================================
 
+import { prisma } from "@config/database";
 import { jwtConfig } from "@config/jwt";
-import { PrismaClient } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { ROLES_PERMISSIONS } from "@shared/constants/permissions";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type {
-   UserTokenData,
+   AuthenticationResponse,
    ConfirmResetRequest,
    ForgotPasswordRequest,
    LoginRequest,
-   AuthenticationResponse,
+   UserTokenData,
 } from "../types/auth.types";
 import authValidator from "../validators/auth.validator";
-
-const prisma = new PrismaClient();
 
 class AuthService {
    /**
@@ -82,7 +82,7 @@ class AuthService {
             where: { id: decoded.userId },
          });
 
-         if (!user || !user.active) {
+         if (!user?.active) {
             throw new Error("User not found or inactive");
          }
 
@@ -201,7 +201,7 @@ class AuthService {
    /**
     * Extracts user data to place in JWT
     */
-   private getTokenData(user: any): UserTokenData {
+   private getTokenData(user: User): UserTokenData {
       const roleKey = user.role as keyof typeof ROLES_PERMISSIONS;
       const permissions = ROLES_PERMISSIONS[roleKey] || [];
 
