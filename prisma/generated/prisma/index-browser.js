@@ -113,6 +113,13 @@ Prisma.NullTypes = NullTypes
  * Enums
  */
 
+exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
+  Serializable: 'Serializable'
+});
+
 exports.Prisma.FarmScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -138,10 +145,10 @@ exports.Prisma.UserScalarFieldEnum = {
   specialties: 'specialties',
   resetPasswordToken: 'resetPasswordToken',
   resetPasswordExpires: 'resetPasswordExpires',
-  farmId: 'farmId',
   lastLogin: 'lastLogin',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.AnimalScalarFieldEnum = {
@@ -158,20 +165,20 @@ exports.Prisma.AnimalScalarFieldEnum = {
   pastureName: 'pastureName',
   status: 'status',
   deathDate: 'deathDate',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.EarTagHistoryScalarFieldEnum = {
   id: 'id',
   earTagNumber: 'earTagNumber',
-  animalId: 'animalId',
   placementDate: 'placementDate',
   removalDate: 'removalDate',
   reason: 'reason',
+  createdAt: 'createdAt',
   farmId: 'farmId',
-  createdAt: 'createdAt'
+  animalId: 'animalId'
 };
 
 exports.Prisma.PastureScalarFieldEnum = {
@@ -182,9 +189,9 @@ exports.Prisma.PastureScalarFieldEnum = {
   animalCapacity: 'animalCapacity',
   currentAnimals: 'currentAnimals',
   active: 'active',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.EstrusScalarFieldEnum = {
@@ -194,9 +201,9 @@ exports.Prisma.EstrusScalarFieldEnum = {
   intensity: 'intensity',
   detectedBy: 'detectedBy',
   nextEstrus: 'nextEstrus',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.PregnancyScalarFieldEnum = {
@@ -204,15 +211,14 @@ exports.Prisma.PregnancyScalarFieldEnum = {
   animalId: 'animalId',
   currentStatus: 'currentStatus',
   currentStatusDate: 'currentStatusDate',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.AttemptScalarFieldEnum = {
   id: 'id',
   number: 'number',
-  pregnancyId: 'pregnancyId',
   matingDate: 'matingDate',
   matingType: 'matingType',
   bullId: 'bullId',
@@ -222,17 +228,18 @@ exports.Prisma.AttemptScalarFieldEnum = {
   birthId: 'birthId',
   attemptStatus: 'attemptStatus',
   notes: 'notes',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  pregnancyId: 'pregnancyId'
 };
 
 exports.Prisma.UltrasoundScalarFieldEnum = {
   id: 'id',
-  attemptId: 'attemptId',
   days: 'days',
   result: 'result',
   notes: 'notes',
   veterinarianId: 'veterinarianId',
-  ultrasoundDate: 'ultrasoundDate'
+  ultrasoundDate: 'ultrasoundDate',
+  attemptId: 'attemptId'
 };
 
 exports.Prisma.BirthScalarFieldEnum = {
@@ -253,9 +260,9 @@ exports.Prisma.BirthScalarFieldEnum = {
   situation: 'situation',
   deathReason: 'deathReason',
   notes: 'notes',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.VaccinationScalarFieldEnum = {
@@ -270,9 +277,9 @@ exports.Prisma.VaccinationScalarFieldEnum = {
   photoUrl: 'photoUrl',
   reaction: 'reaction',
   veterinarianId: 'veterinarianId',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.ManagementScalarFieldEnum = {
@@ -285,8 +292,8 @@ exports.Prisma.ManagementScalarFieldEnum = {
   employee: 'employee',
   batchId: 'batchId',
   batchTotal: 'batchTotal',
-  farmId: 'farmId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.MortalityScalarFieldEnum = {
@@ -303,9 +310,9 @@ exports.Prisma.MortalityScalarFieldEnum = {
   origin: 'origin',
   birthId: 'birthId',
   notes: 'notes',
-  farmId: 'farmId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.PasswordResetTokenScalarFieldEnum = {
@@ -314,8 +321,8 @@ exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   code: 'code',
   expiresAt: 'expiresAt',
   used: 'used',
-  farmId: 'farmId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  farmId: 'farmId'
 };
 
 exports.Prisma.SortOrder = {
@@ -326,6 +333,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Permission = exports.$Enums.Permission = {
   admin: 'admin',

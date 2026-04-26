@@ -1,32 +1,25 @@
-// ========================================
-// SCHEMA PRISMA - app_pecuaria
-// ========================================
-
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/prisma"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
 }
 
 // ========================================
 // MODEL: FARM
 // ========================================
-
 model Farm {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  location String
-  cnpj     String?
-  logoUrl  String?
-
+  id        String   @id @default(uuid())
+  name      String
+  location  String
+  cnpj      String?
+  logoUrl   String?
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relationships
   users    User[]
   animals  Animal[]
   pastures Pasture[]
@@ -37,45 +30,33 @@ model Farm {
 // ========================================
 // MODEL: USER
 // ========================================
-
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  // Personal data
-  fullName String
-  email    String  @unique
-  phone    String?
-
-  // Authentication
-  password String
-  role     Permission @default(veterinarian)
-  active   Boolean    @default(true)
-
-  // Professional data (for veterinarians)
-  crv            String? // CRV required for vet
-  crmv           String? // Regional Veterinary Medicine Council
-  graduationDate DateTime?
-  specialties    String[] // ["Reproduction", "Obstetrics"]
-
-  // Password reset
+  id                   String     @id @default(uuid())
+  fullName             String
+  email                String
+  phone                String?
+  password             String
+  role                 Permission @default(veterinarian)
+  active               Boolean    @default(true)
+  crv                  String?
+  crmv                 String?
+  graduationDate       DateTime?
+  specialties          String[]
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
+  lastLogin            DateTime?
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
 
-  // Relationship
-  farmId String @db.ObjectId
+  farmId String
   farm   Farm   @relation(fields: [farmId], references: [id], onDelete: Cascade)
-
-  // Audit
-  lastLogin DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
 
   @@unique([farmId, email])
   @@map("users")
 }
 
 // ========================================
-// ENUM: PERMISSIONS (Roles)
+// ENUM: ROLES
 // ========================================
 enum Permission {
   admin
@@ -88,38 +69,25 @@ enum Permission {
 // MODEL: ANIMAL
 // ========================================
 model Animal {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(uuid())
+  chipId        String    @unique
+  currentEarTag String?   @unique
+  name          String
+  breed         String
+  gender        String
+  birthDate     DateTime
+  sireId        String?
+  damId         String?
+  pastureId     String?
+  pastureName   String?
+  status        String    @default("active")
+  deathDate     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  // Identification
-  chipId        String          @unique
-  currentEarTag String?         @unique
+  farmId        String
+  farm          Farm            @relation(fields: [farmId], references: [id], onDelete: Cascade)
   earTagHistory EarTagHistory[]
-
-  // Basic data
-  name      String
-  breed     String
-  gender    String // "M" or "F"
-  birthDate DateTime
-
-  // Genealogy
-  sireId String? @db.ObjectId
-  damId  String? @db.ObjectId
-
-  // Location
-  pastureId   String? @db.ObjectId
-  pastureName String?
-
-  // Status
-  status    String    @default("active") // "active", "dead", "sold"
-  deathDate DateTime?
-
-  // Relationship
-  farmId String @db.ObjectId
-  farm   Farm   @relation(fields: [farmId], references: [id], onDelete: Cascade)
-
-  // Audit
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([farmId, chipId])
   @@map("animals")
@@ -129,19 +97,16 @@ model Animal {
 // MODEL: EAR TAG HISTORY
 // ========================================
 model EarTagHistory {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  earTagNumber String
-  animalId     String @db.ObjectId
-  animal       Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
-
+  id            String    @id @default(uuid())
+  earTagNumber  String
   placementDate DateTime
   removalDate   DateTime?
   reason        String?
+  createdAt     DateTime  @default(now())
 
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
+  farmId   String
+  animalId String
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   @@map("ear_tag_history")
 }
@@ -150,41 +115,37 @@ model EarTagHistory {
 // MODEL: PASTURE
 // ========================================
 model Pasture {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
+  id             String   @id @default(uuid())
   name           String
   hectares       Float
-  type           String // "native", "planted", "irrigated", "feedlot", "quarantine"
+  type           String
   animalCapacity Int
-  currentAnimals Int     @default(0)
-  active         Boolean @default(true)
+  currentAnimals Int      @default(0)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  farmId String @db.ObjectId
+  farmId String
   farm   Farm   @relation(fields: [farmId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([farmId, name])
   @@map("pastures")
 }
 
 // ========================================
-// MODEL: ESTRUS (Heat)
+// MODEL: ESTRUS (Heat/CIO)
 // ========================================
 model Estrus {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  animalId   String   @db.ObjectId
+  id         String   @id @default(uuid())
+  animalId   String
   date       DateTime
-  intensity  String // "Weak", "Normal", "Strong"
+  intensity  String
   detectedBy String
-  nextEstrus DateTime // Auto-calculated (date + 21 days)
+  nextEstrus DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  farmId String
 
   @@map("estrus")
 }
@@ -193,50 +154,39 @@ model Estrus {
 // MODEL: PREGNANCY
 // ========================================
 model Pregnancy {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  animalId String    @db.ObjectId
-  attempts Attempt[]
-
-  currentStatus     String   @default("not_started") // "not_started", "pregnant", "empty", "absorption"
+  id                String   @id @default(uuid())
+  animalId          String
+  currentStatus     String   @default("not_started")
   currentStatusDate DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  farmId   String
+  attempts Attempt[]
 
   @@map("pregnancies")
 }
 
 // ========================================
-// MODEL: PREGNANCY ATTEMPT
+// MODEL: ATTEMPT
 // ========================================
 model Attempt {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  number      Int
-  pregnancyId String    @db.ObjectId
-  pregnancy   Pregnancy @relation(fields: [pregnancyId], references: [id], onDelete: Cascade)
-
-  // Mating
+  id                 String   @id @default(uuid())
+  number             Int
   matingDate         DateTime
-  matingType         String // "NATURAL", "AI" (Artificial Insemination)
-  bullId             String?  @db.ObjectId
+  matingType         String
+  bullId             String?
   semenName          String?
   technician         String?
-  estimatedBirthDate DateTime // Auto-calculated (date + 283 days)
+  estimatedBirthDate DateTime
+  birthId            String?
+  attemptStatus      String   @default("in_progress")
+  notes              String?
+  createdAt          DateTime @default(now())
 
-  // Ultrasounds
+  pregnancyId String
+  pregnancy   Pregnancy    @relation(fields: [pregnancyId], references: [id], onDelete: Cascade)
   ultrasounds Ultrasound[]
-
-  // Birth
-  birthId String? @db.ObjectId
-
-  attemptStatus String  @default("in_progress") // "in_progress", "success", "failed"
-  notes         String?
-
-  createdAt DateTime @default(now())
 
   @@map("attempts")
 }
@@ -245,17 +195,15 @@ model Attempt {
 // MODEL: ULTRASOUND
 // ========================================
 model Ultrasound {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  attemptId String  @db.ObjectId
-  attempt   Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-
-  days           Int // 30, 60, 260
-  result         String // "PREGNANT", "EMPTY", "ABSORPTION", "VIABLE"
+  id             String   @id @default(uuid())
+  days           Int
+  result         String
   notes          String?
-  veterinarianId String? @db.ObjectId
-
+  veterinarianId String?
   ultrasoundDate DateTime @default(now())
+
+  attemptId String
+  attempt   Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
 
   @@map("ultrasounds")
 }
@@ -264,39 +212,27 @@ model Ultrasound {
 // MODEL: BIRTH
 // ========================================
 model Birth {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  damId       String  @db.ObjectId
-  pregnancyId String? @db.ObjectId
-
-  birthDate DateTime
-  birthTime String?
-
-  // Birth type
-  birthType String // "normal", "assisted", "c-section"
-
-  // Attending Veterinarian
-  veterinarianId   String? @db.ObjectId
+  id               String   @id @default(uuid())
+  damId            String
+  pregnancyId      String?
+  birthDate        DateTime
+  birthTime        String?
+  birthType        String
+  veterinarianId   String?
   veterinarianName String?
   veterinarianCrv  String?
+  calfGender       String?
+  calfWeight       Float?
+  calfEarTag       String?
+  calfChip         String?
+  calfStatus       String   @default("pending")
+  situation        String   @default("normal")
+  deathReason      String?
+  notes            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  // Calf
-  calfGender String? // "M", "F"
-  calfWeight Float?
-  calfEarTag String?
-  calfChip   String?
-  calfStatus String  @default("pending") // "pending", "complete"
-
-  // Death
-  situation   String  @default("normal") // "normal", "dead"
-  deathReason String?
-
-  notes String?
-
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  farmId String
 
   @@map("births")
 }
@@ -305,26 +241,21 @@ model Birth {
 // MODEL: VACCINATION
 // ========================================
 model Vaccination {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  animalId String @db.ObjectId
-
-  vaccineType String // "Rabies", "Foot-and-mouth", etc
-  brand       String
-  batch       String
-
+  id              String    @id @default(uuid())
+  animalId        String
+  vaccineType     String
+  brand           String
+  batch           String
   vaccinationDate DateTime
   expirationDate  DateTime
   nextDoseDate    DateTime?
+  photoUrl        String?
+  reaction        String?
+  veterinarianId  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  photoUrl       String?
-  reaction       String? // Adverse reactions
-  veterinarianId String? @db.ObjectId
-
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  farmId String
 
   @@map("vaccinations")
 }
@@ -333,22 +264,18 @@ model Vaccination {
 // MODEL: MANAGEMENT (Movement)
 // ========================================
 model Management {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  animalId String @db.ObjectId
-
+  id                 String   @id @default(uuid())
+  animalId           String
   originPasture      String
   destinationPasture String
   movementDate       DateTime
-  reason             String // "Normal rotation", "Reproductive management", etc
+  reason             String
+  employee           String
+  batchId            String?
+  batchTotal         Int?
+  createdAt          DateTime @default(now())
 
-  employee   String // Name of who did it
-  batchId    String? // For batch movements
-  batchTotal Int?
-
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
+  farmId String
 
   @@map("managements")
 }
@@ -357,31 +284,23 @@ model Management {
 // MODEL: MORTALITY
 // ========================================
 model Mortality {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  animalId String @db.ObjectId
-
+  id            String   @id @default(uuid())
+  animalId      String
   deathDate     DateTime
   deathTime     String?
-  deathLocation String // Pasture name or location
+  deathLocation String
+  causeOfDeath  String
+  severity      String?
+  necropsy      Boolean  @default(false)
+  disposal      String?
+  photos        String[]
+  origin        String?
+  birthId       String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  causeOfDeath String
-  severity     String? // "Mild", "Moderate", "Severe"
-
-  necropsy Boolean @default(false)
-  disposal String?
-
-  photos String[] // Photo URLs
-
-  origin  String? // "birth", "management", "disease"
-  birthId String? @db.ObjectId
-
-  notes String?
-
-  farmId String @db.ObjectId
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  farmId String
 
   @@map("mortalities")
 }
@@ -390,16 +309,14 @@ model Mortality {
 // MODEL: PASSWORD RESET TOKEN
 // ========================================
 model PasswordResetToken {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  userId    String   @db.ObjectId
+  id        String   @id @default(uuid())
+  userId    String
   code      String   @unique
   expiresAt DateTime
   used      Boolean  @default(false)
-
-  farmId String @db.ObjectId
-
   createdAt DateTime @default(now())
+
+  farmId String
 
   @@map("password_reset_tokens")
 }

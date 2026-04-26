@@ -1,17 +1,25 @@
-import { PrismaClient } from "@prisma/client";
+/** biome-ignore-all lint/suspicious/noConsole: <explanation> */
+
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaClient } from "@prisma-client";
 import { DATABASE_URL } from "./env";
 
 const globalForPrisma = globalThis as unknown as {
    prisma: PrismaClient | undefined;
 };
 
-export const prisma =
-   globalForPrisma.prisma ??
-   new PrismaClient({
-      datasourceUrl: DATABASE_URL, // ← Prisma 7: URL vai aqui
-      log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+function createPrismaClient() {
+   const adapter = new PrismaNeon({
+      connectionString: DATABASE_URL,
    });
 
+   return new PrismaClient({
+      adapter,
+      log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+   });
+}
+
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 if (process.env.NODE_ENV !== "production") {
    globalForPrisma.prisma = prisma;
 }

@@ -157,6 +157,53 @@ export class PrismaClient<
   $disconnect(): $Utils.JsPromise<void>;
 
 /**
+   * Executes a prepared raw query and returns the number of affected rows.
+   * @example
+   * ```
+   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  /**
+   * Executes a raw query and returns the number of affected rows.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+
+  /**
+   * Performs a prepared raw query and returns the `SELECT` data.
+   * @example
+   * ```
+   * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
+
+  /**
+   * Performs a raw query and returns the `SELECT` data.
+   * Susceptible to SQL injections, see documentation.
+   * @example
+   * ```
+   * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
+   * ```
+   *
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   */
+  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
+
+
+  /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
    * @example
    * ```
@@ -169,24 +216,10 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
-  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList | "$transaction">) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number }): $Utils.JsPromise<R>
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
-  /**
-   * Executes a raw MongoDB command and returns the result of it.
-   * @example
-   * ```
-   * const user = await prisma.$runCommandRaw({
-   *   aggregate: 'User',
-   *   pipeline: [{ $match: { name: 'Bob' } }, { $project: { email: true, _id: false } }],
-   *   explain: false,
-   * })
-   * ```
-   * 
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
-   */
-  $runCommandRaw(command: Prisma.InputJsonObject): Prisma.PrismaPromise<Prisma.JsonObject>
   $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
     extArgs: ExtArgs
   }>>
@@ -794,7 +827,7 @@ export namespace Prisma {
     }
     meta: {
       modelProps: "farm" | "user" | "animal" | "earTagHistory" | "pasture" | "estrus" | "pregnancy" | "attempt" | "ultrasound" | "birth" | "vaccination" | "management" | "mortality" | "passwordResetToken"
-      txIsolationLevel: never
+      txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
       Farm: {
@@ -829,6 +862,10 @@ export namespace Prisma {
             args: Prisma.FarmCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.FarmCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>[]
+          }
           delete: {
             args: Prisma.FarmDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$FarmPayload>
@@ -845,6 +882,10 @@ export namespace Prisma {
             args: Prisma.FarmUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.FarmUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>[]
+          }
           upsert: {
             args: Prisma.FarmUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$FarmPayload>
@@ -856,14 +897,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.FarmGroupByArgs<ExtArgs>
             result: $Utils.Optional<FarmGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.FarmFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.FarmAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.FarmCountArgs<ExtArgs>
@@ -903,6 +936,10 @@ export namespace Prisma {
             args: Prisma.UserCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -919,6 +956,10 @@ export namespace Prisma {
             args: Prisma.UserUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
           upsert: {
             args: Prisma.UserUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -930,14 +971,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.UserGroupByArgs<ExtArgs>
             result: $Utils.Optional<UserGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.UserFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.UserAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
@@ -977,6 +1010,10 @@ export namespace Prisma {
             args: Prisma.AnimalCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.AnimalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnimalPayload>[]
+          }
           delete: {
             args: Prisma.AnimalDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AnimalPayload>
@@ -993,6 +1030,10 @@ export namespace Prisma {
             args: Prisma.AnimalUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.AnimalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnimalPayload>[]
+          }
           upsert: {
             args: Prisma.AnimalUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AnimalPayload>
@@ -1004,14 +1045,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.AnimalGroupByArgs<ExtArgs>
             result: $Utils.Optional<AnimalGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.AnimalFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.AnimalAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.AnimalCountArgs<ExtArgs>
@@ -1051,6 +1084,10 @@ export namespace Prisma {
             args: Prisma.EarTagHistoryCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.EarTagHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EarTagHistoryPayload>[]
+          }
           delete: {
             args: Prisma.EarTagHistoryDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$EarTagHistoryPayload>
@@ -1067,6 +1104,10 @@ export namespace Prisma {
             args: Prisma.EarTagHistoryUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.EarTagHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EarTagHistoryPayload>[]
+          }
           upsert: {
             args: Prisma.EarTagHistoryUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$EarTagHistoryPayload>
@@ -1078,14 +1119,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.EarTagHistoryGroupByArgs<ExtArgs>
             result: $Utils.Optional<EarTagHistoryGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.EarTagHistoryFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.EarTagHistoryAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.EarTagHistoryCountArgs<ExtArgs>
@@ -1125,6 +1158,10 @@ export namespace Prisma {
             args: Prisma.PastureCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.PastureCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasturePayload>[]
+          }
           delete: {
             args: Prisma.PastureDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PasturePayload>
@@ -1141,6 +1178,10 @@ export namespace Prisma {
             args: Prisma.PastureUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.PastureUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasturePayload>[]
+          }
           upsert: {
             args: Prisma.PastureUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PasturePayload>
@@ -1152,14 +1193,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.PastureGroupByArgs<ExtArgs>
             result: $Utils.Optional<PastureGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.PastureFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.PastureAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.PastureCountArgs<ExtArgs>
@@ -1199,6 +1232,10 @@ export namespace Prisma {
             args: Prisma.EstrusCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.EstrusCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EstrusPayload>[]
+          }
           delete: {
             args: Prisma.EstrusDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$EstrusPayload>
@@ -1215,6 +1252,10 @@ export namespace Prisma {
             args: Prisma.EstrusUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.EstrusUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EstrusPayload>[]
+          }
           upsert: {
             args: Prisma.EstrusUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$EstrusPayload>
@@ -1226,14 +1267,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.EstrusGroupByArgs<ExtArgs>
             result: $Utils.Optional<EstrusGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.EstrusFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.EstrusAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.EstrusCountArgs<ExtArgs>
@@ -1273,6 +1306,10 @@ export namespace Prisma {
             args: Prisma.PregnancyCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.PregnancyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PregnancyPayload>[]
+          }
           delete: {
             args: Prisma.PregnancyDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PregnancyPayload>
@@ -1289,6 +1326,10 @@ export namespace Prisma {
             args: Prisma.PregnancyUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.PregnancyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PregnancyPayload>[]
+          }
           upsert: {
             args: Prisma.PregnancyUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PregnancyPayload>
@@ -1300,14 +1341,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.PregnancyGroupByArgs<ExtArgs>
             result: $Utils.Optional<PregnancyGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.PregnancyFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.PregnancyAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.PregnancyCountArgs<ExtArgs>
@@ -1347,6 +1380,10 @@ export namespace Prisma {
             args: Prisma.AttemptCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.AttemptCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttemptPayload>[]
+          }
           delete: {
             args: Prisma.AttemptDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AttemptPayload>
@@ -1363,6 +1400,10 @@ export namespace Prisma {
             args: Prisma.AttemptUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.AttemptUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttemptPayload>[]
+          }
           upsert: {
             args: Prisma.AttemptUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AttemptPayload>
@@ -1374,14 +1415,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.AttemptGroupByArgs<ExtArgs>
             result: $Utils.Optional<AttemptGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.AttemptFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.AttemptAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.AttemptCountArgs<ExtArgs>
@@ -1421,6 +1454,10 @@ export namespace Prisma {
             args: Prisma.UltrasoundCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.UltrasoundCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UltrasoundPayload>[]
+          }
           delete: {
             args: Prisma.UltrasoundDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UltrasoundPayload>
@@ -1437,6 +1474,10 @@ export namespace Prisma {
             args: Prisma.UltrasoundUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.UltrasoundUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UltrasoundPayload>[]
+          }
           upsert: {
             args: Prisma.UltrasoundUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UltrasoundPayload>
@@ -1448,14 +1489,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.UltrasoundGroupByArgs<ExtArgs>
             result: $Utils.Optional<UltrasoundGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.UltrasoundFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.UltrasoundAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.UltrasoundCountArgs<ExtArgs>
@@ -1495,6 +1528,10 @@ export namespace Prisma {
             args: Prisma.BirthCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.BirthCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BirthPayload>[]
+          }
           delete: {
             args: Prisma.BirthDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BirthPayload>
@@ -1511,6 +1548,10 @@ export namespace Prisma {
             args: Prisma.BirthUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.BirthUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BirthPayload>[]
+          }
           upsert: {
             args: Prisma.BirthUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$BirthPayload>
@@ -1522,14 +1563,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.BirthGroupByArgs<ExtArgs>
             result: $Utils.Optional<BirthGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.BirthFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.BirthAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.BirthCountArgs<ExtArgs>
@@ -1569,6 +1602,10 @@ export namespace Prisma {
             args: Prisma.VaccinationCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.VaccinationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VaccinationPayload>[]
+          }
           delete: {
             args: Prisma.VaccinationDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$VaccinationPayload>
@@ -1585,6 +1622,10 @@ export namespace Prisma {
             args: Prisma.VaccinationUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.VaccinationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VaccinationPayload>[]
+          }
           upsert: {
             args: Prisma.VaccinationUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$VaccinationPayload>
@@ -1596,14 +1637,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.VaccinationGroupByArgs<ExtArgs>
             result: $Utils.Optional<VaccinationGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.VaccinationFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.VaccinationAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.VaccinationCountArgs<ExtArgs>
@@ -1643,6 +1676,10 @@ export namespace Prisma {
             args: Prisma.ManagementCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.ManagementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ManagementPayload>[]
+          }
           delete: {
             args: Prisma.ManagementDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$ManagementPayload>
@@ -1659,6 +1696,10 @@ export namespace Prisma {
             args: Prisma.ManagementUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.ManagementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ManagementPayload>[]
+          }
           upsert: {
             args: Prisma.ManagementUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$ManagementPayload>
@@ -1670,14 +1711,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.ManagementGroupByArgs<ExtArgs>
             result: $Utils.Optional<ManagementGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.ManagementFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.ManagementAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.ManagementCountArgs<ExtArgs>
@@ -1717,6 +1750,10 @@ export namespace Prisma {
             args: Prisma.MortalityCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.MortalityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MortalityPayload>[]
+          }
           delete: {
             args: Prisma.MortalityDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$MortalityPayload>
@@ -1733,6 +1770,10 @@ export namespace Prisma {
             args: Prisma.MortalityUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.MortalityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MortalityPayload>[]
+          }
           upsert: {
             args: Prisma.MortalityUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$MortalityPayload>
@@ -1744,14 +1785,6 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.MortalityGroupByArgs<ExtArgs>
             result: $Utils.Optional<MortalityGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.MortalityFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.MortalityAggregateRawArgs<ExtArgs>
-            result: JsonObject
           }
           count: {
             args: Prisma.MortalityCountArgs<ExtArgs>
@@ -1791,6 +1824,10 @@ export namespace Prisma {
             args: Prisma.PasswordResetTokenCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.PasswordResetTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[]
+          }
           delete: {
             args: Prisma.PasswordResetTokenDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
@@ -1807,6 +1844,10 @@ export namespace Prisma {
             args: Prisma.PasswordResetTokenUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[]
+          }
           upsert: {
             args: Prisma.PasswordResetTokenUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
@@ -1819,14 +1860,6 @@ export namespace Prisma {
             args: Prisma.PasswordResetTokenGroupByArgs<ExtArgs>
             result: $Utils.Optional<PasswordResetTokenGroupByOutputType>[]
           }
-          findRaw: {
-            args: Prisma.PasswordResetTokenFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.PasswordResetTokenAggregateRawArgs<ExtArgs>
-            result: JsonObject
-          }
           count: {
             args: Prisma.PasswordResetTokenCountArgs<ExtArgs>
             result: $Utils.Optional<PasswordResetTokenCountAggregateOutputType> | number
@@ -1838,9 +1871,21 @@ export namespace Prisma {
     other: {
       payload: any
       operations: {
-        $runCommandRaw: {
-          args: Prisma.InputJsonObject,
-          result: Prisma.JsonObject
+        $executeRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $executeRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+        $queryRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $queryRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
         }
       }
     }
@@ -1886,7 +1931,12 @@ export namespace Prisma {
     transactionOptions?: {
       maxWait?: number
       timeout?: number
+      isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory
     /**
      * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
      */
@@ -1906,6 +1956,22 @@ export namespace Prisma {
      * ```
      */
     omit?: Prisma.GlobalOmitConfig
+    /**
+     * SQL commenter plugins that add metadata to SQL queries as comments.
+     * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+     * 
+     * @example
+     * ```
+     * const prisma = new PrismaClient({
+     *   adapter,
+     *   comments: [
+     *     traceContext(),
+     *     queryInsights(),
+     *   ],
+     * })
+     * ```
+     */
+    comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
     farm?: FarmOmit
@@ -1986,7 +2052,7 @@ export namespace Prisma {
   /**
    * `PrismaClient` proxy available in interactive transactions.
    */
-  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList | '$transaction'>
+  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
 
   export type Datasource = {
     url?: string
@@ -2337,7 +2403,27 @@ export namespace Prisma {
     _count?: boolean | FarmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["farm"]>
 
+  export type FarmSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    cnpj?: boolean
+    logoUrl?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["farm"]>
 
+  export type FarmSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    cnpj?: boolean
+    logoUrl?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["farm"]>
 
   export type FarmSelectScalar = {
     id?: boolean
@@ -2357,6 +2443,8 @@ export namespace Prisma {
     pastures?: boolean | Farm$pasturesArgs<ExtArgs>
     _count?: boolean | FarmCountOutputTypeDefaultArgs<ExtArgs>
   }
+  export type FarmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FarmIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $FarmPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Farm"
@@ -2492,6 +2580,30 @@ export namespace Prisma {
     createMany<T extends FarmCreateManyArgs>(args?: SelectSubset<T, FarmCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Farms and returns the data saved in the database.
+     * @param {FarmCreateManyAndReturnArgs} args - Arguments to create many Farms.
+     * @example
+     * // Create many Farms
+     * const farm = await prisma.farm.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Farms and only return the `id`
+     * const farmWithIdOnly = await prisma.farm.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FarmCreateManyAndReturnArgs>(args?: SelectSubset<T, FarmCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Farm.
      * @param {FarmDeleteArgs} args - Arguments to delete one Farm.
      * @example
@@ -2556,6 +2668,36 @@ export namespace Prisma {
     updateMany<T extends FarmUpdateManyArgs>(args: SelectSubset<T, FarmUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Farms and returns the data updated in the database.
+     * @param {FarmUpdateManyAndReturnArgs} args - Arguments to update many Farms.
+     * @example
+     * // Update many Farms
+     * const farm = await prisma.farm.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Farms and only return the `id`
+     * const farmWithIdOnly = await prisma.farm.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FarmUpdateManyAndReturnArgs>(args: SelectSubset<T, FarmUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Farm.
      * @param {FarmUpsertArgs} args - Arguments to update or create a Farm.
      * @example
@@ -2573,29 +2715,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends FarmUpsertArgs>(args: SelectSubset<T, FarmUpsertArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Farms that matches the filter.
-     * @param {FarmFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const farm = await prisma.farm.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: FarmFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Farm.
-     * @param {FarmAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const farm = await prisma.farm.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: FarmAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -3011,6 +3130,26 @@ export namespace Prisma {
      * The data used to create many Farms.
      */
     data: FarmCreateManyInput | FarmCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Farm createManyAndReturn
+   */
+  export type FarmCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * The data used to create many Farms.
+     */
+    data: FarmCreateManyInput | FarmCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -3043,6 +3182,32 @@ export namespace Prisma {
    * Farm updateMany
    */
   export type FarmUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Farms.
+     */
+    data: XOR<FarmUpdateManyMutationInput, FarmUncheckedUpdateManyInput>
+    /**
+     * Filter which Farms to update
+     */
+    where?: FarmWhereInput
+    /**
+     * Limit how many Farms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Farm updateManyAndReturn
+   */
+  export type FarmUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
     /**
      * The data used to update Farms.
      */
@@ -3121,34 +3286,6 @@ export namespace Prisma {
      * Limit how many Farms to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Farm findRaw
-   */
-  export type FarmFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Farm aggregateRaw
-   */
-  export type FarmAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
   }
 
   /**
@@ -3265,10 +3402,10 @@ export namespace Prisma {
     graduationDate: Date | null
     resetPasswordToken: string | null
     resetPasswordExpires: Date | null
-    farmId: string | null
     lastLogin: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3284,10 +3421,10 @@ export namespace Prisma {
     graduationDate: Date | null
     resetPasswordToken: string | null
     resetPasswordExpires: Date | null
-    farmId: string | null
     lastLogin: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3304,10 +3441,10 @@ export namespace Prisma {
     specialties: number
     resetPasswordToken: number
     resetPasswordExpires: number
-    farmId: number
     lastLogin: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -3325,10 +3462,10 @@ export namespace Prisma {
     graduationDate?: true
     resetPasswordToken?: true
     resetPasswordExpires?: true
-    farmId?: true
     lastLogin?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -3344,10 +3481,10 @@ export namespace Prisma {
     graduationDate?: true
     resetPasswordToken?: true
     resetPasswordExpires?: true
-    farmId?: true
     lastLogin?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -3364,10 +3501,10 @@ export namespace Prisma {
     specialties?: true
     resetPasswordToken?: true
     resetPasswordExpires?: true
-    farmId?: true
     lastLogin?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -3457,10 +3594,10 @@ export namespace Prisma {
     specialties: string[]
     resetPasswordToken: string | null
     resetPasswordExpires: Date | null
-    farmId: string
     lastLogin: Date | null
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3494,14 +3631,54 @@ export namespace Prisma {
     specialties?: boolean
     resetPasswordToken?: boolean
     resetPasswordExpires?: boolean
-    farmId?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
+  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullName?: boolean
+    email?: boolean
+    phone?: boolean
+    password?: boolean
+    role?: boolean
+    active?: boolean
+    crv?: boolean
+    crmv?: boolean
+    graduationDate?: boolean
+    specialties?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
+    lastLogin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
 
+  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullName?: boolean
+    email?: boolean
+    phone?: boolean
+    password?: boolean
+    role?: boolean
+    active?: boolean
+    crv?: boolean
+    crmv?: boolean
+    graduationDate?: boolean
+    specialties?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
+    lastLogin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
@@ -3517,14 +3694,20 @@ export namespace Prisma {
     specialties?: boolean
     resetPasswordToken?: boolean
     resetPasswordExpires?: boolean
-    farmId?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "password" | "role" | "active" | "crv" | "crmv" | "graduationDate" | "specialties" | "resetPasswordToken" | "resetPasswordExpires" | "farmId" | "lastLogin" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "password" | "role" | "active" | "crv" | "crmv" | "graduationDate" | "specialties" | "resetPasswordToken" | "resetPasswordExpires" | "lastLogin" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }
 
@@ -3547,10 +3730,10 @@ export namespace Prisma {
       specialties: string[]
       resetPasswordToken: string | null
       resetPasswordExpires: Date | null
-      farmId: string
       lastLogin: Date | null
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3669,6 +3852,30 @@ export namespace Prisma {
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a User.
      * @param {UserDeleteArgs} args - Arguments to delete one User.
      * @example
@@ -3733,6 +3940,36 @@ export namespace Prisma {
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Users and returns the data updated in the database.
+     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one User.
      * @param {UserUpsertArgs} args - Arguments to update or create a User.
      * @example
@@ -3750,29 +3987,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Users that matches the filter.
-     * @param {UserFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const user = await prisma.user.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: UserFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a User.
-     * @param {UserAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const user = await prisma.user.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: UserAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -3957,10 +4171,10 @@ export namespace Prisma {
     readonly specialties: FieldRef<"User", 'String[]'>
     readonly resetPasswordToken: FieldRef<"User", 'String'>
     readonly resetPasswordExpires: FieldRef<"User", 'DateTime'>
-    readonly farmId: FieldRef<"User", 'String'>
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly farmId: FieldRef<"User", 'String'>
   }
     
 
@@ -4195,6 +4409,30 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4239,6 +4477,36 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
+  }
+
+  /**
+   * User updateManyAndReturn
+   */
+  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4308,34 +4576,6 @@ export namespace Prisma {
   }
 
   /**
-   * User findRaw
-   */
-  export type UserFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * User aggregateRaw
-   */
-  export type UserAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4378,9 +4618,9 @@ export namespace Prisma {
     pastureName: string | null
     status: string | null
     deathDate: Date | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type AnimalMaxAggregateOutputType = {
@@ -4397,9 +4637,9 @@ export namespace Prisma {
     pastureName: string | null
     status: string | null
     deathDate: Date | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type AnimalCountAggregateOutputType = {
@@ -4416,9 +4656,9 @@ export namespace Prisma {
     pastureName: number
     status: number
     deathDate: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -4437,9 +4677,9 @@ export namespace Prisma {
     pastureName?: true
     status?: true
     deathDate?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type AnimalMaxAggregateInputType = {
@@ -4456,9 +4696,9 @@ export namespace Prisma {
     pastureName?: true
     status?: true
     deathDate?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type AnimalCountAggregateInputType = {
@@ -4475,9 +4715,9 @@ export namespace Prisma {
     pastureName?: true
     status?: true
     deathDate?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -4567,9 +4807,9 @@ export namespace Prisma {
     pastureName: string | null
     status: string
     deathDate: Date | null
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: AnimalCountAggregateOutputType | null
     _min: AnimalMinAggregateOutputType | null
     _max: AnimalMaxAggregateOutputType | null
@@ -4603,15 +4843,53 @@ export namespace Prisma {
     pastureName?: boolean
     status?: boolean
     deathDate?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    earTagHistory?: boolean | Animal$earTagHistoryArgs<ExtArgs>
+    farmId?: boolean
     farm?: boolean | FarmDefaultArgs<ExtArgs>
+    earTagHistory?: boolean | Animal$earTagHistoryArgs<ExtArgs>
     _count?: boolean | AnimalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
+  export type AnimalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    chipId?: boolean
+    currentEarTag?: boolean
+    name?: boolean
+    breed?: boolean
+    gender?: boolean
+    birthDate?: boolean
+    sireId?: boolean
+    damId?: boolean
+    pastureId?: boolean
+    pastureName?: boolean
+    status?: boolean
+    deathDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["animal"]>
 
+  export type AnimalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    chipId?: boolean
+    currentEarTag?: boolean
+    name?: boolean
+    breed?: boolean
+    gender?: boolean
+    birthDate?: boolean
+    sireId?: boolean
+    damId?: boolean
+    pastureId?: boolean
+    pastureName?: boolean
+    status?: boolean
+    deathDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["animal"]>
 
   export type AnimalSelectScalar = {
     id?: boolean
@@ -4627,23 +4905,29 @@ export namespace Prisma {
     pastureName?: boolean
     status?: boolean
     deathDate?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type AnimalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chipId" | "currentEarTag" | "name" | "breed" | "gender" | "birthDate" | "sireId" | "damId" | "pastureId" | "pastureName" | "status" | "deathDate" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["animal"]>
+  export type AnimalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chipId" | "currentEarTag" | "name" | "breed" | "gender" | "birthDate" | "sireId" | "damId" | "pastureId" | "pastureName" | "status" | "deathDate" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["animal"]>
   export type AnimalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    earTagHistory?: boolean | Animal$earTagHistoryArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
+    earTagHistory?: boolean | Animal$earTagHistoryArgs<ExtArgs>
     _count?: boolean | AnimalCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AnimalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }
+  export type AnimalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
   }
 
   export type $AnimalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Animal"
     objects: {
-      earTagHistory: Prisma.$EarTagHistoryPayload<ExtArgs>[]
       farm: Prisma.$FarmPayload<ExtArgs>
+      earTagHistory: Prisma.$EarTagHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4659,9 +4943,9 @@ export namespace Prisma {
       pastureName: string | null
       status: string
       deathDate: Date | null
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["animal"]>
     composites: {}
   }
@@ -4780,6 +5064,30 @@ export namespace Prisma {
     createMany<T extends AnimalCreateManyArgs>(args?: SelectSubset<T, AnimalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Animals and returns the data saved in the database.
+     * @param {AnimalCreateManyAndReturnArgs} args - Arguments to create many Animals.
+     * @example
+     * // Create many Animals
+     * const animal = await prisma.animal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Animals and only return the `id`
+     * const animalWithIdOnly = await prisma.animal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AnimalCreateManyAndReturnArgs>(args?: SelectSubset<T, AnimalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Animal.
      * @param {AnimalDeleteArgs} args - Arguments to delete one Animal.
      * @example
@@ -4844,6 +5152,36 @@ export namespace Prisma {
     updateMany<T extends AnimalUpdateManyArgs>(args: SelectSubset<T, AnimalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Animals and returns the data updated in the database.
+     * @param {AnimalUpdateManyAndReturnArgs} args - Arguments to update many Animals.
+     * @example
+     * // Update many Animals
+     * const animal = await prisma.animal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Animals and only return the `id`
+     * const animalWithIdOnly = await prisma.animal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AnimalUpdateManyAndReturnArgs>(args: SelectSubset<T, AnimalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Animal.
      * @param {AnimalUpsertArgs} args - Arguments to update or create a Animal.
      * @example
@@ -4861,29 +5199,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends AnimalUpsertArgs>(args: SelectSubset<T, AnimalUpsertArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Animals that matches the filter.
-     * @param {AnimalFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const animal = await prisma.animal.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: AnimalFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Animal.
-     * @param {AnimalAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const animal = await prisma.animal.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: AnimalAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -5025,8 +5340,8 @@ export namespace Prisma {
    */
   export interface Prisma__AnimalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    earTagHistory<T extends Animal$earTagHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Animal$earTagHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    earTagHistory<T extends Animal$earTagHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Animal$earTagHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5069,9 +5384,9 @@ export namespace Prisma {
     readonly pastureName: FieldRef<"Animal", 'String'>
     readonly status: FieldRef<"Animal", 'String'>
     readonly deathDate: FieldRef<"Animal", 'DateTime'>
-    readonly farmId: FieldRef<"Animal", 'String'>
     readonly createdAt: FieldRef<"Animal", 'DateTime'>
     readonly updatedAt: FieldRef<"Animal", 'DateTime'>
+    readonly farmId: FieldRef<"Animal", 'String'>
   }
     
 
@@ -5306,6 +5621,30 @@ export namespace Prisma {
      * The data used to create many Animals.
      */
     data: AnimalCreateManyInput | AnimalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Animal createManyAndReturn
+   */
+  export type AnimalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * The data used to create many Animals.
+     */
+    data: AnimalCreateManyInput | AnimalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5350,6 +5689,36 @@ export namespace Prisma {
      * Limit how many Animals to update.
      */
     limit?: number
+  }
+
+  /**
+   * Animal updateManyAndReturn
+   */
+  export type AnimalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * The data used to update Animals.
+     */
+    data: XOR<AnimalUpdateManyMutationInput, AnimalUncheckedUpdateManyInput>
+    /**
+     * Filter which Animals to update
+     */
+    where?: AnimalWhereInput
+    /**
+     * Limit how many Animals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5419,34 +5788,6 @@ export namespace Prisma {
   }
 
   /**
-   * Animal findRaw
-   */
-  export type AnimalFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Animal aggregateRaw
-   */
-  export type AnimalAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Animal.earTagHistory
    */
   export type Animal$earTagHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5502,34 +5843,34 @@ export namespace Prisma {
   export type EarTagHistoryMinAggregateOutputType = {
     id: string | null
     earTagNumber: string | null
-    animalId: string | null
     placementDate: Date | null
     removalDate: Date | null
     reason: string | null
-    farmId: string | null
     createdAt: Date | null
+    farmId: string | null
+    animalId: string | null
   }
 
   export type EarTagHistoryMaxAggregateOutputType = {
     id: string | null
     earTagNumber: string | null
-    animalId: string | null
     placementDate: Date | null
     removalDate: Date | null
     reason: string | null
-    farmId: string | null
     createdAt: Date | null
+    farmId: string | null
+    animalId: string | null
   }
 
   export type EarTagHistoryCountAggregateOutputType = {
     id: number
     earTagNumber: number
-    animalId: number
     placementDate: number
     removalDate: number
     reason: number
-    farmId: number
     createdAt: number
+    farmId: number
+    animalId: number
     _all: number
   }
 
@@ -5537,34 +5878,34 @@ export namespace Prisma {
   export type EarTagHistoryMinAggregateInputType = {
     id?: true
     earTagNumber?: true
-    animalId?: true
     placementDate?: true
     removalDate?: true
     reason?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
+    animalId?: true
   }
 
   export type EarTagHistoryMaxAggregateInputType = {
     id?: true
     earTagNumber?: true
-    animalId?: true
     placementDate?: true
     removalDate?: true
     reason?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
+    animalId?: true
   }
 
   export type EarTagHistoryCountAggregateInputType = {
     id?: true
     earTagNumber?: true
-    animalId?: true
     placementDate?: true
     removalDate?: true
     reason?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
+    animalId?: true
     _all?: true
   }
 
@@ -5643,12 +5984,12 @@ export namespace Prisma {
   export type EarTagHistoryGroupByOutputType = {
     id: string
     earTagNumber: string
-    animalId: string
     placementDate: Date
     removalDate: Date | null
     reason: string | null
-    farmId: string
     createdAt: Date
+    farmId: string
+    animalId: string
     _count: EarTagHistoryCountAggregateOutputType | null
     _min: EarTagHistoryMinAggregateOutputType | null
     _max: EarTagHistoryMaxAggregateOutputType | null
@@ -5671,30 +6012,58 @@ export namespace Prisma {
   export type EarTagHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     earTagNumber?: boolean
-    animalId?: boolean
     placementDate?: boolean
     removalDate?: boolean
     reason?: boolean
-    farmId?: boolean
     createdAt?: boolean
+    farmId?: boolean
+    animalId?: boolean
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["earTagHistory"]>
 
+  export type EarTagHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    earTagNumber?: boolean
+    placementDate?: boolean
+    removalDate?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    farmId?: boolean
+    animalId?: boolean
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["earTagHistory"]>
 
+  export type EarTagHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    earTagNumber?: boolean
+    placementDate?: boolean
+    removalDate?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    farmId?: boolean
+    animalId?: boolean
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["earTagHistory"]>
 
   export type EarTagHistorySelectScalar = {
     id?: boolean
     earTagNumber?: boolean
-    animalId?: boolean
     placementDate?: boolean
     removalDate?: boolean
     reason?: boolean
-    farmId?: boolean
     createdAt?: boolean
+    farmId?: boolean
+    animalId?: boolean
   }
 
-  export type EarTagHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "earTagNumber" | "animalId" | "placementDate" | "removalDate" | "reason" | "farmId" | "createdAt", ExtArgs["result"]["earTagHistory"]>
+  export type EarTagHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "earTagNumber" | "placementDate" | "removalDate" | "reason" | "createdAt" | "farmId" | "animalId", ExtArgs["result"]["earTagHistory"]>
   export type EarTagHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
+  export type EarTagHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
+  export type EarTagHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }
 
@@ -5706,12 +6075,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       earTagNumber: string
-      animalId: string
       placementDate: Date
       removalDate: Date | null
       reason: string | null
-      farmId: string
       createdAt: Date
+      farmId: string
+      animalId: string
     }, ExtArgs["result"]["earTagHistory"]>
     composites: {}
   }
@@ -5830,6 +6199,30 @@ export namespace Prisma {
     createMany<T extends EarTagHistoryCreateManyArgs>(args?: SelectSubset<T, EarTagHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many EarTagHistories and returns the data saved in the database.
+     * @param {EarTagHistoryCreateManyAndReturnArgs} args - Arguments to create many EarTagHistories.
+     * @example
+     * // Create many EarTagHistories
+     * const earTagHistory = await prisma.earTagHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EarTagHistories and only return the `id`
+     * const earTagHistoryWithIdOnly = await prisma.earTagHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EarTagHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, EarTagHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a EarTagHistory.
      * @param {EarTagHistoryDeleteArgs} args - Arguments to delete one EarTagHistory.
      * @example
@@ -5894,6 +6287,36 @@ export namespace Prisma {
     updateMany<T extends EarTagHistoryUpdateManyArgs>(args: SelectSubset<T, EarTagHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more EarTagHistories and returns the data updated in the database.
+     * @param {EarTagHistoryUpdateManyAndReturnArgs} args - Arguments to update many EarTagHistories.
+     * @example
+     * // Update many EarTagHistories
+     * const earTagHistory = await prisma.earTagHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EarTagHistories and only return the `id`
+     * const earTagHistoryWithIdOnly = await prisma.earTagHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EarTagHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, EarTagHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one EarTagHistory.
      * @param {EarTagHistoryUpsertArgs} args - Arguments to update or create a EarTagHistory.
      * @example
@@ -5911,29 +6334,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends EarTagHistoryUpsertArgs>(args: SelectSubset<T, EarTagHistoryUpsertArgs<ExtArgs>>): Prisma__EarTagHistoryClient<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more EarTagHistories that matches the filter.
-     * @param {EarTagHistoryFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const earTagHistory = await prisma.earTagHistory.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: EarTagHistoryFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a EarTagHistory.
-     * @param {EarTagHistoryAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const earTagHistory = await prisma.earTagHistory.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: EarTagHistoryAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -6107,12 +6507,12 @@ export namespace Prisma {
   interface EarTagHistoryFieldRefs {
     readonly id: FieldRef<"EarTagHistory", 'String'>
     readonly earTagNumber: FieldRef<"EarTagHistory", 'String'>
-    readonly animalId: FieldRef<"EarTagHistory", 'String'>
     readonly placementDate: FieldRef<"EarTagHistory", 'DateTime'>
     readonly removalDate: FieldRef<"EarTagHistory", 'DateTime'>
     readonly reason: FieldRef<"EarTagHistory", 'String'>
-    readonly farmId: FieldRef<"EarTagHistory", 'String'>
     readonly createdAt: FieldRef<"EarTagHistory", 'DateTime'>
+    readonly farmId: FieldRef<"EarTagHistory", 'String'>
+    readonly animalId: FieldRef<"EarTagHistory", 'String'>
   }
     
 
@@ -6347,6 +6747,30 @@ export namespace Prisma {
      * The data used to create many EarTagHistories.
      */
     data: EarTagHistoryCreateManyInput | EarTagHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EarTagHistory createManyAndReturn
+   */
+  export type EarTagHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EarTagHistory
+     */
+    select?: EarTagHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EarTagHistory
+     */
+    omit?: EarTagHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many EarTagHistories.
+     */
+    data: EarTagHistoryCreateManyInput | EarTagHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EarTagHistoryIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6391,6 +6815,36 @@ export namespace Prisma {
      * Limit how many EarTagHistories to update.
      */
     limit?: number
+  }
+
+  /**
+   * EarTagHistory updateManyAndReturn
+   */
+  export type EarTagHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EarTagHistory
+     */
+    select?: EarTagHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EarTagHistory
+     */
+    omit?: EarTagHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update EarTagHistories.
+     */
+    data: XOR<EarTagHistoryUpdateManyMutationInput, EarTagHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which EarTagHistories to update
+     */
+    where?: EarTagHistoryWhereInput
+    /**
+     * Limit how many EarTagHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EarTagHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6460,34 +6914,6 @@ export namespace Prisma {
   }
 
   /**
-   * EarTagHistory findRaw
-   */
-  export type EarTagHistoryFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * EarTagHistory aggregateRaw
-   */
-  export type EarTagHistoryAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * EarTagHistory without action
    */
   export type EarTagHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6538,9 +6964,9 @@ export namespace Prisma {
     animalCapacity: number | null
     currentAnimals: number | null
     active: boolean | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type PastureMaxAggregateOutputType = {
@@ -6551,9 +6977,9 @@ export namespace Prisma {
     animalCapacity: number | null
     currentAnimals: number | null
     active: boolean | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type PastureCountAggregateOutputType = {
@@ -6564,9 +6990,9 @@ export namespace Prisma {
     animalCapacity: number
     currentAnimals: number
     active: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -6591,9 +7017,9 @@ export namespace Prisma {
     animalCapacity?: true
     currentAnimals?: true
     active?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type PastureMaxAggregateInputType = {
@@ -6604,9 +7030,9 @@ export namespace Prisma {
     animalCapacity?: true
     currentAnimals?: true
     active?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type PastureCountAggregateInputType = {
@@ -6617,9 +7043,9 @@ export namespace Prisma {
     animalCapacity?: true
     currentAnimals?: true
     active?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -6717,9 +7143,9 @@ export namespace Prisma {
     animalCapacity: number
     currentAnimals: number
     active: boolean
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: PastureCountAggregateOutputType | null
     _avg: PastureAvgAggregateOutputType | null
     _sum: PastureSumAggregateOutputType | null
@@ -6749,13 +7175,39 @@ export namespace Prisma {
     animalCapacity?: boolean
     currentAnimals?: boolean
     active?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pasture"]>
 
+  export type PastureSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    hectares?: boolean
+    type?: boolean
+    animalCapacity?: boolean
+    currentAnimals?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pasture"]>
 
+  export type PastureSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    hectares?: boolean
+    type?: boolean
+    animalCapacity?: boolean
+    currentAnimals?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pasture"]>
 
   export type PastureSelectScalar = {
     id?: boolean
@@ -6765,13 +7217,19 @@ export namespace Prisma {
     animalCapacity?: boolean
     currentAnimals?: boolean
     active?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type PastureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "hectares" | "type" | "animalCapacity" | "currentAnimals" | "active" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["pasture"]>
+  export type PastureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "hectares" | "type" | "animalCapacity" | "currentAnimals" | "active" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["pasture"]>
   export type PastureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }
+  export type PastureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }
+  export type PastureIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }
 
@@ -6788,9 +7246,9 @@ export namespace Prisma {
       animalCapacity: number
       currentAnimals: number
       active: boolean
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["pasture"]>
     composites: {}
   }
@@ -6909,6 +7367,30 @@ export namespace Prisma {
     createMany<T extends PastureCreateManyArgs>(args?: SelectSubset<T, PastureCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Pastures and returns the data saved in the database.
+     * @param {PastureCreateManyAndReturnArgs} args - Arguments to create many Pastures.
+     * @example
+     * // Create many Pastures
+     * const pasture = await prisma.pasture.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pastures and only return the `id`
+     * const pastureWithIdOnly = await prisma.pasture.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PastureCreateManyAndReturnArgs>(args?: SelectSubset<T, PastureCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasturePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Pasture.
      * @param {PastureDeleteArgs} args - Arguments to delete one Pasture.
      * @example
@@ -6973,6 +7455,36 @@ export namespace Prisma {
     updateMany<T extends PastureUpdateManyArgs>(args: SelectSubset<T, PastureUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Pastures and returns the data updated in the database.
+     * @param {PastureUpdateManyAndReturnArgs} args - Arguments to update many Pastures.
+     * @example
+     * // Update many Pastures
+     * const pasture = await prisma.pasture.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Pastures and only return the `id`
+     * const pastureWithIdOnly = await prisma.pasture.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PastureUpdateManyAndReturnArgs>(args: SelectSubset<T, PastureUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasturePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Pasture.
      * @param {PastureUpsertArgs} args - Arguments to update or create a Pasture.
      * @example
@@ -6990,29 +7502,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends PastureUpsertArgs>(args: SelectSubset<T, PastureUpsertArgs<ExtArgs>>): Prisma__PastureClient<$Result.GetResult<Prisma.$PasturePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Pastures that matches the filter.
-     * @param {PastureFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const pasture = await prisma.pasture.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: PastureFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Pasture.
-     * @param {PastureAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const pasture = await prisma.pasture.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: PastureAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -7191,9 +7680,9 @@ export namespace Prisma {
     readonly animalCapacity: FieldRef<"Pasture", 'Int'>
     readonly currentAnimals: FieldRef<"Pasture", 'Int'>
     readonly active: FieldRef<"Pasture", 'Boolean'>
-    readonly farmId: FieldRef<"Pasture", 'String'>
     readonly createdAt: FieldRef<"Pasture", 'DateTime'>
     readonly updatedAt: FieldRef<"Pasture", 'DateTime'>
+    readonly farmId: FieldRef<"Pasture", 'String'>
   }
     
 
@@ -7428,6 +7917,30 @@ export namespace Prisma {
      * The data used to create many Pastures.
      */
     data: PastureCreateManyInput | PastureCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pasture createManyAndReturn
+   */
+  export type PastureCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pasture
+     */
+    select?: PastureSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pasture
+     */
+    omit?: PastureOmit<ExtArgs> | null
+    /**
+     * The data used to create many Pastures.
+     */
+    data: PastureCreateManyInput | PastureCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PastureIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7472,6 +7985,36 @@ export namespace Prisma {
      * Limit how many Pastures to update.
      */
     limit?: number
+  }
+
+  /**
+   * Pasture updateManyAndReturn
+   */
+  export type PastureUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pasture
+     */
+    select?: PastureSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pasture
+     */
+    omit?: PastureOmit<ExtArgs> | null
+    /**
+     * The data used to update Pastures.
+     */
+    data: XOR<PastureUpdateManyMutationInput, PastureUncheckedUpdateManyInput>
+    /**
+     * Filter which Pastures to update
+     */
+    where?: PastureWhereInput
+    /**
+     * Limit how many Pastures to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PastureIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7541,34 +8084,6 @@ export namespace Prisma {
   }
 
   /**
-   * Pasture findRaw
-   */
-  export type PastureFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Pasture aggregateRaw
-   */
-  export type PastureAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Pasture without action
    */
   export type PastureDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7604,9 +8119,9 @@ export namespace Prisma {
     intensity: string | null
     detectedBy: string | null
     nextEstrus: Date | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type EstrusMaxAggregateOutputType = {
@@ -7616,9 +8131,9 @@ export namespace Prisma {
     intensity: string | null
     detectedBy: string | null
     nextEstrus: Date | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type EstrusCountAggregateOutputType = {
@@ -7628,9 +8143,9 @@ export namespace Prisma {
     intensity: number
     detectedBy: number
     nextEstrus: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -7642,9 +8157,9 @@ export namespace Prisma {
     intensity?: true
     detectedBy?: true
     nextEstrus?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type EstrusMaxAggregateInputType = {
@@ -7654,9 +8169,9 @@ export namespace Prisma {
     intensity?: true
     detectedBy?: true
     nextEstrus?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type EstrusCountAggregateInputType = {
@@ -7666,9 +8181,9 @@ export namespace Prisma {
     intensity?: true
     detectedBy?: true
     nextEstrus?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -7751,9 +8266,9 @@ export namespace Prisma {
     intensity: string
     detectedBy: string
     nextEstrus: Date
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: EstrusCountAggregateOutputType | null
     _min: EstrusMinAggregateOutputType | null
     _max: EstrusMaxAggregateOutputType | null
@@ -7780,12 +8295,34 @@ export namespace Prisma {
     intensity?: boolean
     detectedBy?: boolean
     nextEstrus?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }, ExtArgs["result"]["estrus"]>
 
+  export type EstrusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    date?: boolean
+    intensity?: boolean
+    detectedBy?: boolean
+    nextEstrus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["estrus"]>
 
+  export type EstrusSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    date?: boolean
+    intensity?: boolean
+    detectedBy?: boolean
+    nextEstrus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["estrus"]>
 
   export type EstrusSelectScalar = {
     id?: boolean
@@ -7794,12 +8331,12 @@ export namespace Prisma {
     intensity?: boolean
     detectedBy?: boolean
     nextEstrus?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type EstrusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "date" | "intensity" | "detectedBy" | "nextEstrus" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["estrus"]>
+  export type EstrusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "date" | "intensity" | "detectedBy" | "nextEstrus" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["estrus"]>
 
   export type $EstrusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Estrus"
@@ -7811,9 +8348,9 @@ export namespace Prisma {
       intensity: string
       detectedBy: string
       nextEstrus: Date
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["estrus"]>
     composites: {}
   }
@@ -7932,6 +8469,30 @@ export namespace Prisma {
     createMany<T extends EstrusCreateManyArgs>(args?: SelectSubset<T, EstrusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Estruses and returns the data saved in the database.
+     * @param {EstrusCreateManyAndReturnArgs} args - Arguments to create many Estruses.
+     * @example
+     * // Create many Estruses
+     * const estrus = await prisma.estrus.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Estruses and only return the `id`
+     * const estrusWithIdOnly = await prisma.estrus.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EstrusCreateManyAndReturnArgs>(args?: SelectSubset<T, EstrusCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EstrusPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Estrus.
      * @param {EstrusDeleteArgs} args - Arguments to delete one Estrus.
      * @example
@@ -7996,6 +8557,36 @@ export namespace Prisma {
     updateMany<T extends EstrusUpdateManyArgs>(args: SelectSubset<T, EstrusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Estruses and returns the data updated in the database.
+     * @param {EstrusUpdateManyAndReturnArgs} args - Arguments to update many Estruses.
+     * @example
+     * // Update many Estruses
+     * const estrus = await prisma.estrus.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Estruses and only return the `id`
+     * const estrusWithIdOnly = await prisma.estrus.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EstrusUpdateManyAndReturnArgs>(args: SelectSubset<T, EstrusUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EstrusPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Estrus.
      * @param {EstrusUpsertArgs} args - Arguments to update or create a Estrus.
      * @example
@@ -8013,29 +8604,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends EstrusUpsertArgs>(args: SelectSubset<T, EstrusUpsertArgs<ExtArgs>>): Prisma__EstrusClient<$Result.GetResult<Prisma.$EstrusPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Estruses that matches the filter.
-     * @param {EstrusFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const estrus = await prisma.estrus.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: EstrusFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Estrus.
-     * @param {EstrusAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const estrus = await prisma.estrus.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: EstrusAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -8212,9 +8780,9 @@ export namespace Prisma {
     readonly intensity: FieldRef<"Estrus", 'String'>
     readonly detectedBy: FieldRef<"Estrus", 'String'>
     readonly nextEstrus: FieldRef<"Estrus", 'DateTime'>
-    readonly farmId: FieldRef<"Estrus", 'String'>
     readonly createdAt: FieldRef<"Estrus", 'DateTime'>
     readonly updatedAt: FieldRef<"Estrus", 'DateTime'>
+    readonly farmId: FieldRef<"Estrus", 'String'>
   }
     
 
@@ -8425,6 +8993,26 @@ export namespace Prisma {
      * The data used to create many Estruses.
      */
     data: EstrusCreateManyInput | EstrusCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Estrus createManyAndReturn
+   */
+  export type EstrusCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Estrus
+     */
+    select?: EstrusSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Estrus
+     */
+    omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * The data used to create many Estruses.
+     */
+    data: EstrusCreateManyInput | EstrusCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -8453,6 +9041,32 @@ export namespace Prisma {
    * Estrus updateMany
    */
   export type EstrusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Estruses.
+     */
+    data: XOR<EstrusUpdateManyMutationInput, EstrusUncheckedUpdateManyInput>
+    /**
+     * Filter which Estruses to update
+     */
+    where?: EstrusWhereInput
+    /**
+     * Limit how many Estruses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Estrus updateManyAndReturn
+   */
+  export type EstrusUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Estrus
+     */
+    select?: EstrusSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Estrus
+     */
+    omit?: EstrusOmit<ExtArgs> | null
     /**
      * The data used to update Estruses.
      */
@@ -8526,34 +9140,6 @@ export namespace Prisma {
   }
 
   /**
-   * Estrus findRaw
-   */
-  export type EstrusFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Estrus aggregateRaw
-   */
-  export type EstrusAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Estrus without action
    */
   export type EstrusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8583,9 +9169,9 @@ export namespace Prisma {
     animalId: string | null
     currentStatus: string | null
     currentStatusDate: Date | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type PregnancyMaxAggregateOutputType = {
@@ -8593,9 +9179,9 @@ export namespace Prisma {
     animalId: string | null
     currentStatus: string | null
     currentStatusDate: Date | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type PregnancyCountAggregateOutputType = {
@@ -8603,9 +9189,9 @@ export namespace Prisma {
     animalId: number
     currentStatus: number
     currentStatusDate: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -8615,9 +9201,9 @@ export namespace Prisma {
     animalId?: true
     currentStatus?: true
     currentStatusDate?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type PregnancyMaxAggregateInputType = {
@@ -8625,9 +9211,9 @@ export namespace Prisma {
     animalId?: true
     currentStatus?: true
     currentStatusDate?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type PregnancyCountAggregateInputType = {
@@ -8635,9 +9221,9 @@ export namespace Prisma {
     animalId?: true
     currentStatus?: true
     currentStatusDate?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -8718,9 +9304,9 @@ export namespace Prisma {
     animalId: string
     currentStatus: string
     currentStatusDate: Date
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: PregnancyCountAggregateOutputType | null
     _min: PregnancyMinAggregateOutputType | null
     _max: PregnancyMaxAggregateOutputType | null
@@ -8745,30 +9331,50 @@ export namespace Prisma {
     animalId?: boolean
     currentStatus?: boolean
     currentStatusDate?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
     attempts?: boolean | Pregnancy$attemptsArgs<ExtArgs>
     _count?: boolean | PregnancyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pregnancy"]>
 
+  export type PregnancySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    currentStatus?: boolean
+    currentStatusDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["pregnancy"]>
 
+  export type PregnancySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    currentStatus?: boolean
+    currentStatusDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["pregnancy"]>
 
   export type PregnancySelectScalar = {
     id?: boolean
     animalId?: boolean
     currentStatus?: boolean
     currentStatusDate?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type PregnancyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "currentStatus" | "currentStatusDate" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["pregnancy"]>
+  export type PregnancyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "currentStatus" | "currentStatusDate" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["pregnancy"]>
   export type PregnancyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attempts?: boolean | Pregnancy$attemptsArgs<ExtArgs>
     _count?: boolean | PregnancyCountOutputTypeDefaultArgs<ExtArgs>
   }
+  export type PregnancyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PregnancyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $PregnancyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Pregnancy"
@@ -8780,9 +9386,9 @@ export namespace Prisma {
       animalId: string
       currentStatus: string
       currentStatusDate: Date
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["pregnancy"]>
     composites: {}
   }
@@ -8901,6 +9507,30 @@ export namespace Prisma {
     createMany<T extends PregnancyCreateManyArgs>(args?: SelectSubset<T, PregnancyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Pregnancies and returns the data saved in the database.
+     * @param {PregnancyCreateManyAndReturnArgs} args - Arguments to create many Pregnancies.
+     * @example
+     * // Create many Pregnancies
+     * const pregnancy = await prisma.pregnancy.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pregnancies and only return the `id`
+     * const pregnancyWithIdOnly = await prisma.pregnancy.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PregnancyCreateManyAndReturnArgs>(args?: SelectSubset<T, PregnancyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PregnancyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Pregnancy.
      * @param {PregnancyDeleteArgs} args - Arguments to delete one Pregnancy.
      * @example
@@ -8965,6 +9595,36 @@ export namespace Prisma {
     updateMany<T extends PregnancyUpdateManyArgs>(args: SelectSubset<T, PregnancyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Pregnancies and returns the data updated in the database.
+     * @param {PregnancyUpdateManyAndReturnArgs} args - Arguments to update many Pregnancies.
+     * @example
+     * // Update many Pregnancies
+     * const pregnancy = await prisma.pregnancy.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Pregnancies and only return the `id`
+     * const pregnancyWithIdOnly = await prisma.pregnancy.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PregnancyUpdateManyAndReturnArgs>(args: SelectSubset<T, PregnancyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PregnancyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Pregnancy.
      * @param {PregnancyUpsertArgs} args - Arguments to update or create a Pregnancy.
      * @example
@@ -8982,29 +9642,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends PregnancyUpsertArgs>(args: SelectSubset<T, PregnancyUpsertArgs<ExtArgs>>): Prisma__PregnancyClient<$Result.GetResult<Prisma.$PregnancyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Pregnancies that matches the filter.
-     * @param {PregnancyFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const pregnancy = await prisma.pregnancy.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: PregnancyFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Pregnancy.
-     * @param {PregnancyAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const pregnancy = await prisma.pregnancy.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: PregnancyAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -9180,9 +9817,9 @@ export namespace Prisma {
     readonly animalId: FieldRef<"Pregnancy", 'String'>
     readonly currentStatus: FieldRef<"Pregnancy", 'String'>
     readonly currentStatusDate: FieldRef<"Pregnancy", 'DateTime'>
-    readonly farmId: FieldRef<"Pregnancy", 'String'>
     readonly createdAt: FieldRef<"Pregnancy", 'DateTime'>
     readonly updatedAt: FieldRef<"Pregnancy", 'DateTime'>
+    readonly farmId: FieldRef<"Pregnancy", 'String'>
   }
     
 
@@ -9417,6 +10054,26 @@ export namespace Prisma {
      * The data used to create many Pregnancies.
      */
     data: PregnancyCreateManyInput | PregnancyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pregnancy createManyAndReturn
+   */
+  export type PregnancyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pregnancy
+     */
+    select?: PregnancySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pregnancy
+     */
+    omit?: PregnancyOmit<ExtArgs> | null
+    /**
+     * The data used to create many Pregnancies.
+     */
+    data: PregnancyCreateManyInput | PregnancyCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -9449,6 +10106,32 @@ export namespace Prisma {
    * Pregnancy updateMany
    */
   export type PregnancyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Pregnancies.
+     */
+    data: XOR<PregnancyUpdateManyMutationInput, PregnancyUncheckedUpdateManyInput>
+    /**
+     * Filter which Pregnancies to update
+     */
+    where?: PregnancyWhereInput
+    /**
+     * Limit how many Pregnancies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pregnancy updateManyAndReturn
+   */
+  export type PregnancyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pregnancy
+     */
+    select?: PregnancySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pregnancy
+     */
+    omit?: PregnancyOmit<ExtArgs> | null
     /**
      * The data used to update Pregnancies.
      */
@@ -9530,34 +10213,6 @@ export namespace Prisma {
   }
 
   /**
-   * Pregnancy findRaw
-   */
-  export type PregnancyFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Pregnancy aggregateRaw
-   */
-  export type PregnancyAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Pregnancy.attempts
    */
   export type Pregnancy$attemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9623,7 +10278,6 @@ export namespace Prisma {
   export type AttemptMinAggregateOutputType = {
     id: string | null
     number: number | null
-    pregnancyId: string | null
     matingDate: Date | null
     matingType: string | null
     bullId: string | null
@@ -9634,12 +10288,12 @@ export namespace Prisma {
     attemptStatus: string | null
     notes: string | null
     createdAt: Date | null
+    pregnancyId: string | null
   }
 
   export type AttemptMaxAggregateOutputType = {
     id: string | null
     number: number | null
-    pregnancyId: string | null
     matingDate: Date | null
     matingType: string | null
     bullId: string | null
@@ -9650,12 +10304,12 @@ export namespace Prisma {
     attemptStatus: string | null
     notes: string | null
     createdAt: Date | null
+    pregnancyId: string | null
   }
 
   export type AttemptCountAggregateOutputType = {
     id: number
     number: number
-    pregnancyId: number
     matingDate: number
     matingType: number
     bullId: number
@@ -9666,6 +10320,7 @@ export namespace Prisma {
     attemptStatus: number
     notes: number
     createdAt: number
+    pregnancyId: number
     _all: number
   }
 
@@ -9681,7 +10336,6 @@ export namespace Prisma {
   export type AttemptMinAggregateInputType = {
     id?: true
     number?: true
-    pregnancyId?: true
     matingDate?: true
     matingType?: true
     bullId?: true
@@ -9692,12 +10346,12 @@ export namespace Prisma {
     attemptStatus?: true
     notes?: true
     createdAt?: true
+    pregnancyId?: true
   }
 
   export type AttemptMaxAggregateInputType = {
     id?: true
     number?: true
-    pregnancyId?: true
     matingDate?: true
     matingType?: true
     bullId?: true
@@ -9708,12 +10362,12 @@ export namespace Prisma {
     attemptStatus?: true
     notes?: true
     createdAt?: true
+    pregnancyId?: true
   }
 
   export type AttemptCountAggregateInputType = {
     id?: true
     number?: true
-    pregnancyId?: true
     matingDate?: true
     matingType?: true
     bullId?: true
@@ -9724,6 +10378,7 @@ export namespace Prisma {
     attemptStatus?: true
     notes?: true
     createdAt?: true
+    pregnancyId?: true
     _all?: true
   }
 
@@ -9816,7 +10471,6 @@ export namespace Prisma {
   export type AttemptGroupByOutputType = {
     id: string
     number: number
-    pregnancyId: string
     matingDate: Date
     matingType: string
     bullId: string | null
@@ -9827,6 +10481,7 @@ export namespace Prisma {
     attemptStatus: string
     notes: string | null
     createdAt: Date
+    pregnancyId: string
     _count: AttemptCountAggregateOutputType | null
     _avg: AttemptAvgAggregateOutputType | null
     _sum: AttemptSumAggregateOutputType | null
@@ -9851,7 +10506,6 @@ export namespace Prisma {
   export type AttemptSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     number?: boolean
-    pregnancyId?: boolean
     matingDate?: boolean
     matingType?: boolean
     bullId?: boolean
@@ -9862,17 +10516,15 @@ export namespace Prisma {
     attemptStatus?: boolean
     notes?: boolean
     createdAt?: boolean
+    pregnancyId?: boolean
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
     ultrasounds?: boolean | Attempt$ultrasoundsArgs<ExtArgs>
     _count?: boolean | AttemptCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attempt"]>
 
-
-
-  export type AttemptSelectScalar = {
+  export type AttemptSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     number?: boolean
-    pregnancyId?: boolean
     matingDate?: boolean
     matingType?: boolean
     bullId?: boolean
@@ -9883,13 +10535,54 @@ export namespace Prisma {
     attemptStatus?: boolean
     notes?: boolean
     createdAt?: boolean
+    pregnancyId?: boolean
+    pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attempt"]>
+
+  export type AttemptSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    matingDate?: boolean
+    matingType?: boolean
+    bullId?: boolean
+    semenName?: boolean
+    technician?: boolean
+    estimatedBirthDate?: boolean
+    birthId?: boolean
+    attemptStatus?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    pregnancyId?: boolean
+    pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attempt"]>
+
+  export type AttemptSelectScalar = {
+    id?: boolean
+    number?: boolean
+    matingDate?: boolean
+    matingType?: boolean
+    bullId?: boolean
+    semenName?: boolean
+    technician?: boolean
+    estimatedBirthDate?: boolean
+    birthId?: boolean
+    attemptStatus?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    pregnancyId?: boolean
   }
 
-  export type AttemptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "pregnancyId" | "matingDate" | "matingType" | "bullId" | "semenName" | "technician" | "estimatedBirthDate" | "birthId" | "attemptStatus" | "notes" | "createdAt", ExtArgs["result"]["attempt"]>
+  export type AttemptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "matingDate" | "matingType" | "bullId" | "semenName" | "technician" | "estimatedBirthDate" | "birthId" | "attemptStatus" | "notes" | "createdAt" | "pregnancyId", ExtArgs["result"]["attempt"]>
   export type AttemptInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
     ultrasounds?: boolean | Attempt$ultrasoundsArgs<ExtArgs>
     _count?: boolean | AttemptCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AttemptIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
+  }
+  export type AttemptIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
   }
 
   export type $AttemptPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9901,7 +10594,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       number: number
-      pregnancyId: string
       matingDate: Date
       matingType: string
       bullId: string | null
@@ -9912,6 +10604,7 @@ export namespace Prisma {
       attemptStatus: string
       notes: string | null
       createdAt: Date
+      pregnancyId: string
     }, ExtArgs["result"]["attempt"]>
     composites: {}
   }
@@ -10030,6 +10723,30 @@ export namespace Prisma {
     createMany<T extends AttemptCreateManyArgs>(args?: SelectSubset<T, AttemptCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Attempts and returns the data saved in the database.
+     * @param {AttemptCreateManyAndReturnArgs} args - Arguments to create many Attempts.
+     * @example
+     * // Create many Attempts
+     * const attempt = await prisma.attempt.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Attempts and only return the `id`
+     * const attemptWithIdOnly = await prisma.attempt.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AttemptCreateManyAndReturnArgs>(args?: SelectSubset<T, AttemptCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Attempt.
      * @param {AttemptDeleteArgs} args - Arguments to delete one Attempt.
      * @example
@@ -10094,6 +10811,36 @@ export namespace Prisma {
     updateMany<T extends AttemptUpdateManyArgs>(args: SelectSubset<T, AttemptUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Attempts and returns the data updated in the database.
+     * @param {AttemptUpdateManyAndReturnArgs} args - Arguments to update many Attempts.
+     * @example
+     * // Update many Attempts
+     * const attempt = await prisma.attempt.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Attempts and only return the `id`
+     * const attemptWithIdOnly = await prisma.attempt.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AttemptUpdateManyAndReturnArgs>(args: SelectSubset<T, AttemptUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Attempt.
      * @param {AttemptUpsertArgs} args - Arguments to update or create a Attempt.
      * @example
@@ -10111,29 +10858,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends AttemptUpsertArgs>(args: SelectSubset<T, AttemptUpsertArgs<ExtArgs>>): Prisma__AttemptClient<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Attempts that matches the filter.
-     * @param {AttemptFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const attempt = await prisma.attempt.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: AttemptFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Attempt.
-     * @param {AttemptAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const attempt = await prisma.attempt.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: AttemptAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -10308,7 +11032,6 @@ export namespace Prisma {
   interface AttemptFieldRefs {
     readonly id: FieldRef<"Attempt", 'String'>
     readonly number: FieldRef<"Attempt", 'Int'>
-    readonly pregnancyId: FieldRef<"Attempt", 'String'>
     readonly matingDate: FieldRef<"Attempt", 'DateTime'>
     readonly matingType: FieldRef<"Attempt", 'String'>
     readonly bullId: FieldRef<"Attempt", 'String'>
@@ -10319,6 +11042,7 @@ export namespace Prisma {
     readonly attemptStatus: FieldRef<"Attempt", 'String'>
     readonly notes: FieldRef<"Attempt", 'String'>
     readonly createdAt: FieldRef<"Attempt", 'DateTime'>
+    readonly pregnancyId: FieldRef<"Attempt", 'String'>
   }
     
 
@@ -10553,6 +11277,30 @@ export namespace Prisma {
      * The data used to create many Attempts.
      */
     data: AttemptCreateManyInput | AttemptCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Attempt createManyAndReturn
+   */
+  export type AttemptCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attempt
+     */
+    select?: AttemptSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attempt
+     */
+    omit?: AttemptOmit<ExtArgs> | null
+    /**
+     * The data used to create many Attempts.
+     */
+    data: AttemptCreateManyInput | AttemptCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttemptIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10597,6 +11345,36 @@ export namespace Prisma {
      * Limit how many Attempts to update.
      */
     limit?: number
+  }
+
+  /**
+   * Attempt updateManyAndReturn
+   */
+  export type AttemptUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attempt
+     */
+    select?: AttemptSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attempt
+     */
+    omit?: AttemptOmit<ExtArgs> | null
+    /**
+     * The data used to update Attempts.
+     */
+    data: XOR<AttemptUpdateManyMutationInput, AttemptUncheckedUpdateManyInput>
+    /**
+     * Filter which Attempts to update
+     */
+    where?: AttemptWhereInput
+    /**
+     * Limit how many Attempts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttemptIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10666,34 +11444,6 @@ export namespace Prisma {
   }
 
   /**
-   * Attempt findRaw
-   */
-  export type AttemptFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Attempt aggregateRaw
-   */
-  export type AttemptAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Attempt.ultrasounds
    */
   export type Attempt$ultrasoundsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10758,32 +11508,32 @@ export namespace Prisma {
 
   export type UltrasoundMinAggregateOutputType = {
     id: string | null
-    attemptId: string | null
     days: number | null
     result: string | null
     notes: string | null
     veterinarianId: string | null
     ultrasoundDate: Date | null
+    attemptId: string | null
   }
 
   export type UltrasoundMaxAggregateOutputType = {
     id: string | null
-    attemptId: string | null
     days: number | null
     result: string | null
     notes: string | null
     veterinarianId: string | null
     ultrasoundDate: Date | null
+    attemptId: string | null
   }
 
   export type UltrasoundCountAggregateOutputType = {
     id: number
-    attemptId: number
     days: number
     result: number
     notes: number
     veterinarianId: number
     ultrasoundDate: number
+    attemptId: number
     _all: number
   }
 
@@ -10798,32 +11548,32 @@ export namespace Prisma {
 
   export type UltrasoundMinAggregateInputType = {
     id?: true
-    attemptId?: true
     days?: true
     result?: true
     notes?: true
     veterinarianId?: true
     ultrasoundDate?: true
+    attemptId?: true
   }
 
   export type UltrasoundMaxAggregateInputType = {
     id?: true
-    attemptId?: true
     days?: true
     result?: true
     notes?: true
     veterinarianId?: true
     ultrasoundDate?: true
+    attemptId?: true
   }
 
   export type UltrasoundCountAggregateInputType = {
     id?: true
-    attemptId?: true
     days?: true
     result?: true
     notes?: true
     veterinarianId?: true
     ultrasoundDate?: true
+    attemptId?: true
     _all?: true
   }
 
@@ -10915,12 +11665,12 @@ export namespace Prisma {
 
   export type UltrasoundGroupByOutputType = {
     id: string
-    attemptId: string
     days: number
     result: string
     notes: string | null
     veterinarianId: string | null
     ultrasoundDate: Date
+    attemptId: string
     _count: UltrasoundCountAggregateOutputType | null
     _avg: UltrasoundAvgAggregateOutputType | null
     _sum: UltrasoundSumAggregateOutputType | null
@@ -10944,29 +11694,55 @@ export namespace Prisma {
 
   export type UltrasoundSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    attemptId?: boolean
     days?: boolean
     result?: boolean
     notes?: boolean
     veterinarianId?: boolean
     ultrasoundDate?: boolean
+    attemptId?: boolean
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ultrasound"]>
 
-
-
-  export type UltrasoundSelectScalar = {
+  export type UltrasoundSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    attemptId?: boolean
     days?: boolean
     result?: boolean
     notes?: boolean
     veterinarianId?: boolean
     ultrasoundDate?: boolean
+    attemptId?: boolean
+    attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ultrasound"]>
+
+  export type UltrasoundSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    days?: boolean
+    result?: boolean
+    notes?: boolean
+    veterinarianId?: boolean
+    ultrasoundDate?: boolean
+    attemptId?: boolean
+    attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ultrasound"]>
+
+  export type UltrasoundSelectScalar = {
+    id?: boolean
+    days?: boolean
+    result?: boolean
+    notes?: boolean
+    veterinarianId?: boolean
+    ultrasoundDate?: boolean
+    attemptId?: boolean
   }
 
-  export type UltrasoundOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "attemptId" | "days" | "result" | "notes" | "veterinarianId" | "ultrasoundDate", ExtArgs["result"]["ultrasound"]>
+  export type UltrasoundOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "days" | "result" | "notes" | "veterinarianId" | "ultrasoundDate" | "attemptId", ExtArgs["result"]["ultrasound"]>
   export type UltrasoundInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+  }
+  export type UltrasoundIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+  }
+  export type UltrasoundIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
   }
 
@@ -10977,12 +11753,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      attemptId: string
       days: number
       result: string
       notes: string | null
       veterinarianId: string | null
       ultrasoundDate: Date
+      attemptId: string
     }, ExtArgs["result"]["ultrasound"]>
     composites: {}
   }
@@ -11101,6 +11877,30 @@ export namespace Prisma {
     createMany<T extends UltrasoundCreateManyArgs>(args?: SelectSubset<T, UltrasoundCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Ultrasounds and returns the data saved in the database.
+     * @param {UltrasoundCreateManyAndReturnArgs} args - Arguments to create many Ultrasounds.
+     * @example
+     * // Create many Ultrasounds
+     * const ultrasound = await prisma.ultrasound.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Ultrasounds and only return the `id`
+     * const ultrasoundWithIdOnly = await prisma.ultrasound.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UltrasoundCreateManyAndReturnArgs>(args?: SelectSubset<T, UltrasoundCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UltrasoundPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Ultrasound.
      * @param {UltrasoundDeleteArgs} args - Arguments to delete one Ultrasound.
      * @example
@@ -11165,6 +11965,36 @@ export namespace Prisma {
     updateMany<T extends UltrasoundUpdateManyArgs>(args: SelectSubset<T, UltrasoundUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Ultrasounds and returns the data updated in the database.
+     * @param {UltrasoundUpdateManyAndReturnArgs} args - Arguments to update many Ultrasounds.
+     * @example
+     * // Update many Ultrasounds
+     * const ultrasound = await prisma.ultrasound.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Ultrasounds and only return the `id`
+     * const ultrasoundWithIdOnly = await prisma.ultrasound.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UltrasoundUpdateManyAndReturnArgs>(args: SelectSubset<T, UltrasoundUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UltrasoundPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Ultrasound.
      * @param {UltrasoundUpsertArgs} args - Arguments to update or create a Ultrasound.
      * @example
@@ -11182,29 +12012,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends UltrasoundUpsertArgs>(args: SelectSubset<T, UltrasoundUpsertArgs<ExtArgs>>): Prisma__UltrasoundClient<$Result.GetResult<Prisma.$UltrasoundPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Ultrasounds that matches the filter.
-     * @param {UltrasoundFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const ultrasound = await prisma.ultrasound.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: UltrasoundFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Ultrasound.
-     * @param {UltrasoundAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const ultrasound = await prisma.ultrasound.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: UltrasoundAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -11377,12 +12184,12 @@ export namespace Prisma {
    */
   interface UltrasoundFieldRefs {
     readonly id: FieldRef<"Ultrasound", 'String'>
-    readonly attemptId: FieldRef<"Ultrasound", 'String'>
     readonly days: FieldRef<"Ultrasound", 'Int'>
     readonly result: FieldRef<"Ultrasound", 'String'>
     readonly notes: FieldRef<"Ultrasound", 'String'>
     readonly veterinarianId: FieldRef<"Ultrasound", 'String'>
     readonly ultrasoundDate: FieldRef<"Ultrasound", 'DateTime'>
+    readonly attemptId: FieldRef<"Ultrasound", 'String'>
   }
     
 
@@ -11617,6 +12424,30 @@ export namespace Prisma {
      * The data used to create many Ultrasounds.
      */
     data: UltrasoundCreateManyInput | UltrasoundCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Ultrasound createManyAndReturn
+   */
+  export type UltrasoundCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ultrasound
+     */
+    select?: UltrasoundSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ultrasound
+     */
+    omit?: UltrasoundOmit<ExtArgs> | null
+    /**
+     * The data used to create many Ultrasounds.
+     */
+    data: UltrasoundCreateManyInput | UltrasoundCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UltrasoundIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11661,6 +12492,36 @@ export namespace Prisma {
      * Limit how many Ultrasounds to update.
      */
     limit?: number
+  }
+
+  /**
+   * Ultrasound updateManyAndReturn
+   */
+  export type UltrasoundUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ultrasound
+     */
+    select?: UltrasoundSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ultrasound
+     */
+    omit?: UltrasoundOmit<ExtArgs> | null
+    /**
+     * The data used to update Ultrasounds.
+     */
+    data: XOR<UltrasoundUpdateManyMutationInput, UltrasoundUncheckedUpdateManyInput>
+    /**
+     * Filter which Ultrasounds to update
+     */
+    where?: UltrasoundWhereInput
+    /**
+     * Limit how many Ultrasounds to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UltrasoundIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11730,34 +12591,6 @@ export namespace Prisma {
   }
 
   /**
-   * Ultrasound findRaw
-   */
-  export type UltrasoundFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Ultrasound aggregateRaw
-   */
-  export type UltrasoundAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Ultrasound without action
    */
   export type UltrasoundDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11814,9 +12647,9 @@ export namespace Prisma {
     situation: string | null
     deathReason: string | null
     notes: string | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type BirthMaxAggregateOutputType = {
@@ -11837,9 +12670,9 @@ export namespace Prisma {
     situation: string | null
     deathReason: string | null
     notes: string | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type BirthCountAggregateOutputType = {
@@ -11860,9 +12693,9 @@ export namespace Prisma {
     situation: number
     deathReason: number
     notes: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -11893,9 +12726,9 @@ export namespace Prisma {
     situation?: true
     deathReason?: true
     notes?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type BirthMaxAggregateInputType = {
@@ -11916,9 +12749,9 @@ export namespace Prisma {
     situation?: true
     deathReason?: true
     notes?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type BirthCountAggregateInputType = {
@@ -11939,9 +12772,9 @@ export namespace Prisma {
     situation?: true
     deathReason?: true
     notes?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -12049,9 +12882,9 @@ export namespace Prisma {
     situation: string
     deathReason: string | null
     notes: string | null
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: BirthCountAggregateOutputType | null
     _avg: BirthAvgAggregateOutputType | null
     _sum: BirthSumAggregateOutputType | null
@@ -12091,12 +12924,56 @@ export namespace Prisma {
     situation?: boolean
     deathReason?: boolean
     notes?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }, ExtArgs["result"]["birth"]>
 
+  export type BirthSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    damId?: boolean
+    pregnancyId?: boolean
+    birthDate?: boolean
+    birthTime?: boolean
+    birthType?: boolean
+    veterinarianId?: boolean
+    veterinarianName?: boolean
+    veterinarianCrv?: boolean
+    calfGender?: boolean
+    calfWeight?: boolean
+    calfEarTag?: boolean
+    calfChip?: boolean
+    calfStatus?: boolean
+    situation?: boolean
+    deathReason?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["birth"]>
 
+  export type BirthSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    damId?: boolean
+    pregnancyId?: boolean
+    birthDate?: boolean
+    birthTime?: boolean
+    birthType?: boolean
+    veterinarianId?: boolean
+    veterinarianName?: boolean
+    veterinarianCrv?: boolean
+    calfGender?: boolean
+    calfWeight?: boolean
+    calfEarTag?: boolean
+    calfChip?: boolean
+    calfStatus?: boolean
+    situation?: boolean
+    deathReason?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["birth"]>
 
   export type BirthSelectScalar = {
     id?: boolean
@@ -12116,12 +12993,12 @@ export namespace Prisma {
     situation?: boolean
     deathReason?: boolean
     notes?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type BirthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "damId" | "pregnancyId" | "birthDate" | "birthTime" | "birthType" | "veterinarianId" | "veterinarianName" | "veterinarianCrv" | "calfGender" | "calfWeight" | "calfEarTag" | "calfChip" | "calfStatus" | "situation" | "deathReason" | "notes" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["birth"]>
+  export type BirthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "damId" | "pregnancyId" | "birthDate" | "birthTime" | "birthType" | "veterinarianId" | "veterinarianName" | "veterinarianCrv" | "calfGender" | "calfWeight" | "calfEarTag" | "calfChip" | "calfStatus" | "situation" | "deathReason" | "notes" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["birth"]>
 
   export type $BirthPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Birth"
@@ -12144,9 +13021,9 @@ export namespace Prisma {
       situation: string
       deathReason: string | null
       notes: string | null
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["birth"]>
     composites: {}
   }
@@ -12265,6 +13142,30 @@ export namespace Prisma {
     createMany<T extends BirthCreateManyArgs>(args?: SelectSubset<T, BirthCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Births and returns the data saved in the database.
+     * @param {BirthCreateManyAndReturnArgs} args - Arguments to create many Births.
+     * @example
+     * // Create many Births
+     * const birth = await prisma.birth.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Births and only return the `id`
+     * const birthWithIdOnly = await prisma.birth.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BirthCreateManyAndReturnArgs>(args?: SelectSubset<T, BirthCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Birth.
      * @param {BirthDeleteArgs} args - Arguments to delete one Birth.
      * @example
@@ -12329,6 +13230,36 @@ export namespace Prisma {
     updateMany<T extends BirthUpdateManyArgs>(args: SelectSubset<T, BirthUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Births and returns the data updated in the database.
+     * @param {BirthUpdateManyAndReturnArgs} args - Arguments to update many Births.
+     * @example
+     * // Update many Births
+     * const birth = await prisma.birth.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Births and only return the `id`
+     * const birthWithIdOnly = await prisma.birth.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BirthUpdateManyAndReturnArgs>(args: SelectSubset<T, BirthUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Birth.
      * @param {BirthUpsertArgs} args - Arguments to update or create a Birth.
      * @example
@@ -12346,29 +13277,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends BirthUpsertArgs>(args: SelectSubset<T, BirthUpsertArgs<ExtArgs>>): Prisma__BirthClient<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Births that matches the filter.
-     * @param {BirthFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const birth = await prisma.birth.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: BirthFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Birth.
-     * @param {BirthAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const birth = await prisma.birth.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: BirthAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -12556,9 +13464,9 @@ export namespace Prisma {
     readonly situation: FieldRef<"Birth", 'String'>
     readonly deathReason: FieldRef<"Birth", 'String'>
     readonly notes: FieldRef<"Birth", 'String'>
-    readonly farmId: FieldRef<"Birth", 'String'>
     readonly createdAt: FieldRef<"Birth", 'DateTime'>
     readonly updatedAt: FieldRef<"Birth", 'DateTime'>
+    readonly farmId: FieldRef<"Birth", 'String'>
   }
     
 
@@ -12769,6 +13677,26 @@ export namespace Prisma {
      * The data used to create many Births.
      */
     data: BirthCreateManyInput | BirthCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Birth createManyAndReturn
+   */
+  export type BirthCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
+    /**
+     * The data used to create many Births.
+     */
+    data: BirthCreateManyInput | BirthCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -12797,6 +13725,32 @@ export namespace Prisma {
    * Birth updateMany
    */
   export type BirthUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Births.
+     */
+    data: XOR<BirthUpdateManyMutationInput, BirthUncheckedUpdateManyInput>
+    /**
+     * Filter which Births to update
+     */
+    where?: BirthWhereInput
+    /**
+     * Limit how many Births to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Birth updateManyAndReturn
+   */
+  export type BirthUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
     /**
      * The data used to update Births.
      */
@@ -12870,34 +13824,6 @@ export namespace Prisma {
   }
 
   /**
-   * Birth findRaw
-   */
-  export type BirthFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Birth aggregateRaw
-   */
-  export type BirthAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Birth without action
    */
   export type BirthDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12934,9 +13860,9 @@ export namespace Prisma {
     photoUrl: string | null
     reaction: string | null
     veterinarianId: string | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type VaccinationMaxAggregateOutputType = {
@@ -12951,9 +13877,9 @@ export namespace Prisma {
     photoUrl: string | null
     reaction: string | null
     veterinarianId: string | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type VaccinationCountAggregateOutputType = {
@@ -12968,9 +13894,9 @@ export namespace Prisma {
     photoUrl: number
     reaction: number
     veterinarianId: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -12987,9 +13913,9 @@ export namespace Prisma {
     photoUrl?: true
     reaction?: true
     veterinarianId?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type VaccinationMaxAggregateInputType = {
@@ -13004,9 +13930,9 @@ export namespace Prisma {
     photoUrl?: true
     reaction?: true
     veterinarianId?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type VaccinationCountAggregateInputType = {
@@ -13021,9 +13947,9 @@ export namespace Prisma {
     photoUrl?: true
     reaction?: true
     veterinarianId?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -13111,9 +14037,9 @@ export namespace Prisma {
     photoUrl: string | null
     reaction: string | null
     veterinarianId: string | null
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: VaccinationCountAggregateOutputType | null
     _min: VaccinationMinAggregateOutputType | null
     _max: VaccinationMaxAggregateOutputType | null
@@ -13145,12 +14071,44 @@ export namespace Prisma {
     photoUrl?: boolean
     reaction?: boolean
     veterinarianId?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }, ExtArgs["result"]["vaccination"]>
 
+  export type VaccinationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    vaccineType?: boolean
+    brand?: boolean
+    batch?: boolean
+    vaccinationDate?: boolean
+    expirationDate?: boolean
+    nextDoseDate?: boolean
+    photoUrl?: boolean
+    reaction?: boolean
+    veterinarianId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["vaccination"]>
 
+  export type VaccinationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    vaccineType?: boolean
+    brand?: boolean
+    batch?: boolean
+    vaccinationDate?: boolean
+    expirationDate?: boolean
+    nextDoseDate?: boolean
+    photoUrl?: boolean
+    reaction?: boolean
+    veterinarianId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["vaccination"]>
 
   export type VaccinationSelectScalar = {
     id?: boolean
@@ -13164,12 +14122,12 @@ export namespace Prisma {
     photoUrl?: boolean
     reaction?: boolean
     veterinarianId?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type VaccinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "vaccineType" | "brand" | "batch" | "vaccinationDate" | "expirationDate" | "nextDoseDate" | "photoUrl" | "reaction" | "veterinarianId" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["vaccination"]>
+  export type VaccinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "vaccineType" | "brand" | "batch" | "vaccinationDate" | "expirationDate" | "nextDoseDate" | "photoUrl" | "reaction" | "veterinarianId" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["vaccination"]>
 
   export type $VaccinationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Vaccination"
@@ -13186,9 +14144,9 @@ export namespace Prisma {
       photoUrl: string | null
       reaction: string | null
       veterinarianId: string | null
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["vaccination"]>
     composites: {}
   }
@@ -13307,6 +14265,30 @@ export namespace Prisma {
     createMany<T extends VaccinationCreateManyArgs>(args?: SelectSubset<T, VaccinationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Vaccinations and returns the data saved in the database.
+     * @param {VaccinationCreateManyAndReturnArgs} args - Arguments to create many Vaccinations.
+     * @example
+     * // Create many Vaccinations
+     * const vaccination = await prisma.vaccination.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Vaccinations and only return the `id`
+     * const vaccinationWithIdOnly = await prisma.vaccination.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VaccinationCreateManyAndReturnArgs>(args?: SelectSubset<T, VaccinationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VaccinationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Vaccination.
      * @param {VaccinationDeleteArgs} args - Arguments to delete one Vaccination.
      * @example
@@ -13371,6 +14353,36 @@ export namespace Prisma {
     updateMany<T extends VaccinationUpdateManyArgs>(args: SelectSubset<T, VaccinationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Vaccinations and returns the data updated in the database.
+     * @param {VaccinationUpdateManyAndReturnArgs} args - Arguments to update many Vaccinations.
+     * @example
+     * // Update many Vaccinations
+     * const vaccination = await prisma.vaccination.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Vaccinations and only return the `id`
+     * const vaccinationWithIdOnly = await prisma.vaccination.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VaccinationUpdateManyAndReturnArgs>(args: SelectSubset<T, VaccinationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VaccinationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Vaccination.
      * @param {VaccinationUpsertArgs} args - Arguments to update or create a Vaccination.
      * @example
@@ -13388,29 +14400,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends VaccinationUpsertArgs>(args: SelectSubset<T, VaccinationUpsertArgs<ExtArgs>>): Prisma__VaccinationClient<$Result.GetResult<Prisma.$VaccinationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Vaccinations that matches the filter.
-     * @param {VaccinationFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const vaccination = await prisma.vaccination.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: VaccinationFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Vaccination.
-     * @param {VaccinationAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const vaccination = await prisma.vaccination.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: VaccinationAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -13592,9 +14581,9 @@ export namespace Prisma {
     readonly photoUrl: FieldRef<"Vaccination", 'String'>
     readonly reaction: FieldRef<"Vaccination", 'String'>
     readonly veterinarianId: FieldRef<"Vaccination", 'String'>
-    readonly farmId: FieldRef<"Vaccination", 'String'>
     readonly createdAt: FieldRef<"Vaccination", 'DateTime'>
     readonly updatedAt: FieldRef<"Vaccination", 'DateTime'>
+    readonly farmId: FieldRef<"Vaccination", 'String'>
   }
     
 
@@ -13805,6 +14794,26 @@ export namespace Prisma {
      * The data used to create many Vaccinations.
      */
     data: VaccinationCreateManyInput | VaccinationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Vaccination createManyAndReturn
+   */
+  export type VaccinationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vaccination
+     */
+    select?: VaccinationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vaccination
+     */
+    omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Vaccinations.
+     */
+    data: VaccinationCreateManyInput | VaccinationCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -13833,6 +14842,32 @@ export namespace Prisma {
    * Vaccination updateMany
    */
   export type VaccinationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Vaccinations.
+     */
+    data: XOR<VaccinationUpdateManyMutationInput, VaccinationUncheckedUpdateManyInput>
+    /**
+     * Filter which Vaccinations to update
+     */
+    where?: VaccinationWhereInput
+    /**
+     * Limit how many Vaccinations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Vaccination updateManyAndReturn
+   */
+  export type VaccinationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vaccination
+     */
+    select?: VaccinationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vaccination
+     */
+    omit?: VaccinationOmit<ExtArgs> | null
     /**
      * The data used to update Vaccinations.
      */
@@ -13906,34 +14941,6 @@ export namespace Prisma {
   }
 
   /**
-   * Vaccination findRaw
-   */
-  export type VaccinationFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Vaccination aggregateRaw
-   */
-  export type VaccinationAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Vaccination without action
    */
   export type VaccinationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13978,8 +14985,8 @@ export namespace Prisma {
     employee: string | null
     batchId: string | null
     batchTotal: number | null
-    farmId: string | null
     createdAt: Date | null
+    farmId: string | null
   }
 
   export type ManagementMaxAggregateOutputType = {
@@ -13992,8 +14999,8 @@ export namespace Prisma {
     employee: string | null
     batchId: string | null
     batchTotal: number | null
-    farmId: string | null
     createdAt: Date | null
+    farmId: string | null
   }
 
   export type ManagementCountAggregateOutputType = {
@@ -14006,8 +15013,8 @@ export namespace Prisma {
     employee: number
     batchId: number
     batchTotal: number
-    farmId: number
     createdAt: number
+    farmId: number
     _all: number
   }
 
@@ -14030,8 +15037,8 @@ export namespace Prisma {
     employee?: true
     batchId?: true
     batchTotal?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
   }
 
   export type ManagementMaxAggregateInputType = {
@@ -14044,8 +15051,8 @@ export namespace Prisma {
     employee?: true
     batchId?: true
     batchTotal?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
   }
 
   export type ManagementCountAggregateInputType = {
@@ -14058,8 +15065,8 @@ export namespace Prisma {
     employee?: true
     batchId?: true
     batchTotal?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -14159,8 +15166,8 @@ export namespace Prisma {
     employee: string
     batchId: string | null
     batchTotal: number | null
-    farmId: string
     createdAt: Date
+    farmId: string
     _count: ManagementCountAggregateOutputType | null
     _avg: ManagementAvgAggregateOutputType | null
     _sum: ManagementSumAggregateOutputType | null
@@ -14192,11 +15199,37 @@ export namespace Prisma {
     employee?: boolean
     batchId?: boolean
     batchTotal?: boolean
-    farmId?: boolean
     createdAt?: boolean
+    farmId?: boolean
   }, ExtArgs["result"]["management"]>
 
+  export type ManagementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    originPasture?: boolean
+    destinationPasture?: boolean
+    movementDate?: boolean
+    reason?: boolean
+    employee?: boolean
+    batchId?: boolean
+    batchTotal?: boolean
+    createdAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["management"]>
 
+  export type ManagementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    originPasture?: boolean
+    destinationPasture?: boolean
+    movementDate?: boolean
+    reason?: boolean
+    employee?: boolean
+    batchId?: boolean
+    batchTotal?: boolean
+    createdAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["management"]>
 
   export type ManagementSelectScalar = {
     id?: boolean
@@ -14208,11 +15241,11 @@ export namespace Prisma {
     employee?: boolean
     batchId?: boolean
     batchTotal?: boolean
-    farmId?: boolean
     createdAt?: boolean
+    farmId?: boolean
   }
 
-  export type ManagementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "originPasture" | "destinationPasture" | "movementDate" | "reason" | "employee" | "batchId" | "batchTotal" | "farmId" | "createdAt", ExtArgs["result"]["management"]>
+  export type ManagementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "originPasture" | "destinationPasture" | "movementDate" | "reason" | "employee" | "batchId" | "batchTotal" | "createdAt" | "farmId", ExtArgs["result"]["management"]>
 
   export type $ManagementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Management"
@@ -14227,8 +15260,8 @@ export namespace Prisma {
       employee: string
       batchId: string | null
       batchTotal: number | null
-      farmId: string
       createdAt: Date
+      farmId: string
     }, ExtArgs["result"]["management"]>
     composites: {}
   }
@@ -14347,6 +15380,30 @@ export namespace Prisma {
     createMany<T extends ManagementCreateManyArgs>(args?: SelectSubset<T, ManagementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Managements and returns the data saved in the database.
+     * @param {ManagementCreateManyAndReturnArgs} args - Arguments to create many Managements.
+     * @example
+     * // Create many Managements
+     * const management = await prisma.management.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Managements and only return the `id`
+     * const managementWithIdOnly = await prisma.management.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ManagementCreateManyAndReturnArgs>(args?: SelectSubset<T, ManagementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManagementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Management.
      * @param {ManagementDeleteArgs} args - Arguments to delete one Management.
      * @example
@@ -14411,6 +15468,36 @@ export namespace Prisma {
     updateMany<T extends ManagementUpdateManyArgs>(args: SelectSubset<T, ManagementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Managements and returns the data updated in the database.
+     * @param {ManagementUpdateManyAndReturnArgs} args - Arguments to update many Managements.
+     * @example
+     * // Update many Managements
+     * const management = await prisma.management.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Managements and only return the `id`
+     * const managementWithIdOnly = await prisma.management.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ManagementUpdateManyAndReturnArgs>(args: SelectSubset<T, ManagementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManagementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Management.
      * @param {ManagementUpsertArgs} args - Arguments to update or create a Management.
      * @example
@@ -14428,29 +15515,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends ManagementUpsertArgs>(args: SelectSubset<T, ManagementUpsertArgs<ExtArgs>>): Prisma__ManagementClient<$Result.GetResult<Prisma.$ManagementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Managements that matches the filter.
-     * @param {ManagementFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const management = await prisma.management.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: ManagementFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Management.
-     * @param {ManagementAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const management = await prisma.management.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: ManagementAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -14630,8 +15694,8 @@ export namespace Prisma {
     readonly employee: FieldRef<"Management", 'String'>
     readonly batchId: FieldRef<"Management", 'String'>
     readonly batchTotal: FieldRef<"Management", 'Int'>
-    readonly farmId: FieldRef<"Management", 'String'>
     readonly createdAt: FieldRef<"Management", 'DateTime'>
+    readonly farmId: FieldRef<"Management", 'String'>
   }
     
 
@@ -14842,6 +15906,26 @@ export namespace Prisma {
      * The data used to create many Managements.
      */
     data: ManagementCreateManyInput | ManagementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Management createManyAndReturn
+   */
+  export type ManagementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Management
+     */
+    select?: ManagementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Management
+     */
+    omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * The data used to create many Managements.
+     */
+    data: ManagementCreateManyInput | ManagementCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -14870,6 +15954,32 @@ export namespace Prisma {
    * Management updateMany
    */
   export type ManagementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Managements.
+     */
+    data: XOR<ManagementUpdateManyMutationInput, ManagementUncheckedUpdateManyInput>
+    /**
+     * Filter which Managements to update
+     */
+    where?: ManagementWhereInput
+    /**
+     * Limit how many Managements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Management updateManyAndReturn
+   */
+  export type ManagementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Management
+     */
+    select?: ManagementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Management
+     */
+    omit?: ManagementOmit<ExtArgs> | null
     /**
      * The data used to update Managements.
      */
@@ -14943,34 +16053,6 @@ export namespace Prisma {
   }
 
   /**
-   * Management findRaw
-   */
-  export type ManagementFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Management aggregateRaw
-   */
-  export type ManagementAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Management without action
    */
   export type ManagementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15008,9 +16090,9 @@ export namespace Prisma {
     origin: string | null
     birthId: string | null
     notes: string | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type MortalityMaxAggregateOutputType = {
@@ -15026,9 +16108,9 @@ export namespace Prisma {
     origin: string | null
     birthId: string | null
     notes: string | null
-    farmId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    farmId: string | null
   }
 
   export type MortalityCountAggregateOutputType = {
@@ -15045,9 +16127,9 @@ export namespace Prisma {
     origin: number
     birthId: number
     notes: number
-    farmId: number
     createdAt: number
     updatedAt: number
+    farmId: number
     _all: number
   }
 
@@ -15065,9 +16147,9 @@ export namespace Prisma {
     origin?: true
     birthId?: true
     notes?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type MortalityMaxAggregateInputType = {
@@ -15083,9 +16165,9 @@ export namespace Prisma {
     origin?: true
     birthId?: true
     notes?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
   }
 
   export type MortalityCountAggregateInputType = {
@@ -15102,9 +16184,9 @@ export namespace Prisma {
     origin?: true
     birthId?: true
     notes?: true
-    farmId?: true
     createdAt?: true
     updatedAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -15194,9 +16276,9 @@ export namespace Prisma {
     origin: string | null
     birthId: string | null
     notes: string | null
-    farmId: string
     createdAt: Date
     updatedAt: Date
+    farmId: string
     _count: MortalityCountAggregateOutputType | null
     _min: MortalityMinAggregateOutputType | null
     _max: MortalityMaxAggregateOutputType | null
@@ -15230,12 +16312,48 @@ export namespace Prisma {
     origin?: boolean
     birthId?: boolean
     notes?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }, ExtArgs["result"]["mortality"]>
 
+  export type MortalitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    deathDate?: boolean
+    deathTime?: boolean
+    deathLocation?: boolean
+    causeOfDeath?: boolean
+    severity?: boolean
+    necropsy?: boolean
+    disposal?: boolean
+    photos?: boolean
+    origin?: boolean
+    birthId?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["mortality"]>
 
+  export type MortalitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    animalId?: boolean
+    deathDate?: boolean
+    deathTime?: boolean
+    deathLocation?: boolean
+    causeOfDeath?: boolean
+    severity?: boolean
+    necropsy?: boolean
+    disposal?: boolean
+    photos?: boolean
+    origin?: boolean
+    birthId?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["mortality"]>
 
   export type MortalitySelectScalar = {
     id?: boolean
@@ -15251,12 +16369,12 @@ export namespace Prisma {
     origin?: boolean
     birthId?: boolean
     notes?: boolean
-    farmId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    farmId?: boolean
   }
 
-  export type MortalityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "deathDate" | "deathTime" | "deathLocation" | "causeOfDeath" | "severity" | "necropsy" | "disposal" | "photos" | "origin" | "birthId" | "notes" | "farmId" | "createdAt" | "updatedAt", ExtArgs["result"]["mortality"]>
+  export type MortalityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "deathDate" | "deathTime" | "deathLocation" | "causeOfDeath" | "severity" | "necropsy" | "disposal" | "photos" | "origin" | "birthId" | "notes" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["mortality"]>
 
   export type $MortalityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Mortality"
@@ -15275,9 +16393,9 @@ export namespace Prisma {
       origin: string | null
       birthId: string | null
       notes: string | null
-      farmId: string
       createdAt: Date
       updatedAt: Date
+      farmId: string
     }, ExtArgs["result"]["mortality"]>
     composites: {}
   }
@@ -15396,6 +16514,30 @@ export namespace Prisma {
     createMany<T extends MortalityCreateManyArgs>(args?: SelectSubset<T, MortalityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Mortalities and returns the data saved in the database.
+     * @param {MortalityCreateManyAndReturnArgs} args - Arguments to create many Mortalities.
+     * @example
+     * // Create many Mortalities
+     * const mortality = await prisma.mortality.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Mortalities and only return the `id`
+     * const mortalityWithIdOnly = await prisma.mortality.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MortalityCreateManyAndReturnArgs>(args?: SelectSubset<T, MortalityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Mortality.
      * @param {MortalityDeleteArgs} args - Arguments to delete one Mortality.
      * @example
@@ -15460,6 +16602,36 @@ export namespace Prisma {
     updateMany<T extends MortalityUpdateManyArgs>(args: SelectSubset<T, MortalityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more Mortalities and returns the data updated in the database.
+     * @param {MortalityUpdateManyAndReturnArgs} args - Arguments to update many Mortalities.
+     * @example
+     * // Update many Mortalities
+     * const mortality = await prisma.mortality.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Mortalities and only return the `id`
+     * const mortalityWithIdOnly = await prisma.mortality.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MortalityUpdateManyAndReturnArgs>(args: SelectSubset<T, MortalityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one Mortality.
      * @param {MortalityUpsertArgs} args - Arguments to update or create a Mortality.
      * @example
@@ -15477,29 +16649,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends MortalityUpsertArgs>(args: SelectSubset<T, MortalityUpsertArgs<ExtArgs>>): Prisma__MortalityClient<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Mortalities that matches the filter.
-     * @param {MortalityFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const mortality = await prisma.mortality.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: MortalityFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Mortality.
-     * @param {MortalityAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const mortality = await prisma.mortality.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: MortalityAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -15683,9 +16832,9 @@ export namespace Prisma {
     readonly origin: FieldRef<"Mortality", 'String'>
     readonly birthId: FieldRef<"Mortality", 'String'>
     readonly notes: FieldRef<"Mortality", 'String'>
-    readonly farmId: FieldRef<"Mortality", 'String'>
     readonly createdAt: FieldRef<"Mortality", 'DateTime'>
     readonly updatedAt: FieldRef<"Mortality", 'DateTime'>
+    readonly farmId: FieldRef<"Mortality", 'String'>
   }
     
 
@@ -15896,6 +17045,26 @@ export namespace Prisma {
      * The data used to create many Mortalities.
      */
     data: MortalityCreateManyInput | MortalityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Mortality createManyAndReturn
+   */
+  export type MortalityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mortality
+     */
+    select?: MortalitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mortality
+     */
+    omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * The data used to create many Mortalities.
+     */
+    data: MortalityCreateManyInput | MortalityCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -15924,6 +17093,32 @@ export namespace Prisma {
    * Mortality updateMany
    */
   export type MortalityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Mortalities.
+     */
+    data: XOR<MortalityUpdateManyMutationInput, MortalityUncheckedUpdateManyInput>
+    /**
+     * Filter which Mortalities to update
+     */
+    where?: MortalityWhereInput
+    /**
+     * Limit how many Mortalities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Mortality updateManyAndReturn
+   */
+  export type MortalityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mortality
+     */
+    select?: MortalitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mortality
+     */
+    omit?: MortalityOmit<ExtArgs> | null
     /**
      * The data used to update Mortalities.
      */
@@ -15997,34 +17192,6 @@ export namespace Prisma {
   }
 
   /**
-   * Mortality findRaw
-   */
-  export type MortalityFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Mortality aggregateRaw
-   */
-  export type MortalityAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * Mortality without action
    */
   export type MortalityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16055,8 +17222,8 @@ export namespace Prisma {
     code: string | null
     expiresAt: Date | null
     used: boolean | null
-    farmId: string | null
     createdAt: Date | null
+    farmId: string | null
   }
 
   export type PasswordResetTokenMaxAggregateOutputType = {
@@ -16065,8 +17232,8 @@ export namespace Prisma {
     code: string | null
     expiresAt: Date | null
     used: boolean | null
-    farmId: string | null
     createdAt: Date | null
+    farmId: string | null
   }
 
   export type PasswordResetTokenCountAggregateOutputType = {
@@ -16075,8 +17242,8 @@ export namespace Prisma {
     code: number
     expiresAt: number
     used: number
-    farmId: number
     createdAt: number
+    farmId: number
     _all: number
   }
 
@@ -16087,8 +17254,8 @@ export namespace Prisma {
     code?: true
     expiresAt?: true
     used?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
   }
 
   export type PasswordResetTokenMaxAggregateInputType = {
@@ -16097,8 +17264,8 @@ export namespace Prisma {
     code?: true
     expiresAt?: true
     used?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
   }
 
   export type PasswordResetTokenCountAggregateInputType = {
@@ -16107,8 +17274,8 @@ export namespace Prisma {
     code?: true
     expiresAt?: true
     used?: true
-    farmId?: true
     createdAt?: true
+    farmId?: true
     _all?: true
   }
 
@@ -16190,8 +17357,8 @@ export namespace Prisma {
     code: string
     expiresAt: Date
     used: boolean
-    farmId: string
     createdAt: Date
+    farmId: string
     _count: PasswordResetTokenCountAggregateOutputType | null
     _min: PasswordResetTokenMinAggregateOutputType | null
     _max: PasswordResetTokenMaxAggregateOutputType | null
@@ -16217,11 +17384,29 @@ export namespace Prisma {
     code?: boolean
     expiresAt?: boolean
     used?: boolean
-    farmId?: boolean
     createdAt?: boolean
+    farmId?: boolean
   }, ExtArgs["result"]["passwordResetToken"]>
 
+  export type PasswordResetTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    expiresAt?: boolean
+    used?: boolean
+    createdAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["passwordResetToken"]>
 
+  export type PasswordResetTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    expiresAt?: boolean
+    used?: boolean
+    createdAt?: boolean
+    farmId?: boolean
+  }, ExtArgs["result"]["passwordResetToken"]>
 
   export type PasswordResetTokenSelectScalar = {
     id?: boolean
@@ -16229,11 +17414,11 @@ export namespace Prisma {
     code?: boolean
     expiresAt?: boolean
     used?: boolean
-    farmId?: boolean
     createdAt?: boolean
+    farmId?: boolean
   }
 
-  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "code" | "expiresAt" | "used" | "farmId" | "createdAt", ExtArgs["result"]["passwordResetToken"]>
+  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "code" | "expiresAt" | "used" | "createdAt" | "farmId", ExtArgs["result"]["passwordResetToken"]>
 
   export type $PasswordResetTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PasswordResetToken"
@@ -16244,8 +17429,8 @@ export namespace Prisma {
       code: string
       expiresAt: Date
       used: boolean
-      farmId: string
       createdAt: Date
+      farmId: string
     }, ExtArgs["result"]["passwordResetToken"]>
     composites: {}
   }
@@ -16364,6 +17549,30 @@ export namespace Prisma {
     createMany<T extends PasswordResetTokenCreateManyArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many PasswordResetTokens and returns the data saved in the database.
+     * @param {PasswordResetTokenCreateManyAndReturnArgs} args - Arguments to create many PasswordResetTokens.
+     * @example
+     * // Create many PasswordResetTokens
+     * const passwordResetToken = await prisma.passwordResetToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PasswordResetTokens and only return the `id`
+     * const passwordResetTokenWithIdOnly = await prisma.passwordResetToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PasswordResetTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a PasswordResetToken.
      * @param {PasswordResetTokenDeleteArgs} args - Arguments to delete one PasswordResetToken.
      * @example
@@ -16428,6 +17637,36 @@ export namespace Prisma {
     updateMany<T extends PasswordResetTokenUpdateManyArgs>(args: SelectSubset<T, PasswordResetTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Update zero or more PasswordResetTokens and returns the data updated in the database.
+     * @param {PasswordResetTokenUpdateManyAndReturnArgs} args - Arguments to update many PasswordResetTokens.
+     * @example
+     * // Update many PasswordResetTokens
+     * const passwordResetToken = await prisma.passwordResetToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PasswordResetTokens and only return the `id`
+     * const passwordResetTokenWithIdOnly = await prisma.passwordResetToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PasswordResetTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Create or update one PasswordResetToken.
      * @param {PasswordResetTokenUpsertArgs} args - Arguments to update or create a PasswordResetToken.
      * @example
@@ -16445,29 +17684,6 @@ export namespace Prisma {
      * })
      */
     upsert<T extends PasswordResetTokenUpsertArgs>(args: SelectSubset<T, PasswordResetTokenUpsertArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more PasswordResetTokens that matches the filter.
-     * @param {PasswordResetTokenFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const passwordResetToken = await prisma.passwordResetToken.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: PasswordResetTokenFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a PasswordResetToken.
-     * @param {PasswordResetTokenAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const passwordResetToken = await prisma.passwordResetToken.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: PasswordResetTokenAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
@@ -16643,8 +17859,8 @@ export namespace Prisma {
     readonly code: FieldRef<"PasswordResetToken", 'String'>
     readonly expiresAt: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly used: FieldRef<"PasswordResetToken", 'Boolean'>
-    readonly farmId: FieldRef<"PasswordResetToken", 'String'>
     readonly createdAt: FieldRef<"PasswordResetToken", 'DateTime'>
+    readonly farmId: FieldRef<"PasswordResetToken", 'String'>
   }
     
 
@@ -16855,6 +18071,26 @@ export namespace Prisma {
      * The data used to create many PasswordResetTokens.
      */
     data: PasswordResetTokenCreateManyInput | PasswordResetTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PasswordResetToken createManyAndReturn
+   */
+  export type PasswordResetTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many PasswordResetTokens.
+     */
+    data: PasswordResetTokenCreateManyInput | PasswordResetTokenCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -16883,6 +18119,32 @@ export namespace Prisma {
    * PasswordResetToken updateMany
    */
   export type PasswordResetTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PasswordResetTokens.
+     */
+    data: XOR<PasswordResetTokenUpdateManyMutationInput, PasswordResetTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetTokens to update
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * Limit how many PasswordResetTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetToken updateManyAndReturn
+   */
+  export type PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
     /**
      * The data used to update PasswordResetTokens.
      */
@@ -16956,34 +18218,6 @@ export namespace Prisma {
   }
 
   /**
-   * PasswordResetToken findRaw
-   */
-  export type PasswordResetTokenFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * PasswordResetToken aggregateRaw
-   */
-  export type PasswordResetTokenAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
    * PasswordResetToken without action
    */
   export type PasswordResetTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17001,6 +18235,16 @@ export namespace Prisma {
   /**
    * Enums
    */
+
+  export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
+    Serializable: 'Serializable'
+  };
+
+  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
 
   export const FarmScalarFieldEnum: {
     id: 'id',
@@ -17030,10 +18274,10 @@ export namespace Prisma {
     specialties: 'specialties',
     resetPasswordToken: 'resetPasswordToken',
     resetPasswordExpires: 'resetPasswordExpires',
-    farmId: 'farmId',
     lastLogin: 'lastLogin',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -17053,9 +18297,9 @@ export namespace Prisma {
     pastureName: 'pastureName',
     status: 'status',
     deathDate: 'deathDate',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type AnimalScalarFieldEnum = (typeof AnimalScalarFieldEnum)[keyof typeof AnimalScalarFieldEnum]
@@ -17064,12 +18308,12 @@ export namespace Prisma {
   export const EarTagHistoryScalarFieldEnum: {
     id: 'id',
     earTagNumber: 'earTagNumber',
-    animalId: 'animalId',
     placementDate: 'placementDate',
     removalDate: 'removalDate',
     reason: 'reason',
+    createdAt: 'createdAt',
     farmId: 'farmId',
-    createdAt: 'createdAt'
+    animalId: 'animalId'
   };
 
   export type EarTagHistoryScalarFieldEnum = (typeof EarTagHistoryScalarFieldEnum)[keyof typeof EarTagHistoryScalarFieldEnum]
@@ -17083,9 +18327,9 @@ export namespace Prisma {
     animalCapacity: 'animalCapacity',
     currentAnimals: 'currentAnimals',
     active: 'active',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type PastureScalarFieldEnum = (typeof PastureScalarFieldEnum)[keyof typeof PastureScalarFieldEnum]
@@ -17098,9 +18342,9 @@ export namespace Prisma {
     intensity: 'intensity',
     detectedBy: 'detectedBy',
     nextEstrus: 'nextEstrus',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type EstrusScalarFieldEnum = (typeof EstrusScalarFieldEnum)[keyof typeof EstrusScalarFieldEnum]
@@ -17111,9 +18355,9 @@ export namespace Prisma {
     animalId: 'animalId',
     currentStatus: 'currentStatus',
     currentStatusDate: 'currentStatusDate',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type PregnancyScalarFieldEnum = (typeof PregnancyScalarFieldEnum)[keyof typeof PregnancyScalarFieldEnum]
@@ -17122,7 +18366,6 @@ export namespace Prisma {
   export const AttemptScalarFieldEnum: {
     id: 'id',
     number: 'number',
-    pregnancyId: 'pregnancyId',
     matingDate: 'matingDate',
     matingType: 'matingType',
     bullId: 'bullId',
@@ -17132,7 +18375,8 @@ export namespace Prisma {
     birthId: 'birthId',
     attemptStatus: 'attemptStatus',
     notes: 'notes',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    pregnancyId: 'pregnancyId'
   };
 
   export type AttemptScalarFieldEnum = (typeof AttemptScalarFieldEnum)[keyof typeof AttemptScalarFieldEnum]
@@ -17140,12 +18384,12 @@ export namespace Prisma {
 
   export const UltrasoundScalarFieldEnum: {
     id: 'id',
-    attemptId: 'attemptId',
     days: 'days',
     result: 'result',
     notes: 'notes',
     veterinarianId: 'veterinarianId',
-    ultrasoundDate: 'ultrasoundDate'
+    ultrasoundDate: 'ultrasoundDate',
+    attemptId: 'attemptId'
   };
 
   export type UltrasoundScalarFieldEnum = (typeof UltrasoundScalarFieldEnum)[keyof typeof UltrasoundScalarFieldEnum]
@@ -17169,9 +18413,9 @@ export namespace Prisma {
     situation: 'situation',
     deathReason: 'deathReason',
     notes: 'notes',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type BirthScalarFieldEnum = (typeof BirthScalarFieldEnum)[keyof typeof BirthScalarFieldEnum]
@@ -17189,9 +18433,9 @@ export namespace Prisma {
     photoUrl: 'photoUrl',
     reaction: 'reaction',
     veterinarianId: 'veterinarianId',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type VaccinationScalarFieldEnum = (typeof VaccinationScalarFieldEnum)[keyof typeof VaccinationScalarFieldEnum]
@@ -17207,8 +18451,8 @@ export namespace Prisma {
     employee: 'employee',
     batchId: 'batchId',
     batchTotal: 'batchTotal',
-    farmId: 'farmId',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    farmId: 'farmId'
   };
 
   export type ManagementScalarFieldEnum = (typeof ManagementScalarFieldEnum)[keyof typeof ManagementScalarFieldEnum]
@@ -17228,9 +18472,9 @@ export namespace Prisma {
     origin: 'origin',
     birthId: 'birthId',
     notes: 'notes',
-    farmId: 'farmId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    farmId: 'farmId'
   };
 
   export type MortalityScalarFieldEnum = (typeof MortalityScalarFieldEnum)[keyof typeof MortalityScalarFieldEnum]
@@ -17242,8 +18486,8 @@ export namespace Prisma {
     code: 'code',
     expiresAt: 'expiresAt',
     used: 'used',
-    farmId: 'farmId',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    farmId: 'farmId'
   };
 
   export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
@@ -17263,6 +18507,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -17371,8 +18623,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     location?: SortOrder
-    cnpj?: SortOrder
-    logoUrl?: SortOrder
+    cnpj?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17402,8 +18654,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     location?: SortOrder
-    cnpj?: SortOrder
-    logoUrl?: SortOrder
+    cnpj?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17443,10 +18695,10 @@ export namespace Prisma {
     specialties?: StringNullableListFilter<"User">
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    farmId?: StringFilter<"User"> | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    farmId?: StringFilter<"User"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
   }
 
@@ -17454,31 +18706,31 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
+    phone?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrder
-    crmv?: SortOrder
-    graduationDate?: SortOrder
+    crv?: SortOrderInput | SortOrder
+    crmv?: SortOrderInput | SortOrder
+    graduationDate?: SortOrderInput | SortOrder
     specialties?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordExpires?: SortOrder
-    farmId?: SortOrder
-    lastLogin?: SortOrder
+    resetPasswordToken?: SortOrderInput | SortOrder
+    resetPasswordExpires?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     farm?: FarmOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    email?: string
     farmId_email?: UserFarmIdEmailCompoundUniqueInput
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     fullName?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumPermissionFilter<"User"> | $Enums.Permission
@@ -17489,31 +18741,31 @@ export namespace Prisma {
     specialties?: StringNullableListFilter<"User">
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    farmId?: StringFilter<"User"> | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    farmId?: StringFilter<"User"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
-  }, "id" | "email" | "farmId_email">
+  }, "id" | "farmId_email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
+    phone?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrder
-    crmv?: SortOrder
-    graduationDate?: SortOrder
+    crv?: SortOrderInput | SortOrder
+    crmv?: SortOrderInput | SortOrder
+    graduationDate?: SortOrderInput | SortOrder
     specialties?: SortOrder
-    resetPasswordToken?: SortOrder
-    resetPasswordExpires?: SortOrder
-    farmId?: SortOrder
-    lastLogin?: SortOrder
+    resetPasswordToken?: SortOrderInput | SortOrder
+    resetPasswordExpires?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -17536,10 +18788,10 @@ export namespace Prisma {
     specialties?: StringNullableListFilter<"User">
     resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    farmId?: StringWithAggregatesFilter<"User"> | string
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    farmId?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type AnimalWhereInput = {
@@ -17559,32 +18811,32 @@ export namespace Prisma {
     pastureName?: StringNullableFilter<"Animal"> | string | null
     status?: StringFilter<"Animal"> | string
     deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
-    farmId?: StringFilter<"Animal"> | string
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
-    earTagHistory?: EarTagHistoryListRelationFilter
+    farmId?: StringFilter<"Animal"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    earTagHistory?: EarTagHistoryListRelationFilter
   }
 
   export type AnimalOrderByWithRelationInput = {
     id?: SortOrder
     chipId?: SortOrder
-    currentEarTag?: SortOrder
+    currentEarTag?: SortOrderInput | SortOrder
     name?: SortOrder
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
-    sireId?: SortOrder
-    damId?: SortOrder
-    pastureId?: SortOrder
-    pastureName?: SortOrder
+    sireId?: SortOrderInput | SortOrder
+    damId?: SortOrderInput | SortOrder
+    pastureId?: SortOrderInput | SortOrder
+    pastureName?: SortOrderInput | SortOrder
     status?: SortOrder
-    deathDate?: SortOrder
-    farmId?: SortOrder
+    deathDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    earTagHistory?: EarTagHistoryOrderByRelationAggregateInput
+    farmId?: SortOrder
     farm?: FarmOrderByWithRelationInput
+    earTagHistory?: EarTagHistoryOrderByRelationAggregateInput
   }
 
   export type AnimalWhereUniqueInput = Prisma.AtLeast<{
@@ -17605,30 +18857,30 @@ export namespace Prisma {
     pastureName?: StringNullableFilter<"Animal"> | string | null
     status?: StringFilter<"Animal"> | string
     deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
-    farmId?: StringFilter<"Animal"> | string
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
-    earTagHistory?: EarTagHistoryListRelationFilter
+    farmId?: StringFilter<"Animal"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    earTagHistory?: EarTagHistoryListRelationFilter
   }, "id" | "chipId" | "currentEarTag" | "farmId_chipId">
 
   export type AnimalOrderByWithAggregationInput = {
     id?: SortOrder
     chipId?: SortOrder
-    currentEarTag?: SortOrder
+    currentEarTag?: SortOrderInput | SortOrder
     name?: SortOrder
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
-    sireId?: SortOrder
-    damId?: SortOrder
-    pastureId?: SortOrder
-    pastureName?: SortOrder
+    sireId?: SortOrderInput | SortOrder
+    damId?: SortOrderInput | SortOrder
+    pastureId?: SortOrderInput | SortOrder
+    pastureName?: SortOrderInput | SortOrder
     status?: SortOrder
-    deathDate?: SortOrder
-    farmId?: SortOrder
+    deathDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: AnimalCountOrderByAggregateInput
     _max?: AnimalMaxOrderByAggregateInput
     _min?: AnimalMinOrderByAggregateInput
@@ -17651,9 +18903,9 @@ export namespace Prisma {
     pastureName?: StringNullableWithAggregatesFilter<"Animal"> | string | null
     status?: StringWithAggregatesFilter<"Animal"> | string
     deathDate?: DateTimeNullableWithAggregatesFilter<"Animal"> | Date | string | null
-    farmId?: StringWithAggregatesFilter<"Animal"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Animal"> | string
   }
 
   export type EarTagHistoryWhereInput = {
@@ -17662,24 +18914,24 @@ export namespace Prisma {
     NOT?: EarTagHistoryWhereInput | EarTagHistoryWhereInput[]
     id?: StringFilter<"EarTagHistory"> | string
     earTagNumber?: StringFilter<"EarTagHistory"> | string
-    animalId?: StringFilter<"EarTagHistory"> | string
     placementDate?: DateTimeFilter<"EarTagHistory"> | Date | string
     removalDate?: DateTimeNullableFilter<"EarTagHistory"> | Date | string | null
     reason?: StringNullableFilter<"EarTagHistory"> | string | null
-    farmId?: StringFilter<"EarTagHistory"> | string
     createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
+    farmId?: StringFilter<"EarTagHistory"> | string
+    animalId?: StringFilter<"EarTagHistory"> | string
     animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
   }
 
   export type EarTagHistoryOrderByWithRelationInput = {
     id?: SortOrder
     earTagNumber?: SortOrder
-    animalId?: SortOrder
     placementDate?: SortOrder
-    removalDate?: SortOrder
-    reason?: SortOrder
-    farmId?: SortOrder
+    removalDate?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
+    animalId?: SortOrder
     animal?: AnimalOrderByWithRelationInput
   }
 
@@ -17689,24 +18941,24 @@ export namespace Prisma {
     OR?: EarTagHistoryWhereInput[]
     NOT?: EarTagHistoryWhereInput | EarTagHistoryWhereInput[]
     earTagNumber?: StringFilter<"EarTagHistory"> | string
-    animalId?: StringFilter<"EarTagHistory"> | string
     placementDate?: DateTimeFilter<"EarTagHistory"> | Date | string
     removalDate?: DateTimeNullableFilter<"EarTagHistory"> | Date | string | null
     reason?: StringNullableFilter<"EarTagHistory"> | string | null
-    farmId?: StringFilter<"EarTagHistory"> | string
     createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
+    farmId?: StringFilter<"EarTagHistory"> | string
+    animalId?: StringFilter<"EarTagHistory"> | string
     animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
   }, "id">
 
   export type EarTagHistoryOrderByWithAggregationInput = {
     id?: SortOrder
     earTagNumber?: SortOrder
-    animalId?: SortOrder
     placementDate?: SortOrder
-    removalDate?: SortOrder
-    reason?: SortOrder
-    farmId?: SortOrder
+    removalDate?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
+    animalId?: SortOrder
     _count?: EarTagHistoryCountOrderByAggregateInput
     _max?: EarTagHistoryMaxOrderByAggregateInput
     _min?: EarTagHistoryMinOrderByAggregateInput
@@ -17718,12 +18970,12 @@ export namespace Prisma {
     NOT?: EarTagHistoryScalarWhereWithAggregatesInput | EarTagHistoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"EarTagHistory"> | string
     earTagNumber?: StringWithAggregatesFilter<"EarTagHistory"> | string
-    animalId?: StringWithAggregatesFilter<"EarTagHistory"> | string
     placementDate?: DateTimeWithAggregatesFilter<"EarTagHistory"> | Date | string
     removalDate?: DateTimeNullableWithAggregatesFilter<"EarTagHistory"> | Date | string | null
     reason?: StringNullableWithAggregatesFilter<"EarTagHistory"> | string | null
-    farmId?: StringWithAggregatesFilter<"EarTagHistory"> | string
     createdAt?: DateTimeWithAggregatesFilter<"EarTagHistory"> | Date | string
+    farmId?: StringWithAggregatesFilter<"EarTagHistory"> | string
+    animalId?: StringWithAggregatesFilter<"EarTagHistory"> | string
   }
 
   export type PastureWhereInput = {
@@ -17737,9 +18989,9 @@ export namespace Prisma {
     animalCapacity?: IntFilter<"Pasture"> | number
     currentAnimals?: IntFilter<"Pasture"> | number
     active?: BoolFilter<"Pasture"> | boolean
-    farmId?: StringFilter<"Pasture"> | string
     createdAt?: DateTimeFilter<"Pasture"> | Date | string
     updatedAt?: DateTimeFilter<"Pasture"> | Date | string
+    farmId?: StringFilter<"Pasture"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
   }
 
@@ -17751,9 +19003,9 @@ export namespace Prisma {
     animalCapacity?: SortOrder
     currentAnimals?: SortOrder
     active?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     farm?: FarmOrderByWithRelationInput
   }
 
@@ -17769,9 +19021,9 @@ export namespace Prisma {
     animalCapacity?: IntFilter<"Pasture"> | number
     currentAnimals?: IntFilter<"Pasture"> | number
     active?: BoolFilter<"Pasture"> | boolean
-    farmId?: StringFilter<"Pasture"> | string
     createdAt?: DateTimeFilter<"Pasture"> | Date | string
     updatedAt?: DateTimeFilter<"Pasture"> | Date | string
+    farmId?: StringFilter<"Pasture"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
   }, "id" | "farmId_name">
 
@@ -17783,9 +19035,9 @@ export namespace Prisma {
     animalCapacity?: SortOrder
     currentAnimals?: SortOrder
     active?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: PastureCountOrderByAggregateInput
     _avg?: PastureAvgOrderByAggregateInput
     _max?: PastureMaxOrderByAggregateInput
@@ -17804,9 +19056,9 @@ export namespace Prisma {
     animalCapacity?: IntWithAggregatesFilter<"Pasture"> | number
     currentAnimals?: IntWithAggregatesFilter<"Pasture"> | number
     active?: BoolWithAggregatesFilter<"Pasture"> | boolean
-    farmId?: StringWithAggregatesFilter<"Pasture"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Pasture"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Pasture"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Pasture"> | string
   }
 
   export type EstrusWhereInput = {
@@ -17819,9 +19071,9 @@ export namespace Prisma {
     intensity?: StringFilter<"Estrus"> | string
     detectedBy?: StringFilter<"Estrus"> | string
     nextEstrus?: DateTimeFilter<"Estrus"> | Date | string
-    farmId?: StringFilter<"Estrus"> | string
     createdAt?: DateTimeFilter<"Estrus"> | Date | string
     updatedAt?: DateTimeFilter<"Estrus"> | Date | string
+    farmId?: StringFilter<"Estrus"> | string
   }
 
   export type EstrusOrderByWithRelationInput = {
@@ -17831,9 +19083,9 @@ export namespace Prisma {
     intensity?: SortOrder
     detectedBy?: SortOrder
     nextEstrus?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type EstrusWhereUniqueInput = Prisma.AtLeast<{
@@ -17846,9 +19098,9 @@ export namespace Prisma {
     intensity?: StringFilter<"Estrus"> | string
     detectedBy?: StringFilter<"Estrus"> | string
     nextEstrus?: DateTimeFilter<"Estrus"> | Date | string
-    farmId?: StringFilter<"Estrus"> | string
     createdAt?: DateTimeFilter<"Estrus"> | Date | string
     updatedAt?: DateTimeFilter<"Estrus"> | Date | string
+    farmId?: StringFilter<"Estrus"> | string
   }, "id">
 
   export type EstrusOrderByWithAggregationInput = {
@@ -17858,9 +19110,9 @@ export namespace Prisma {
     intensity?: SortOrder
     detectedBy?: SortOrder
     nextEstrus?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: EstrusCountOrderByAggregateInput
     _max?: EstrusMaxOrderByAggregateInput
     _min?: EstrusMinOrderByAggregateInput
@@ -17876,9 +19128,9 @@ export namespace Prisma {
     intensity?: StringWithAggregatesFilter<"Estrus"> | string
     detectedBy?: StringWithAggregatesFilter<"Estrus"> | string
     nextEstrus?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
-    farmId?: StringWithAggregatesFilter<"Estrus"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Estrus"> | string
   }
 
   export type PregnancyWhereInput = {
@@ -17889,9 +19141,9 @@ export namespace Prisma {
     animalId?: StringFilter<"Pregnancy"> | string
     currentStatus?: StringFilter<"Pregnancy"> | string
     currentStatusDate?: DateTimeFilter<"Pregnancy"> | Date | string
-    farmId?: StringFilter<"Pregnancy"> | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
+    farmId?: StringFilter<"Pregnancy"> | string
     attempts?: AttemptListRelationFilter
   }
 
@@ -17900,9 +19152,9 @@ export namespace Prisma {
     animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     attempts?: AttemptOrderByRelationAggregateInput
   }
 
@@ -17914,9 +19166,9 @@ export namespace Prisma {
     animalId?: StringFilter<"Pregnancy"> | string
     currentStatus?: StringFilter<"Pregnancy"> | string
     currentStatusDate?: DateTimeFilter<"Pregnancy"> | Date | string
-    farmId?: StringFilter<"Pregnancy"> | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
+    farmId?: StringFilter<"Pregnancy"> | string
     attempts?: AttemptListRelationFilter
   }, "id">
 
@@ -17925,9 +19177,9 @@ export namespace Prisma {
     animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: PregnancyCountOrderByAggregateInput
     _max?: PregnancyMaxOrderByAggregateInput
     _min?: PregnancyMinOrderByAggregateInput
@@ -17941,9 +19193,9 @@ export namespace Prisma {
     animalId?: StringWithAggregatesFilter<"Pregnancy"> | string
     currentStatus?: StringWithAggregatesFilter<"Pregnancy"> | string
     currentStatusDate?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
-    farmId?: StringWithAggregatesFilter<"Pregnancy"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Pregnancy"> | string
   }
 
   export type AttemptWhereInput = {
@@ -17952,7 +19204,6 @@ export namespace Prisma {
     NOT?: AttemptWhereInput | AttemptWhereInput[]
     id?: StringFilter<"Attempt"> | string
     number?: IntFilter<"Attempt"> | number
-    pregnancyId?: StringFilter<"Attempt"> | string
     matingDate?: DateTimeFilter<"Attempt"> | Date | string
     matingType?: StringFilter<"Attempt"> | string
     bullId?: StringNullableFilter<"Attempt"> | string | null
@@ -17963,6 +19214,7 @@ export namespace Prisma {
     attemptStatus?: StringFilter<"Attempt"> | string
     notes?: StringNullableFilter<"Attempt"> | string | null
     createdAt?: DateTimeFilter<"Attempt"> | Date | string
+    pregnancyId?: StringFilter<"Attempt"> | string
     pregnancy?: XOR<PregnancyScalarRelationFilter, PregnancyWhereInput>
     ultrasounds?: UltrasoundListRelationFilter
   }
@@ -17970,17 +19222,17 @@ export namespace Prisma {
   export type AttemptOrderByWithRelationInput = {
     id?: SortOrder
     number?: SortOrder
-    pregnancyId?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrder
-    semenName?: SortOrder
-    technician?: SortOrder
+    bullId?: SortOrderInput | SortOrder
+    semenName?: SortOrderInput | SortOrder
+    technician?: SortOrderInput | SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrder
+    birthId?: SortOrderInput | SortOrder
     attemptStatus?: SortOrder
-    notes?: SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    pregnancyId?: SortOrder
     pregnancy?: PregnancyOrderByWithRelationInput
     ultrasounds?: UltrasoundOrderByRelationAggregateInput
   }
@@ -17991,7 +19243,6 @@ export namespace Prisma {
     OR?: AttemptWhereInput[]
     NOT?: AttemptWhereInput | AttemptWhereInput[]
     number?: IntFilter<"Attempt"> | number
-    pregnancyId?: StringFilter<"Attempt"> | string
     matingDate?: DateTimeFilter<"Attempt"> | Date | string
     matingType?: StringFilter<"Attempt"> | string
     bullId?: StringNullableFilter<"Attempt"> | string | null
@@ -18002,6 +19253,7 @@ export namespace Prisma {
     attemptStatus?: StringFilter<"Attempt"> | string
     notes?: StringNullableFilter<"Attempt"> | string | null
     createdAt?: DateTimeFilter<"Attempt"> | Date | string
+    pregnancyId?: StringFilter<"Attempt"> | string
     pregnancy?: XOR<PregnancyScalarRelationFilter, PregnancyWhereInput>
     ultrasounds?: UltrasoundListRelationFilter
   }, "id">
@@ -18009,17 +19261,17 @@ export namespace Prisma {
   export type AttemptOrderByWithAggregationInput = {
     id?: SortOrder
     number?: SortOrder
-    pregnancyId?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrder
-    semenName?: SortOrder
-    technician?: SortOrder
+    bullId?: SortOrderInput | SortOrder
+    semenName?: SortOrderInput | SortOrder
+    technician?: SortOrderInput | SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrder
+    birthId?: SortOrderInput | SortOrder
     attemptStatus?: SortOrder
-    notes?: SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    pregnancyId?: SortOrder
     _count?: AttemptCountOrderByAggregateInput
     _avg?: AttemptAvgOrderByAggregateInput
     _max?: AttemptMaxOrderByAggregateInput
@@ -18033,7 +19285,6 @@ export namespace Prisma {
     NOT?: AttemptScalarWhereWithAggregatesInput | AttemptScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Attempt"> | string
     number?: IntWithAggregatesFilter<"Attempt"> | number
-    pregnancyId?: StringWithAggregatesFilter<"Attempt"> | string
     matingDate?: DateTimeWithAggregatesFilter<"Attempt"> | Date | string
     matingType?: StringWithAggregatesFilter<"Attempt"> | string
     bullId?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
@@ -18044,6 +19295,7 @@ export namespace Prisma {
     attemptStatus?: StringWithAggregatesFilter<"Attempt"> | string
     notes?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Attempt"> | Date | string
+    pregnancyId?: StringWithAggregatesFilter<"Attempt"> | string
   }
 
   export type UltrasoundWhereInput = {
@@ -18051,23 +19303,23 @@ export namespace Prisma {
     OR?: UltrasoundWhereInput[]
     NOT?: UltrasoundWhereInput | UltrasoundWhereInput[]
     id?: StringFilter<"Ultrasound"> | string
-    attemptId?: StringFilter<"Ultrasound"> | string
     days?: IntFilter<"Ultrasound"> | number
     result?: StringFilter<"Ultrasound"> | string
     notes?: StringNullableFilter<"Ultrasound"> | string | null
     veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
+    attemptId?: StringFilter<"Ultrasound"> | string
     attempt?: XOR<AttemptScalarRelationFilter, AttemptWhereInput>
   }
 
   export type UltrasoundOrderByWithRelationInput = {
     id?: SortOrder
-    attemptId?: SortOrder
     days?: SortOrder
     result?: SortOrder
-    notes?: SortOrder
-    veterinarianId?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     ultrasoundDate?: SortOrder
+    attemptId?: SortOrder
     attempt?: AttemptOrderByWithRelationInput
   }
 
@@ -18076,23 +19328,23 @@ export namespace Prisma {
     AND?: UltrasoundWhereInput | UltrasoundWhereInput[]
     OR?: UltrasoundWhereInput[]
     NOT?: UltrasoundWhereInput | UltrasoundWhereInput[]
-    attemptId?: StringFilter<"Ultrasound"> | string
     days?: IntFilter<"Ultrasound"> | number
     result?: StringFilter<"Ultrasound"> | string
     notes?: StringNullableFilter<"Ultrasound"> | string | null
     veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
+    attemptId?: StringFilter<"Ultrasound"> | string
     attempt?: XOR<AttemptScalarRelationFilter, AttemptWhereInput>
   }, "id">
 
   export type UltrasoundOrderByWithAggregationInput = {
     id?: SortOrder
-    attemptId?: SortOrder
     days?: SortOrder
     result?: SortOrder
-    notes?: SortOrder
-    veterinarianId?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     ultrasoundDate?: SortOrder
+    attemptId?: SortOrder
     _count?: UltrasoundCountOrderByAggregateInput
     _avg?: UltrasoundAvgOrderByAggregateInput
     _max?: UltrasoundMaxOrderByAggregateInput
@@ -18105,12 +19357,12 @@ export namespace Prisma {
     OR?: UltrasoundScalarWhereWithAggregatesInput[]
     NOT?: UltrasoundScalarWhereWithAggregatesInput | UltrasoundScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Ultrasound"> | string
-    attemptId?: StringWithAggregatesFilter<"Ultrasound"> | string
     days?: IntWithAggregatesFilter<"Ultrasound"> | number
     result?: StringWithAggregatesFilter<"Ultrasound"> | string
     notes?: StringNullableWithAggregatesFilter<"Ultrasound"> | string | null
     veterinarianId?: StringNullableWithAggregatesFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeWithAggregatesFilter<"Ultrasound"> | Date | string
+    attemptId?: StringWithAggregatesFilter<"Ultrasound"> | string
   }
 
   export type BirthWhereInput = {
@@ -18134,32 +19386,32 @@ export namespace Prisma {
     situation?: StringFilter<"Birth"> | string
     deathReason?: StringNullableFilter<"Birth"> | string | null
     notes?: StringNullableFilter<"Birth"> | string | null
-    farmId?: StringFilter<"Birth"> | string
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
+    farmId?: StringFilter<"Birth"> | string
   }
 
   export type BirthOrderByWithRelationInput = {
     id?: SortOrder
     damId?: SortOrder
-    pregnancyId?: SortOrder
+    pregnancyId?: SortOrderInput | SortOrder
     birthDate?: SortOrder
-    birthTime?: SortOrder
+    birthTime?: SortOrderInput | SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrder
-    veterinarianName?: SortOrder
-    veterinarianCrv?: SortOrder
-    calfGender?: SortOrder
-    calfWeight?: SortOrder
-    calfEarTag?: SortOrder
-    calfChip?: SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
+    veterinarianName?: SortOrderInput | SortOrder
+    veterinarianCrv?: SortOrderInput | SortOrder
+    calfGender?: SortOrderInput | SortOrder
+    calfWeight?: SortOrderInput | SortOrder
+    calfEarTag?: SortOrderInput | SortOrder
+    calfChip?: SortOrderInput | SortOrder
     calfStatus?: SortOrder
     situation?: SortOrder
-    deathReason?: SortOrder
-    notes?: SortOrder
-    farmId?: SortOrder
+    deathReason?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type BirthWhereUniqueInput = Prisma.AtLeast<{
@@ -18183,32 +19435,32 @@ export namespace Prisma {
     situation?: StringFilter<"Birth"> | string
     deathReason?: StringNullableFilter<"Birth"> | string | null
     notes?: StringNullableFilter<"Birth"> | string | null
-    farmId?: StringFilter<"Birth"> | string
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
+    farmId?: StringFilter<"Birth"> | string
   }, "id">
 
   export type BirthOrderByWithAggregationInput = {
     id?: SortOrder
     damId?: SortOrder
-    pregnancyId?: SortOrder
+    pregnancyId?: SortOrderInput | SortOrder
     birthDate?: SortOrder
-    birthTime?: SortOrder
+    birthTime?: SortOrderInput | SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrder
-    veterinarianName?: SortOrder
-    veterinarianCrv?: SortOrder
-    calfGender?: SortOrder
-    calfWeight?: SortOrder
-    calfEarTag?: SortOrder
-    calfChip?: SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
+    veterinarianName?: SortOrderInput | SortOrder
+    veterinarianCrv?: SortOrderInput | SortOrder
+    calfGender?: SortOrderInput | SortOrder
+    calfWeight?: SortOrderInput | SortOrder
+    calfEarTag?: SortOrderInput | SortOrder
+    calfChip?: SortOrderInput | SortOrder
     calfStatus?: SortOrder
     situation?: SortOrder
-    deathReason?: SortOrder
-    notes?: SortOrder
-    farmId?: SortOrder
+    deathReason?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: BirthCountOrderByAggregateInput
     _avg?: BirthAvgOrderByAggregateInput
     _max?: BirthMaxOrderByAggregateInput
@@ -18237,9 +19489,9 @@ export namespace Prisma {
     situation?: StringWithAggregatesFilter<"Birth"> | string
     deathReason?: StringNullableWithAggregatesFilter<"Birth"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    farmId?: StringWithAggregatesFilter<"Birth"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Birth"> | string
   }
 
   export type VaccinationWhereInput = {
@@ -18257,9 +19509,9 @@ export namespace Prisma {
     photoUrl?: StringNullableFilter<"Vaccination"> | string | null
     reaction?: StringNullableFilter<"Vaccination"> | string | null
     veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
-    farmId?: StringFilter<"Vaccination"> | string
     createdAt?: DateTimeFilter<"Vaccination"> | Date | string
     updatedAt?: DateTimeFilter<"Vaccination"> | Date | string
+    farmId?: StringFilter<"Vaccination"> | string
   }
 
   export type VaccinationOrderByWithRelationInput = {
@@ -18270,13 +19522,13 @@ export namespace Prisma {
     batch?: SortOrder
     vaccinationDate?: SortOrder
     expirationDate?: SortOrder
-    nextDoseDate?: SortOrder
-    photoUrl?: SortOrder
-    reaction?: SortOrder
-    veterinarianId?: SortOrder
-    farmId?: SortOrder
+    nextDoseDate?: SortOrderInput | SortOrder
+    photoUrl?: SortOrderInput | SortOrder
+    reaction?: SortOrderInput | SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type VaccinationWhereUniqueInput = Prisma.AtLeast<{
@@ -18294,9 +19546,9 @@ export namespace Prisma {
     photoUrl?: StringNullableFilter<"Vaccination"> | string | null
     reaction?: StringNullableFilter<"Vaccination"> | string | null
     veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
-    farmId?: StringFilter<"Vaccination"> | string
     createdAt?: DateTimeFilter<"Vaccination"> | Date | string
     updatedAt?: DateTimeFilter<"Vaccination"> | Date | string
+    farmId?: StringFilter<"Vaccination"> | string
   }, "id">
 
   export type VaccinationOrderByWithAggregationInput = {
@@ -18307,13 +19559,13 @@ export namespace Prisma {
     batch?: SortOrder
     vaccinationDate?: SortOrder
     expirationDate?: SortOrder
-    nextDoseDate?: SortOrder
-    photoUrl?: SortOrder
-    reaction?: SortOrder
-    veterinarianId?: SortOrder
-    farmId?: SortOrder
+    nextDoseDate?: SortOrderInput | SortOrder
+    photoUrl?: SortOrderInput | SortOrder
+    reaction?: SortOrderInput | SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: VaccinationCountOrderByAggregateInput
     _max?: VaccinationMaxOrderByAggregateInput
     _min?: VaccinationMinOrderByAggregateInput
@@ -18334,9 +19586,9 @@ export namespace Prisma {
     photoUrl?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
     reaction?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
     veterinarianId?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
-    farmId?: StringWithAggregatesFilter<"Vaccination"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Vaccination"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vaccination"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Vaccination"> | string
   }
 
   export type ManagementWhereInput = {
@@ -18352,8 +19604,8 @@ export namespace Prisma {
     employee?: StringFilter<"Management"> | string
     batchId?: StringNullableFilter<"Management"> | string | null
     batchTotal?: IntNullableFilter<"Management"> | number | null
-    farmId?: StringFilter<"Management"> | string
     createdAt?: DateTimeFilter<"Management"> | Date | string
+    farmId?: StringFilter<"Management"> | string
   }
 
   export type ManagementOrderByWithRelationInput = {
@@ -18364,10 +19616,10 @@ export namespace Prisma {
     movementDate?: SortOrder
     reason?: SortOrder
     employee?: SortOrder
-    batchId?: SortOrder
-    batchTotal?: SortOrder
-    farmId?: SortOrder
+    batchId?: SortOrderInput | SortOrder
+    batchTotal?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type ManagementWhereUniqueInput = Prisma.AtLeast<{
@@ -18383,8 +19635,8 @@ export namespace Prisma {
     employee?: StringFilter<"Management"> | string
     batchId?: StringNullableFilter<"Management"> | string | null
     batchTotal?: IntNullableFilter<"Management"> | number | null
-    farmId?: StringFilter<"Management"> | string
     createdAt?: DateTimeFilter<"Management"> | Date | string
+    farmId?: StringFilter<"Management"> | string
   }, "id">
 
   export type ManagementOrderByWithAggregationInput = {
@@ -18395,10 +19647,10 @@ export namespace Prisma {
     movementDate?: SortOrder
     reason?: SortOrder
     employee?: SortOrder
-    batchId?: SortOrder
-    batchTotal?: SortOrder
-    farmId?: SortOrder
+    batchId?: SortOrderInput | SortOrder
+    batchTotal?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
     _count?: ManagementCountOrderByAggregateInput
     _avg?: ManagementAvgOrderByAggregateInput
     _max?: ManagementMaxOrderByAggregateInput
@@ -18419,8 +19671,8 @@ export namespace Prisma {
     employee?: StringWithAggregatesFilter<"Management"> | string
     batchId?: StringNullableWithAggregatesFilter<"Management"> | string | null
     batchTotal?: IntNullableWithAggregatesFilter<"Management"> | number | null
-    farmId?: StringWithAggregatesFilter<"Management"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Management"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Management"> | string
   }
 
   export type MortalityWhereInput = {
@@ -18440,28 +19692,28 @@ export namespace Prisma {
     origin?: StringNullableFilter<"Mortality"> | string | null
     birthId?: StringNullableFilter<"Mortality"> | string | null
     notes?: StringNullableFilter<"Mortality"> | string | null
-    farmId?: StringFilter<"Mortality"> | string
     createdAt?: DateTimeFilter<"Mortality"> | Date | string
     updatedAt?: DateTimeFilter<"Mortality"> | Date | string
+    farmId?: StringFilter<"Mortality"> | string
   }
 
   export type MortalityOrderByWithRelationInput = {
     id?: SortOrder
     animalId?: SortOrder
     deathDate?: SortOrder
-    deathTime?: SortOrder
+    deathTime?: SortOrderInput | SortOrder
     deathLocation?: SortOrder
     causeOfDeath?: SortOrder
-    severity?: SortOrder
+    severity?: SortOrderInput | SortOrder
     necropsy?: SortOrder
-    disposal?: SortOrder
+    disposal?: SortOrderInput | SortOrder
     photos?: SortOrder
-    origin?: SortOrder
-    birthId?: SortOrder
-    notes?: SortOrder
-    farmId?: SortOrder
+    origin?: SortOrderInput | SortOrder
+    birthId?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type MortalityWhereUniqueInput = Prisma.AtLeast<{
@@ -18481,28 +19733,28 @@ export namespace Prisma {
     origin?: StringNullableFilter<"Mortality"> | string | null
     birthId?: StringNullableFilter<"Mortality"> | string | null
     notes?: StringNullableFilter<"Mortality"> | string | null
-    farmId?: StringFilter<"Mortality"> | string
     createdAt?: DateTimeFilter<"Mortality"> | Date | string
     updatedAt?: DateTimeFilter<"Mortality"> | Date | string
+    farmId?: StringFilter<"Mortality"> | string
   }, "id">
 
   export type MortalityOrderByWithAggregationInput = {
     id?: SortOrder
     animalId?: SortOrder
     deathDate?: SortOrder
-    deathTime?: SortOrder
+    deathTime?: SortOrderInput | SortOrder
     deathLocation?: SortOrder
     causeOfDeath?: SortOrder
-    severity?: SortOrder
+    severity?: SortOrderInput | SortOrder
     necropsy?: SortOrder
-    disposal?: SortOrder
+    disposal?: SortOrderInput | SortOrder
     photos?: SortOrder
-    origin?: SortOrder
-    birthId?: SortOrder
-    notes?: SortOrder
-    farmId?: SortOrder
+    origin?: SortOrderInput | SortOrder
+    birthId?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
     _count?: MortalityCountOrderByAggregateInput
     _max?: MortalityMaxOrderByAggregateInput
     _min?: MortalityMinOrderByAggregateInput
@@ -18525,9 +19777,9 @@ export namespace Prisma {
     origin?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
     birthId?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
-    farmId?: StringWithAggregatesFilter<"Mortality"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Mortality"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Mortality"> | Date | string
+    farmId?: StringWithAggregatesFilter<"Mortality"> | string
   }
 
   export type PasswordResetTokenWhereInput = {
@@ -18539,8 +19791,8 @@ export namespace Prisma {
     code?: StringFilter<"PasswordResetToken"> | string
     expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used?: BoolFilter<"PasswordResetToken"> | boolean
-    farmId?: StringFilter<"PasswordResetToken"> | string
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    farmId?: StringFilter<"PasswordResetToken"> | string
   }
 
   export type PasswordResetTokenOrderByWithRelationInput = {
@@ -18549,8 +19801,8 @@ export namespace Prisma {
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PasswordResetTokenWhereUniqueInput = Prisma.AtLeast<{
@@ -18562,8 +19814,8 @@ export namespace Prisma {
     userId?: StringFilter<"PasswordResetToken"> | string
     expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used?: BoolFilter<"PasswordResetToken"> | boolean
-    farmId?: StringFilter<"PasswordResetToken"> | string
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    farmId?: StringFilter<"PasswordResetToken"> | string
   }, "id" | "code">
 
   export type PasswordResetTokenOrderByWithAggregationInput = {
@@ -18572,8 +19824,8 @@ export namespace Prisma {
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
     _count?: PasswordResetTokenCountOrderByAggregateInput
     _max?: PasswordResetTokenMaxOrderByAggregateInput
     _min?: PasswordResetTokenMinOrderByAggregateInput
@@ -18588,8 +19840,8 @@ export namespace Prisma {
     code?: StringWithAggregatesFilter<"PasswordResetToken"> | string
     expiresAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
     used?: BoolWithAggregatesFilter<"PasswordResetToken"> | boolean
-    farmId?: StringWithAggregatesFilter<"PasswordResetToken"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
+    farmId?: StringWithAggregatesFilter<"PasswordResetToken"> | string
   }
 
   export type FarmCreateInput = {
@@ -18621,6 +19873,7 @@ export namespace Prisma {
   }
 
   export type FarmUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18634,6 +19887,7 @@ export namespace Prisma {
   }
 
   export type FarmUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18658,6 +19912,7 @@ export namespace Prisma {
   }
 
   export type FarmUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18668,6 +19923,7 @@ export namespace Prisma {
   }
 
   export type FarmUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18711,13 +19967,14 @@ export namespace Prisma {
     specialties?: UserCreatespecialtiesInput | string[]
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
-    farmId: string
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type UserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18737,6 +19994,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18749,10 +20007,10 @@ export namespace Prisma {
     specialties?: UserUpdatespecialtiesInput | string[]
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyInput = {
@@ -18769,13 +20027,14 @@ export namespace Prisma {
     specialties?: UserCreatespecialtiesInput | string[]
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
-    farmId: string
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type UserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18794,6 +20053,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18806,10 +20066,10 @@ export namespace Prisma {
     specialties?: UserUpdatespecialtiesInput | string[]
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnimalCreateInput = {
@@ -18828,8 +20088,8 @@ export namespace Prisma {
     deathDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
     farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateInput = {
@@ -18846,13 +20106,14 @@ export namespace Prisma {
     pastureName?: string | null
     status?: string
     deathDate?: Date | string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
     earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -18867,11 +20128,12 @@ export namespace Prisma {
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
     farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -18884,9 +20146,9 @@ export namespace Prisma {
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
     earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
@@ -18904,12 +20166,13 @@ export namespace Prisma {
     pastureName?: string | null
     status?: string
     deathDate?: Date | string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type AnimalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -18927,6 +20190,7 @@ export namespace Prisma {
   }
 
   export type AnimalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -18939,9 +20203,9 @@ export namespace Prisma {
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EarTagHistoryCreateInput = {
@@ -18950,70 +20214,74 @@ export namespace Prisma {
     placementDate: Date | string
     removalDate?: Date | string | null
     reason?: string | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
     animal: AnimalCreateNestedOneWithoutEarTagHistoryInput
   }
 
   export type EarTagHistoryUncheckedCreateInput = {
     id?: string
     earTagNumber: string
-    animalId: string
     placementDate: Date | string
     removalDate?: Date | string | null
     reason?: string | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
+    animalId: string
   }
 
   export type EarTagHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
     animal?: AnimalUpdateOneRequiredWithoutEarTagHistoryNestedInput
   }
 
   export type EarTagHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EarTagHistoryCreateManyInput = {
     id?: string
     earTagNumber: string
-    animalId: string
     placementDate: Date | string
     removalDate?: Date | string | null
     reason?: string | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
+    animalId: string
   }
 
   export type EarTagHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EarTagHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PastureCreateInput = {
@@ -19037,12 +20305,13 @@ export namespace Prisma {
     animalCapacity: number
     currentAnimals?: number
     active?: boolean
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type PastureUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
@@ -19055,15 +20324,16 @@ export namespace Prisma {
   }
 
   export type PastureUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
     animalCapacity?: IntFieldUpdateOperationsInput | number
     currentAnimals?: IntFieldUpdateOperationsInput | number
     active?: BoolFieldUpdateOperationsInput | boolean
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PastureCreateManyInput = {
@@ -19074,12 +20344,13 @@ export namespace Prisma {
     animalCapacity: number
     currentAnimals?: number
     active?: boolean
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type PastureUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
@@ -19091,15 +20362,16 @@ export namespace Prisma {
   }
 
   export type PastureUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
     animalCapacity?: IntFieldUpdateOperationsInput | number
     currentAnimals?: IntFieldUpdateOperationsInput | number
     active?: BoolFieldUpdateOperationsInput | boolean
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EstrusCreateInput = {
@@ -19109,9 +20381,9 @@ export namespace Prisma {
     intensity: string
     detectedBy: string
     nextEstrus: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type EstrusUncheckedCreateInput = {
@@ -19121,31 +20393,33 @@ export namespace Prisma {
     intensity: string
     detectedBy: string
     nextEstrus: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type EstrusUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     intensity?: StringFieldUpdateOperationsInput | string
     detectedBy?: StringFieldUpdateOperationsInput | string
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EstrusUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     intensity?: StringFieldUpdateOperationsInput | string
     detectedBy?: StringFieldUpdateOperationsInput | string
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EstrusCreateManyInput = {
@@ -19155,31 +20429,33 @@ export namespace Prisma {
     intensity: string
     detectedBy: string
     nextEstrus: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type EstrusUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     intensity?: StringFieldUpdateOperationsInput | string
     detectedBy?: StringFieldUpdateOperationsInput | string
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EstrusUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     intensity?: StringFieldUpdateOperationsInput | string
     detectedBy?: StringFieldUpdateOperationsInput | string
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PregnancyCreateInput = {
@@ -19187,9 +20463,9 @@ export namespace Prisma {
     animalId: string
     currentStatus?: string
     currentStatusDate?: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
     attempts?: AttemptCreateNestedManyWithoutPregnancyInput
   }
 
@@ -19198,29 +20474,31 @@ export namespace Prisma {
     animalId: string
     currentStatus?: string
     currentStatusDate?: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
     attempts?: AttemptUncheckedCreateNestedManyWithoutPregnancyInput
   }
 
   export type PregnancyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     currentStatus?: StringFieldUpdateOperationsInput | string
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
     attempts?: AttemptUpdateManyWithoutPregnancyNestedInput
   }
 
   export type PregnancyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     currentStatus?: StringFieldUpdateOperationsInput | string
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
     attempts?: AttemptUncheckedUpdateManyWithoutPregnancyNestedInput
   }
 
@@ -19229,27 +20507,29 @@ export namespace Prisma {
     animalId: string
     currentStatus?: string
     currentStatusDate?: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type PregnancyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     currentStatus?: StringFieldUpdateOperationsInput | string
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PregnancyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     currentStatus?: StringFieldUpdateOperationsInput | string
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AttemptCreateInput = {
@@ -19272,7 +20552,6 @@ export namespace Prisma {
   export type AttemptUncheckedCreateInput = {
     id?: string
     number: number
-    pregnancyId: string
     matingDate: Date | string
     matingType: string
     bullId?: string | null
@@ -19283,10 +20562,12 @@ export namespace Prisma {
     attemptStatus?: string
     notes?: string | null
     createdAt?: Date | string
+    pregnancyId: string
     ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
@@ -19303,8 +20584,8 @@ export namespace Prisma {
   }
 
   export type AttemptUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
-    pregnancyId?: StringFieldUpdateOperationsInput | string
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
     bullId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19315,13 +20596,13 @@ export namespace Prisma {
     attemptStatus?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pregnancyId?: StringFieldUpdateOperationsInput | string
     ultrasounds?: UltrasoundUncheckedUpdateManyWithoutAttemptNestedInput
   }
 
   export type AttemptCreateManyInput = {
     id?: string
     number: number
-    pregnancyId: string
     matingDate: Date | string
     matingType: string
     bullId?: string | null
@@ -19332,9 +20613,11 @@ export namespace Prisma {
     attemptStatus?: string
     notes?: string | null
     createdAt?: Date | string
+    pregnancyId: string
   }
 
   export type AttemptUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
@@ -19349,8 +20632,8 @@ export namespace Prisma {
   }
 
   export type AttemptUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
-    pregnancyId?: StringFieldUpdateOperationsInput | string
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
     bullId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19361,6 +20644,7 @@ export namespace Prisma {
     attemptStatus?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pregnancyId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UltrasoundCreateInput = {
@@ -19375,15 +20659,16 @@ export namespace Prisma {
 
   export type UltrasoundUncheckedCreateInput = {
     id?: string
-    attemptId: string
     days: number
     result: string
     notes?: string | null
     veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    attemptId: string
   }
 
   export type UltrasoundUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19393,25 +20678,27 @@ export namespace Prisma {
   }
 
   export type UltrasoundUncheckedUpdateInput = {
-    attemptId?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UltrasoundCreateManyInput = {
     id?: string
-    attemptId: string
     days: number
     result: string
     notes?: string | null
     veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    attemptId: string
   }
 
   export type UltrasoundUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19420,12 +20707,13 @@ export namespace Prisma {
   }
 
   export type UltrasoundUncheckedUpdateManyInput = {
-    attemptId?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BirthCreateInput = {
@@ -19446,9 +20734,9 @@ export namespace Prisma {
     situation?: string
     deathReason?: string | null
     notes?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type BirthUncheckedCreateInput = {
@@ -19469,12 +20757,13 @@ export namespace Prisma {
     situation?: string
     deathReason?: string | null
     notes?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type BirthUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damId?: StringFieldUpdateOperationsInput | string
     pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19491,12 +20780,13 @@ export namespace Prisma {
     situation?: StringFieldUpdateOperationsInput | string
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BirthUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damId?: StringFieldUpdateOperationsInput | string
     pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19513,9 +20803,9 @@ export namespace Prisma {
     situation?: StringFieldUpdateOperationsInput | string
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BirthCreateManyInput = {
@@ -19536,12 +20826,13 @@ export namespace Prisma {
     situation?: string
     deathReason?: string | null
     notes?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type BirthUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damId?: StringFieldUpdateOperationsInput | string
     pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19558,12 +20849,13 @@ export namespace Prisma {
     situation?: StringFieldUpdateOperationsInput | string
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BirthUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damId?: StringFieldUpdateOperationsInput | string
     pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19580,9 +20872,9 @@ export namespace Prisma {
     situation?: StringFieldUpdateOperationsInput | string
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type VaccinationCreateInput = {
@@ -19597,9 +20889,9 @@ export namespace Prisma {
     photoUrl?: string | null
     reaction?: string | null
     veterinarianId?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type VaccinationUncheckedCreateInput = {
@@ -19614,12 +20906,13 @@ export namespace Prisma {
     photoUrl?: string | null
     reaction?: string | null
     veterinarianId?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type VaccinationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -19630,12 +20923,13 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type VaccinationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -19646,9 +20940,9 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type VaccinationCreateManyInput = {
@@ -19663,12 +20957,13 @@ export namespace Prisma {
     photoUrl?: string | null
     reaction?: string | null
     veterinarianId?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type VaccinationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -19679,12 +20974,13 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type VaccinationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -19695,9 +20991,9 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ManagementCreateInput = {
@@ -19710,8 +21006,8 @@ export namespace Prisma {
     employee: string
     batchId?: string | null
     batchTotal?: number | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type ManagementUncheckedCreateInput = {
@@ -19724,11 +21020,12 @@ export namespace Prisma {
     employee: string
     batchId?: string | null
     batchTotal?: number | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type ManagementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
@@ -19737,11 +21034,12 @@ export namespace Prisma {
     employee?: StringFieldUpdateOperationsInput | string
     batchId?: NullableStringFieldUpdateOperationsInput | string | null
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ManagementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
@@ -19750,8 +21048,8 @@ export namespace Prisma {
     employee?: StringFieldUpdateOperationsInput | string
     batchId?: NullableStringFieldUpdateOperationsInput | string | null
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ManagementCreateManyInput = {
@@ -19764,11 +21062,12 @@ export namespace Prisma {
     employee: string
     batchId?: string | null
     batchTotal?: number | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type ManagementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
@@ -19777,11 +21076,12 @@ export namespace Prisma {
     employee?: StringFieldUpdateOperationsInput | string
     batchId?: NullableStringFieldUpdateOperationsInput | string | null
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ManagementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
@@ -19790,8 +21090,8 @@ export namespace Prisma {
     employee?: StringFieldUpdateOperationsInput | string
     batchId?: NullableStringFieldUpdateOperationsInput | string | null
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MortalityCreateInput = {
@@ -19808,9 +21108,9 @@ export namespace Prisma {
     origin?: string | null
     birthId?: string | null
     notes?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type MortalityUncheckedCreateInput = {
@@ -19827,12 +21127,13 @@ export namespace Prisma {
     origin?: string | null
     birthId?: string | null
     notes?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type MortalityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19845,12 +21146,13 @@ export namespace Prisma {
     origin?: NullableStringFieldUpdateOperationsInput | string | null
     birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MortalityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19863,9 +21165,9 @@ export namespace Prisma {
     origin?: NullableStringFieldUpdateOperationsInput | string | null
     birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MortalityCreateManyInput = {
@@ -19882,12 +21184,13 @@ export namespace Prisma {
     origin?: string | null
     birthId?: string | null
     notes?: string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type MortalityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19900,12 +21203,13 @@ export namespace Prisma {
     origin?: NullableStringFieldUpdateOperationsInput | string | null
     birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MortalityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19918,9 +21222,9 @@ export namespace Prisma {
     origin?: NullableStringFieldUpdateOperationsInput | string | null
     birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PasswordResetTokenCreateInput = {
@@ -19929,8 +21233,8 @@ export namespace Prisma {
     code: string
     expiresAt: Date | string
     used?: boolean
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type PasswordResetTokenUncheckedCreateInput = {
@@ -19939,26 +21243,28 @@ export namespace Prisma {
     code: string
     expiresAt: Date | string
     used?: boolean
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type PasswordResetTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PasswordResetTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PasswordResetTokenCreateManyInput = {
@@ -19967,26 +21273,28 @@ export namespace Prisma {
     code: string
     expiresAt: Date | string
     used?: boolean
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type PasswordResetTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PasswordResetTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -20017,7 +21325,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-    isSet?: boolean
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -20052,6 +21359,11 @@ export namespace Prisma {
     every?: PastureWhereInput
     some?: PastureWhereInput
     none?: PastureWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type UserOrderByRelationAggregateInput = {
@@ -20133,7 +21445,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -20174,7 +21485,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -20209,10 +21519,10 @@ export namespace Prisma {
     specialties?: SortOrder
     resetPasswordToken?: SortOrder
     resetPasswordExpires?: SortOrder
-    farmId?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -20228,10 +21538,10 @@ export namespace Prisma {
     graduationDate?: SortOrder
     resetPasswordToken?: SortOrder
     resetPasswordExpires?: SortOrder
-    farmId?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -20247,10 +21557,10 @@ export namespace Prisma {
     graduationDate?: SortOrder
     resetPasswordToken?: SortOrder
     resetPasswordExpires?: SortOrder
-    farmId?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type EnumPermissionWithAggregatesFilter<$PrismaModel = never> = {
@@ -20275,7 +21585,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type EarTagHistoryListRelationFilter = {
@@ -20307,9 +21616,9 @@ export namespace Prisma {
     pastureName?: SortOrder
     status?: SortOrder
     deathDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type AnimalMaxOrderByAggregateInput = {
@@ -20326,9 +21635,9 @@ export namespace Prisma {
     pastureName?: SortOrder
     status?: SortOrder
     deathDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type AnimalMinOrderByAggregateInput = {
@@ -20345,9 +21654,9 @@ export namespace Prisma {
     pastureName?: SortOrder
     status?: SortOrder
     deathDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type AnimalScalarRelationFilter = {
@@ -20358,34 +21667,34 @@ export namespace Prisma {
   export type EarTagHistoryCountOrderByAggregateInput = {
     id?: SortOrder
     earTagNumber?: SortOrder
-    animalId?: SortOrder
     placementDate?: SortOrder
     removalDate?: SortOrder
     reason?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type EarTagHistoryMaxOrderByAggregateInput = {
     id?: SortOrder
     earTagNumber?: SortOrder
-    animalId?: SortOrder
     placementDate?: SortOrder
     removalDate?: SortOrder
     reason?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type EarTagHistoryMinOrderByAggregateInput = {
     id?: SortOrder
     earTagNumber?: SortOrder
-    animalId?: SortOrder
     placementDate?: SortOrder
     removalDate?: SortOrder
     reason?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -20423,9 +21732,9 @@ export namespace Prisma {
     animalCapacity?: SortOrder
     currentAnimals?: SortOrder
     active?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PastureAvgOrderByAggregateInput = {
@@ -20442,9 +21751,9 @@ export namespace Prisma {
     animalCapacity?: SortOrder
     currentAnimals?: SortOrder
     active?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PastureMinOrderByAggregateInput = {
@@ -20455,9 +21764,9 @@ export namespace Prisma {
     animalCapacity?: SortOrder
     currentAnimals?: SortOrder
     active?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PastureSumOrderByAggregateInput = {
@@ -20505,9 +21814,9 @@ export namespace Prisma {
     intensity?: SortOrder
     detectedBy?: SortOrder
     nextEstrus?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type EstrusMaxOrderByAggregateInput = {
@@ -20517,9 +21826,9 @@ export namespace Prisma {
     intensity?: SortOrder
     detectedBy?: SortOrder
     nextEstrus?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type EstrusMinOrderByAggregateInput = {
@@ -20529,9 +21838,9 @@ export namespace Prisma {
     intensity?: SortOrder
     detectedBy?: SortOrder
     nextEstrus?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type AttemptListRelationFilter = {
@@ -20549,9 +21858,9 @@ export namespace Prisma {
     animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PregnancyMaxOrderByAggregateInput = {
@@ -20559,9 +21868,9 @@ export namespace Prisma {
     animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PregnancyMinOrderByAggregateInput = {
@@ -20569,9 +21878,9 @@ export namespace Prisma {
     animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PregnancyScalarRelationFilter = {
@@ -20592,7 +21901,6 @@ export namespace Prisma {
   export type AttemptCountOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
-    pregnancyId?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
     bullId?: SortOrder
@@ -20603,6 +21911,7 @@ export namespace Prisma {
     attemptStatus?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
+    pregnancyId?: SortOrder
   }
 
   export type AttemptAvgOrderByAggregateInput = {
@@ -20612,7 +21921,6 @@ export namespace Prisma {
   export type AttemptMaxOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
-    pregnancyId?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
     bullId?: SortOrder
@@ -20623,12 +21931,12 @@ export namespace Prisma {
     attemptStatus?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
+    pregnancyId?: SortOrder
   }
 
   export type AttemptMinOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
-    pregnancyId?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
     bullId?: SortOrder
@@ -20639,6 +21947,7 @@ export namespace Prisma {
     attemptStatus?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
+    pregnancyId?: SortOrder
   }
 
   export type AttemptSumOrderByAggregateInput = {
@@ -20652,12 +21961,12 @@ export namespace Prisma {
 
   export type UltrasoundCountOrderByAggregateInput = {
     id?: SortOrder
-    attemptId?: SortOrder
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrder
     veterinarianId?: SortOrder
     ultrasoundDate?: SortOrder
+    attemptId?: SortOrder
   }
 
   export type UltrasoundAvgOrderByAggregateInput = {
@@ -20666,22 +21975,22 @@ export namespace Prisma {
 
   export type UltrasoundMaxOrderByAggregateInput = {
     id?: SortOrder
-    attemptId?: SortOrder
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrder
     veterinarianId?: SortOrder
     ultrasoundDate?: SortOrder
+    attemptId?: SortOrder
   }
 
   export type UltrasoundMinOrderByAggregateInput = {
     id?: SortOrder
-    attemptId?: SortOrder
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrder
     veterinarianId?: SortOrder
     ultrasoundDate?: SortOrder
+    attemptId?: SortOrder
   }
 
   export type UltrasoundSumOrderByAggregateInput = {
@@ -20697,7 +22006,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
   }
 
   export type BirthCountOrderByAggregateInput = {
@@ -20718,9 +22026,9 @@ export namespace Prisma {
     situation?: SortOrder
     deathReason?: SortOrder
     notes?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type BirthAvgOrderByAggregateInput = {
@@ -20745,9 +22053,9 @@ export namespace Prisma {
     situation?: SortOrder
     deathReason?: SortOrder
     notes?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type BirthMinOrderByAggregateInput = {
@@ -20768,9 +22076,9 @@ export namespace Prisma {
     situation?: SortOrder
     deathReason?: SortOrder
     notes?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type BirthSumOrderByAggregateInput = {
@@ -20791,7 +22099,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type VaccinationCountOrderByAggregateInput = {
@@ -20806,9 +22113,9 @@ export namespace Prisma {
     photoUrl?: SortOrder
     reaction?: SortOrder
     veterinarianId?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type VaccinationMaxOrderByAggregateInput = {
@@ -20823,9 +22130,9 @@ export namespace Prisma {
     photoUrl?: SortOrder
     reaction?: SortOrder
     veterinarianId?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type VaccinationMinOrderByAggregateInput = {
@@ -20840,9 +22147,9 @@ export namespace Prisma {
     photoUrl?: SortOrder
     reaction?: SortOrder
     veterinarianId?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -20854,7 +22161,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
   }
 
   export type ManagementCountOrderByAggregateInput = {
@@ -20867,8 +22173,8 @@ export namespace Prisma {
     employee?: SortOrder
     batchId?: SortOrder
     batchTotal?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type ManagementAvgOrderByAggregateInput = {
@@ -20885,8 +22191,8 @@ export namespace Prisma {
     employee?: SortOrder
     batchId?: SortOrder
     batchTotal?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type ManagementMinOrderByAggregateInput = {
@@ -20899,8 +22205,8 @@ export namespace Prisma {
     employee?: SortOrder
     batchId?: SortOrder
     batchTotal?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type ManagementSumOrderByAggregateInput = {
@@ -20921,7 +22227,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type MortalityCountOrderByAggregateInput = {
@@ -20938,9 +22243,9 @@ export namespace Prisma {
     origin?: SortOrder
     birthId?: SortOrder
     notes?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type MortalityMaxOrderByAggregateInput = {
@@ -20956,9 +22261,9 @@ export namespace Prisma {
     origin?: SortOrder
     birthId?: SortOrder
     notes?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type MortalityMinOrderByAggregateInput = {
@@ -20974,9 +22279,9 @@ export namespace Prisma {
     origin?: SortOrder
     birthId?: SortOrder
     notes?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PasswordResetTokenCountOrderByAggregateInput = {
@@ -20985,8 +22290,8 @@ export namespace Prisma {
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PasswordResetTokenMaxOrderByAggregateInput = {
@@ -20995,8 +22300,8 @@ export namespace Prisma {
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type PasswordResetTokenMinOrderByAggregateInput = {
@@ -21005,8 +22310,8 @@ export namespace Prisma {
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
-    farmId?: SortOrder
     createdAt?: SortOrder
+    farmId?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutFarmInput = {
@@ -21057,7 +22362,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-    unset?: boolean
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -21168,7 +22472,6 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-    unset?: boolean
   }
 
   export type UserUpdatespecialtiesInput = {
@@ -21184,6 +22487,12 @@ export namespace Prisma {
     update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutUsersInput, FarmUpdateWithoutUsersInput>, FarmUncheckedUpdateWithoutUsersInput>
   }
 
+  export type FarmCreateNestedOneWithoutAnimalsInput = {
+    create?: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutAnimalsInput
+    connect?: FarmWhereUniqueInput
+  }
+
   export type EarTagHistoryCreateNestedManyWithoutAnimalInput = {
     create?: XOR<EarTagHistoryCreateWithoutAnimalInput, EarTagHistoryUncheckedCreateWithoutAnimalInput> | EarTagHistoryCreateWithoutAnimalInput[] | EarTagHistoryUncheckedCreateWithoutAnimalInput[]
     connectOrCreate?: EarTagHistoryCreateOrConnectWithoutAnimalInput | EarTagHistoryCreateOrConnectWithoutAnimalInput[]
@@ -21191,17 +22500,19 @@ export namespace Prisma {
     connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
   }
 
-  export type FarmCreateNestedOneWithoutAnimalsInput = {
-    create?: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
-    connectOrCreate?: FarmCreateOrConnectWithoutAnimalsInput
-    connect?: FarmWhereUniqueInput
-  }
-
   export type EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput = {
     create?: XOR<EarTagHistoryCreateWithoutAnimalInput, EarTagHistoryUncheckedCreateWithoutAnimalInput> | EarTagHistoryCreateWithoutAnimalInput[] | EarTagHistoryUncheckedCreateWithoutAnimalInput[]
     connectOrCreate?: EarTagHistoryCreateOrConnectWithoutAnimalInput | EarTagHistoryCreateOrConnectWithoutAnimalInput[]
     createMany?: EarTagHistoryCreateManyAnimalInputEnvelope
     connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+  }
+
+  export type FarmUpdateOneRequiredWithoutAnimalsNestedInput = {
+    create?: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutAnimalsInput
+    upsert?: FarmUpsertWithoutAnimalsInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutAnimalsInput, FarmUpdateWithoutAnimalsInput>, FarmUncheckedUpdateWithoutAnimalsInput>
   }
 
   export type EarTagHistoryUpdateManyWithoutAnimalNestedInput = {
@@ -21216,14 +22527,6 @@ export namespace Prisma {
     update?: EarTagHistoryUpdateWithWhereUniqueWithoutAnimalInput | EarTagHistoryUpdateWithWhereUniqueWithoutAnimalInput[]
     updateMany?: EarTagHistoryUpdateManyWithWhereWithoutAnimalInput | EarTagHistoryUpdateManyWithWhereWithoutAnimalInput[]
     deleteMany?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
-  }
-
-  export type FarmUpdateOneRequiredWithoutAnimalsNestedInput = {
-    create?: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
-    connectOrCreate?: FarmCreateOrConnectWithoutAnimalsInput
-    upsert?: FarmUpsertWithoutAnimalsInput
-    connect?: FarmWhereUniqueInput
-    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutAnimalsInput, FarmUpdateWithoutAnimalsInput>, FarmUncheckedUpdateWithoutAnimalsInput>
   }
 
   export type EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput = {
@@ -21402,7 +22705,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-    unset?: boolean
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -21411,7 +22713,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-    unset?: boolean
   }
 
   export type MortalityCreatephotosInput = {
@@ -21449,7 +22750,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-    isSet?: boolean
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -21511,7 +22811,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -21523,7 +22822,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -21564,7 +22862,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
   }
 
   export type NestedEnumPermissionWithAggregatesFilter<$PrismaModel = never> = {
@@ -21589,7 +22886,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -21644,7 +22940,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21661,7 +22956,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21678,7 +22972,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type UserCreateWithoutFarmInput = {
@@ -21726,6 +23019,7 @@ export namespace Prisma {
 
   export type UserCreateManyFarmInputEnvelope = {
     data: UserCreateManyFarmInput | UserCreateManyFarmInput[]
+    skipDuplicates?: boolean
   }
 
   export type AnimalCreateWithoutFarmInput = {
@@ -21773,6 +23067,7 @@ export namespace Prisma {
 
   export type AnimalCreateManyFarmInputEnvelope = {
     data: AnimalCreateManyFarmInput | AnimalCreateManyFarmInput[]
+    skipDuplicates?: boolean
   }
 
   export type PastureCreateWithoutFarmInput = {
@@ -21806,6 +23101,7 @@ export namespace Prisma {
 
   export type PastureCreateManyFarmInputEnvelope = {
     data: PastureCreateManyFarmInput | PastureCreateManyFarmInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithWhereUniqueWithoutFarmInput = {
@@ -21841,10 +23137,10 @@ export namespace Prisma {
     specialties?: StringNullableListFilter<"User">
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    farmId?: StringFilter<"User"> | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    farmId?: StringFilter<"User"> | string
   }
 
   export type AnimalUpsertWithWhereUniqueWithoutFarmInput = {
@@ -21880,9 +23176,9 @@ export namespace Prisma {
     pastureName?: StringNullableFilter<"Animal"> | string | null
     status?: StringFilter<"Animal"> | string
     deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
-    farmId?: StringFilter<"Animal"> | string
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
+    farmId?: StringFilter<"Animal"> | string
   }
 
   export type PastureUpsertWithWhereUniqueWithoutFarmInput = {
@@ -21912,9 +23208,9 @@ export namespace Prisma {
     animalCapacity?: IntFilter<"Pasture"> | number
     currentAnimals?: IntFilter<"Pasture"> | number
     active?: BoolFilter<"Pasture"> | boolean
-    farmId?: StringFilter<"Pasture"> | string
     createdAt?: DateTimeFilter<"Pasture"> | Date | string
     updatedAt?: DateTimeFilter<"Pasture"> | Date | string
+    farmId?: StringFilter<"Pasture"> | string
   }
 
   export type FarmCreateWithoutUsersInput = {
@@ -21960,6 +23256,7 @@ export namespace Prisma {
   }
 
   export type FarmUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21972,6 +23269,7 @@ export namespace Prisma {
   }
 
   export type FarmUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21981,35 +23279,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
     pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
-  }
-
-  export type EarTagHistoryCreateWithoutAnimalInput = {
-    id?: string
-    earTagNumber: string
-    placementDate: Date | string
-    removalDate?: Date | string | null
-    reason?: string | null
-    farmId: string
-    createdAt?: Date | string
-  }
-
-  export type EarTagHistoryUncheckedCreateWithoutAnimalInput = {
-    id?: string
-    earTagNumber: string
-    placementDate: Date | string
-    removalDate?: Date | string | null
-    reason?: string | null
-    farmId: string
-    createdAt?: Date | string
-  }
-
-  export type EarTagHistoryCreateOrConnectWithoutAnimalInput = {
-    where: EarTagHistoryWhereUniqueInput
-    create: XOR<EarTagHistoryCreateWithoutAnimalInput, EarTagHistoryUncheckedCreateWithoutAnimalInput>
-  }
-
-  export type EarTagHistoryCreateManyAnimalInputEnvelope = {
-    data: EarTagHistoryCreateManyAnimalInput | EarTagHistoryCreateManyAnimalInput[]
   }
 
   export type FarmCreateWithoutAnimalsInput = {
@@ -22043,6 +23312,73 @@ export namespace Prisma {
     create: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
   }
 
+  export type EarTagHistoryCreateWithoutAnimalInput = {
+    id?: string
+    earTagNumber: string
+    placementDate: Date | string
+    removalDate?: Date | string | null
+    reason?: string | null
+    createdAt?: Date | string
+    farmId: string
+  }
+
+  export type EarTagHistoryUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    earTagNumber: string
+    placementDate: Date | string
+    removalDate?: Date | string | null
+    reason?: string | null
+    createdAt?: Date | string
+    farmId: string
+  }
+
+  export type EarTagHistoryCreateOrConnectWithoutAnimalInput = {
+    where: EarTagHistoryWhereUniqueInput
+    create: XOR<EarTagHistoryCreateWithoutAnimalInput, EarTagHistoryUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type EarTagHistoryCreateManyAnimalInputEnvelope = {
+    data: EarTagHistoryCreateManyAnimalInput | EarTagHistoryCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FarmUpsertWithoutAnimalsInput = {
+    update: XOR<FarmUpdateWithoutAnimalsInput, FarmUncheckedUpdateWithoutAnimalsInput>
+    create: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutAnimalsInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutAnimalsInput, FarmUncheckedUpdateWithoutAnimalsInput>
+  }
+
+  export type FarmUpdateWithoutAnimalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutAnimalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
   export type EarTagHistoryUpsertWithWhereUniqueWithoutAnimalInput = {
     where: EarTagHistoryWhereUniqueInput
     update: XOR<EarTagHistoryUpdateWithoutAnimalInput, EarTagHistoryUncheckedUpdateWithoutAnimalInput>
@@ -22065,47 +23401,12 @@ export namespace Prisma {
     NOT?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
     id?: StringFilter<"EarTagHistory"> | string
     earTagNumber?: StringFilter<"EarTagHistory"> | string
-    animalId?: StringFilter<"EarTagHistory"> | string
     placementDate?: DateTimeFilter<"EarTagHistory"> | Date | string
     removalDate?: DateTimeNullableFilter<"EarTagHistory"> | Date | string | null
     reason?: StringNullableFilter<"EarTagHistory"> | string | null
-    farmId?: StringFilter<"EarTagHistory"> | string
     createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
-  }
-
-  export type FarmUpsertWithoutAnimalsInput = {
-    update: XOR<FarmUpdateWithoutAnimalsInput, FarmUncheckedUpdateWithoutAnimalsInput>
-    create: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
-    where?: FarmWhereInput
-  }
-
-  export type FarmUpdateToOneWithWhereWithoutAnimalsInput = {
-    where?: FarmWhereInput
-    data: XOR<FarmUpdateWithoutAnimalsInput, FarmUncheckedUpdateWithoutAnimalsInput>
-  }
-
-  export type FarmUpdateWithoutAnimalsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    active?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutFarmNestedInput
-    pastures?: PastureUpdateManyWithoutFarmNestedInput
-  }
-
-  export type FarmUncheckedUpdateWithoutAnimalsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    active?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
-    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    farmId?: StringFilter<"EarTagHistory"> | string
+    animalId?: StringFilter<"EarTagHistory"> | string
   }
 
   export type AnimalCreateWithoutEarTagHistoryInput = {
@@ -22141,9 +23442,9 @@ export namespace Prisma {
     pastureName?: string | null
     status?: string
     deathDate?: Date | string | null
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type AnimalCreateOrConnectWithoutEarTagHistoryInput = {
@@ -22163,6 +23464,7 @@ export namespace Prisma {
   }
 
   export type AnimalUpdateWithoutEarTagHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -22181,6 +23483,7 @@ export namespace Prisma {
   }
 
   export type AnimalUncheckedUpdateWithoutEarTagHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -22193,9 +23496,9 @@ export namespace Prisma {
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FarmCreateWithoutPasturesInput = {
@@ -22241,6 +23544,7 @@ export namespace Prisma {
   }
 
   export type FarmUpdateWithoutPasturesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22253,6 +23557,7 @@ export namespace Prisma {
   }
 
   export type FarmUncheckedUpdateWithoutPasturesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     cnpj?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22303,6 +23608,7 @@ export namespace Prisma {
 
   export type AttemptCreateManyPregnancyInputEnvelope = {
     data: AttemptCreateManyPregnancyInput | AttemptCreateManyPregnancyInput[]
+    skipDuplicates?: boolean
   }
 
   export type AttemptUpsertWithWhereUniqueWithoutPregnancyInput = {
@@ -22327,7 +23633,6 @@ export namespace Prisma {
     NOT?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
     id?: StringFilter<"Attempt"> | string
     number?: IntFilter<"Attempt"> | number
-    pregnancyId?: StringFilter<"Attempt"> | string
     matingDate?: DateTimeFilter<"Attempt"> | Date | string
     matingType?: StringFilter<"Attempt"> | string
     bullId?: StringNullableFilter<"Attempt"> | string | null
@@ -22338,6 +23643,7 @@ export namespace Prisma {
     attemptStatus?: StringFilter<"Attempt"> | string
     notes?: StringNullableFilter<"Attempt"> | string | null
     createdAt?: DateTimeFilter<"Attempt"> | Date | string
+    pregnancyId?: StringFilter<"Attempt"> | string
   }
 
   export type PregnancyCreateWithoutAttemptsInput = {
@@ -22345,9 +23651,9 @@ export namespace Prisma {
     animalId: string
     currentStatus?: string
     currentStatusDate?: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type PregnancyUncheckedCreateWithoutAttemptsInput = {
@@ -22355,9 +23661,9 @@ export namespace Prisma {
     animalId: string
     currentStatus?: string
     currentStatusDate?: Date | string
-    farmId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmId: string
   }
 
   export type PregnancyCreateOrConnectWithoutAttemptsInput = {
@@ -22390,6 +23696,7 @@ export namespace Prisma {
 
   export type UltrasoundCreateManyAttemptInputEnvelope = {
     data: UltrasoundCreateManyAttemptInput | UltrasoundCreateManyAttemptInput[]
+    skipDuplicates?: boolean
   }
 
   export type PregnancyUpsertWithoutAttemptsInput = {
@@ -22404,21 +23711,23 @@ export namespace Prisma {
   }
 
   export type PregnancyUpdateWithoutAttemptsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     currentStatus?: StringFieldUpdateOperationsInput | string
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PregnancyUncheckedUpdateWithoutAttemptsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     animalId?: StringFieldUpdateOperationsInput | string
     currentStatus?: StringFieldUpdateOperationsInput | string
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UltrasoundUpsertWithWhereUniqueWithoutAttemptInput = {
@@ -22442,12 +23751,12 @@ export namespace Prisma {
     OR?: UltrasoundScalarWhereInput[]
     NOT?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
     id?: StringFilter<"Ultrasound"> | string
-    attemptId?: StringFilter<"Ultrasound"> | string
     days?: IntFilter<"Ultrasound"> | number
     result?: StringFilter<"Ultrasound"> | string
     notes?: StringNullableFilter<"Ultrasound"> | string | null
     veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
+    attemptId?: StringFilter<"Ultrasound"> | string
   }
 
   export type AttemptCreateWithoutUltrasoundsInput = {
@@ -22469,7 +23778,6 @@ export namespace Prisma {
   export type AttemptUncheckedCreateWithoutUltrasoundsInput = {
     id?: string
     number: number
-    pregnancyId: string
     matingDate: Date | string
     matingType: string
     bullId?: string | null
@@ -22480,6 +23788,7 @@ export namespace Prisma {
     attemptStatus?: string
     notes?: string | null
     createdAt?: Date | string
+    pregnancyId: string
   }
 
   export type AttemptCreateOrConnectWithoutUltrasoundsInput = {
@@ -22499,6 +23808,7 @@ export namespace Prisma {
   }
 
   export type AttemptUpdateWithoutUltrasoundsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
@@ -22514,8 +23824,8 @@ export namespace Prisma {
   }
 
   export type AttemptUncheckedUpdateWithoutUltrasoundsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
-    pregnancyId?: StringFieldUpdateOperationsInput | string
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
     bullId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22526,6 +23836,7 @@ export namespace Prisma {
     attemptStatus?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pregnancyId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyFarmInput = {
@@ -22578,6 +23889,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22596,6 +23908,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22614,6 +23927,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22632,6 +23946,7 @@ export namespace Prisma {
   }
 
   export type AnimalUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -22650,6 +23965,7 @@ export namespace Prisma {
   }
 
   export type AnimalUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -22668,6 +23984,7 @@ export namespace Prisma {
   }
 
   export type AnimalUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     chipId?: StringFieldUpdateOperationsInput | string
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
@@ -22685,6 +24002,7 @@ export namespace Prisma {
   }
 
   export type PastureUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
@@ -22696,6 +24014,7 @@ export namespace Prisma {
   }
 
   export type PastureUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
@@ -22707,6 +24026,7 @@ export namespace Prisma {
   }
 
   export type PastureUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     hectares?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
@@ -22723,35 +24043,38 @@ export namespace Prisma {
     placementDate: Date | string
     removalDate?: Date | string | null
     reason?: string | null
-    farmId: string
     createdAt?: Date | string
+    farmId: string
   }
 
   export type EarTagHistoryUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EarTagHistoryUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EarTagHistoryUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
     placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    farmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AttemptCreateManyPregnancyInput = {
@@ -22770,6 +24093,7 @@ export namespace Prisma {
   }
 
   export type AttemptUpdateWithoutPregnancyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
@@ -22785,6 +24109,7 @@ export namespace Prisma {
   }
 
   export type AttemptUncheckedUpdateWithoutPregnancyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
@@ -22800,6 +24125,7 @@ export namespace Prisma {
   }
 
   export type AttemptUncheckedUpdateManyWithoutPregnancyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
     matingType?: StringFieldUpdateOperationsInput | string
@@ -22823,6 +24149,7 @@ export namespace Prisma {
   }
 
   export type UltrasoundUpdateWithoutAttemptInput = {
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22831,6 +24158,7 @@ export namespace Prisma {
   }
 
   export type UltrasoundUncheckedUpdateWithoutAttemptInput = {
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22839,6 +24167,7 @@ export namespace Prisma {
   }
 
   export type UltrasoundUncheckedUpdateManyWithoutAttemptInput = {
+    id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     result?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
