@@ -1,7 +1,6 @@
-/** biome-ignore-all lint/suspicious/noConsole: <explanation> */
 import { PrismaClient } from "@prisma/client";
+import { DATABASE_URL } from "./env";
 
-// Instância única — usada em TODO o projeto para evitar múltiplas conexões em dev
 const globalForPrisma = globalThis as unknown as {
    prisma: PrismaClient | undefined;
 };
@@ -9,6 +8,7 @@ const globalForPrisma = globalThis as unknown as {
 export const prisma =
    globalForPrisma.prisma ??
    new PrismaClient({
+      datasourceUrl: DATABASE_URL, // ← Prisma 7: URL vai aqui
       log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
    });
 

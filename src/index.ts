@@ -7,8 +7,6 @@ async function bootStrap() {
    try {
       // Connect to the database
       await connectDataBase();
-      console.log("🚀 Database connected successfully");
-
       // Start the server
       app.listen(PORT, () => {
          console.log(`🚀 Server running on port ${PORT}`);

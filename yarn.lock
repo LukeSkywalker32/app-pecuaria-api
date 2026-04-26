@@ -4,7 +4,7 @@
 
 "@biomejs/biome@^2.4.13":
   version "2.4.13"
-  resolved "https://registry.npmmirror.com/@biomejs/biome/-/biome-2.4.13.tgz#0b2aba2e7da656e89101ad640ec8609230cfa846"
+  resolved "https://registry.yarnpkg.com/@biomejs/biome/-/biome-2.4.13.tgz#0b2aba2e7da656e89101ad640ec8609230cfa846"
   integrity sha512-gLXOwkOBBg0tr7bDsqlkIh4uFeKuMjxvqsrb1Tukww1iDmHcfr4Uu8MoQxp0Rcte+69+osRNWXwHsu/zxT6XqA==
   optionalDependencies:
     "@biomejs/cli-darwin-arm64" "2.4.13"
