@@ -6,6 +6,14 @@ import type { NextFunction, Request, Response } from "express";
 import farmService from "../services/farm.service";
 import type { CreateFarmRequest, ListFarmsQuery, UpdateFarmRequest } from "../types/farm.types";
 
+// Garante que o valor do query param seja sempre string ou undefined
+// req.query pode retornar string | string[] | ParsedQs — essa função normaliza
+function queryString(value: unknown): string | undefined {
+   if (typeof value === "string") return value;
+   if (Array.isArray(value)) return typeof value[0] === "string" ? value[0] : undefined;
+   return undefined;
+}
+
 class FarmController {
    /**
     * POST /api/farms
@@ -30,9 +38,11 @@ class FarmController {
          const callerRole = req.role as string;
          const callerFarmId = req.farmId as string;
 
+         const activeParam = queryString(req.query.active);
+
          const query: ListFarmsQuery = {
-            active: req.query.active !== undefined ? req.query.active === "true" : undefined,
-            search: req.query.search as string | undefined,
+            active: activeParam !== undefined ? activeParam === "true" : undefined,
+            search: queryString(req.query.search),
          };
 
          const farms = await farmService.list(callerRole, callerFarmId, query);
@@ -105,7 +115,6 @@ class FarmController {
 
    /**
     * PATCH /api/farms/:id/logo
-    * Recebe o arquivo via multipart/form-data (campo: "logo")
     * Admin: qualquer fazenda | Owner: apenas a própria
     */
    async uploadLogo(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -146,7 +155,7 @@ class FarmController {
     */
    async remove(req: Request, res: Response, next: NextFunction): Promise<void> {
       try {
-         await farmService.remove(req.params.id);
+         await farmService.remove(req.params.id as string);
          res.status(204).send();
       } catch (error) {
          next(error);
