@@ -97,11 +97,152 @@ export namespace $Enums {
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
 
+
+export const Gender: {
+  M: 'M',
+  F: 'F'
+};
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const AnimalStatus: {
+  active: 'active',
+  dead: 'dead',
+  sold: 'sold'
+};
+
+export type AnimalStatus = (typeof AnimalStatus)[keyof typeof AnimalStatus]
+
+
+export const EstrusIntensity: {
+  weak: 'weak',
+  normal: 'normal',
+  strong: 'strong'
+};
+
+export type EstrusIntensity = (typeof EstrusIntensity)[keyof typeof EstrusIntensity]
+
+
+export const PregnancyStatus: {
+  not_started: 'not_started',
+  in_progress: 'in_progress',
+  pregnant: 'pregnant',
+  failed: 'failed'
+};
+
+export type PregnancyStatus = (typeof PregnancyStatus)[keyof typeof PregnancyStatus]
+
+
+export const AttemptStatus: {
+  in_progress: 'in_progress',
+  success: 'success',
+  failed: 'failed'
+};
+
+export type AttemptStatus = (typeof AttemptStatus)[keyof typeof AttemptStatus]
+
+
+export const MatingType: {
+  NATURAL: 'NATURAL',
+  AI: 'AI'
+};
+
+export type MatingType = (typeof MatingType)[keyof typeof MatingType]
+
+
+export const BirthType: {
+  normal: 'normal',
+  assisted: 'assisted',
+  c_section: 'c_section'
+};
+
+export type BirthType = (typeof BirthType)[keyof typeof BirthType]
+
+
+export const CalfStatus: {
+  pending: 'pending',
+  complete: 'complete'
+};
+
+export type CalfStatus = (typeof CalfStatus)[keyof typeof CalfStatus]
+
+
+export const BirthSituation: {
+  normal: 'normal',
+  dead: 'dead'
+};
+
+export type BirthSituation = (typeof BirthSituation)[keyof typeof BirthSituation]
+
+
+export const MortalitySeverity: {
+  mild: 'mild',
+  moderate: 'moderate',
+  severe: 'severe'
+};
+
+export type MortalitySeverity = (typeof MortalitySeverity)[keyof typeof MortalitySeverity]
+
+
+export const UltrasoundResult: {
+  PREGNANT: 'PREGNANT',
+  EMPTY: 'EMPTY',
+  ABSORPTION: 'ABSORPTION',
+  VIABLE: 'VIABLE'
+};
+
+export type UltrasoundResult = (typeof UltrasoundResult)[keyof typeof UltrasoundResult]
+
 }
 
 export type Permission = $Enums.Permission
 
 export const Permission: typeof $Enums.Permission
+
+export type Gender = $Enums.Gender
+
+export const Gender: typeof $Enums.Gender
+
+export type AnimalStatus = $Enums.AnimalStatus
+
+export const AnimalStatus: typeof $Enums.AnimalStatus
+
+export type EstrusIntensity = $Enums.EstrusIntensity
+
+export const EstrusIntensity: typeof $Enums.EstrusIntensity
+
+export type PregnancyStatus = $Enums.PregnancyStatus
+
+export const PregnancyStatus: typeof $Enums.PregnancyStatus
+
+export type AttemptStatus = $Enums.AttemptStatus
+
+export const AttemptStatus: typeof $Enums.AttemptStatus
+
+export type MatingType = $Enums.MatingType
+
+export const MatingType: typeof $Enums.MatingType
+
+export type BirthType = $Enums.BirthType
+
+export const BirthType: typeof $Enums.BirthType
+
+export type CalfStatus = $Enums.CalfStatus
+
+export const CalfStatus: typeof $Enums.CalfStatus
+
+export type BirthSituation = $Enums.BirthSituation
+
+export const BirthSituation: typeof $Enums.BirthSituation
+
+export type MortalitySeverity = $Enums.MortalitySeverity
+
+export const MortalitySeverity: typeof $Enums.MortalitySeverity
+
+export type UltrasoundResult = $Enums.UltrasoundResult
+
+export const UltrasoundResult: typeof $Enums.UltrasoundResult
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2071,12 +2212,28 @@ export namespace Prisma {
     users: number
     animals: number
     pastures: number
+    estrus: number
+    pregnancies: number
+    births: number
+    vaccinations: number
+    managements: number
+    mortalities: number
+    passwordResetTokens: number
+    earTagHistory: number
   }
 
   export type FarmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | FarmCountOutputTypeCountUsersArgs
     animals?: boolean | FarmCountOutputTypeCountAnimalsArgs
     pastures?: boolean | FarmCountOutputTypeCountPasturesArgs
+    estrus?: boolean | FarmCountOutputTypeCountEstrusArgs
+    pregnancies?: boolean | FarmCountOutputTypeCountPregnanciesArgs
+    births?: boolean | FarmCountOutputTypeCountBirthsArgs
+    vaccinations?: boolean | FarmCountOutputTypeCountVaccinationsArgs
+    managements?: boolean | FarmCountOutputTypeCountManagementsArgs
+    mortalities?: boolean | FarmCountOutputTypeCountMortalitiesArgs
+    passwordResetTokens?: boolean | FarmCountOutputTypeCountPasswordResetTokensArgs
+    earTagHistory?: boolean | FarmCountOutputTypeCountEarTagHistoryArgs
   }
 
   // Custom InputTypes
@@ -2111,17 +2268,167 @@ export namespace Prisma {
     where?: PastureWhereInput
   }
 
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountEstrusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EstrusWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountPregnanciesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PregnancyWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountBirthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BirthWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountVaccinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VaccinationWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountManagementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ManagementWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountMortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MortalityWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountEarTagHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EarTagHistoryWhereInput
+  }
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    passwordResetTokens: number
+    vaccinations: number
+    ultrasounds: number
+    births: number
+    mortalities: number
+    estrus: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+    vaccinations?: boolean | UserCountOutputTypeCountVaccinationsArgs
+    ultrasounds?: boolean | UserCountOutputTypeCountUltrasoundsArgs
+    births?: boolean | UserCountOutputTypeCountBirthsArgs
+    mortalities?: boolean | UserCountOutputTypeCountMortalitiesArgs
+    estrus?: boolean | UserCountOutputTypeCountEstrusArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVaccinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VaccinationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUltrasoundsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UltrasoundWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBirthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BirthWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MortalityWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEstrusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EstrusWhereInput
+  }
+
 
   /**
    * Count Type AnimalCountOutputType
    */
 
   export type AnimalCountOutputType = {
+    sireOf: number
+    damOf: number
+    bullInAttempts: number
     earTagHistory: number
+    estrus: number
+    pregnancies: number
+    births: number
+    vaccinations: number
+    managements: number
+    mortalities: number
   }
 
   export type AnimalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sireOf?: boolean | AnimalCountOutputTypeCountSireOfArgs
+    damOf?: boolean | AnimalCountOutputTypeCountDamOfArgs
+    bullInAttempts?: boolean | AnimalCountOutputTypeCountBullInAttemptsArgs
     earTagHistory?: boolean | AnimalCountOutputTypeCountEarTagHistoryArgs
+    estrus?: boolean | AnimalCountOutputTypeCountEstrusArgs
+    pregnancies?: boolean | AnimalCountOutputTypeCountPregnanciesArgs
+    births?: boolean | AnimalCountOutputTypeCountBirthsArgs
+    vaccinations?: boolean | AnimalCountOutputTypeCountVaccinationsArgs
+    managements?: boolean | AnimalCountOutputTypeCountManagementsArgs
+    mortalities?: boolean | AnimalCountOutputTypeCountMortalitiesArgs
   }
 
   // Custom InputTypes
@@ -2138,8 +2445,102 @@ export namespace Prisma {
   /**
    * AnimalCountOutputType without action
    */
+  export type AnimalCountOutputTypeCountSireOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnimalWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountDamOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnimalWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountBullInAttemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttemptWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
   export type AnimalCountOutputTypeCountEarTagHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EarTagHistoryWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountEstrusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EstrusWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountPregnanciesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PregnancyWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountBirthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BirthWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountVaccinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VaccinationWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountManagementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ManagementWhereInput
+  }
+
+  /**
+   * AnimalCountOutputType without action
+   */
+  export type AnimalCountOutputTypeCountMortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MortalityWhereInput
+  }
+
+
+  /**
+   * Count Type PastureCountOutputType
+   */
+
+  export type PastureCountOutputType = {
+    animals: number
+  }
+
+  export type PastureCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    animals?: boolean | PastureCountOutputTypeCountAnimalsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PastureCountOutputType without action
+   */
+  export type PastureCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PastureCountOutputType
+     */
+    select?: PastureCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PastureCountOutputType without action
+   */
+  export type PastureCountOutputTypeCountAnimalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnimalWhereInput
   }
 
 
@@ -2180,10 +2581,12 @@ export namespace Prisma {
 
   export type AttemptCountOutputType = {
     ultrasounds: number
+    births: number
   }
 
   export type AttemptCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ultrasounds?: boolean | AttemptCountOutputTypeCountUltrasoundsArgs
+    births?: boolean | AttemptCountOutputTypeCountBirthsArgs
   }
 
   // Custom InputTypes
@@ -2202,6 +2605,44 @@ export namespace Prisma {
    */
   export type AttemptCountOutputTypeCountUltrasoundsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UltrasoundWhereInput
+  }
+
+  /**
+   * AttemptCountOutputType without action
+   */
+  export type AttemptCountOutputTypeCountBirthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BirthWhereInput
+  }
+
+
+  /**
+   * Count Type BirthCountOutputType
+   */
+
+  export type BirthCountOutputType = {
+    mortalities: number
+  }
+
+  export type BirthCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mortalities?: boolean | BirthCountOutputTypeCountMortalitiesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BirthCountOutputType without action
+   */
+  export type BirthCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BirthCountOutputType
+     */
+    select?: BirthCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BirthCountOutputType without action
+   */
+  export type BirthCountOutputTypeCountMortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MortalityWhereInput
   }
 
 
@@ -2400,6 +2841,14 @@ export namespace Prisma {
     users?: boolean | Farm$usersArgs<ExtArgs>
     animals?: boolean | Farm$animalsArgs<ExtArgs>
     pastures?: boolean | Farm$pasturesArgs<ExtArgs>
+    estrus?: boolean | Farm$estrusArgs<ExtArgs>
+    pregnancies?: boolean | Farm$pregnanciesArgs<ExtArgs>
+    births?: boolean | Farm$birthsArgs<ExtArgs>
+    vaccinations?: boolean | Farm$vaccinationsArgs<ExtArgs>
+    managements?: boolean | Farm$managementsArgs<ExtArgs>
+    mortalities?: boolean | Farm$mortalitiesArgs<ExtArgs>
+    passwordResetTokens?: boolean | Farm$passwordResetTokensArgs<ExtArgs>
+    earTagHistory?: boolean | Farm$earTagHistoryArgs<ExtArgs>
     _count?: boolean | FarmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["farm"]>
 
@@ -2441,6 +2890,14 @@ export namespace Prisma {
     users?: boolean | Farm$usersArgs<ExtArgs>
     animals?: boolean | Farm$animalsArgs<ExtArgs>
     pastures?: boolean | Farm$pasturesArgs<ExtArgs>
+    estrus?: boolean | Farm$estrusArgs<ExtArgs>
+    pregnancies?: boolean | Farm$pregnanciesArgs<ExtArgs>
+    births?: boolean | Farm$birthsArgs<ExtArgs>
+    vaccinations?: boolean | Farm$vaccinationsArgs<ExtArgs>
+    managements?: boolean | Farm$managementsArgs<ExtArgs>
+    mortalities?: boolean | Farm$mortalitiesArgs<ExtArgs>
+    passwordResetTokens?: boolean | Farm$passwordResetTokensArgs<ExtArgs>
+    earTagHistory?: boolean | Farm$earTagHistoryArgs<ExtArgs>
     _count?: boolean | FarmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FarmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2452,6 +2909,14 @@ export namespace Prisma {
       users: Prisma.$UserPayload<ExtArgs>[]
       animals: Prisma.$AnimalPayload<ExtArgs>[]
       pastures: Prisma.$PasturePayload<ExtArgs>[]
+      estrus: Prisma.$EstrusPayload<ExtArgs>[]
+      pregnancies: Prisma.$PregnancyPayload<ExtArgs>[]
+      births: Prisma.$BirthPayload<ExtArgs>[]
+      vaccinations: Prisma.$VaccinationPayload<ExtArgs>[]
+      managements: Prisma.$ManagementPayload<ExtArgs>[]
+      mortalities: Prisma.$MortalityPayload<ExtArgs>[]
+      passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      earTagHistory: Prisma.$EarTagHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2859,6 +3324,14 @@ export namespace Prisma {
     users<T extends Farm$usersArgs<ExtArgs> = {}>(args?: Subset<T, Farm$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     animals<T extends Farm$animalsArgs<ExtArgs> = {}>(args?: Subset<T, Farm$animalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pastures<T extends Farm$pasturesArgs<ExtArgs> = {}>(args?: Subset<T, Farm$pasturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    estrus<T extends Farm$estrusArgs<ExtArgs> = {}>(args?: Subset<T, Farm$estrusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EstrusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pregnancies<T extends Farm$pregnanciesArgs<ExtArgs> = {}>(args?: Subset<T, Farm$pregnanciesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PregnancyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    births<T extends Farm$birthsArgs<ExtArgs> = {}>(args?: Subset<T, Farm$birthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vaccinations<T extends Farm$vaccinationsArgs<ExtArgs> = {}>(args?: Subset<T, Farm$vaccinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VaccinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    managements<T extends Farm$managementsArgs<ExtArgs> = {}>(args?: Subset<T, Farm$managementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManagementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mortalities<T extends Farm$mortalitiesArgs<ExtArgs> = {}>(args?: Subset<T, Farm$mortalitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    passwordResetTokens<T extends Farm$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, Farm$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    earTagHistory<T extends Farm$earTagHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Farm$earTagHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3361,6 +3834,198 @@ export namespace Prisma {
   }
 
   /**
+   * Farm.estrus
+   */
+  export type Farm$estrusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Estrus
+     */
+    select?: EstrusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Estrus
+     */
+    omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    where?: EstrusWhereInput
+    orderBy?: EstrusOrderByWithRelationInput | EstrusOrderByWithRelationInput[]
+    cursor?: EstrusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EstrusScalarFieldEnum | EstrusScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.pregnancies
+   */
+  export type Farm$pregnanciesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pregnancy
+     */
+    select?: PregnancySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pregnancy
+     */
+    omit?: PregnancyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PregnancyInclude<ExtArgs> | null
+    where?: PregnancyWhereInput
+    orderBy?: PregnancyOrderByWithRelationInput | PregnancyOrderByWithRelationInput[]
+    cursor?: PregnancyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PregnancyScalarFieldEnum | PregnancyScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.births
+   */
+  export type Farm$birthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    where?: BirthWhereInput
+    orderBy?: BirthOrderByWithRelationInput | BirthOrderByWithRelationInput[]
+    cursor?: BirthWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BirthScalarFieldEnum | BirthScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.vaccinations
+   */
+  export type Farm$vaccinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vaccination
+     */
+    select?: VaccinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vaccination
+     */
+    omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    where?: VaccinationWhereInput
+    orderBy?: VaccinationOrderByWithRelationInput | VaccinationOrderByWithRelationInput[]
+    cursor?: VaccinationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VaccinationScalarFieldEnum | VaccinationScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.managements
+   */
+  export type Farm$managementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Management
+     */
+    select?: ManagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Management
+     */
+    omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
+    where?: ManagementWhereInput
+    orderBy?: ManagementOrderByWithRelationInput | ManagementOrderByWithRelationInput[]
+    cursor?: ManagementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ManagementScalarFieldEnum | ManagementScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.mortalities
+   */
+  export type Farm$mortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mortality
+     */
+    select?: MortalitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mortality
+     */
+    omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    where?: MortalityWhereInput
+    orderBy?: MortalityOrderByWithRelationInput | MortalityOrderByWithRelationInput[]
+    cursor?: MortalityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MortalityScalarFieldEnum | MortalityScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.passwordResetTokens
+   */
+  export type Farm$passwordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    where?: PasswordResetTokenWhereInput
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    cursor?: PasswordResetTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * Farm.earTagHistory
+   */
+  export type Farm$earTagHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EarTagHistory
+     */
+    select?: EarTagHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EarTagHistory
+     */
+    omit?: EarTagHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EarTagHistoryInclude<ExtArgs> | null
+    where?: EarTagHistoryWhereInput
+    orderBy?: EarTagHistoryOrderByWithRelationInput | EarTagHistoryOrderByWithRelationInput[]
+    cursor?: EarTagHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EarTagHistoryScalarFieldEnum | EarTagHistoryScalarFieldEnum[]
+  }
+
+  /**
    * Farm without action
    */
   export type FarmDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3392,12 +4057,12 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     fullName: string | null
+    username: string | null
     email: string | null
     phone: string | null
     password: string | null
     role: $Enums.Permission | null
     active: boolean | null
-    crv: string | null
     crmv: string | null
     graduationDate: Date | null
     resetPasswordToken: string | null
@@ -3411,12 +4076,12 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     fullName: string | null
+    username: string | null
     email: string | null
     phone: string | null
     password: string | null
     role: $Enums.Permission | null
     active: boolean | null
-    crv: string | null
     crmv: string | null
     graduationDate: Date | null
     resetPasswordToken: string | null
@@ -3430,12 +4095,12 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     fullName: number
+    username: number
     email: number
     phone: number
     password: number
     role: number
     active: number
-    crv: number
     crmv: number
     graduationDate: number
     specialties: number
@@ -3452,12 +4117,12 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     fullName?: true
+    username?: true
     email?: true
     phone?: true
     password?: true
     role?: true
     active?: true
-    crv?: true
     crmv?: true
     graduationDate?: true
     resetPasswordToken?: true
@@ -3471,12 +4136,12 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     fullName?: true
+    username?: true
     email?: true
     phone?: true
     password?: true
     role?: true
     active?: true
-    crv?: true
     crmv?: true
     graduationDate?: true
     resetPasswordToken?: true
@@ -3490,12 +4155,12 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     fullName?: true
+    username?: true
     email?: true
     phone?: true
     password?: true
     role?: true
     active?: true
-    crv?: true
     crmv?: true
     graduationDate?: true
     specialties?: true
@@ -3583,12 +4248,12 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     fullName: string
+    username: string
     email: string
     phone: string | null
     password: string
     role: $Enums.Permission
     active: boolean
-    crv: string | null
     crmv: string | null
     graduationDate: Date | null
     specialties: string[]
@@ -3620,12 +4285,12 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     fullName?: boolean
+    username?: boolean
     email?: boolean
     phone?: boolean
     password?: boolean
     role?: boolean
     active?: boolean
-    crv?: boolean
     crmv?: boolean
     graduationDate?: boolean
     specialties?: boolean
@@ -3636,17 +4301,24 @@ export namespace Prisma {
     updatedAt?: boolean
     farmId?: boolean
     farm?: boolean | FarmDefaultArgs<ExtArgs>
+    passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    vaccinations?: boolean | User$vaccinationsArgs<ExtArgs>
+    ultrasounds?: boolean | User$ultrasoundsArgs<ExtArgs>
+    births?: boolean | User$birthsArgs<ExtArgs>
+    mortalities?: boolean | User$mortalitiesArgs<ExtArgs>
+    estrus?: boolean | User$estrusArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     fullName?: boolean
+    username?: boolean
     email?: boolean
     phone?: boolean
     password?: boolean
     role?: boolean
     active?: boolean
-    crv?: boolean
     crmv?: boolean
     graduationDate?: boolean
     specialties?: boolean
@@ -3662,12 +4334,12 @@ export namespace Prisma {
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     fullName?: boolean
+    username?: boolean
     email?: boolean
     phone?: boolean
     password?: boolean
     role?: boolean
     active?: boolean
-    crv?: boolean
     crmv?: boolean
     graduationDate?: boolean
     specialties?: boolean
@@ -3683,12 +4355,12 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     fullName?: boolean
+    username?: boolean
     email?: boolean
     phone?: boolean
     password?: boolean
     role?: boolean
     active?: boolean
-    crv?: boolean
     crmv?: boolean
     graduationDate?: boolean
     specialties?: boolean
@@ -3700,9 +4372,16 @@ export namespace Prisma {
     farmId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "password" | "role" | "active" | "crv" | "crmv" | "graduationDate" | "specialties" | "resetPasswordToken" | "resetPasswordExpires" | "lastLogin" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "username" | "email" | "phone" | "password" | "role" | "active" | "crmv" | "graduationDate" | "specialties" | "resetPasswordToken" | "resetPasswordExpires" | "lastLogin" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farm?: boolean | FarmDefaultArgs<ExtArgs>
+    passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    vaccinations?: boolean | User$vaccinationsArgs<ExtArgs>
+    ultrasounds?: boolean | User$ultrasoundsArgs<ExtArgs>
+    births?: boolean | User$birthsArgs<ExtArgs>
+    mortalities?: boolean | User$mortalitiesArgs<ExtArgs>
+    estrus?: boolean | User$estrusArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farm?: boolean | FarmDefaultArgs<ExtArgs>
@@ -3715,16 +4394,22 @@ export namespace Prisma {
     name: "User"
     objects: {
       farm: Prisma.$FarmPayload<ExtArgs>
+      passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      vaccinations: Prisma.$VaccinationPayload<ExtArgs>[]
+      ultrasounds: Prisma.$UltrasoundPayload<ExtArgs>[]
+      births: Prisma.$BirthPayload<ExtArgs>[]
+      mortalities: Prisma.$MortalityPayload<ExtArgs>[]
+      estrus: Prisma.$EstrusPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       fullName: string
+      username: string
       email: string
       phone: string | null
       password: string
       role: $Enums.Permission
       active: boolean
-      crv: string | null
       crmv: string | null
       graduationDate: Date | null
       specialties: string[]
@@ -4129,6 +4814,12 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vaccinations<T extends User$vaccinationsArgs<ExtArgs> = {}>(args?: Subset<T, User$vaccinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VaccinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ultrasounds<T extends User$ultrasoundsArgs<ExtArgs> = {}>(args?: Subset<T, User$ultrasoundsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UltrasoundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    births<T extends User$birthsArgs<ExtArgs> = {}>(args?: Subset<T, User$birthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mortalities<T extends User$mortalitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$mortalitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    estrus<T extends User$estrusArgs<ExtArgs> = {}>(args?: Subset<T, User$estrusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EstrusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4160,12 +4851,12 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly fullName: FieldRef<"User", 'String'>
+    readonly username: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Permission'>
     readonly active: FieldRef<"User", 'Boolean'>
-    readonly crv: FieldRef<"User", 'String'>
     readonly crmv: FieldRef<"User", 'String'>
     readonly graduationDate: FieldRef<"User", 'DateTime'>
     readonly specialties: FieldRef<"User", 'String[]'>
@@ -4576,6 +5267,150 @@ export namespace Prisma {
   }
 
   /**
+   * User.passwordResetTokens
+   */
+  export type User$passwordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    where?: PasswordResetTokenWhereInput
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    cursor?: PasswordResetTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.vaccinations
+   */
+  export type User$vaccinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vaccination
+     */
+    select?: VaccinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vaccination
+     */
+    omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    where?: VaccinationWhereInput
+    orderBy?: VaccinationOrderByWithRelationInput | VaccinationOrderByWithRelationInput[]
+    cursor?: VaccinationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VaccinationScalarFieldEnum | VaccinationScalarFieldEnum[]
+  }
+
+  /**
+   * User.ultrasounds
+   */
+  export type User$ultrasoundsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ultrasound
+     */
+    select?: UltrasoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ultrasound
+     */
+    omit?: UltrasoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UltrasoundInclude<ExtArgs> | null
+    where?: UltrasoundWhereInput
+    orderBy?: UltrasoundOrderByWithRelationInput | UltrasoundOrderByWithRelationInput[]
+    cursor?: UltrasoundWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UltrasoundScalarFieldEnum | UltrasoundScalarFieldEnum[]
+  }
+
+  /**
+   * User.births
+   */
+  export type User$birthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    where?: BirthWhereInput
+    orderBy?: BirthOrderByWithRelationInput | BirthOrderByWithRelationInput[]
+    cursor?: BirthWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BirthScalarFieldEnum | BirthScalarFieldEnum[]
+  }
+
+  /**
+   * User.mortalities
+   */
+  export type User$mortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mortality
+     */
+    select?: MortalitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mortality
+     */
+    omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    where?: MortalityWhereInput
+    orderBy?: MortalityOrderByWithRelationInput | MortalityOrderByWithRelationInput[]
+    cursor?: MortalityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MortalityScalarFieldEnum | MortalityScalarFieldEnum[]
+  }
+
+  /**
+   * User.estrus
+   */
+  export type User$estrusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Estrus
+     */
+    select?: EstrusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Estrus
+     */
+    omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    where?: EstrusWhereInput
+    orderBy?: EstrusOrderByWithRelationInput | EstrusOrderByWithRelationInput[]
+    cursor?: EstrusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EstrusScalarFieldEnum | EstrusScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4610,14 +5445,14 @@ export namespace Prisma {
     currentEarTag: string | null
     name: string | null
     breed: string | null
-    gender: string | null
+    gender: $Enums.Gender | null
     birthDate: Date | null
+    status: $Enums.AnimalStatus | null
+    deathDate: Date | null
     sireId: string | null
     damId: string | null
     pastureId: string | null
     pastureName: string | null
-    status: string | null
-    deathDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
@@ -4629,14 +5464,14 @@ export namespace Prisma {
     currentEarTag: string | null
     name: string | null
     breed: string | null
-    gender: string | null
+    gender: $Enums.Gender | null
     birthDate: Date | null
+    status: $Enums.AnimalStatus | null
+    deathDate: Date | null
     sireId: string | null
     damId: string | null
     pastureId: string | null
     pastureName: string | null
-    status: string | null
-    deathDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
@@ -4650,12 +5485,12 @@ export namespace Prisma {
     breed: number
     gender: number
     birthDate: number
+    status: number
+    deathDate: number
     sireId: number
     damId: number
     pastureId: number
     pastureName: number
-    status: number
-    deathDate: number
     createdAt: number
     updatedAt: number
     farmId: number
@@ -4671,12 +5506,12 @@ export namespace Prisma {
     breed?: true
     gender?: true
     birthDate?: true
+    status?: true
+    deathDate?: true
     sireId?: true
     damId?: true
     pastureId?: true
     pastureName?: true
-    status?: true
-    deathDate?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
@@ -4690,12 +5525,12 @@ export namespace Prisma {
     breed?: true
     gender?: true
     birthDate?: true
+    status?: true
+    deathDate?: true
     sireId?: true
     damId?: true
     pastureId?: true
     pastureName?: true
-    status?: true
-    deathDate?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
@@ -4709,12 +5544,12 @@ export namespace Prisma {
     breed?: true
     gender?: true
     birthDate?: true
+    status?: true
+    deathDate?: true
     sireId?: true
     damId?: true
     pastureId?: true
     pastureName?: true
-    status?: true
-    deathDate?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
@@ -4799,14 +5634,14 @@ export namespace Prisma {
     currentEarTag: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date
+    status: $Enums.AnimalStatus
+    deathDate: Date | null
     sireId: string | null
     damId: string | null
     pastureId: string | null
     pastureName: string | null
-    status: string
-    deathDate: Date | null
     createdAt: Date
     updatedAt: Date
     farmId: string
@@ -4837,17 +5672,29 @@ export namespace Prisma {
     breed?: boolean
     gender?: boolean
     birthDate?: boolean
+    status?: boolean
+    deathDate?: boolean
     sireId?: boolean
     damId?: boolean
     pastureId?: boolean
     pastureName?: boolean
-    status?: boolean
-    deathDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    sire?: boolean | Animal$sireArgs<ExtArgs>
+    sireOf?: boolean | Animal$sireOfArgs<ExtArgs>
+    dam?: boolean | Animal$damArgs<ExtArgs>
+    damOf?: boolean | Animal$damOfArgs<ExtArgs>
+    bullInAttempts?: boolean | Animal$bullInAttemptsArgs<ExtArgs>
+    pasture?: boolean | Animal$pastureArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
     earTagHistory?: boolean | Animal$earTagHistoryArgs<ExtArgs>
+    estrus?: boolean | Animal$estrusArgs<ExtArgs>
+    pregnancies?: boolean | Animal$pregnanciesArgs<ExtArgs>
+    births?: boolean | Animal$birthsArgs<ExtArgs>
+    vaccinations?: boolean | Animal$vaccinationsArgs<ExtArgs>
+    managements?: boolean | Animal$managementsArgs<ExtArgs>
+    mortalities?: boolean | Animal$mortalitiesArgs<ExtArgs>
     _count?: boolean | AnimalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
@@ -4859,15 +5706,18 @@ export namespace Prisma {
     breed?: boolean
     gender?: boolean
     birthDate?: boolean
+    status?: boolean
+    deathDate?: boolean
     sireId?: boolean
     damId?: boolean
     pastureId?: boolean
     pastureName?: boolean
-    status?: boolean
-    deathDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    sire?: boolean | Animal$sireArgs<ExtArgs>
+    dam?: boolean | Animal$damArgs<ExtArgs>
+    pasture?: boolean | Animal$pastureArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
@@ -4879,15 +5729,18 @@ export namespace Prisma {
     breed?: boolean
     gender?: boolean
     birthDate?: boolean
+    status?: boolean
+    deathDate?: boolean
     sireId?: boolean
     damId?: boolean
     pastureId?: boolean
     pastureName?: boolean
-    status?: boolean
-    deathDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    sire?: boolean | Animal$sireArgs<ExtArgs>
+    dam?: boolean | Animal$damArgs<ExtArgs>
+    pasture?: boolean | Animal$pastureArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["animal"]>
 
@@ -4899,35 +5752,65 @@ export namespace Prisma {
     breed?: boolean
     gender?: boolean
     birthDate?: boolean
+    status?: boolean
+    deathDate?: boolean
     sireId?: boolean
     damId?: boolean
     pastureId?: boolean
     pastureName?: boolean
-    status?: boolean
-    deathDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
   }
 
-  export type AnimalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chipId" | "currentEarTag" | "name" | "breed" | "gender" | "birthDate" | "sireId" | "damId" | "pastureId" | "pastureName" | "status" | "deathDate" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["animal"]>
+  export type AnimalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chipId" | "currentEarTag" | "name" | "breed" | "gender" | "birthDate" | "status" | "deathDate" | "sireId" | "damId" | "pastureId" | "pastureName" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["animal"]>
   export type AnimalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sire?: boolean | Animal$sireArgs<ExtArgs>
+    sireOf?: boolean | Animal$sireOfArgs<ExtArgs>
+    dam?: boolean | Animal$damArgs<ExtArgs>
+    damOf?: boolean | Animal$damOfArgs<ExtArgs>
+    bullInAttempts?: boolean | Animal$bullInAttemptsArgs<ExtArgs>
+    pasture?: boolean | Animal$pastureArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
     earTagHistory?: boolean | Animal$earTagHistoryArgs<ExtArgs>
+    estrus?: boolean | Animal$estrusArgs<ExtArgs>
+    pregnancies?: boolean | Animal$pregnanciesArgs<ExtArgs>
+    births?: boolean | Animal$birthsArgs<ExtArgs>
+    vaccinations?: boolean | Animal$vaccinationsArgs<ExtArgs>
+    managements?: boolean | Animal$managementsArgs<ExtArgs>
+    mortalities?: boolean | Animal$mortalitiesArgs<ExtArgs>
     _count?: boolean | AnimalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AnimalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sire?: boolean | Animal$sireArgs<ExtArgs>
+    dam?: boolean | Animal$damArgs<ExtArgs>
+    pasture?: boolean | Animal$pastureArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }
   export type AnimalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sire?: boolean | Animal$sireArgs<ExtArgs>
+    dam?: boolean | Animal$damArgs<ExtArgs>
+    pasture?: boolean | Animal$pastureArgs<ExtArgs>
     farm?: boolean | FarmDefaultArgs<ExtArgs>
   }
 
   export type $AnimalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Animal"
     objects: {
+      sire: Prisma.$AnimalPayload<ExtArgs> | null
+      sireOf: Prisma.$AnimalPayload<ExtArgs>[]
+      dam: Prisma.$AnimalPayload<ExtArgs> | null
+      damOf: Prisma.$AnimalPayload<ExtArgs>[]
+      bullInAttempts: Prisma.$AttemptPayload<ExtArgs>[]
+      pasture: Prisma.$PasturePayload<ExtArgs> | null
       farm: Prisma.$FarmPayload<ExtArgs>
       earTagHistory: Prisma.$EarTagHistoryPayload<ExtArgs>[]
+      estrus: Prisma.$EstrusPayload<ExtArgs>[]
+      pregnancies: Prisma.$PregnancyPayload<ExtArgs>[]
+      births: Prisma.$BirthPayload<ExtArgs>[]
+      vaccinations: Prisma.$VaccinationPayload<ExtArgs>[]
+      managements: Prisma.$ManagementPayload<ExtArgs>[]
+      mortalities: Prisma.$MortalityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4935,14 +5818,14 @@ export namespace Prisma {
       currentEarTag: string | null
       name: string
       breed: string
-      gender: string
+      gender: $Enums.Gender
       birthDate: Date
+      status: $Enums.AnimalStatus
+      deathDate: Date | null
       sireId: string | null
       damId: string | null
       pastureId: string | null
       pastureName: string | null
-      status: string
-      deathDate: Date | null
       createdAt: Date
       updatedAt: Date
       farmId: string
@@ -5340,8 +6223,20 @@ export namespace Prisma {
    */
   export interface Prisma__AnimalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    sire<T extends Animal$sireArgs<ExtArgs> = {}>(args?: Subset<T, Animal$sireArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    sireOf<T extends Animal$sireOfArgs<ExtArgs> = {}>(args?: Subset<T, Animal$sireOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dam<T extends Animal$damArgs<ExtArgs> = {}>(args?: Subset<T, Animal$damArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    damOf<T extends Animal$damOfArgs<ExtArgs> = {}>(args?: Subset<T, Animal$damOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bullInAttempts<T extends Animal$bullInAttemptsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$bullInAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pasture<T extends Animal$pastureArgs<ExtArgs> = {}>(args?: Subset<T, Animal$pastureArgs<ExtArgs>>): Prisma__PastureClient<$Result.GetResult<Prisma.$PasturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     earTagHistory<T extends Animal$earTagHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Animal$earTagHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EarTagHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    estrus<T extends Animal$estrusArgs<ExtArgs> = {}>(args?: Subset<T, Animal$estrusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EstrusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pregnancies<T extends Animal$pregnanciesArgs<ExtArgs> = {}>(args?: Subset<T, Animal$pregnanciesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PregnancyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    births<T extends Animal$birthsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$birthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vaccinations<T extends Animal$vaccinationsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$vaccinationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VaccinationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    managements<T extends Animal$managementsArgs<ExtArgs> = {}>(args?: Subset<T, Animal$managementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManagementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mortalities<T extends Animal$mortalitiesArgs<ExtArgs> = {}>(args?: Subset<T, Animal$mortalitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5376,14 +6271,14 @@ export namespace Prisma {
     readonly currentEarTag: FieldRef<"Animal", 'String'>
     readonly name: FieldRef<"Animal", 'String'>
     readonly breed: FieldRef<"Animal", 'String'>
-    readonly gender: FieldRef<"Animal", 'String'>
+    readonly gender: FieldRef<"Animal", 'Gender'>
     readonly birthDate: FieldRef<"Animal", 'DateTime'>
+    readonly status: FieldRef<"Animal", 'AnimalStatus'>
+    readonly deathDate: FieldRef<"Animal", 'DateTime'>
     readonly sireId: FieldRef<"Animal", 'String'>
     readonly damId: FieldRef<"Animal", 'String'>
     readonly pastureId: FieldRef<"Animal", 'String'>
     readonly pastureName: FieldRef<"Animal", 'String'>
-    readonly status: FieldRef<"Animal", 'String'>
-    readonly deathDate: FieldRef<"Animal", 'DateTime'>
     readonly createdAt: FieldRef<"Animal", 'DateTime'>
     readonly updatedAt: FieldRef<"Animal", 'DateTime'>
     readonly farmId: FieldRef<"Animal", 'String'>
@@ -5788,6 +6683,135 @@ export namespace Prisma {
   }
 
   /**
+   * Animal.sire
+   */
+  export type Animal$sireArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+  }
+
+  /**
+   * Animal.sireOf
+   */
+  export type Animal$sireOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+    orderBy?: AnimalOrderByWithRelationInput | AnimalOrderByWithRelationInput[]
+    cursor?: AnimalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnimalScalarFieldEnum | AnimalScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.dam
+   */
+  export type Animal$damArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+  }
+
+  /**
+   * Animal.damOf
+   */
+  export type Animal$damOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+    orderBy?: AnimalOrderByWithRelationInput | AnimalOrderByWithRelationInput[]
+    cursor?: AnimalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnimalScalarFieldEnum | AnimalScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.bullInAttempts
+   */
+  export type Animal$bullInAttemptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attempt
+     */
+    select?: AttemptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attempt
+     */
+    omit?: AttemptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttemptInclude<ExtArgs> | null
+    where?: AttemptWhereInput
+    orderBy?: AttemptOrderByWithRelationInput | AttemptOrderByWithRelationInput[]
+    cursor?: AttemptWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttemptScalarFieldEnum | AttemptScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.pasture
+   */
+  export type Animal$pastureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pasture
+     */
+    select?: PastureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pasture
+     */
+    omit?: PastureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PastureInclude<ExtArgs> | null
+    where?: PastureWhereInput
+  }
+
+  /**
    * Animal.earTagHistory
    */
   export type Animal$earTagHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5809,6 +6833,150 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EarTagHistoryScalarFieldEnum | EarTagHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.estrus
+   */
+  export type Animal$estrusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Estrus
+     */
+    select?: EstrusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Estrus
+     */
+    omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    where?: EstrusWhereInput
+    orderBy?: EstrusOrderByWithRelationInput | EstrusOrderByWithRelationInput[]
+    cursor?: EstrusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EstrusScalarFieldEnum | EstrusScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.pregnancies
+   */
+  export type Animal$pregnanciesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pregnancy
+     */
+    select?: PregnancySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pregnancy
+     */
+    omit?: PregnancyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PregnancyInclude<ExtArgs> | null
+    where?: PregnancyWhereInput
+    orderBy?: PregnancyOrderByWithRelationInput | PregnancyOrderByWithRelationInput[]
+    cursor?: PregnancyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PregnancyScalarFieldEnum | PregnancyScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.births
+   */
+  export type Animal$birthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    where?: BirthWhereInput
+    orderBy?: BirthOrderByWithRelationInput | BirthOrderByWithRelationInput[]
+    cursor?: BirthWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BirthScalarFieldEnum | BirthScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.vaccinations
+   */
+  export type Animal$vaccinationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vaccination
+     */
+    select?: VaccinationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vaccination
+     */
+    omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    where?: VaccinationWhereInput
+    orderBy?: VaccinationOrderByWithRelationInput | VaccinationOrderByWithRelationInput[]
+    cursor?: VaccinationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VaccinationScalarFieldEnum | VaccinationScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.managements
+   */
+  export type Animal$managementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Management
+     */
+    select?: ManagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Management
+     */
+    omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
+    where?: ManagementWhereInput
+    orderBy?: ManagementOrderByWithRelationInput | ManagementOrderByWithRelationInput[]
+    cursor?: ManagementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ManagementScalarFieldEnum | ManagementScalarFieldEnum[]
+  }
+
+  /**
+   * Animal.mortalities
+   */
+  export type Animal$mortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mortality
+     */
+    select?: MortalitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mortality
+     */
+    omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    where?: MortalityWhereInput
+    orderBy?: MortalityOrderByWithRelationInput | MortalityOrderByWithRelationInput[]
+    cursor?: MortalityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MortalityScalarFieldEnum | MortalityScalarFieldEnum[]
   }
 
   /**
@@ -6018,6 +7186,7 @@ export namespace Prisma {
     createdAt?: boolean
     farmId?: boolean
     animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["earTagHistory"]>
 
@@ -6030,6 +7199,7 @@ export namespace Prisma {
     createdAt?: boolean
     farmId?: boolean
     animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["earTagHistory"]>
 
@@ -6042,6 +7212,7 @@ export namespace Prisma {
     createdAt?: boolean
     farmId?: boolean
     animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["earTagHistory"]>
 
@@ -6058,18 +7229,22 @@ export namespace Prisma {
 
   export type EarTagHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "earTagNumber" | "placementDate" | "removalDate" | "reason" | "createdAt" | "farmId" | "animalId", ExtArgs["result"]["earTagHistory"]>
   export type EarTagHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }
   export type EarTagHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }
   export type EarTagHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
     animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }
 
   export type $EarTagHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "EarTagHistory"
     objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
       animal: Prisma.$AnimalPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6475,6 +7650,7 @@ export namespace Prisma {
    */
   export interface Prisma__EarTagHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     animal<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7179,6 +8355,8 @@ export namespace Prisma {
     updatedAt?: boolean
     farmId?: boolean
     farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animals?: boolean | Pasture$animalsArgs<ExtArgs>
+    _count?: boolean | PastureCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pasture"]>
 
   export type PastureSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7225,6 +8403,8 @@ export namespace Prisma {
   export type PastureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "hectares" | "type" | "animalCapacity" | "currentAnimals" | "active" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["pasture"]>
   export type PastureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animals?: boolean | Pasture$animalsArgs<ExtArgs>
+    _count?: boolean | PastureCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PastureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farm?: boolean | FarmDefaultArgs<ExtArgs>
@@ -7237,6 +8417,7 @@ export namespace Prisma {
     name: "Pasture"
     objects: {
       farm: Prisma.$FarmPayload<ExtArgs>
+      animals: Prisma.$AnimalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7644,6 +8825,7 @@ export namespace Prisma {
   export interface Prisma__PastureClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    animals<T extends Pasture$animalsArgs<ExtArgs> = {}>(args?: Subset<T, Pasture$animalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8084,6 +9266,30 @@ export namespace Prisma {
   }
 
   /**
+   * Pasture.animals
+   */
+  export type Pasture$animalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+    orderBy?: AnimalOrderByWithRelationInput | AnimalOrderByWithRelationInput[]
+    cursor?: AnimalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnimalScalarFieldEnum | AnimalScalarFieldEnum[]
+  }
+
+  /**
    * Pasture without action
    */
   export type PastureDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8114,76 +9320,76 @@ export namespace Prisma {
 
   export type EstrusMinAggregateOutputType = {
     id: string | null
-    animalId: string | null
     date: Date | null
-    intensity: string | null
-    detectedBy: string | null
+    intensity: $Enums.EstrusIntensity | null
     nextEstrus: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
+    detectedById: string | null
   }
 
   export type EstrusMaxAggregateOutputType = {
     id: string | null
-    animalId: string | null
     date: Date | null
-    intensity: string | null
-    detectedBy: string | null
+    intensity: $Enums.EstrusIntensity | null
     nextEstrus: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
+    detectedById: string | null
   }
 
   export type EstrusCountAggregateOutputType = {
     id: number
-    animalId: number
     date: number
     intensity: number
-    detectedBy: number
     nextEstrus: number
     createdAt: number
     updatedAt: number
     farmId: number
+    animalId: number
+    detectedById: number
     _all: number
   }
 
 
   export type EstrusMinAggregateInputType = {
     id?: true
-    animalId?: true
     date?: true
     intensity?: true
-    detectedBy?: true
     nextEstrus?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    detectedById?: true
   }
 
   export type EstrusMaxAggregateInputType = {
     id?: true
-    animalId?: true
     date?: true
     intensity?: true
-    detectedBy?: true
     nextEstrus?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    detectedById?: true
   }
 
   export type EstrusCountAggregateInputType = {
     id?: true
-    animalId?: true
     date?: true
     intensity?: true
-    detectedBy?: true
     nextEstrus?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    detectedById?: true
     _all?: true
   }
 
@@ -8261,14 +9467,14 @@ export namespace Prisma {
 
   export type EstrusGroupByOutputType = {
     id: string
-    animalId: string
     date: Date
-    intensity: string
-    detectedBy: string
+    intensity: $Enums.EstrusIntensity
     nextEstrus: Date
     createdAt: Date
     updatedAt: Date
     farmId: string
+    animalId: string
+    detectedById: string | null
     _count: EstrusCountAggregateOutputType | null
     _min: EstrusMinAggregateOutputType | null
     _max: EstrusMaxAggregateOutputType | null
@@ -8290,67 +9496,95 @@ export namespace Prisma {
 
   export type EstrusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     date?: boolean
     intensity?: boolean
-    detectedBy?: boolean
     nextEstrus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    detectedById?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    detectedBy?: boolean | Estrus$detectedByArgs<ExtArgs>
   }, ExtArgs["result"]["estrus"]>
 
   export type EstrusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     date?: boolean
     intensity?: boolean
-    detectedBy?: boolean
     nextEstrus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    detectedById?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    detectedBy?: boolean | Estrus$detectedByArgs<ExtArgs>
   }, ExtArgs["result"]["estrus"]>
 
   export type EstrusSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     date?: boolean
     intensity?: boolean
-    detectedBy?: boolean
     nextEstrus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    detectedById?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    detectedBy?: boolean | Estrus$detectedByArgs<ExtArgs>
   }, ExtArgs["result"]["estrus"]>
 
   export type EstrusSelectScalar = {
     id?: boolean
-    animalId?: boolean
     date?: boolean
     intensity?: boolean
-    detectedBy?: boolean
     nextEstrus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    detectedById?: boolean
   }
 
-  export type EstrusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "date" | "intensity" | "detectedBy" | "nextEstrus" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["estrus"]>
+  export type EstrusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "intensity" | "nextEstrus" | "createdAt" | "updatedAt" | "farmId" | "animalId" | "detectedById", ExtArgs["result"]["estrus"]>
+  export type EstrusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    detectedBy?: boolean | Estrus$detectedByArgs<ExtArgs>
+  }
+  export type EstrusIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    detectedBy?: boolean | Estrus$detectedByArgs<ExtArgs>
+  }
+  export type EstrusIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    detectedBy?: boolean | Estrus$detectedByArgs<ExtArgs>
+  }
 
   export type $EstrusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Estrus"
-    objects: {}
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      animal: Prisma.$AnimalPayload<ExtArgs>
+      detectedBy: Prisma.$UserPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      animalId: string
       date: Date
-      intensity: string
-      detectedBy: string
+      intensity: $Enums.EstrusIntensity
       nextEstrus: Date
       createdAt: Date
       updatedAt: Date
       farmId: string
+      animalId: string
+      detectedById: string | null
     }, ExtArgs["result"]["estrus"]>
     composites: {}
   }
@@ -8745,6 +9979,9 @@ export namespace Prisma {
    */
   export interface Prisma__EstrusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    animal<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    detectedBy<T extends Estrus$detectedByArgs<ExtArgs> = {}>(args?: Subset<T, Estrus$detectedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8775,14 +10012,14 @@ export namespace Prisma {
    */
   interface EstrusFieldRefs {
     readonly id: FieldRef<"Estrus", 'String'>
-    readonly animalId: FieldRef<"Estrus", 'String'>
     readonly date: FieldRef<"Estrus", 'DateTime'>
-    readonly intensity: FieldRef<"Estrus", 'String'>
-    readonly detectedBy: FieldRef<"Estrus", 'String'>
+    readonly intensity: FieldRef<"Estrus", 'EstrusIntensity'>
     readonly nextEstrus: FieldRef<"Estrus", 'DateTime'>
     readonly createdAt: FieldRef<"Estrus", 'DateTime'>
     readonly updatedAt: FieldRef<"Estrus", 'DateTime'>
     readonly farmId: FieldRef<"Estrus", 'String'>
+    readonly animalId: FieldRef<"Estrus", 'String'>
+    readonly detectedById: FieldRef<"Estrus", 'String'>
   }
     
 
@@ -8799,6 +10036,10 @@ export namespace Prisma {
      * Omit specific fields from the Estrus
      */
     omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
     /**
      * Filter, which Estrus to fetch.
      */
@@ -8818,6 +10059,10 @@ export namespace Prisma {
      */
     omit?: EstrusOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    /**
      * Filter, which Estrus to fetch.
      */
     where: EstrusWhereUniqueInput
@@ -8835,6 +10080,10 @@ export namespace Prisma {
      * Omit specific fields from the Estrus
      */
     omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
     /**
      * Filter, which Estrus to fetch.
      */
@@ -8884,6 +10133,10 @@ export namespace Prisma {
      */
     omit?: EstrusOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    /**
      * Filter, which Estrus to fetch.
      */
     where?: EstrusWhereInput
@@ -8931,6 +10184,10 @@ export namespace Prisma {
      * Omit specific fields from the Estrus
      */
     omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
     /**
      * Filter, which Estruses to fetch.
      */
@@ -8980,6 +10237,10 @@ export namespace Prisma {
      */
     omit?: EstrusOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    /**
      * The data needed to create a Estrus.
      */
     data: XOR<EstrusCreateInput, EstrusUncheckedCreateInput>
@@ -9013,6 +10274,10 @@ export namespace Prisma {
      */
     data: EstrusCreateManyInput | EstrusCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9027,6 +10292,10 @@ export namespace Prisma {
      * Omit specific fields from the Estrus
      */
     omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
     /**
      * The data needed to update a Estrus.
      */
@@ -9079,6 +10348,10 @@ export namespace Prisma {
      * Limit how many Estruses to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9093,6 +10366,10 @@ export namespace Prisma {
      * Omit specific fields from the Estrus
      */
     omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
     /**
      * The filter to search for the Estrus to update in case it exists.
      */
@@ -9120,6 +10397,10 @@ export namespace Prisma {
      */
     omit?: EstrusOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
+    /**
      * Filter which Estrus to delete.
      */
     where: EstrusWhereUniqueInput
@@ -9140,6 +10421,25 @@ export namespace Prisma {
   }
 
   /**
+   * Estrus.detectedBy
+   */
+  export type Estrus$detectedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Estrus without action
    */
   export type EstrusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9151,6 +10451,10 @@ export namespace Prisma {
      * Omit specific fields from the Estrus
      */
     omit?: EstrusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EstrusInclude<ExtArgs> | null
   }
 
 
@@ -9166,64 +10470,64 @@ export namespace Prisma {
 
   export type PregnancyMinAggregateOutputType = {
     id: string | null
-    animalId: string | null
-    currentStatus: string | null
+    currentStatus: $Enums.PregnancyStatus | null
     currentStatusDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
   }
 
   export type PregnancyMaxAggregateOutputType = {
     id: string | null
-    animalId: string | null
-    currentStatus: string | null
+    currentStatus: $Enums.PregnancyStatus | null
     currentStatusDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
   }
 
   export type PregnancyCountAggregateOutputType = {
     id: number
-    animalId: number
     currentStatus: number
     currentStatusDate: number
     createdAt: number
     updatedAt: number
     farmId: number
+    animalId: number
     _all: number
   }
 
 
   export type PregnancyMinAggregateInputType = {
     id?: true
-    animalId?: true
     currentStatus?: true
     currentStatusDate?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
   }
 
   export type PregnancyMaxAggregateInputType = {
     id?: true
-    animalId?: true
     currentStatus?: true
     currentStatusDate?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
   }
 
   export type PregnancyCountAggregateInputType = {
     id?: true
-    animalId?: true
     currentStatus?: true
     currentStatusDate?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
     _all?: true
   }
 
@@ -9301,12 +10605,12 @@ export namespace Prisma {
 
   export type PregnancyGroupByOutputType = {
     id: string
-    animalId: string
-    currentStatus: string
+    currentStatus: $Enums.PregnancyStatus
     currentStatusDate: Date
     createdAt: Date
     updatedAt: Date
     farmId: string
+    animalId: string
     _count: PregnancyCountAggregateOutputType | null
     _min: PregnancyMinAggregateOutputType | null
     _max: PregnancyMaxAggregateOutputType | null
@@ -9328,67 +10632,83 @@ export namespace Prisma {
 
   export type PregnancySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     currentStatus?: boolean
     currentStatusDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
     attempts?: boolean | Pregnancy$attemptsArgs<ExtArgs>
     _count?: boolean | PregnancyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pregnancy"]>
 
   export type PregnancySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     currentStatus?: boolean
     currentStatusDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pregnancy"]>
 
   export type PregnancySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     currentStatus?: boolean
     currentStatusDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pregnancy"]>
 
   export type PregnancySelectScalar = {
     id?: boolean
-    animalId?: boolean
     currentStatus?: boolean
     currentStatusDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
   }
 
-  export type PregnancyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "currentStatus" | "currentStatusDate" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["pregnancy"]>
+  export type PregnancyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "currentStatus" | "currentStatusDate" | "createdAt" | "updatedAt" | "farmId" | "animalId", ExtArgs["result"]["pregnancy"]>
   export type PregnancyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
     attempts?: boolean | Pregnancy$attemptsArgs<ExtArgs>
     _count?: boolean | PregnancyCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type PregnancyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type PregnancyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PregnancyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
+  export type PregnancyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
 
   export type $PregnancyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Pregnancy"
     objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      animal: Prisma.$AnimalPayload<ExtArgs>
       attempts: Prisma.$AttemptPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      animalId: string
-      currentStatus: string
+      currentStatus: $Enums.PregnancyStatus
       currentStatusDate: Date
       createdAt: Date
       updatedAt: Date
       farmId: string
+      animalId: string
     }, ExtArgs["result"]["pregnancy"]>
     composites: {}
   }
@@ -9783,6 +11103,8 @@ export namespace Prisma {
    */
   export interface Prisma__PregnancyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    animal<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     attempts<T extends Pregnancy$attemptsArgs<ExtArgs> = {}>(args?: Subset<T, Pregnancy$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9814,12 +11136,12 @@ export namespace Prisma {
    */
   interface PregnancyFieldRefs {
     readonly id: FieldRef<"Pregnancy", 'String'>
-    readonly animalId: FieldRef<"Pregnancy", 'String'>
-    readonly currentStatus: FieldRef<"Pregnancy", 'String'>
+    readonly currentStatus: FieldRef<"Pregnancy", 'PregnancyStatus'>
     readonly currentStatusDate: FieldRef<"Pregnancy", 'DateTime'>
     readonly createdAt: FieldRef<"Pregnancy", 'DateTime'>
     readonly updatedAt: FieldRef<"Pregnancy", 'DateTime'>
     readonly farmId: FieldRef<"Pregnancy", 'String'>
+    readonly animalId: FieldRef<"Pregnancy", 'String'>
   }
     
 
@@ -10074,6 +11396,10 @@ export namespace Prisma {
      */
     data: PregnancyCreateManyInput | PregnancyCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PregnancyIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10144,6 +11470,10 @@ export namespace Prisma {
      * Limit how many Pregnancies to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PregnancyIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10279,15 +11609,14 @@ export namespace Prisma {
     id: string | null
     number: number | null
     matingDate: Date | null
-    matingType: string | null
-    bullId: string | null
+    matingType: $Enums.MatingType | null
     semenName: string | null
     technician: string | null
     estimatedBirthDate: Date | null
-    birthId: string | null
-    attemptStatus: string | null
+    attemptStatus: $Enums.AttemptStatus | null
     notes: string | null
     createdAt: Date | null
+    bullId: string | null
     pregnancyId: string | null
   }
 
@@ -10295,15 +11624,14 @@ export namespace Prisma {
     id: string | null
     number: number | null
     matingDate: Date | null
-    matingType: string | null
-    bullId: string | null
+    matingType: $Enums.MatingType | null
     semenName: string | null
     technician: string | null
     estimatedBirthDate: Date | null
-    birthId: string | null
-    attemptStatus: string | null
+    attemptStatus: $Enums.AttemptStatus | null
     notes: string | null
     createdAt: Date | null
+    bullId: string | null
     pregnancyId: string | null
   }
 
@@ -10312,14 +11640,13 @@ export namespace Prisma {
     number: number
     matingDate: number
     matingType: number
-    bullId: number
     semenName: number
     technician: number
     estimatedBirthDate: number
-    birthId: number
     attemptStatus: number
     notes: number
     createdAt: number
+    bullId: number
     pregnancyId: number
     _all: number
   }
@@ -10338,14 +11665,13 @@ export namespace Prisma {
     number?: true
     matingDate?: true
     matingType?: true
-    bullId?: true
     semenName?: true
     technician?: true
     estimatedBirthDate?: true
-    birthId?: true
     attemptStatus?: true
     notes?: true
     createdAt?: true
+    bullId?: true
     pregnancyId?: true
   }
 
@@ -10354,14 +11680,13 @@ export namespace Prisma {
     number?: true
     matingDate?: true
     matingType?: true
-    bullId?: true
     semenName?: true
     technician?: true
     estimatedBirthDate?: true
-    birthId?: true
     attemptStatus?: true
     notes?: true
     createdAt?: true
+    bullId?: true
     pregnancyId?: true
   }
 
@@ -10370,14 +11695,13 @@ export namespace Prisma {
     number?: true
     matingDate?: true
     matingType?: true
-    bullId?: true
     semenName?: true
     technician?: true
     estimatedBirthDate?: true
-    birthId?: true
     attemptStatus?: true
     notes?: true
     createdAt?: true
+    bullId?: true
     pregnancyId?: true
     _all?: true
   }
@@ -10472,15 +11796,14 @@ export namespace Prisma {
     id: string
     number: number
     matingDate: Date
-    matingType: string
-    bullId: string | null
+    matingType: $Enums.MatingType
     semenName: string | null
     technician: string | null
     estimatedBirthDate: Date
-    birthId: string | null
-    attemptStatus: string
+    attemptStatus: $Enums.AttemptStatus
     notes: string | null
     createdAt: Date
+    bullId: string | null
     pregnancyId: string
     _count: AttemptCountAggregateOutputType | null
     _avg: AttemptAvgAggregateOutputType | null
@@ -10508,17 +11831,18 @@ export namespace Prisma {
     number?: boolean
     matingDate?: boolean
     matingType?: boolean
-    bullId?: boolean
     semenName?: boolean
     technician?: boolean
     estimatedBirthDate?: boolean
-    birthId?: boolean
     attemptStatus?: boolean
     notes?: boolean
     createdAt?: boolean
+    bullId?: boolean
     pregnancyId?: boolean
+    bull?: boolean | Attempt$bullArgs<ExtArgs>
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
     ultrasounds?: boolean | Attempt$ultrasoundsArgs<ExtArgs>
+    births?: boolean | Attempt$birthsArgs<ExtArgs>
     _count?: boolean | AttemptCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attempt"]>
 
@@ -10527,15 +11851,15 @@ export namespace Prisma {
     number?: boolean
     matingDate?: boolean
     matingType?: boolean
-    bullId?: boolean
     semenName?: boolean
     technician?: boolean
     estimatedBirthDate?: boolean
-    birthId?: boolean
     attemptStatus?: boolean
     notes?: boolean
     createdAt?: boolean
+    bullId?: boolean
     pregnancyId?: boolean
+    bull?: boolean | Attempt$bullArgs<ExtArgs>
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attempt"]>
 
@@ -10544,15 +11868,15 @@ export namespace Prisma {
     number?: boolean
     matingDate?: boolean
     matingType?: boolean
-    bullId?: boolean
     semenName?: boolean
     technician?: boolean
     estimatedBirthDate?: boolean
-    birthId?: boolean
     attemptStatus?: boolean
     notes?: boolean
     createdAt?: boolean
+    bullId?: boolean
     pregnancyId?: boolean
+    bull?: boolean | Attempt$bullArgs<ExtArgs>
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attempt"]>
 
@@ -10561,49 +11885,53 @@ export namespace Prisma {
     number?: boolean
     matingDate?: boolean
     matingType?: boolean
-    bullId?: boolean
     semenName?: boolean
     technician?: boolean
     estimatedBirthDate?: boolean
-    birthId?: boolean
     attemptStatus?: boolean
     notes?: boolean
     createdAt?: boolean
+    bullId?: boolean
     pregnancyId?: boolean
   }
 
-  export type AttemptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "matingDate" | "matingType" | "bullId" | "semenName" | "technician" | "estimatedBirthDate" | "birthId" | "attemptStatus" | "notes" | "createdAt" | "pregnancyId", ExtArgs["result"]["attempt"]>
+  export type AttemptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "matingDate" | "matingType" | "semenName" | "technician" | "estimatedBirthDate" | "attemptStatus" | "notes" | "createdAt" | "bullId" | "pregnancyId", ExtArgs["result"]["attempt"]>
   export type AttemptInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bull?: boolean | Attempt$bullArgs<ExtArgs>
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
     ultrasounds?: boolean | Attempt$ultrasoundsArgs<ExtArgs>
+    births?: boolean | Attempt$birthsArgs<ExtArgs>
     _count?: boolean | AttemptCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AttemptIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bull?: boolean | Attempt$bullArgs<ExtArgs>
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
   }
   export type AttemptIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bull?: boolean | Attempt$bullArgs<ExtArgs>
     pregnancy?: boolean | PregnancyDefaultArgs<ExtArgs>
   }
 
   export type $AttemptPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Attempt"
     objects: {
+      bull: Prisma.$AnimalPayload<ExtArgs> | null
       pregnancy: Prisma.$PregnancyPayload<ExtArgs>
       ultrasounds: Prisma.$UltrasoundPayload<ExtArgs>[]
+      births: Prisma.$BirthPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       number: number
       matingDate: Date
-      matingType: string
-      bullId: string | null
+      matingType: $Enums.MatingType
       semenName: string | null
       technician: string | null
       estimatedBirthDate: Date
-      birthId: string | null
-      attemptStatus: string
+      attemptStatus: $Enums.AttemptStatus
       notes: string | null
       createdAt: Date
+      bullId: string | null
       pregnancyId: string
     }, ExtArgs["result"]["attempt"]>
     composites: {}
@@ -10999,8 +12327,10 @@ export namespace Prisma {
    */
   export interface Prisma__AttemptClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    bull<T extends Attempt$bullArgs<ExtArgs> = {}>(args?: Subset<T, Attempt$bullArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     pregnancy<T extends PregnancyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PregnancyDefaultArgs<ExtArgs>>): Prisma__PregnancyClient<$Result.GetResult<Prisma.$PregnancyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     ultrasounds<T extends Attempt$ultrasoundsArgs<ExtArgs> = {}>(args?: Subset<T, Attempt$ultrasoundsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UltrasoundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    births<T extends Attempt$birthsArgs<ExtArgs> = {}>(args?: Subset<T, Attempt$birthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11033,15 +12363,14 @@ export namespace Prisma {
     readonly id: FieldRef<"Attempt", 'String'>
     readonly number: FieldRef<"Attempt", 'Int'>
     readonly matingDate: FieldRef<"Attempt", 'DateTime'>
-    readonly matingType: FieldRef<"Attempt", 'String'>
-    readonly bullId: FieldRef<"Attempt", 'String'>
+    readonly matingType: FieldRef<"Attempt", 'MatingType'>
     readonly semenName: FieldRef<"Attempt", 'String'>
     readonly technician: FieldRef<"Attempt", 'String'>
     readonly estimatedBirthDate: FieldRef<"Attempt", 'DateTime'>
-    readonly birthId: FieldRef<"Attempt", 'String'>
-    readonly attemptStatus: FieldRef<"Attempt", 'String'>
+    readonly attemptStatus: FieldRef<"Attempt", 'AttemptStatus'>
     readonly notes: FieldRef<"Attempt", 'String'>
     readonly createdAt: FieldRef<"Attempt", 'DateTime'>
+    readonly bullId: FieldRef<"Attempt", 'String'>
     readonly pregnancyId: FieldRef<"Attempt", 'String'>
   }
     
@@ -11444,6 +12773,25 @@ export namespace Prisma {
   }
 
   /**
+   * Attempt.bull
+   */
+  export type Attempt$bullArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Animal
+     */
+    select?: AnimalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Animal
+     */
+    omit?: AnimalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnimalInclude<ExtArgs> | null
+    where?: AnimalWhereInput
+  }
+
+  /**
    * Attempt.ultrasounds
    */
   export type Attempt$ultrasoundsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11465,6 +12813,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UltrasoundScalarFieldEnum | UltrasoundScalarFieldEnum[]
+  }
+
+  /**
+   * Attempt.births
+   */
+  export type Attempt$birthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    where?: BirthWhereInput
+    orderBy?: BirthOrderByWithRelationInput | BirthOrderByWithRelationInput[]
+    cursor?: BirthWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BirthScalarFieldEnum | BirthScalarFieldEnum[]
   }
 
   /**
@@ -11509,21 +12881,23 @@ export namespace Prisma {
   export type UltrasoundMinAggregateOutputType = {
     id: string | null
     days: number | null
-    result: string | null
+    result: $Enums.UltrasoundResult | null
     notes: string | null
-    veterinarianId: string | null
     ultrasoundDate: Date | null
+    createdAt: Date | null
     attemptId: string | null
+    veterinarianId: string | null
   }
 
   export type UltrasoundMaxAggregateOutputType = {
     id: string | null
     days: number | null
-    result: string | null
+    result: $Enums.UltrasoundResult | null
     notes: string | null
-    veterinarianId: string | null
     ultrasoundDate: Date | null
+    createdAt: Date | null
     attemptId: string | null
+    veterinarianId: string | null
   }
 
   export type UltrasoundCountAggregateOutputType = {
@@ -11531,9 +12905,10 @@ export namespace Prisma {
     days: number
     result: number
     notes: number
-    veterinarianId: number
     ultrasoundDate: number
+    createdAt: number
     attemptId: number
+    veterinarianId: number
     _all: number
   }
 
@@ -11551,9 +12926,10 @@ export namespace Prisma {
     days?: true
     result?: true
     notes?: true
-    veterinarianId?: true
     ultrasoundDate?: true
+    createdAt?: true
     attemptId?: true
+    veterinarianId?: true
   }
 
   export type UltrasoundMaxAggregateInputType = {
@@ -11561,9 +12937,10 @@ export namespace Prisma {
     days?: true
     result?: true
     notes?: true
-    veterinarianId?: true
     ultrasoundDate?: true
+    createdAt?: true
     attemptId?: true
+    veterinarianId?: true
   }
 
   export type UltrasoundCountAggregateInputType = {
@@ -11571,9 +12948,10 @@ export namespace Prisma {
     days?: true
     result?: true
     notes?: true
-    veterinarianId?: true
     ultrasoundDate?: true
+    createdAt?: true
     attemptId?: true
+    veterinarianId?: true
     _all?: true
   }
 
@@ -11666,11 +13044,12 @@ export namespace Prisma {
   export type UltrasoundGroupByOutputType = {
     id: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes: string | null
-    veterinarianId: string | null
     ultrasoundDate: Date
+    createdAt: Date
     attemptId: string
+    veterinarianId: string | null
     _count: UltrasoundCountAggregateOutputType | null
     _avg: UltrasoundAvgAggregateOutputType | null
     _sum: UltrasoundSumAggregateOutputType | null
@@ -11697,10 +13076,12 @@ export namespace Prisma {
     days?: boolean
     result?: boolean
     notes?: boolean
-    veterinarianId?: boolean
     ultrasoundDate?: boolean
+    createdAt?: boolean
     attemptId?: boolean
+    veterinarianId?: boolean
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Ultrasound$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["ultrasound"]>
 
   export type UltrasoundSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11708,10 +13089,12 @@ export namespace Prisma {
     days?: boolean
     result?: boolean
     notes?: boolean
-    veterinarianId?: boolean
     ultrasoundDate?: boolean
+    createdAt?: boolean
     attemptId?: boolean
+    veterinarianId?: boolean
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Ultrasound$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["ultrasound"]>
 
   export type UltrasoundSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11719,10 +13102,12 @@ export namespace Prisma {
     days?: boolean
     result?: boolean
     notes?: boolean
-    veterinarianId?: boolean
     ultrasoundDate?: boolean
+    createdAt?: boolean
     attemptId?: boolean
+    veterinarianId?: boolean
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Ultrasound$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["ultrasound"]>
 
   export type UltrasoundSelectScalar = {
@@ -11730,35 +13115,41 @@ export namespace Prisma {
     days?: boolean
     result?: boolean
     notes?: boolean
-    veterinarianId?: boolean
     ultrasoundDate?: boolean
+    createdAt?: boolean
     attemptId?: boolean
+    veterinarianId?: boolean
   }
 
-  export type UltrasoundOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "days" | "result" | "notes" | "veterinarianId" | "ultrasoundDate" | "attemptId", ExtArgs["result"]["ultrasound"]>
+  export type UltrasoundOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "days" | "result" | "notes" | "ultrasoundDate" | "createdAt" | "attemptId" | "veterinarianId", ExtArgs["result"]["ultrasound"]>
   export type UltrasoundInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Ultrasound$veterinarianArgs<ExtArgs>
   }
   export type UltrasoundIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Ultrasound$veterinarianArgs<ExtArgs>
   }
   export type UltrasoundIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attempt?: boolean | AttemptDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Ultrasound$veterinarianArgs<ExtArgs>
   }
 
   export type $UltrasoundPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Ultrasound"
     objects: {
       attempt: Prisma.$AttemptPayload<ExtArgs>
+      veterinarian: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       days: number
-      result: string
+      result: $Enums.UltrasoundResult
       notes: string | null
-      veterinarianId: string | null
       ultrasoundDate: Date
+      createdAt: Date
       attemptId: string
+      veterinarianId: string | null
     }, ExtArgs["result"]["ultrasound"]>
     composites: {}
   }
@@ -12154,6 +13545,7 @@ export namespace Prisma {
   export interface Prisma__UltrasoundClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     attempt<T extends AttemptDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AttemptDefaultArgs<ExtArgs>>): Prisma__AttemptClient<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    veterinarian<T extends Ultrasound$veterinarianArgs<ExtArgs> = {}>(args?: Subset<T, Ultrasound$veterinarianArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12185,11 +13577,12 @@ export namespace Prisma {
   interface UltrasoundFieldRefs {
     readonly id: FieldRef<"Ultrasound", 'String'>
     readonly days: FieldRef<"Ultrasound", 'Int'>
-    readonly result: FieldRef<"Ultrasound", 'String'>
+    readonly result: FieldRef<"Ultrasound", 'UltrasoundResult'>
     readonly notes: FieldRef<"Ultrasound", 'String'>
-    readonly veterinarianId: FieldRef<"Ultrasound", 'String'>
     readonly ultrasoundDate: FieldRef<"Ultrasound", 'DateTime'>
+    readonly createdAt: FieldRef<"Ultrasound", 'DateTime'>
     readonly attemptId: FieldRef<"Ultrasound", 'String'>
+    readonly veterinarianId: FieldRef<"Ultrasound", 'String'>
   }
     
 
@@ -12591,6 +13984,25 @@ export namespace Prisma {
   }
 
   /**
+   * Ultrasound.veterinarian
+   */
+  export type Ultrasound$veterinarianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Ultrasound without action
    */
   export type UltrasoundDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12631,60 +14043,51 @@ export namespace Prisma {
 
   export type BirthMinAggregateOutputType = {
     id: string | null
-    damId: string | null
-    pregnancyId: string | null
     birthDate: Date | null
     birthTime: string | null
-    birthType: string | null
-    veterinarianId: string | null
-    veterinarianName: string | null
-    veterinarianCrv: string | null
-    calfGender: string | null
+    birthType: $Enums.BirthType | null
+    calfGender: $Enums.Gender | null
     calfWeight: number | null
     calfEarTag: string | null
     calfChip: string | null
-    calfStatus: string | null
-    situation: string | null
+    calfStatus: $Enums.CalfStatus | null
+    situation: $Enums.BirthSituation | null
     deathReason: string | null
     notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    damId: string | null
+    attemptId: string | null
+    veterinarianId: string | null
   }
 
   export type BirthMaxAggregateOutputType = {
     id: string | null
-    damId: string | null
-    pregnancyId: string | null
     birthDate: Date | null
     birthTime: string | null
-    birthType: string | null
-    veterinarianId: string | null
-    veterinarianName: string | null
-    veterinarianCrv: string | null
-    calfGender: string | null
+    birthType: $Enums.BirthType | null
+    calfGender: $Enums.Gender | null
     calfWeight: number | null
     calfEarTag: string | null
     calfChip: string | null
-    calfStatus: string | null
-    situation: string | null
+    calfStatus: $Enums.CalfStatus | null
+    situation: $Enums.BirthSituation | null
     deathReason: string | null
     notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    damId: string | null
+    attemptId: string | null
+    veterinarianId: string | null
   }
 
   export type BirthCountAggregateOutputType = {
     id: number
-    damId: number
-    pregnancyId: number
     birthDate: number
     birthTime: number
     birthType: number
-    veterinarianId: number
-    veterinarianName: number
-    veterinarianCrv: number
     calfGender: number
     calfWeight: number
     calfEarTag: number
@@ -12696,6 +14099,9 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     farmId: number
+    damId: number
+    attemptId: number
+    veterinarianId: number
     _all: number
   }
 
@@ -12710,14 +14116,9 @@ export namespace Prisma {
 
   export type BirthMinAggregateInputType = {
     id?: true
-    damId?: true
-    pregnancyId?: true
     birthDate?: true
     birthTime?: true
     birthType?: true
-    veterinarianId?: true
-    veterinarianName?: true
-    veterinarianCrv?: true
     calfGender?: true
     calfWeight?: true
     calfEarTag?: true
@@ -12729,18 +14130,16 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    damId?: true
+    attemptId?: true
+    veterinarianId?: true
   }
 
   export type BirthMaxAggregateInputType = {
     id?: true
-    damId?: true
-    pregnancyId?: true
     birthDate?: true
     birthTime?: true
     birthType?: true
-    veterinarianId?: true
-    veterinarianName?: true
-    veterinarianCrv?: true
     calfGender?: true
     calfWeight?: true
     calfEarTag?: true
@@ -12752,18 +14151,16 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    damId?: true
+    attemptId?: true
+    veterinarianId?: true
   }
 
   export type BirthCountAggregateInputType = {
     id?: true
-    damId?: true
-    pregnancyId?: true
     birthDate?: true
     birthTime?: true
     birthType?: true
-    veterinarianId?: true
-    veterinarianName?: true
-    veterinarianCrv?: true
     calfGender?: true
     calfWeight?: true
     calfEarTag?: true
@@ -12775,6 +14172,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    damId?: true
+    attemptId?: true
+    veterinarianId?: true
     _all?: true
   }
 
@@ -12866,25 +14266,23 @@ export namespace Prisma {
 
   export type BirthGroupByOutputType = {
     id: string
-    damId: string
-    pregnancyId: string | null
     birthDate: Date
     birthTime: string | null
-    birthType: string
-    veterinarianId: string | null
-    veterinarianName: string | null
-    veterinarianCrv: string | null
-    calfGender: string | null
+    birthType: $Enums.BirthType
+    calfGender: $Enums.Gender | null
     calfWeight: number | null
     calfEarTag: string | null
     calfChip: string | null
-    calfStatus: string
-    situation: string
+    calfStatus: $Enums.CalfStatus
+    situation: $Enums.BirthSituation
     deathReason: string | null
     notes: string | null
     createdAt: Date
     updatedAt: Date
     farmId: string
+    damId: string
+    attemptId: string | null
+    veterinarianId: string | null
     _count: BirthCountAggregateOutputType | null
     _avg: BirthAvgAggregateOutputType | null
     _sum: BirthSumAggregateOutputType | null
@@ -12908,14 +14306,9 @@ export namespace Prisma {
 
   export type BirthSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    damId?: boolean
-    pregnancyId?: boolean
     birthDate?: boolean
     birthTime?: boolean
     birthType?: boolean
-    veterinarianId?: boolean
-    veterinarianName?: boolean
-    veterinarianCrv?: boolean
     calfGender?: boolean
     calfWeight?: boolean
     calfEarTag?: boolean
@@ -12927,18 +14320,22 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    damId?: boolean
+    attemptId?: boolean
+    veterinarianId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    dam?: boolean | AnimalDefaultArgs<ExtArgs>
+    attempt?: boolean | Birth$attemptArgs<ExtArgs>
+    veterinarian?: boolean | Birth$veterinarianArgs<ExtArgs>
+    mortalities?: boolean | Birth$mortalitiesArgs<ExtArgs>
+    _count?: boolean | BirthCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["birth"]>
 
   export type BirthSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    damId?: boolean
-    pregnancyId?: boolean
     birthDate?: boolean
     birthTime?: boolean
     birthType?: boolean
-    veterinarianId?: boolean
-    veterinarianName?: boolean
-    veterinarianCrv?: boolean
     calfGender?: boolean
     calfWeight?: boolean
     calfEarTag?: boolean
@@ -12950,18 +14347,20 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    damId?: boolean
+    attemptId?: boolean
+    veterinarianId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    dam?: boolean | AnimalDefaultArgs<ExtArgs>
+    attempt?: boolean | Birth$attemptArgs<ExtArgs>
+    veterinarian?: boolean | Birth$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["birth"]>
 
   export type BirthSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    damId?: boolean
-    pregnancyId?: boolean
     birthDate?: boolean
     birthTime?: boolean
     birthType?: boolean
-    veterinarianId?: boolean
-    veterinarianName?: boolean
-    veterinarianCrv?: boolean
     calfGender?: boolean
     calfWeight?: boolean
     calfEarTag?: boolean
@@ -12973,18 +14372,20 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    damId?: boolean
+    attemptId?: boolean
+    veterinarianId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    dam?: boolean | AnimalDefaultArgs<ExtArgs>
+    attempt?: boolean | Birth$attemptArgs<ExtArgs>
+    veterinarian?: boolean | Birth$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["birth"]>
 
   export type BirthSelectScalar = {
     id?: boolean
-    damId?: boolean
-    pregnancyId?: boolean
     birthDate?: boolean
     birthTime?: boolean
     birthType?: boolean
-    veterinarianId?: boolean
-    veterinarianName?: boolean
-    veterinarianCrv?: boolean
     calfGender?: boolean
     calfWeight?: boolean
     calfEarTag?: boolean
@@ -12996,34 +14397,61 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    damId?: boolean
+    attemptId?: boolean
+    veterinarianId?: boolean
   }
 
-  export type BirthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "damId" | "pregnancyId" | "birthDate" | "birthTime" | "birthType" | "veterinarianId" | "veterinarianName" | "veterinarianCrv" | "calfGender" | "calfWeight" | "calfEarTag" | "calfChip" | "calfStatus" | "situation" | "deathReason" | "notes" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["birth"]>
+  export type BirthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "birthDate" | "birthTime" | "birthType" | "calfGender" | "calfWeight" | "calfEarTag" | "calfChip" | "calfStatus" | "situation" | "deathReason" | "notes" | "createdAt" | "updatedAt" | "farmId" | "damId" | "attemptId" | "veterinarianId", ExtArgs["result"]["birth"]>
+  export type BirthInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    dam?: boolean | AnimalDefaultArgs<ExtArgs>
+    attempt?: boolean | Birth$attemptArgs<ExtArgs>
+    veterinarian?: boolean | Birth$veterinarianArgs<ExtArgs>
+    mortalities?: boolean | Birth$mortalitiesArgs<ExtArgs>
+    _count?: boolean | BirthCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BirthIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    dam?: boolean | AnimalDefaultArgs<ExtArgs>
+    attempt?: boolean | Birth$attemptArgs<ExtArgs>
+    veterinarian?: boolean | Birth$veterinarianArgs<ExtArgs>
+  }
+  export type BirthIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    dam?: boolean | AnimalDefaultArgs<ExtArgs>
+    attempt?: boolean | Birth$attemptArgs<ExtArgs>
+    veterinarian?: boolean | Birth$veterinarianArgs<ExtArgs>
+  }
 
   export type $BirthPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Birth"
-    objects: {}
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      dam: Prisma.$AnimalPayload<ExtArgs>
+      attempt: Prisma.$AttemptPayload<ExtArgs> | null
+      veterinarian: Prisma.$UserPayload<ExtArgs> | null
+      mortalities: Prisma.$MortalityPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      damId: string
-      pregnancyId: string | null
       birthDate: Date
       birthTime: string | null
-      birthType: string
-      veterinarianId: string | null
-      veterinarianName: string | null
-      veterinarianCrv: string | null
-      calfGender: string | null
+      birthType: $Enums.BirthType
+      calfGender: $Enums.Gender | null
       calfWeight: number | null
       calfEarTag: string | null
       calfChip: string | null
-      calfStatus: string
-      situation: string
+      calfStatus: $Enums.CalfStatus
+      situation: $Enums.BirthSituation
       deathReason: string | null
       notes: string | null
       createdAt: Date
       updatedAt: Date
       farmId: string
+      damId: string
+      attemptId: string | null
+      veterinarianId: string | null
     }, ExtArgs["result"]["birth"]>
     composites: {}
   }
@@ -13418,6 +14846,11 @@ export namespace Prisma {
    */
   export interface Prisma__BirthClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    dam<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    attempt<T extends Birth$attemptArgs<ExtArgs> = {}>(args?: Subset<T, Birth$attemptArgs<ExtArgs>>): Prisma__AttemptClient<$Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    veterinarian<T extends Birth$veterinarianArgs<ExtArgs> = {}>(args?: Subset<T, Birth$veterinarianArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    mortalities<T extends Birth$mortalitiesArgs<ExtArgs> = {}>(args?: Subset<T, Birth$mortalitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MortalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13448,25 +14881,23 @@ export namespace Prisma {
    */
   interface BirthFieldRefs {
     readonly id: FieldRef<"Birth", 'String'>
-    readonly damId: FieldRef<"Birth", 'String'>
-    readonly pregnancyId: FieldRef<"Birth", 'String'>
     readonly birthDate: FieldRef<"Birth", 'DateTime'>
     readonly birthTime: FieldRef<"Birth", 'String'>
-    readonly birthType: FieldRef<"Birth", 'String'>
-    readonly veterinarianId: FieldRef<"Birth", 'String'>
-    readonly veterinarianName: FieldRef<"Birth", 'String'>
-    readonly veterinarianCrv: FieldRef<"Birth", 'String'>
-    readonly calfGender: FieldRef<"Birth", 'String'>
+    readonly birthType: FieldRef<"Birth", 'BirthType'>
+    readonly calfGender: FieldRef<"Birth", 'Gender'>
     readonly calfWeight: FieldRef<"Birth", 'Float'>
     readonly calfEarTag: FieldRef<"Birth", 'String'>
     readonly calfChip: FieldRef<"Birth", 'String'>
-    readonly calfStatus: FieldRef<"Birth", 'String'>
-    readonly situation: FieldRef<"Birth", 'String'>
+    readonly calfStatus: FieldRef<"Birth", 'CalfStatus'>
+    readonly situation: FieldRef<"Birth", 'BirthSituation'>
     readonly deathReason: FieldRef<"Birth", 'String'>
     readonly notes: FieldRef<"Birth", 'String'>
     readonly createdAt: FieldRef<"Birth", 'DateTime'>
     readonly updatedAt: FieldRef<"Birth", 'DateTime'>
     readonly farmId: FieldRef<"Birth", 'String'>
+    readonly damId: FieldRef<"Birth", 'String'>
+    readonly attemptId: FieldRef<"Birth", 'String'>
+    readonly veterinarianId: FieldRef<"Birth", 'String'>
   }
     
 
@@ -13483,6 +14914,10 @@ export namespace Prisma {
      * Omit specific fields from the Birth
      */
     omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
     /**
      * Filter, which Birth to fetch.
      */
@@ -13502,6 +14937,10 @@ export namespace Prisma {
      */
     omit?: BirthOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    /**
      * Filter, which Birth to fetch.
      */
     where: BirthWhereUniqueInput
@@ -13519,6 +14958,10 @@ export namespace Prisma {
      * Omit specific fields from the Birth
      */
     omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
     /**
      * Filter, which Birth to fetch.
      */
@@ -13568,6 +15011,10 @@ export namespace Prisma {
      */
     omit?: BirthOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    /**
      * Filter, which Birth to fetch.
      */
     where?: BirthWhereInput
@@ -13615,6 +15062,10 @@ export namespace Prisma {
      * Omit specific fields from the Birth
      */
     omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
     /**
      * Filter, which Births to fetch.
      */
@@ -13664,6 +15115,10 @@ export namespace Prisma {
      */
     omit?: BirthOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    /**
      * The data needed to create a Birth.
      */
     data: XOR<BirthCreateInput, BirthUncheckedCreateInput>
@@ -13697,6 +15152,10 @@ export namespace Prisma {
      */
     data: BirthCreateManyInput | BirthCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13711,6 +15170,10 @@ export namespace Prisma {
      * Omit specific fields from the Birth
      */
     omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
     /**
      * The data needed to update a Birth.
      */
@@ -13763,6 +15226,10 @@ export namespace Prisma {
      * Limit how many Births to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13777,6 +15244,10 @@ export namespace Prisma {
      * Omit specific fields from the Birth
      */
     omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
     /**
      * The filter to search for the Birth to update in case it exists.
      */
@@ -13804,6 +15275,10 @@ export namespace Prisma {
      */
     omit?: BirthOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    /**
      * Filter which Birth to delete.
      */
     where: BirthWhereUniqueInput
@@ -13824,6 +15299,68 @@ export namespace Prisma {
   }
 
   /**
+   * Birth.attempt
+   */
+  export type Birth$attemptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attempt
+     */
+    select?: AttemptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attempt
+     */
+    omit?: AttemptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttemptInclude<ExtArgs> | null
+    where?: AttemptWhereInput
+  }
+
+  /**
+   * Birth.veterinarian
+   */
+  export type Birth$veterinarianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Birth.mortalities
+   */
+  export type Birth$mortalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mortality
+     */
+    select?: MortalitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Mortality
+     */
+    omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    where?: MortalityWhereInput
+    orderBy?: MortalityOrderByWithRelationInput | MortalityOrderByWithRelationInput[]
+    cursor?: MortalityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MortalityScalarFieldEnum | MortalityScalarFieldEnum[]
+  }
+
+  /**
    * Birth without action
    */
   export type BirthDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13835,6 +15372,10 @@ export namespace Prisma {
      * Omit specific fields from the Birth
      */
     omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
   }
 
 
@@ -13850,7 +15391,6 @@ export namespace Prisma {
 
   export type VaccinationMinAggregateOutputType = {
     id: string | null
-    animalId: string | null
     vaccineType: string | null
     brand: string | null
     batch: string | null
@@ -13859,15 +15399,15 @@ export namespace Prisma {
     nextDoseDate: Date | null
     photoUrl: string | null
     reaction: string | null
-    veterinarianId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
+    veterinarianId: string | null
   }
 
   export type VaccinationMaxAggregateOutputType = {
     id: string | null
-    animalId: string | null
     vaccineType: string | null
     brand: string | null
     batch: string | null
@@ -13876,15 +15416,15 @@ export namespace Prisma {
     nextDoseDate: Date | null
     photoUrl: string | null
     reaction: string | null
-    veterinarianId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
+    veterinarianId: string | null
   }
 
   export type VaccinationCountAggregateOutputType = {
     id: number
-    animalId: number
     vaccineType: number
     brand: number
     batch: number
@@ -13893,17 +15433,17 @@ export namespace Prisma {
     nextDoseDate: number
     photoUrl: number
     reaction: number
-    veterinarianId: number
     createdAt: number
     updatedAt: number
     farmId: number
+    animalId: number
+    veterinarianId: number
     _all: number
   }
 
 
   export type VaccinationMinAggregateInputType = {
     id?: true
-    animalId?: true
     vaccineType?: true
     brand?: true
     batch?: true
@@ -13912,15 +15452,15 @@ export namespace Prisma {
     nextDoseDate?: true
     photoUrl?: true
     reaction?: true
-    veterinarianId?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    veterinarianId?: true
   }
 
   export type VaccinationMaxAggregateInputType = {
     id?: true
-    animalId?: true
     vaccineType?: true
     brand?: true
     batch?: true
@@ -13929,15 +15469,15 @@ export namespace Prisma {
     nextDoseDate?: true
     photoUrl?: true
     reaction?: true
-    veterinarianId?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    veterinarianId?: true
   }
 
   export type VaccinationCountAggregateInputType = {
     id?: true
-    animalId?: true
     vaccineType?: true
     brand?: true
     batch?: true
@@ -13946,10 +15486,11 @@ export namespace Prisma {
     nextDoseDate?: true
     photoUrl?: true
     reaction?: true
-    veterinarianId?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    veterinarianId?: true
     _all?: true
   }
 
@@ -14027,7 +15568,6 @@ export namespace Prisma {
 
   export type VaccinationGroupByOutputType = {
     id: string
-    animalId: string
     vaccineType: string
     brand: string
     batch: string
@@ -14036,10 +15576,11 @@ export namespace Prisma {
     nextDoseDate: Date | null
     photoUrl: string | null
     reaction: string | null
-    veterinarianId: string | null
     createdAt: Date
     updatedAt: Date
     farmId: string
+    animalId: string
+    veterinarianId: string | null
     _count: VaccinationCountAggregateOutputType | null
     _min: VaccinationMinAggregateOutputType | null
     _max: VaccinationMaxAggregateOutputType | null
@@ -14061,7 +15602,6 @@ export namespace Prisma {
 
   export type VaccinationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     vaccineType?: boolean
     brand?: boolean
     batch?: boolean
@@ -14070,15 +15610,18 @@ export namespace Prisma {
     nextDoseDate?: boolean
     photoUrl?: boolean
     reaction?: boolean
-    veterinarianId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    veterinarianId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Vaccination$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["vaccination"]>
 
   export type VaccinationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     vaccineType?: boolean
     brand?: boolean
     batch?: boolean
@@ -14087,15 +15630,18 @@ export namespace Prisma {
     nextDoseDate?: boolean
     photoUrl?: boolean
     reaction?: boolean
-    veterinarianId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    veterinarianId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Vaccination$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["vaccination"]>
 
   export type VaccinationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     vaccineType?: boolean
     brand?: boolean
     batch?: boolean
@@ -14104,15 +15650,18 @@ export namespace Prisma {
     nextDoseDate?: boolean
     photoUrl?: boolean
     reaction?: boolean
-    veterinarianId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    veterinarianId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Vaccination$veterinarianArgs<ExtArgs>
   }, ExtArgs["result"]["vaccination"]>
 
   export type VaccinationSelectScalar = {
     id?: boolean
-    animalId?: boolean
     vaccineType?: boolean
     brand?: boolean
     batch?: boolean
@@ -14121,20 +15670,39 @@ export namespace Prisma {
     nextDoseDate?: boolean
     photoUrl?: boolean
     reaction?: boolean
-    veterinarianId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    veterinarianId?: boolean
   }
 
-  export type VaccinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "vaccineType" | "brand" | "batch" | "vaccinationDate" | "expirationDate" | "nextDoseDate" | "photoUrl" | "reaction" | "veterinarianId" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["vaccination"]>
+  export type VaccinationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vaccineType" | "brand" | "batch" | "vaccinationDate" | "expirationDate" | "nextDoseDate" | "photoUrl" | "reaction" | "createdAt" | "updatedAt" | "farmId" | "animalId" | "veterinarianId", ExtArgs["result"]["vaccination"]>
+  export type VaccinationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Vaccination$veterinarianArgs<ExtArgs>
+  }
+  export type VaccinationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Vaccination$veterinarianArgs<ExtArgs>
+  }
+  export type VaccinationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    veterinarian?: boolean | Vaccination$veterinarianArgs<ExtArgs>
+  }
 
   export type $VaccinationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Vaccination"
-    objects: {}
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      animal: Prisma.$AnimalPayload<ExtArgs>
+      veterinarian: Prisma.$UserPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      animalId: string
       vaccineType: string
       brand: string
       batch: string
@@ -14143,10 +15711,11 @@ export namespace Prisma {
       nextDoseDate: Date | null
       photoUrl: string | null
       reaction: string | null
-      veterinarianId: string | null
       createdAt: Date
       updatedAt: Date
       farmId: string
+      animalId: string
+      veterinarianId: string | null
     }, ExtArgs["result"]["vaccination"]>
     composites: {}
   }
@@ -14541,6 +16110,9 @@ export namespace Prisma {
    */
   export interface Prisma__VaccinationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    animal<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    veterinarian<T extends Vaccination$veterinarianArgs<ExtArgs> = {}>(args?: Subset<T, Vaccination$veterinarianArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14571,7 +16143,6 @@ export namespace Prisma {
    */
   interface VaccinationFieldRefs {
     readonly id: FieldRef<"Vaccination", 'String'>
-    readonly animalId: FieldRef<"Vaccination", 'String'>
     readonly vaccineType: FieldRef<"Vaccination", 'String'>
     readonly brand: FieldRef<"Vaccination", 'String'>
     readonly batch: FieldRef<"Vaccination", 'String'>
@@ -14580,10 +16151,11 @@ export namespace Prisma {
     readonly nextDoseDate: FieldRef<"Vaccination", 'DateTime'>
     readonly photoUrl: FieldRef<"Vaccination", 'String'>
     readonly reaction: FieldRef<"Vaccination", 'String'>
-    readonly veterinarianId: FieldRef<"Vaccination", 'String'>
     readonly createdAt: FieldRef<"Vaccination", 'DateTime'>
     readonly updatedAt: FieldRef<"Vaccination", 'DateTime'>
     readonly farmId: FieldRef<"Vaccination", 'String'>
+    readonly animalId: FieldRef<"Vaccination", 'String'>
+    readonly veterinarianId: FieldRef<"Vaccination", 'String'>
   }
     
 
@@ -14600,6 +16172,10 @@ export namespace Prisma {
      * Omit specific fields from the Vaccination
      */
     omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
     /**
      * Filter, which Vaccination to fetch.
      */
@@ -14619,6 +16195,10 @@ export namespace Prisma {
      */
     omit?: VaccinationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    /**
      * Filter, which Vaccination to fetch.
      */
     where: VaccinationWhereUniqueInput
@@ -14636,6 +16216,10 @@ export namespace Prisma {
      * Omit specific fields from the Vaccination
      */
     omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
     /**
      * Filter, which Vaccination to fetch.
      */
@@ -14685,6 +16269,10 @@ export namespace Prisma {
      */
     omit?: VaccinationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    /**
      * Filter, which Vaccination to fetch.
      */
     where?: VaccinationWhereInput
@@ -14732,6 +16320,10 @@ export namespace Prisma {
      * Omit specific fields from the Vaccination
      */
     omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
     /**
      * Filter, which Vaccinations to fetch.
      */
@@ -14781,6 +16373,10 @@ export namespace Prisma {
      */
     omit?: VaccinationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    /**
      * The data needed to create a Vaccination.
      */
     data: XOR<VaccinationCreateInput, VaccinationUncheckedCreateInput>
@@ -14814,6 +16410,10 @@ export namespace Prisma {
      */
     data: VaccinationCreateManyInput | VaccinationCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14828,6 +16428,10 @@ export namespace Prisma {
      * Omit specific fields from the Vaccination
      */
     omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
     /**
      * The data needed to update a Vaccination.
      */
@@ -14880,6 +16484,10 @@ export namespace Prisma {
      * Limit how many Vaccinations to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14894,6 +16502,10 @@ export namespace Prisma {
      * Omit specific fields from the Vaccination
      */
     omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
     /**
      * The filter to search for the Vaccination to update in case it exists.
      */
@@ -14921,6 +16533,10 @@ export namespace Prisma {
      */
     omit?: VaccinationOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
+    /**
      * Filter which Vaccination to delete.
      */
     where: VaccinationWhereUniqueInput
@@ -14941,6 +16557,25 @@ export namespace Prisma {
   }
 
   /**
+   * Vaccination.veterinarian
+   */
+  export type Vaccination$veterinarianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Vaccination without action
    */
   export type VaccinationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14952,6 +16587,10 @@ export namespace Prisma {
      * Omit specific fields from the Vaccination
      */
     omit?: VaccinationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VaccinationInclude<ExtArgs> | null
   }
 
 
@@ -14977,7 +16616,6 @@ export namespace Prisma {
 
   export type ManagementMinAggregateOutputType = {
     id: string | null
-    animalId: string | null
     originPasture: string | null
     destinationPasture: string | null
     movementDate: Date | null
@@ -14987,11 +16625,11 @@ export namespace Prisma {
     batchTotal: number | null
     createdAt: Date | null
     farmId: string | null
+    animalId: string | null
   }
 
   export type ManagementMaxAggregateOutputType = {
     id: string | null
-    animalId: string | null
     originPasture: string | null
     destinationPasture: string | null
     movementDate: Date | null
@@ -15001,11 +16639,11 @@ export namespace Prisma {
     batchTotal: number | null
     createdAt: Date | null
     farmId: string | null
+    animalId: string | null
   }
 
   export type ManagementCountAggregateOutputType = {
     id: number
-    animalId: number
     originPasture: number
     destinationPasture: number
     movementDate: number
@@ -15015,6 +16653,7 @@ export namespace Prisma {
     batchTotal: number
     createdAt: number
     farmId: number
+    animalId: number
     _all: number
   }
 
@@ -15029,7 +16668,6 @@ export namespace Prisma {
 
   export type ManagementMinAggregateInputType = {
     id?: true
-    animalId?: true
     originPasture?: true
     destinationPasture?: true
     movementDate?: true
@@ -15039,11 +16677,11 @@ export namespace Prisma {
     batchTotal?: true
     createdAt?: true
     farmId?: true
+    animalId?: true
   }
 
   export type ManagementMaxAggregateInputType = {
     id?: true
-    animalId?: true
     originPasture?: true
     destinationPasture?: true
     movementDate?: true
@@ -15053,11 +16691,11 @@ export namespace Prisma {
     batchTotal?: true
     createdAt?: true
     farmId?: true
+    animalId?: true
   }
 
   export type ManagementCountAggregateInputType = {
     id?: true
-    animalId?: true
     originPasture?: true
     destinationPasture?: true
     movementDate?: true
@@ -15067,6 +16705,7 @@ export namespace Prisma {
     batchTotal?: true
     createdAt?: true
     farmId?: true
+    animalId?: true
     _all?: true
   }
 
@@ -15158,7 +16797,6 @@ export namespace Prisma {
 
   export type ManagementGroupByOutputType = {
     id: string
-    animalId: string
     originPasture: string
     destinationPasture: string
     movementDate: Date
@@ -15168,6 +16806,7 @@ export namespace Prisma {
     batchTotal: number | null
     createdAt: Date
     farmId: string
+    animalId: string
     _count: ManagementCountAggregateOutputType | null
     _avg: ManagementAvgAggregateOutputType | null
     _sum: ManagementSumAggregateOutputType | null
@@ -15191,7 +16830,6 @@ export namespace Prisma {
 
   export type ManagementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     originPasture?: boolean
     destinationPasture?: boolean
     movementDate?: boolean
@@ -15201,11 +16839,13 @@ export namespace Prisma {
     batchTotal?: boolean
     createdAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["management"]>
 
   export type ManagementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     originPasture?: boolean
     destinationPasture?: boolean
     movementDate?: boolean
@@ -15215,11 +16855,13 @@ export namespace Prisma {
     batchTotal?: boolean
     createdAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["management"]>
 
   export type ManagementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     originPasture?: boolean
     destinationPasture?: boolean
     movementDate?: boolean
@@ -15229,11 +16871,13 @@ export namespace Prisma {
     batchTotal?: boolean
     createdAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["management"]>
 
   export type ManagementSelectScalar = {
     id?: boolean
-    animalId?: boolean
     originPasture?: boolean
     destinationPasture?: boolean
     movementDate?: boolean
@@ -15243,16 +16887,31 @@ export namespace Prisma {
     batchTotal?: boolean
     createdAt?: boolean
     farmId?: boolean
+    animalId?: boolean
   }
 
-  export type ManagementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "originPasture" | "destinationPasture" | "movementDate" | "reason" | "employee" | "batchId" | "batchTotal" | "createdAt" | "farmId", ExtArgs["result"]["management"]>
+  export type ManagementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "originPasture" | "destinationPasture" | "movementDate" | "reason" | "employee" | "batchId" | "batchTotal" | "createdAt" | "farmId" | "animalId", ExtArgs["result"]["management"]>
+  export type ManagementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
+  export type ManagementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
+  export type ManagementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+  }
 
   export type $ManagementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Management"
-    objects: {}
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      animal: Prisma.$AnimalPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      animalId: string
       originPasture: string
       destinationPasture: string
       movementDate: Date
@@ -15262,6 +16921,7 @@ export namespace Prisma {
       batchTotal: number | null
       createdAt: Date
       farmId: string
+      animalId: string
     }, ExtArgs["result"]["management"]>
     composites: {}
   }
@@ -15656,6 +17316,8 @@ export namespace Prisma {
    */
   export interface Prisma__ManagementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    animal<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15686,7 +17348,6 @@ export namespace Prisma {
    */
   interface ManagementFieldRefs {
     readonly id: FieldRef<"Management", 'String'>
-    readonly animalId: FieldRef<"Management", 'String'>
     readonly originPasture: FieldRef<"Management", 'String'>
     readonly destinationPasture: FieldRef<"Management", 'String'>
     readonly movementDate: FieldRef<"Management", 'DateTime'>
@@ -15696,6 +17357,7 @@ export namespace Prisma {
     readonly batchTotal: FieldRef<"Management", 'Int'>
     readonly createdAt: FieldRef<"Management", 'DateTime'>
     readonly farmId: FieldRef<"Management", 'String'>
+    readonly animalId: FieldRef<"Management", 'String'>
   }
     
 
@@ -15712,6 +17374,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
     /**
      * Filter, which Management to fetch.
      */
@@ -15731,6 +17397,10 @@ export namespace Prisma {
      */
     omit?: ManagementOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
+    /**
      * Filter, which Management to fetch.
      */
     where: ManagementWhereUniqueInput
@@ -15748,6 +17418,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
     /**
      * Filter, which Management to fetch.
      */
@@ -15797,6 +17471,10 @@ export namespace Prisma {
      */
     omit?: ManagementOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
+    /**
      * Filter, which Management to fetch.
      */
     where?: ManagementWhereInput
@@ -15844,6 +17522,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
     /**
      * Filter, which Managements to fetch.
      */
@@ -15893,6 +17575,10 @@ export namespace Prisma {
      */
     omit?: ManagementOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
+    /**
      * The data needed to create a Management.
      */
     data: XOR<ManagementCreateInput, ManagementUncheckedCreateInput>
@@ -15926,6 +17612,10 @@ export namespace Prisma {
      */
     data: ManagementCreateManyInput | ManagementCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -15940,6 +17630,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
     /**
      * The data needed to update a Management.
      */
@@ -15992,6 +17686,10 @@ export namespace Prisma {
      * Limit how many Managements to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -16006,6 +17704,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
     /**
      * The filter to search for the Management to update in case it exists.
      */
@@ -16032,6 +17734,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
     /**
      * Filter which Management to delete.
      */
@@ -16064,6 +17770,10 @@ export namespace Prisma {
      * Omit specific fields from the Management
      */
     omit?: ManagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ManagementInclude<ExtArgs> | null
   }
 
 
@@ -16079,43 +17789,44 @@ export namespace Prisma {
 
   export type MortalityMinAggregateOutputType = {
     id: string | null
-    animalId: string | null
     deathDate: Date | null
     deathTime: string | null
     deathLocation: string | null
     causeOfDeath: string | null
-    severity: string | null
+    severity: $Enums.MortalitySeverity | null
     necropsy: boolean | null
     disposal: string | null
     origin: string | null
-    birthId: string | null
     notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
+    birthId: string | null
+    registeredById: string | null
   }
 
   export type MortalityMaxAggregateOutputType = {
     id: string | null
-    animalId: string | null
     deathDate: Date | null
     deathTime: string | null
     deathLocation: string | null
     causeOfDeath: string | null
-    severity: string | null
+    severity: $Enums.MortalitySeverity | null
     necropsy: boolean | null
     disposal: string | null
     origin: string | null
-    birthId: string | null
     notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
     farmId: string | null
+    animalId: string | null
+    birthId: string | null
+    registeredById: string | null
   }
 
   export type MortalityCountAggregateOutputType = {
     id: number
-    animalId: number
     deathDate: number
     deathTime: number
     deathLocation: number
@@ -16125,18 +17836,19 @@ export namespace Prisma {
     disposal: number
     photos: number
     origin: number
-    birthId: number
     notes: number
     createdAt: number
     updatedAt: number
     farmId: number
+    animalId: number
+    birthId: number
+    registeredById: number
     _all: number
   }
 
 
   export type MortalityMinAggregateInputType = {
     id?: true
-    animalId?: true
     deathDate?: true
     deathTime?: true
     deathLocation?: true
@@ -16145,16 +17857,17 @@ export namespace Prisma {
     necropsy?: true
     disposal?: true
     origin?: true
-    birthId?: true
     notes?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    birthId?: true
+    registeredById?: true
   }
 
   export type MortalityMaxAggregateInputType = {
     id?: true
-    animalId?: true
     deathDate?: true
     deathTime?: true
     deathLocation?: true
@@ -16163,16 +17876,17 @@ export namespace Prisma {
     necropsy?: true
     disposal?: true
     origin?: true
-    birthId?: true
     notes?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    birthId?: true
+    registeredById?: true
   }
 
   export type MortalityCountAggregateInputType = {
     id?: true
-    animalId?: true
     deathDate?: true
     deathTime?: true
     deathLocation?: true
@@ -16182,11 +17896,13 @@ export namespace Prisma {
     disposal?: true
     photos?: true
     origin?: true
-    birthId?: true
     notes?: true
     createdAt?: true
     updatedAt?: true
     farmId?: true
+    animalId?: true
+    birthId?: true
+    registeredById?: true
     _all?: true
   }
 
@@ -16264,21 +17980,22 @@ export namespace Prisma {
 
   export type MortalityGroupByOutputType = {
     id: string
-    animalId: string
     deathDate: Date
     deathTime: string | null
     deathLocation: string
     causeOfDeath: string
-    severity: string | null
+    severity: $Enums.MortalitySeverity | null
     necropsy: boolean
     disposal: string | null
     photos: string[]
     origin: string | null
-    birthId: string | null
     notes: string | null
     createdAt: Date
     updatedAt: Date
     farmId: string
+    animalId: string
+    birthId: string | null
+    registeredById: string | null
     _count: MortalityCountAggregateOutputType | null
     _min: MortalityMinAggregateOutputType | null
     _max: MortalityMaxAggregateOutputType | null
@@ -16300,7 +18017,6 @@ export namespace Prisma {
 
   export type MortalitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     deathDate?: boolean
     deathTime?: boolean
     deathLocation?: boolean
@@ -16310,16 +18026,21 @@ export namespace Prisma {
     disposal?: boolean
     photos?: boolean
     origin?: boolean
-    birthId?: boolean
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    birthId?: boolean
+    registeredById?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    birth?: boolean | Mortality$birthArgs<ExtArgs>
+    registeredBy?: boolean | Mortality$registeredByArgs<ExtArgs>
   }, ExtArgs["result"]["mortality"]>
 
   export type MortalitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     deathDate?: boolean
     deathTime?: boolean
     deathLocation?: boolean
@@ -16329,16 +18050,21 @@ export namespace Prisma {
     disposal?: boolean
     photos?: boolean
     origin?: boolean
-    birthId?: boolean
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    birthId?: boolean
+    registeredById?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    birth?: boolean | Mortality$birthArgs<ExtArgs>
+    registeredBy?: boolean | Mortality$registeredByArgs<ExtArgs>
   }, ExtArgs["result"]["mortality"]>
 
   export type MortalitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    animalId?: boolean
     deathDate?: boolean
     deathTime?: boolean
     deathLocation?: boolean
@@ -16348,16 +18074,21 @@ export namespace Prisma {
     disposal?: boolean
     photos?: boolean
     origin?: boolean
-    birthId?: boolean
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    birthId?: boolean
+    registeredById?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    birth?: boolean | Mortality$birthArgs<ExtArgs>
+    registeredBy?: boolean | Mortality$registeredByArgs<ExtArgs>
   }, ExtArgs["result"]["mortality"]>
 
   export type MortalitySelectScalar = {
     id?: boolean
-    animalId?: boolean
     deathDate?: boolean
     deathTime?: boolean
     deathLocation?: boolean
@@ -16367,35 +18098,61 @@ export namespace Prisma {
     disposal?: boolean
     photos?: boolean
     origin?: boolean
-    birthId?: boolean
     notes?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     farmId?: boolean
+    animalId?: boolean
+    birthId?: boolean
+    registeredById?: boolean
   }
 
-  export type MortalityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "animalId" | "deathDate" | "deathTime" | "deathLocation" | "causeOfDeath" | "severity" | "necropsy" | "disposal" | "photos" | "origin" | "birthId" | "notes" | "createdAt" | "updatedAt" | "farmId", ExtArgs["result"]["mortality"]>
+  export type MortalityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deathDate" | "deathTime" | "deathLocation" | "causeOfDeath" | "severity" | "necropsy" | "disposal" | "photos" | "origin" | "notes" | "createdAt" | "updatedAt" | "farmId" | "animalId" | "birthId" | "registeredById", ExtArgs["result"]["mortality"]>
+  export type MortalityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    birth?: boolean | Mortality$birthArgs<ExtArgs>
+    registeredBy?: boolean | Mortality$registeredByArgs<ExtArgs>
+  }
+  export type MortalityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    birth?: boolean | Mortality$birthArgs<ExtArgs>
+    registeredBy?: boolean | Mortality$registeredByArgs<ExtArgs>
+  }
+  export type MortalityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    animal?: boolean | AnimalDefaultArgs<ExtArgs>
+    birth?: boolean | Mortality$birthArgs<ExtArgs>
+    registeredBy?: boolean | Mortality$registeredByArgs<ExtArgs>
+  }
 
   export type $MortalityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Mortality"
-    objects: {}
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      animal: Prisma.$AnimalPayload<ExtArgs>
+      birth: Prisma.$BirthPayload<ExtArgs> | null
+      registeredBy: Prisma.$UserPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      animalId: string
       deathDate: Date
       deathTime: string | null
       deathLocation: string
       causeOfDeath: string
-      severity: string | null
+      severity: $Enums.MortalitySeverity | null
       necropsy: boolean
       disposal: string | null
       photos: string[]
       origin: string | null
-      birthId: string | null
       notes: string | null
       createdAt: Date
       updatedAt: Date
       farmId: string
+      animalId: string
+      birthId: string | null
+      registeredById: string | null
     }, ExtArgs["result"]["mortality"]>
     composites: {}
   }
@@ -16790,6 +18547,10 @@ export namespace Prisma {
    */
   export interface Prisma__MortalityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    animal<T extends AnimalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnimalDefaultArgs<ExtArgs>>): Prisma__AnimalClient<$Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    birth<T extends Mortality$birthArgs<ExtArgs> = {}>(args?: Subset<T, Mortality$birthArgs<ExtArgs>>): Prisma__BirthClient<$Result.GetResult<Prisma.$BirthPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    registeredBy<T extends Mortality$registeredByArgs<ExtArgs> = {}>(args?: Subset<T, Mortality$registeredByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16820,21 +18581,22 @@ export namespace Prisma {
    */
   interface MortalityFieldRefs {
     readonly id: FieldRef<"Mortality", 'String'>
-    readonly animalId: FieldRef<"Mortality", 'String'>
     readonly deathDate: FieldRef<"Mortality", 'DateTime'>
     readonly deathTime: FieldRef<"Mortality", 'String'>
     readonly deathLocation: FieldRef<"Mortality", 'String'>
     readonly causeOfDeath: FieldRef<"Mortality", 'String'>
-    readonly severity: FieldRef<"Mortality", 'String'>
+    readonly severity: FieldRef<"Mortality", 'MortalitySeverity'>
     readonly necropsy: FieldRef<"Mortality", 'Boolean'>
     readonly disposal: FieldRef<"Mortality", 'String'>
     readonly photos: FieldRef<"Mortality", 'String[]'>
     readonly origin: FieldRef<"Mortality", 'String'>
-    readonly birthId: FieldRef<"Mortality", 'String'>
     readonly notes: FieldRef<"Mortality", 'String'>
     readonly createdAt: FieldRef<"Mortality", 'DateTime'>
     readonly updatedAt: FieldRef<"Mortality", 'DateTime'>
     readonly farmId: FieldRef<"Mortality", 'String'>
+    readonly animalId: FieldRef<"Mortality", 'String'>
+    readonly birthId: FieldRef<"Mortality", 'String'>
+    readonly registeredById: FieldRef<"Mortality", 'String'>
   }
     
 
@@ -16851,6 +18613,10 @@ export namespace Prisma {
      * Omit specific fields from the Mortality
      */
     omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
     /**
      * Filter, which Mortality to fetch.
      */
@@ -16870,6 +18636,10 @@ export namespace Prisma {
      */
     omit?: MortalityOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    /**
      * Filter, which Mortality to fetch.
      */
     where: MortalityWhereUniqueInput
@@ -16887,6 +18657,10 @@ export namespace Prisma {
      * Omit specific fields from the Mortality
      */
     omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
     /**
      * Filter, which Mortality to fetch.
      */
@@ -16936,6 +18710,10 @@ export namespace Prisma {
      */
     omit?: MortalityOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    /**
      * Filter, which Mortality to fetch.
      */
     where?: MortalityWhereInput
@@ -16983,6 +18761,10 @@ export namespace Prisma {
      * Omit specific fields from the Mortality
      */
     omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
     /**
      * Filter, which Mortalities to fetch.
      */
@@ -17032,6 +18814,10 @@ export namespace Prisma {
      */
     omit?: MortalityOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    /**
      * The data needed to create a Mortality.
      */
     data: XOR<MortalityCreateInput, MortalityUncheckedCreateInput>
@@ -17065,6 +18851,10 @@ export namespace Prisma {
      */
     data: MortalityCreateManyInput | MortalityCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17079,6 +18869,10 @@ export namespace Prisma {
      * Omit specific fields from the Mortality
      */
     omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
     /**
      * The data needed to update a Mortality.
      */
@@ -17131,6 +18925,10 @@ export namespace Prisma {
      * Limit how many Mortalities to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17145,6 +18943,10 @@ export namespace Prisma {
      * Omit specific fields from the Mortality
      */
     omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
     /**
      * The filter to search for the Mortality to update in case it exists.
      */
@@ -17172,6 +18974,10 @@ export namespace Prisma {
      */
     omit?: MortalityOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
+    /**
      * Filter which Mortality to delete.
      */
     where: MortalityWhereUniqueInput
@@ -17192,6 +18998,44 @@ export namespace Prisma {
   }
 
   /**
+   * Mortality.birth
+   */
+  export type Mortality$birthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Birth
+     */
+    select?: BirthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Birth
+     */
+    omit?: BirthOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BirthInclude<ExtArgs> | null
+    where?: BirthWhereInput
+  }
+
+  /**
+   * Mortality.registeredBy
+   */
+  export type Mortality$registeredByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Mortality without action
    */
   export type MortalityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17203,6 +19047,10 @@ export namespace Prisma {
      * Omit specific fields from the Mortality
      */
     omit?: MortalityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MortalityInclude<ExtArgs> | null
   }
 
 
@@ -17218,64 +19066,64 @@ export namespace Prisma {
 
   export type PasswordResetTokenMinAggregateOutputType = {
     id: string | null
-    userId: string | null
     code: string | null
     expiresAt: Date | null
     used: boolean | null
     createdAt: Date | null
     farmId: string | null
+    userId: string | null
   }
 
   export type PasswordResetTokenMaxAggregateOutputType = {
     id: string | null
-    userId: string | null
     code: string | null
     expiresAt: Date | null
     used: boolean | null
     createdAt: Date | null
     farmId: string | null
+    userId: string | null
   }
 
   export type PasswordResetTokenCountAggregateOutputType = {
     id: number
-    userId: number
     code: number
     expiresAt: number
     used: number
     createdAt: number
     farmId: number
+    userId: number
     _all: number
   }
 
 
   export type PasswordResetTokenMinAggregateInputType = {
     id?: true
-    userId?: true
     code?: true
     expiresAt?: true
     used?: true
     createdAt?: true
     farmId?: true
+    userId?: true
   }
 
   export type PasswordResetTokenMaxAggregateInputType = {
     id?: true
-    userId?: true
     code?: true
     expiresAt?: true
     used?: true
     createdAt?: true
     farmId?: true
+    userId?: true
   }
 
   export type PasswordResetTokenCountAggregateInputType = {
     id?: true
-    userId?: true
     code?: true
     expiresAt?: true
     used?: true
     createdAt?: true
     farmId?: true
+    userId?: true
     _all?: true
   }
 
@@ -17353,12 +19201,12 @@ export namespace Prisma {
 
   export type PasswordResetTokenGroupByOutputType = {
     id: string
-    userId: string
     code: string
     expiresAt: Date
     used: boolean
     createdAt: Date
     farmId: string
+    userId: string
     _count: PasswordResetTokenCountAggregateOutputType | null
     _min: PasswordResetTokenMinAggregateOutputType | null
     _max: PasswordResetTokenMaxAggregateOutputType | null
@@ -17380,57 +19228,78 @@ export namespace Prisma {
 
   export type PasswordResetTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     code?: boolean
     expiresAt?: boolean
     used?: boolean
     createdAt?: boolean
     farmId?: boolean
+    userId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["passwordResetToken"]>
 
   export type PasswordResetTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     code?: boolean
     expiresAt?: boolean
     used?: boolean
     createdAt?: boolean
     farmId?: boolean
+    userId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["passwordResetToken"]>
 
   export type PasswordResetTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
     code?: boolean
     expiresAt?: boolean
     used?: boolean
     createdAt?: boolean
     farmId?: boolean
+    userId?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["passwordResetToken"]>
 
   export type PasswordResetTokenSelectScalar = {
     id?: boolean
-    userId?: boolean
     code?: boolean
     expiresAt?: boolean
     used?: boolean
     createdAt?: boolean
     farmId?: boolean
+    userId?: boolean
   }
 
-  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "code" | "expiresAt" | "used" | "createdAt" | "farmId", ExtArgs["result"]["passwordResetToken"]>
+  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "expiresAt" | "used" | "createdAt" | "farmId" | "userId", ExtArgs["result"]["passwordResetToken"]>
+  export type PasswordResetTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $PasswordResetTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PasswordResetToken"
-    objects: {}
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userId: string
       code: string
       expiresAt: Date
       used: boolean
       createdAt: Date
       farmId: string
+      userId: string
     }, ExtArgs["result"]["passwordResetToken"]>
     composites: {}
   }
@@ -17825,6 +19694,8 @@ export namespace Prisma {
    */
   export interface Prisma__PasswordResetTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17855,12 +19726,12 @@ export namespace Prisma {
    */
   interface PasswordResetTokenFieldRefs {
     readonly id: FieldRef<"PasswordResetToken", 'String'>
-    readonly userId: FieldRef<"PasswordResetToken", 'String'>
     readonly code: FieldRef<"PasswordResetToken", 'String'>
     readonly expiresAt: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly used: FieldRef<"PasswordResetToken", 'Boolean'>
     readonly createdAt: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly farmId: FieldRef<"PasswordResetToken", 'String'>
+    readonly userId: FieldRef<"PasswordResetToken", 'String'>
   }
     
 
@@ -17877,6 +19748,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
     /**
      * Filter, which PasswordResetToken to fetch.
      */
@@ -17896,6 +19771,10 @@ export namespace Prisma {
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
      * Filter, which PasswordResetToken to fetch.
      */
     where: PasswordResetTokenWhereUniqueInput
@@ -17913,6 +19792,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
     /**
      * Filter, which PasswordResetToken to fetch.
      */
@@ -17962,6 +19845,10 @@ export namespace Prisma {
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
      * Filter, which PasswordResetToken to fetch.
      */
     where?: PasswordResetTokenWhereInput
@@ -18009,6 +19896,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
     /**
      * Filter, which PasswordResetTokens to fetch.
      */
@@ -18058,6 +19949,10 @@ export namespace Prisma {
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
      * The data needed to create a PasswordResetToken.
      */
     data: XOR<PasswordResetTokenCreateInput, PasswordResetTokenUncheckedCreateInput>
@@ -18091,6 +19986,10 @@ export namespace Prisma {
      */
     data: PasswordResetTokenCreateManyInput | PasswordResetTokenCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -18105,6 +20004,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
     /**
      * The data needed to update a PasswordResetToken.
      */
@@ -18157,6 +20060,10 @@ export namespace Prisma {
      * Limit how many PasswordResetTokens to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -18171,6 +20078,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
     /**
      * The filter to search for the PasswordResetToken to update in case it exists.
      */
@@ -18197,6 +20108,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
     /**
      * Filter which PasswordResetToken to delete.
      */
@@ -18229,6 +20144,10 @@ export namespace Prisma {
      * Omit specific fields from the PasswordResetToken
      */
     omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
   }
 
 
@@ -18263,12 +20182,12 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     fullName: 'fullName',
+    username: 'username',
     email: 'email',
     phone: 'phone',
     password: 'password',
     role: 'role',
     active: 'active',
-    crv: 'crv',
     crmv: 'crmv',
     graduationDate: 'graduationDate',
     specialties: 'specialties',
@@ -18291,12 +20210,12 @@ export namespace Prisma {
     breed: 'breed',
     gender: 'gender',
     birthDate: 'birthDate',
+    status: 'status',
+    deathDate: 'deathDate',
     sireId: 'sireId',
     damId: 'damId',
     pastureId: 'pastureId',
     pastureName: 'pastureName',
-    status: 'status',
-    deathDate: 'deathDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     farmId: 'farmId'
@@ -18337,14 +20256,14 @@ export namespace Prisma {
 
   export const EstrusScalarFieldEnum: {
     id: 'id',
-    animalId: 'animalId',
     date: 'date',
     intensity: 'intensity',
-    detectedBy: 'detectedBy',
     nextEstrus: 'nextEstrus',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    animalId: 'animalId',
+    detectedById: 'detectedById'
   };
 
   export type EstrusScalarFieldEnum = (typeof EstrusScalarFieldEnum)[keyof typeof EstrusScalarFieldEnum]
@@ -18352,12 +20271,12 @@ export namespace Prisma {
 
   export const PregnancyScalarFieldEnum: {
     id: 'id',
-    animalId: 'animalId',
     currentStatus: 'currentStatus',
     currentStatusDate: 'currentStatusDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    animalId: 'animalId'
   };
 
   export type PregnancyScalarFieldEnum = (typeof PregnancyScalarFieldEnum)[keyof typeof PregnancyScalarFieldEnum]
@@ -18368,14 +20287,13 @@ export namespace Prisma {
     number: 'number',
     matingDate: 'matingDate',
     matingType: 'matingType',
-    bullId: 'bullId',
     semenName: 'semenName',
     technician: 'technician',
     estimatedBirthDate: 'estimatedBirthDate',
-    birthId: 'birthId',
     attemptStatus: 'attemptStatus',
     notes: 'notes',
     createdAt: 'createdAt',
+    bullId: 'bullId',
     pregnancyId: 'pregnancyId'
   };
 
@@ -18387,9 +20305,10 @@ export namespace Prisma {
     days: 'days',
     result: 'result',
     notes: 'notes',
-    veterinarianId: 'veterinarianId',
     ultrasoundDate: 'ultrasoundDate',
-    attemptId: 'attemptId'
+    createdAt: 'createdAt',
+    attemptId: 'attemptId',
+    veterinarianId: 'veterinarianId'
   };
 
   export type UltrasoundScalarFieldEnum = (typeof UltrasoundScalarFieldEnum)[keyof typeof UltrasoundScalarFieldEnum]
@@ -18397,14 +20316,9 @@ export namespace Prisma {
 
   export const BirthScalarFieldEnum: {
     id: 'id',
-    damId: 'damId',
-    pregnancyId: 'pregnancyId',
     birthDate: 'birthDate',
     birthTime: 'birthTime',
     birthType: 'birthType',
-    veterinarianId: 'veterinarianId',
-    veterinarianName: 'veterinarianName',
-    veterinarianCrv: 'veterinarianCrv',
     calfGender: 'calfGender',
     calfWeight: 'calfWeight',
     calfEarTag: 'calfEarTag',
@@ -18415,7 +20329,10 @@ export namespace Prisma {
     notes: 'notes',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    damId: 'damId',
+    attemptId: 'attemptId',
+    veterinarianId: 'veterinarianId'
   };
 
   export type BirthScalarFieldEnum = (typeof BirthScalarFieldEnum)[keyof typeof BirthScalarFieldEnum]
@@ -18423,7 +20340,6 @@ export namespace Prisma {
 
   export const VaccinationScalarFieldEnum: {
     id: 'id',
-    animalId: 'animalId',
     vaccineType: 'vaccineType',
     brand: 'brand',
     batch: 'batch',
@@ -18432,10 +20348,11 @@ export namespace Prisma {
     nextDoseDate: 'nextDoseDate',
     photoUrl: 'photoUrl',
     reaction: 'reaction',
-    veterinarianId: 'veterinarianId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    animalId: 'animalId',
+    veterinarianId: 'veterinarianId'
   };
 
   export type VaccinationScalarFieldEnum = (typeof VaccinationScalarFieldEnum)[keyof typeof VaccinationScalarFieldEnum]
@@ -18443,7 +20360,6 @@ export namespace Prisma {
 
   export const ManagementScalarFieldEnum: {
     id: 'id',
-    animalId: 'animalId',
     originPasture: 'originPasture',
     destinationPasture: 'destinationPasture',
     movementDate: 'movementDate',
@@ -18452,7 +20368,8 @@ export namespace Prisma {
     batchId: 'batchId',
     batchTotal: 'batchTotal',
     createdAt: 'createdAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    animalId: 'animalId'
   };
 
   export type ManagementScalarFieldEnum = (typeof ManagementScalarFieldEnum)[keyof typeof ManagementScalarFieldEnum]
@@ -18460,7 +20377,6 @@ export namespace Prisma {
 
   export const MortalityScalarFieldEnum: {
     id: 'id',
-    animalId: 'animalId',
     deathDate: 'deathDate',
     deathTime: 'deathTime',
     deathLocation: 'deathLocation',
@@ -18470,11 +20386,13 @@ export namespace Prisma {
     disposal: 'disposal',
     photos: 'photos',
     origin: 'origin',
-    birthId: 'birthId',
     notes: 'notes',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    animalId: 'animalId',
+    birthId: 'birthId',
+    registeredById: 'registeredById'
   };
 
   export type MortalityScalarFieldEnum = (typeof MortalityScalarFieldEnum)[keyof typeof MortalityScalarFieldEnum]
@@ -18482,12 +20400,12 @@ export namespace Prisma {
 
   export const PasswordResetTokenScalarFieldEnum: {
     id: 'id',
-    userId: 'userId',
     code: 'code',
     expiresAt: 'expiresAt',
     used: 'used',
     createdAt: 'createdAt',
-    farmId: 'farmId'
+    farmId: 'farmId',
+    userId: 'userId'
   };
 
   export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
@@ -18572,6 +20490,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Gender'
+   */
+  export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+  /**
+   * Reference to a field of type 'Gender[]'
+   */
+  export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AnimalStatus'
+   */
+  export type EnumAnimalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnimalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AnimalStatus[]'
+   */
+  export type ListEnumAnimalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnimalStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -18597,6 +20543,132 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'EstrusIntensity'
+   */
+  export type EnumEstrusIntensityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstrusIntensity'>
+    
+
+
+  /**
+   * Reference to a field of type 'EstrusIntensity[]'
+   */
+  export type ListEnumEstrusIntensityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstrusIntensity[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PregnancyStatus'
+   */
+  export type EnumPregnancyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PregnancyStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PregnancyStatus[]'
+   */
+  export type ListEnumPregnancyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PregnancyStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MatingType'
+   */
+  export type EnumMatingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MatingType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MatingType[]'
+   */
+  export type ListEnumMatingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MatingType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AttemptStatus'
+   */
+  export type EnumAttemptStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttemptStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AttemptStatus[]'
+   */
+  export type ListEnumAttemptStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttemptStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UltrasoundResult'
+   */
+  export type EnumUltrasoundResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UltrasoundResult'>
+    
+
+
+  /**
+   * Reference to a field of type 'UltrasoundResult[]'
+   */
+  export type ListEnumUltrasoundResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UltrasoundResult[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BirthType'
+   */
+  export type EnumBirthTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BirthType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BirthType[]'
+   */
+  export type ListEnumBirthTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BirthType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CalfStatus'
+   */
+  export type EnumCalfStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CalfStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CalfStatus[]'
+   */
+  export type ListEnumCalfStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CalfStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BirthSituation'
+   */
+  export type EnumBirthSituationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BirthSituation'>
+    
+
+
+  /**
+   * Reference to a field of type 'BirthSituation[]'
+   */
+  export type ListEnumBirthSituationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BirthSituation[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MortalitySeverity'
+   */
+  export type EnumMortalitySeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MortalitySeverity'>
+    
+
+
+  /**
+   * Reference to a field of type 'MortalitySeverity[]'
+   */
+  export type ListEnumMortalitySeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MortalitySeverity[]'>
+    
   /**
    * Deep Input Types
    */
@@ -18617,6 +20689,14 @@ export namespace Prisma {
     users?: UserListRelationFilter
     animals?: AnimalListRelationFilter
     pastures?: PastureListRelationFilter
+    estrus?: EstrusListRelationFilter
+    pregnancies?: PregnancyListRelationFilter
+    births?: BirthListRelationFilter
+    vaccinations?: VaccinationListRelationFilter
+    managements?: ManagementListRelationFilter
+    mortalities?: MortalityListRelationFilter
+    passwordResetTokens?: PasswordResetTokenListRelationFilter
+    earTagHistory?: EarTagHistoryListRelationFilter
   }
 
   export type FarmOrderByWithRelationInput = {
@@ -18631,6 +20711,14 @@ export namespace Prisma {
     users?: UserOrderByRelationAggregateInput
     animals?: AnimalOrderByRelationAggregateInput
     pastures?: PastureOrderByRelationAggregateInput
+    estrus?: EstrusOrderByRelationAggregateInput
+    pregnancies?: PregnancyOrderByRelationAggregateInput
+    births?: BirthOrderByRelationAggregateInput
+    vaccinations?: VaccinationOrderByRelationAggregateInput
+    managements?: ManagementOrderByRelationAggregateInput
+    mortalities?: MortalityOrderByRelationAggregateInput
+    passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    earTagHistory?: EarTagHistoryOrderByRelationAggregateInput
   }
 
   export type FarmWhereUniqueInput = Prisma.AtLeast<{
@@ -18648,6 +20736,14 @@ export namespace Prisma {
     users?: UserListRelationFilter
     animals?: AnimalListRelationFilter
     pastures?: PastureListRelationFilter
+    estrus?: EstrusListRelationFilter
+    pregnancies?: PregnancyListRelationFilter
+    births?: BirthListRelationFilter
+    vaccinations?: VaccinationListRelationFilter
+    managements?: ManagementListRelationFilter
+    mortalities?: MortalityListRelationFilter
+    passwordResetTokens?: PasswordResetTokenListRelationFilter
+    earTagHistory?: EarTagHistoryListRelationFilter
   }, "id">
 
   export type FarmOrderByWithAggregationInput = {
@@ -18684,12 +20780,12 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     fullName?: StringFilter<"User"> | string
+    username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumPermissionFilter<"User"> | $Enums.Permission
     active?: BoolFilter<"User"> | boolean
-    crv?: StringNullableFilter<"User"> | string | null
     crmv?: StringNullableFilter<"User"> | string | null
     graduationDate?: DateTimeNullableFilter<"User"> | Date | string | null
     specialties?: StringNullableListFilter<"User">
@@ -18700,17 +20796,23 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     farmId?: StringFilter<"User"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    passwordResetTokens?: PasswordResetTokenListRelationFilter
+    vaccinations?: VaccinationListRelationFilter
+    ultrasounds?: UltrasoundListRelationFilter
+    births?: BirthListRelationFilter
+    mortalities?: MortalityListRelationFilter
+    estrus?: EstrusListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     fullName?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrderInput | SortOrder
     crmv?: SortOrderInput | SortOrder
     graduationDate?: SortOrderInput | SortOrder
     specialties?: SortOrder
@@ -18721,21 +20823,27 @@ export namespace Prisma {
     updatedAt?: SortOrder
     farmId?: SortOrder
     farm?: FarmOrderByWithRelationInput
+    passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    vaccinations?: VaccinationOrderByRelationAggregateInput
+    ultrasounds?: UltrasoundOrderByRelationAggregateInput
+    births?: BirthOrderByRelationAggregateInput
+    mortalities?: MortalityOrderByRelationAggregateInput
+    estrus?: EstrusOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    farmId_email?: UserFarmIdEmailCompoundUniqueInput
+    farmId_username?: UserFarmIdUsernameCompoundUniqueInput
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     fullName?: StringFilter<"User"> | string
+    username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumPermissionFilter<"User"> | $Enums.Permission
     active?: BoolFilter<"User"> | boolean
-    crv?: StringNullableFilter<"User"> | string | null
     crmv?: StringNullableFilter<"User"> | string | null
     graduationDate?: DateTimeNullableFilter<"User"> | Date | string | null
     specialties?: StringNullableListFilter<"User">
@@ -18746,17 +20854,23 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     farmId?: StringFilter<"User"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
-  }, "id" | "farmId_email">
+    passwordResetTokens?: PasswordResetTokenListRelationFilter
+    vaccinations?: VaccinationListRelationFilter
+    ultrasounds?: UltrasoundListRelationFilter
+    births?: BirthListRelationFilter
+    mortalities?: MortalityListRelationFilter
+    estrus?: EstrusListRelationFilter
+  }, "id" | "farmId_username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     fullName?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrderInput | SortOrder
     crmv?: SortOrderInput | SortOrder
     graduationDate?: SortOrderInput | SortOrder
     specialties?: SortOrder
@@ -18777,12 +20891,12 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     fullName?: StringWithAggregatesFilter<"User"> | string
+    username?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumPermissionWithAggregatesFilter<"User"> | $Enums.Permission
     active?: BoolWithAggregatesFilter<"User"> | boolean
-    crv?: StringNullableWithAggregatesFilter<"User"> | string | null
     crmv?: StringNullableWithAggregatesFilter<"User"> | string | null
     graduationDate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     specialties?: StringNullableListFilter<"User">
@@ -18803,19 +20917,31 @@ export namespace Prisma {
     currentEarTag?: StringNullableFilter<"Animal"> | string | null
     name?: StringFilter<"Animal"> | string
     breed?: StringFilter<"Animal"> | string
-    gender?: StringFilter<"Animal"> | string
+    gender?: EnumGenderFilter<"Animal"> | $Enums.Gender
     birthDate?: DateTimeFilter<"Animal"> | Date | string
+    status?: EnumAnimalStatusFilter<"Animal"> | $Enums.AnimalStatus
+    deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     sireId?: StringNullableFilter<"Animal"> | string | null
     damId?: StringNullableFilter<"Animal"> | string | null
     pastureId?: StringNullableFilter<"Animal"> | string | null
     pastureName?: StringNullableFilter<"Animal"> | string | null
-    status?: StringFilter<"Animal"> | string
-    deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
     farmId?: StringFilter<"Animal"> | string
+    sire?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    sireOf?: AnimalListRelationFilter
+    dam?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    damOf?: AnimalListRelationFilter
+    bullInAttempts?: AttemptListRelationFilter
+    pasture?: XOR<PastureNullableScalarRelationFilter, PastureWhereInput> | null
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
     earTagHistory?: EarTagHistoryListRelationFilter
+    estrus?: EstrusListRelationFilter
+    pregnancies?: PregnancyListRelationFilter
+    births?: BirthListRelationFilter
+    vaccinations?: VaccinationListRelationFilter
+    managements?: ManagementListRelationFilter
+    mortalities?: MortalityListRelationFilter
   }
 
   export type AnimalOrderByWithRelationInput = {
@@ -18826,43 +20952,67 @@ export namespace Prisma {
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
+    status?: SortOrder
+    deathDate?: SortOrderInput | SortOrder
     sireId?: SortOrderInput | SortOrder
     damId?: SortOrderInput | SortOrder
     pastureId?: SortOrderInput | SortOrder
     pastureName?: SortOrderInput | SortOrder
-    status?: SortOrder
-    deathDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    sire?: AnimalOrderByWithRelationInput
+    sireOf?: AnimalOrderByRelationAggregateInput
+    dam?: AnimalOrderByWithRelationInput
+    damOf?: AnimalOrderByRelationAggregateInput
+    bullInAttempts?: AttemptOrderByRelationAggregateInput
+    pasture?: PastureOrderByWithRelationInput
     farm?: FarmOrderByWithRelationInput
     earTagHistory?: EarTagHistoryOrderByRelationAggregateInput
+    estrus?: EstrusOrderByRelationAggregateInput
+    pregnancies?: PregnancyOrderByRelationAggregateInput
+    births?: BirthOrderByRelationAggregateInput
+    vaccinations?: VaccinationOrderByRelationAggregateInput
+    managements?: ManagementOrderByRelationAggregateInput
+    mortalities?: MortalityOrderByRelationAggregateInput
   }
 
   export type AnimalWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     chipId?: string
-    currentEarTag?: string
     farmId_chipId?: AnimalFarmIdChipIdCompoundUniqueInput
     AND?: AnimalWhereInput | AnimalWhereInput[]
     OR?: AnimalWhereInput[]
     NOT?: AnimalWhereInput | AnimalWhereInput[]
+    currentEarTag?: StringNullableFilter<"Animal"> | string | null
     name?: StringFilter<"Animal"> | string
     breed?: StringFilter<"Animal"> | string
-    gender?: StringFilter<"Animal"> | string
+    gender?: EnumGenderFilter<"Animal"> | $Enums.Gender
     birthDate?: DateTimeFilter<"Animal"> | Date | string
+    status?: EnumAnimalStatusFilter<"Animal"> | $Enums.AnimalStatus
+    deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     sireId?: StringNullableFilter<"Animal"> | string | null
     damId?: StringNullableFilter<"Animal"> | string | null
     pastureId?: StringNullableFilter<"Animal"> | string | null
     pastureName?: StringNullableFilter<"Animal"> | string | null
-    status?: StringFilter<"Animal"> | string
-    deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
     farmId?: StringFilter<"Animal"> | string
+    sire?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    sireOf?: AnimalListRelationFilter
+    dam?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
+    damOf?: AnimalListRelationFilter
+    bullInAttempts?: AttemptListRelationFilter
+    pasture?: XOR<PastureNullableScalarRelationFilter, PastureWhereInput> | null
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
     earTagHistory?: EarTagHistoryListRelationFilter
-  }, "id" | "chipId" | "currentEarTag" | "farmId_chipId">
+    estrus?: EstrusListRelationFilter
+    pregnancies?: PregnancyListRelationFilter
+    births?: BirthListRelationFilter
+    vaccinations?: VaccinationListRelationFilter
+    managements?: ManagementListRelationFilter
+    mortalities?: MortalityListRelationFilter
+  }, "id" | "chipId" | "farmId_chipId">
 
   export type AnimalOrderByWithAggregationInput = {
     id?: SortOrder
@@ -18872,12 +21022,12 @@ export namespace Prisma {
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
+    status?: SortOrder
+    deathDate?: SortOrderInput | SortOrder
     sireId?: SortOrderInput | SortOrder
     damId?: SortOrderInput | SortOrder
     pastureId?: SortOrderInput | SortOrder
     pastureName?: SortOrderInput | SortOrder
-    status?: SortOrder
-    deathDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
@@ -18895,14 +21045,14 @@ export namespace Prisma {
     currentEarTag?: StringNullableWithAggregatesFilter<"Animal"> | string | null
     name?: StringWithAggregatesFilter<"Animal"> | string
     breed?: StringWithAggregatesFilter<"Animal"> | string
-    gender?: StringWithAggregatesFilter<"Animal"> | string
+    gender?: EnumGenderWithAggregatesFilter<"Animal"> | $Enums.Gender
     birthDate?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
+    status?: EnumAnimalStatusWithAggregatesFilter<"Animal"> | $Enums.AnimalStatus
+    deathDate?: DateTimeNullableWithAggregatesFilter<"Animal"> | Date | string | null
     sireId?: StringNullableWithAggregatesFilter<"Animal"> | string | null
     damId?: StringNullableWithAggregatesFilter<"Animal"> | string | null
     pastureId?: StringNullableWithAggregatesFilter<"Animal"> | string | null
     pastureName?: StringNullableWithAggregatesFilter<"Animal"> | string | null
-    status?: StringWithAggregatesFilter<"Animal"> | string
-    deathDate?: DateTimeNullableWithAggregatesFilter<"Animal"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
     farmId?: StringWithAggregatesFilter<"Animal"> | string
@@ -18920,6 +21070,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
     farmId?: StringFilter<"EarTagHistory"> | string
     animalId?: StringFilter<"EarTagHistory"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
     animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
   }
 
@@ -18932,6 +21083,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     farmId?: SortOrder
     animalId?: SortOrder
+    farm?: FarmOrderByWithRelationInput
     animal?: AnimalOrderByWithRelationInput
   }
 
@@ -18947,6 +21099,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
     farmId?: StringFilter<"EarTagHistory"> | string
     animalId?: StringFilter<"EarTagHistory"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
     animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
   }, "id">
 
@@ -18993,6 +21146,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Pasture"> | Date | string
     farmId?: StringFilter<"Pasture"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animals?: AnimalListRelationFilter
   }
 
   export type PastureOrderByWithRelationInput = {
@@ -19007,6 +21161,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     farmId?: SortOrder
     farm?: FarmOrderByWithRelationInput
+    animals?: AnimalOrderByRelationAggregateInput
   }
 
   export type PastureWhereUniqueInput = Prisma.AtLeast<{
@@ -19025,6 +21180,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Pasture"> | Date | string
     farmId?: StringFilter<"Pasture"> | string
     farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animals?: AnimalListRelationFilter
   }, "id" | "farmId_name">
 
   export type PastureOrderByWithAggregationInput = {
@@ -19066,26 +21222,32 @@ export namespace Prisma {
     OR?: EstrusWhereInput[]
     NOT?: EstrusWhereInput | EstrusWhereInput[]
     id?: StringFilter<"Estrus"> | string
-    animalId?: StringFilter<"Estrus"> | string
     date?: DateTimeFilter<"Estrus"> | Date | string
-    intensity?: StringFilter<"Estrus"> | string
-    detectedBy?: StringFilter<"Estrus"> | string
+    intensity?: EnumEstrusIntensityFilter<"Estrus"> | $Enums.EstrusIntensity
     nextEstrus?: DateTimeFilter<"Estrus"> | Date | string
     createdAt?: DateTimeFilter<"Estrus"> | Date | string
     updatedAt?: DateTimeFilter<"Estrus"> | Date | string
     farmId?: StringFilter<"Estrus"> | string
+    animalId?: StringFilter<"Estrus"> | string
+    detectedById?: StringNullableFilter<"Estrus"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    detectedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type EstrusOrderByWithRelationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     date?: SortOrder
     intensity?: SortOrder
-    detectedBy?: SortOrder
     nextEstrus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    detectedById?: SortOrderInput | SortOrder
+    farm?: FarmOrderByWithRelationInput
+    animal?: AnimalOrderByWithRelationInput
+    detectedBy?: UserOrderByWithRelationInput
   }
 
   export type EstrusWhereUniqueInput = Prisma.AtLeast<{
@@ -19093,26 +21255,29 @@ export namespace Prisma {
     AND?: EstrusWhereInput | EstrusWhereInput[]
     OR?: EstrusWhereInput[]
     NOT?: EstrusWhereInput | EstrusWhereInput[]
-    animalId?: StringFilter<"Estrus"> | string
     date?: DateTimeFilter<"Estrus"> | Date | string
-    intensity?: StringFilter<"Estrus"> | string
-    detectedBy?: StringFilter<"Estrus"> | string
+    intensity?: EnumEstrusIntensityFilter<"Estrus"> | $Enums.EstrusIntensity
     nextEstrus?: DateTimeFilter<"Estrus"> | Date | string
     createdAt?: DateTimeFilter<"Estrus"> | Date | string
     updatedAt?: DateTimeFilter<"Estrus"> | Date | string
     farmId?: StringFilter<"Estrus"> | string
+    animalId?: StringFilter<"Estrus"> | string
+    detectedById?: StringNullableFilter<"Estrus"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    detectedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type EstrusOrderByWithAggregationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     date?: SortOrder
     intensity?: SortOrder
-    detectedBy?: SortOrder
     nextEstrus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    detectedById?: SortOrderInput | SortOrder
     _count?: EstrusCountOrderByAggregateInput
     _max?: EstrusMaxOrderByAggregateInput
     _min?: EstrusMinOrderByAggregateInput
@@ -19123,14 +21288,14 @@ export namespace Prisma {
     OR?: EstrusScalarWhereWithAggregatesInput[]
     NOT?: EstrusScalarWhereWithAggregatesInput | EstrusScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Estrus"> | string
-    animalId?: StringWithAggregatesFilter<"Estrus"> | string
     date?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
-    intensity?: StringWithAggregatesFilter<"Estrus"> | string
-    detectedBy?: StringWithAggregatesFilter<"Estrus"> | string
+    intensity?: EnumEstrusIntensityWithAggregatesFilter<"Estrus"> | $Enums.EstrusIntensity
     nextEstrus?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Estrus"> | Date | string
     farmId?: StringWithAggregatesFilter<"Estrus"> | string
+    animalId?: StringWithAggregatesFilter<"Estrus"> | string
+    detectedById?: StringNullableWithAggregatesFilter<"Estrus"> | string | null
   }
 
   export type PregnancyWhereInput = {
@@ -19138,23 +21303,27 @@ export namespace Prisma {
     OR?: PregnancyWhereInput[]
     NOT?: PregnancyWhereInput | PregnancyWhereInput[]
     id?: StringFilter<"Pregnancy"> | string
-    animalId?: StringFilter<"Pregnancy"> | string
-    currentStatus?: StringFilter<"Pregnancy"> | string
+    currentStatus?: EnumPregnancyStatusFilter<"Pregnancy"> | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFilter<"Pregnancy"> | Date | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
     farmId?: StringFilter<"Pregnancy"> | string
+    animalId?: StringFilter<"Pregnancy"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
     attempts?: AttemptListRelationFilter
   }
 
   export type PregnancyOrderByWithRelationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    farm?: FarmOrderByWithRelationInput
+    animal?: AnimalOrderByWithRelationInput
     attempts?: AttemptOrderByRelationAggregateInput
   }
 
@@ -19163,23 +21332,25 @@ export namespace Prisma {
     AND?: PregnancyWhereInput | PregnancyWhereInput[]
     OR?: PregnancyWhereInput[]
     NOT?: PregnancyWhereInput | PregnancyWhereInput[]
-    animalId?: StringFilter<"Pregnancy"> | string
-    currentStatus?: StringFilter<"Pregnancy"> | string
+    currentStatus?: EnumPregnancyStatusFilter<"Pregnancy"> | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFilter<"Pregnancy"> | Date | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
     farmId?: StringFilter<"Pregnancy"> | string
+    animalId?: StringFilter<"Pregnancy"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
     attempts?: AttemptListRelationFilter
   }, "id">
 
   export type PregnancyOrderByWithAggregationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
     _count?: PregnancyCountOrderByAggregateInput
     _max?: PregnancyMaxOrderByAggregateInput
     _min?: PregnancyMinOrderByAggregateInput
@@ -19190,12 +21361,12 @@ export namespace Prisma {
     OR?: PregnancyScalarWhereWithAggregatesInput[]
     NOT?: PregnancyScalarWhereWithAggregatesInput | PregnancyScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Pregnancy"> | string
-    animalId?: StringWithAggregatesFilter<"Pregnancy"> | string
-    currentStatus?: StringWithAggregatesFilter<"Pregnancy"> | string
+    currentStatus?: EnumPregnancyStatusWithAggregatesFilter<"Pregnancy"> | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
     farmId?: StringWithAggregatesFilter<"Pregnancy"> | string
+    animalId?: StringWithAggregatesFilter<"Pregnancy"> | string
   }
 
   export type AttemptWhereInput = {
@@ -19205,18 +21376,19 @@ export namespace Prisma {
     id?: StringFilter<"Attempt"> | string
     number?: IntFilter<"Attempt"> | number
     matingDate?: DateTimeFilter<"Attempt"> | Date | string
-    matingType?: StringFilter<"Attempt"> | string
-    bullId?: StringNullableFilter<"Attempt"> | string | null
+    matingType?: EnumMatingTypeFilter<"Attempt"> | $Enums.MatingType
     semenName?: StringNullableFilter<"Attempt"> | string | null
     technician?: StringNullableFilter<"Attempt"> | string | null
     estimatedBirthDate?: DateTimeFilter<"Attempt"> | Date | string
-    birthId?: StringNullableFilter<"Attempt"> | string | null
-    attemptStatus?: StringFilter<"Attempt"> | string
+    attemptStatus?: EnumAttemptStatusFilter<"Attempt"> | $Enums.AttemptStatus
     notes?: StringNullableFilter<"Attempt"> | string | null
     createdAt?: DateTimeFilter<"Attempt"> | Date | string
+    bullId?: StringNullableFilter<"Attempt"> | string | null
     pregnancyId?: StringFilter<"Attempt"> | string
+    bull?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
     pregnancy?: XOR<PregnancyScalarRelationFilter, PregnancyWhereInput>
     ultrasounds?: UltrasoundListRelationFilter
+    births?: BirthListRelationFilter
   }
 
   export type AttemptOrderByWithRelationInput = {
@@ -19224,17 +21396,18 @@ export namespace Prisma {
     number?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrderInput | SortOrder
     semenName?: SortOrderInput | SortOrder
     technician?: SortOrderInput | SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrderInput | SortOrder
     attemptStatus?: SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    bullId?: SortOrderInput | SortOrder
     pregnancyId?: SortOrder
+    bull?: AnimalOrderByWithRelationInput
     pregnancy?: PregnancyOrderByWithRelationInput
     ultrasounds?: UltrasoundOrderByRelationAggregateInput
+    births?: BirthOrderByRelationAggregateInput
   }
 
   export type AttemptWhereUniqueInput = Prisma.AtLeast<{
@@ -19244,18 +21417,19 @@ export namespace Prisma {
     NOT?: AttemptWhereInput | AttemptWhereInput[]
     number?: IntFilter<"Attempt"> | number
     matingDate?: DateTimeFilter<"Attempt"> | Date | string
-    matingType?: StringFilter<"Attempt"> | string
-    bullId?: StringNullableFilter<"Attempt"> | string | null
+    matingType?: EnumMatingTypeFilter<"Attempt"> | $Enums.MatingType
     semenName?: StringNullableFilter<"Attempt"> | string | null
     technician?: StringNullableFilter<"Attempt"> | string | null
     estimatedBirthDate?: DateTimeFilter<"Attempt"> | Date | string
-    birthId?: StringNullableFilter<"Attempt"> | string | null
-    attemptStatus?: StringFilter<"Attempt"> | string
+    attemptStatus?: EnumAttemptStatusFilter<"Attempt"> | $Enums.AttemptStatus
     notes?: StringNullableFilter<"Attempt"> | string | null
     createdAt?: DateTimeFilter<"Attempt"> | Date | string
+    bullId?: StringNullableFilter<"Attempt"> | string | null
     pregnancyId?: StringFilter<"Attempt"> | string
+    bull?: XOR<AnimalNullableScalarRelationFilter, AnimalWhereInput> | null
     pregnancy?: XOR<PregnancyScalarRelationFilter, PregnancyWhereInput>
     ultrasounds?: UltrasoundListRelationFilter
+    births?: BirthListRelationFilter
   }, "id">
 
   export type AttemptOrderByWithAggregationInput = {
@@ -19263,14 +21437,13 @@ export namespace Prisma {
     number?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrderInput | SortOrder
     semenName?: SortOrderInput | SortOrder
     technician?: SortOrderInput | SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrderInput | SortOrder
     attemptStatus?: SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    bullId?: SortOrderInput | SortOrder
     pregnancyId?: SortOrder
     _count?: AttemptCountOrderByAggregateInput
     _avg?: AttemptAvgOrderByAggregateInput
@@ -19286,15 +21459,14 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Attempt"> | string
     number?: IntWithAggregatesFilter<"Attempt"> | number
     matingDate?: DateTimeWithAggregatesFilter<"Attempt"> | Date | string
-    matingType?: StringWithAggregatesFilter<"Attempt"> | string
-    bullId?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
+    matingType?: EnumMatingTypeWithAggregatesFilter<"Attempt"> | $Enums.MatingType
     semenName?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
     technician?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
     estimatedBirthDate?: DateTimeWithAggregatesFilter<"Attempt"> | Date | string
-    birthId?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
-    attemptStatus?: StringWithAggregatesFilter<"Attempt"> | string
+    attemptStatus?: EnumAttemptStatusWithAggregatesFilter<"Attempt"> | $Enums.AttemptStatus
     notes?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Attempt"> | Date | string
+    bullId?: StringNullableWithAggregatesFilter<"Attempt"> | string | null
     pregnancyId?: StringWithAggregatesFilter<"Attempt"> | string
   }
 
@@ -19304,12 +21476,14 @@ export namespace Prisma {
     NOT?: UltrasoundWhereInput | UltrasoundWhereInput[]
     id?: StringFilter<"Ultrasound"> | string
     days?: IntFilter<"Ultrasound"> | number
-    result?: StringFilter<"Ultrasound"> | string
+    result?: EnumUltrasoundResultFilter<"Ultrasound"> | $Enums.UltrasoundResult
     notes?: StringNullableFilter<"Ultrasound"> | string | null
-    veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
+    createdAt?: DateTimeFilter<"Ultrasound"> | Date | string
     attemptId?: StringFilter<"Ultrasound"> | string
+    veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     attempt?: XOR<AttemptScalarRelationFilter, AttemptWhereInput>
+    veterinarian?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type UltrasoundOrderByWithRelationInput = {
@@ -19317,10 +21491,12 @@ export namespace Prisma {
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrderInput | SortOrder
-    veterinarianId?: SortOrderInput | SortOrder
     ultrasoundDate?: SortOrder
+    createdAt?: SortOrder
     attemptId?: SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     attempt?: AttemptOrderByWithRelationInput
+    veterinarian?: UserOrderByWithRelationInput
   }
 
   export type UltrasoundWhereUniqueInput = Prisma.AtLeast<{
@@ -19329,12 +21505,14 @@ export namespace Prisma {
     OR?: UltrasoundWhereInput[]
     NOT?: UltrasoundWhereInput | UltrasoundWhereInput[]
     days?: IntFilter<"Ultrasound"> | number
-    result?: StringFilter<"Ultrasound"> | string
+    result?: EnumUltrasoundResultFilter<"Ultrasound"> | $Enums.UltrasoundResult
     notes?: StringNullableFilter<"Ultrasound"> | string | null
-    veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
+    createdAt?: DateTimeFilter<"Ultrasound"> | Date | string
     attemptId?: StringFilter<"Ultrasound"> | string
+    veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
     attempt?: XOR<AttemptScalarRelationFilter, AttemptWhereInput>
+    veterinarian?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type UltrasoundOrderByWithAggregationInput = {
@@ -19342,9 +21520,10 @@ export namespace Prisma {
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrderInput | SortOrder
-    veterinarianId?: SortOrderInput | SortOrder
     ultrasoundDate?: SortOrder
+    createdAt?: SortOrder
     attemptId?: SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     _count?: UltrasoundCountOrderByAggregateInput
     _avg?: UltrasoundAvgOrderByAggregateInput
     _max?: UltrasoundMaxOrderByAggregateInput
@@ -19358,11 +21537,12 @@ export namespace Prisma {
     NOT?: UltrasoundScalarWhereWithAggregatesInput | UltrasoundScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Ultrasound"> | string
     days?: IntWithAggregatesFilter<"Ultrasound"> | number
-    result?: StringWithAggregatesFilter<"Ultrasound"> | string
+    result?: EnumUltrasoundResultWithAggregatesFilter<"Ultrasound"> | $Enums.UltrasoundResult
     notes?: StringNullableWithAggregatesFilter<"Ultrasound"> | string | null
-    veterinarianId?: StringNullableWithAggregatesFilter<"Ultrasound"> | string | null
     ultrasoundDate?: DateTimeWithAggregatesFilter<"Ultrasound"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Ultrasound"> | Date | string
     attemptId?: StringWithAggregatesFilter<"Ultrasound"> | string
+    veterinarianId?: StringNullableWithAggregatesFilter<"Ultrasound"> | string | null
   }
 
   export type BirthWhereInput = {
@@ -19370,37 +21550,35 @@ export namespace Prisma {
     OR?: BirthWhereInput[]
     NOT?: BirthWhereInput | BirthWhereInput[]
     id?: StringFilter<"Birth"> | string
-    damId?: StringFilter<"Birth"> | string
-    pregnancyId?: StringNullableFilter<"Birth"> | string | null
     birthDate?: DateTimeFilter<"Birth"> | Date | string
     birthTime?: StringNullableFilter<"Birth"> | string | null
-    birthType?: StringFilter<"Birth"> | string
-    veterinarianId?: StringNullableFilter<"Birth"> | string | null
-    veterinarianName?: StringNullableFilter<"Birth"> | string | null
-    veterinarianCrv?: StringNullableFilter<"Birth"> | string | null
-    calfGender?: StringNullableFilter<"Birth"> | string | null
+    birthType?: EnumBirthTypeFilter<"Birth"> | $Enums.BirthType
+    calfGender?: EnumGenderNullableFilter<"Birth"> | $Enums.Gender | null
     calfWeight?: FloatNullableFilter<"Birth"> | number | null
     calfEarTag?: StringNullableFilter<"Birth"> | string | null
     calfChip?: StringNullableFilter<"Birth"> | string | null
-    calfStatus?: StringFilter<"Birth"> | string
-    situation?: StringFilter<"Birth"> | string
+    calfStatus?: EnumCalfStatusFilter<"Birth"> | $Enums.CalfStatus
+    situation?: EnumBirthSituationFilter<"Birth"> | $Enums.BirthSituation
     deathReason?: StringNullableFilter<"Birth"> | string | null
     notes?: StringNullableFilter<"Birth"> | string | null
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
     farmId?: StringFilter<"Birth"> | string
+    damId?: StringFilter<"Birth"> | string
+    attemptId?: StringNullableFilter<"Birth"> | string | null
+    veterinarianId?: StringNullableFilter<"Birth"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    dam?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    attempt?: XOR<AttemptNullableScalarRelationFilter, AttemptWhereInput> | null
+    veterinarian?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    mortalities?: MortalityListRelationFilter
   }
 
   export type BirthOrderByWithRelationInput = {
     id?: SortOrder
-    damId?: SortOrder
-    pregnancyId?: SortOrderInput | SortOrder
     birthDate?: SortOrder
     birthTime?: SortOrderInput | SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrderInput | SortOrder
-    veterinarianName?: SortOrderInput | SortOrder
-    veterinarianCrv?: SortOrderInput | SortOrder
     calfGender?: SortOrderInput | SortOrder
     calfWeight?: SortOrderInput | SortOrder
     calfEarTag?: SortOrderInput | SortOrder
@@ -19412,6 +21590,14 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    damId?: SortOrder
+    attemptId?: SortOrderInput | SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
+    farm?: FarmOrderByWithRelationInput
+    dam?: AnimalOrderByWithRelationInput
+    attempt?: AttemptOrderByWithRelationInput
+    veterinarian?: UserOrderByWithRelationInput
+    mortalities?: MortalityOrderByRelationAggregateInput
   }
 
   export type BirthWhereUniqueInput = Prisma.AtLeast<{
@@ -19419,37 +21605,35 @@ export namespace Prisma {
     AND?: BirthWhereInput | BirthWhereInput[]
     OR?: BirthWhereInput[]
     NOT?: BirthWhereInput | BirthWhereInput[]
-    damId?: StringFilter<"Birth"> | string
-    pregnancyId?: StringNullableFilter<"Birth"> | string | null
     birthDate?: DateTimeFilter<"Birth"> | Date | string
     birthTime?: StringNullableFilter<"Birth"> | string | null
-    birthType?: StringFilter<"Birth"> | string
-    veterinarianId?: StringNullableFilter<"Birth"> | string | null
-    veterinarianName?: StringNullableFilter<"Birth"> | string | null
-    veterinarianCrv?: StringNullableFilter<"Birth"> | string | null
-    calfGender?: StringNullableFilter<"Birth"> | string | null
+    birthType?: EnumBirthTypeFilter<"Birth"> | $Enums.BirthType
+    calfGender?: EnumGenderNullableFilter<"Birth"> | $Enums.Gender | null
     calfWeight?: FloatNullableFilter<"Birth"> | number | null
     calfEarTag?: StringNullableFilter<"Birth"> | string | null
     calfChip?: StringNullableFilter<"Birth"> | string | null
-    calfStatus?: StringFilter<"Birth"> | string
-    situation?: StringFilter<"Birth"> | string
+    calfStatus?: EnumCalfStatusFilter<"Birth"> | $Enums.CalfStatus
+    situation?: EnumBirthSituationFilter<"Birth"> | $Enums.BirthSituation
     deathReason?: StringNullableFilter<"Birth"> | string | null
     notes?: StringNullableFilter<"Birth"> | string | null
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
     farmId?: StringFilter<"Birth"> | string
+    damId?: StringFilter<"Birth"> | string
+    attemptId?: StringNullableFilter<"Birth"> | string | null
+    veterinarianId?: StringNullableFilter<"Birth"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    dam?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    attempt?: XOR<AttemptNullableScalarRelationFilter, AttemptWhereInput> | null
+    veterinarian?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    mortalities?: MortalityListRelationFilter
   }, "id">
 
   export type BirthOrderByWithAggregationInput = {
     id?: SortOrder
-    damId?: SortOrder
-    pregnancyId?: SortOrderInput | SortOrder
     birthDate?: SortOrder
     birthTime?: SortOrderInput | SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrderInput | SortOrder
-    veterinarianName?: SortOrderInput | SortOrder
-    veterinarianCrv?: SortOrderInput | SortOrder
     calfGender?: SortOrderInput | SortOrder
     calfWeight?: SortOrderInput | SortOrder
     calfEarTag?: SortOrderInput | SortOrder
@@ -19461,6 +21645,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    damId?: SortOrder
+    attemptId?: SortOrderInput | SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     _count?: BirthCountOrderByAggregateInput
     _avg?: BirthAvgOrderByAggregateInput
     _max?: BirthMaxOrderByAggregateInput
@@ -19473,25 +21660,23 @@ export namespace Prisma {
     OR?: BirthScalarWhereWithAggregatesInput[]
     NOT?: BirthScalarWhereWithAggregatesInput | BirthScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Birth"> | string
-    damId?: StringWithAggregatesFilter<"Birth"> | string
-    pregnancyId?: StringNullableWithAggregatesFilter<"Birth"> | string | null
     birthDate?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
     birthTime?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    birthType?: StringWithAggregatesFilter<"Birth"> | string
-    veterinarianId?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    veterinarianName?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    veterinarianCrv?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    calfGender?: StringNullableWithAggregatesFilter<"Birth"> | string | null
+    birthType?: EnumBirthTypeWithAggregatesFilter<"Birth"> | $Enums.BirthType
+    calfGender?: EnumGenderNullableWithAggregatesFilter<"Birth"> | $Enums.Gender | null
     calfWeight?: FloatNullableWithAggregatesFilter<"Birth"> | number | null
     calfEarTag?: StringNullableWithAggregatesFilter<"Birth"> | string | null
     calfChip?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    calfStatus?: StringWithAggregatesFilter<"Birth"> | string
-    situation?: StringWithAggregatesFilter<"Birth"> | string
+    calfStatus?: EnumCalfStatusWithAggregatesFilter<"Birth"> | $Enums.CalfStatus
+    situation?: EnumBirthSituationWithAggregatesFilter<"Birth"> | $Enums.BirthSituation
     deathReason?: StringNullableWithAggregatesFilter<"Birth"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Birth"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
     farmId?: StringWithAggregatesFilter<"Birth"> | string
+    damId?: StringWithAggregatesFilter<"Birth"> | string
+    attemptId?: StringNullableWithAggregatesFilter<"Birth"> | string | null
+    veterinarianId?: StringNullableWithAggregatesFilter<"Birth"> | string | null
   }
 
   export type VaccinationWhereInput = {
@@ -19499,7 +21684,6 @@ export namespace Prisma {
     OR?: VaccinationWhereInput[]
     NOT?: VaccinationWhereInput | VaccinationWhereInput[]
     id?: StringFilter<"Vaccination"> | string
-    animalId?: StringFilter<"Vaccination"> | string
     vaccineType?: StringFilter<"Vaccination"> | string
     brand?: StringFilter<"Vaccination"> | string
     batch?: StringFilter<"Vaccination"> | string
@@ -19508,15 +21692,18 @@ export namespace Prisma {
     nextDoseDate?: DateTimeNullableFilter<"Vaccination"> | Date | string | null
     photoUrl?: StringNullableFilter<"Vaccination"> | string | null
     reaction?: StringNullableFilter<"Vaccination"> | string | null
-    veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
     createdAt?: DateTimeFilter<"Vaccination"> | Date | string
     updatedAt?: DateTimeFilter<"Vaccination"> | Date | string
     farmId?: StringFilter<"Vaccination"> | string
+    animalId?: StringFilter<"Vaccination"> | string
+    veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    veterinarian?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type VaccinationOrderByWithRelationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     vaccineType?: SortOrder
     brand?: SortOrder
     batch?: SortOrder
@@ -19525,10 +21712,14 @@ export namespace Prisma {
     nextDoseDate?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
-    veterinarianId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
+    farm?: FarmOrderByWithRelationInput
+    animal?: AnimalOrderByWithRelationInput
+    veterinarian?: UserOrderByWithRelationInput
   }
 
   export type VaccinationWhereUniqueInput = Prisma.AtLeast<{
@@ -19536,7 +21727,6 @@ export namespace Prisma {
     AND?: VaccinationWhereInput | VaccinationWhereInput[]
     OR?: VaccinationWhereInput[]
     NOT?: VaccinationWhereInput | VaccinationWhereInput[]
-    animalId?: StringFilter<"Vaccination"> | string
     vaccineType?: StringFilter<"Vaccination"> | string
     brand?: StringFilter<"Vaccination"> | string
     batch?: StringFilter<"Vaccination"> | string
@@ -19545,15 +21735,18 @@ export namespace Prisma {
     nextDoseDate?: DateTimeNullableFilter<"Vaccination"> | Date | string | null
     photoUrl?: StringNullableFilter<"Vaccination"> | string | null
     reaction?: StringNullableFilter<"Vaccination"> | string | null
-    veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
     createdAt?: DateTimeFilter<"Vaccination"> | Date | string
     updatedAt?: DateTimeFilter<"Vaccination"> | Date | string
     farmId?: StringFilter<"Vaccination"> | string
+    animalId?: StringFilter<"Vaccination"> | string
+    veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    veterinarian?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type VaccinationOrderByWithAggregationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     vaccineType?: SortOrder
     brand?: SortOrder
     batch?: SortOrder
@@ -19562,10 +21755,11 @@ export namespace Prisma {
     nextDoseDate?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
-    veterinarianId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    veterinarianId?: SortOrderInput | SortOrder
     _count?: VaccinationCountOrderByAggregateInput
     _max?: VaccinationMaxOrderByAggregateInput
     _min?: VaccinationMinOrderByAggregateInput
@@ -19576,7 +21770,6 @@ export namespace Prisma {
     OR?: VaccinationScalarWhereWithAggregatesInput[]
     NOT?: VaccinationScalarWhereWithAggregatesInput | VaccinationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Vaccination"> | string
-    animalId?: StringWithAggregatesFilter<"Vaccination"> | string
     vaccineType?: StringWithAggregatesFilter<"Vaccination"> | string
     brand?: StringWithAggregatesFilter<"Vaccination"> | string
     batch?: StringWithAggregatesFilter<"Vaccination"> | string
@@ -19585,10 +21778,11 @@ export namespace Prisma {
     nextDoseDate?: DateTimeNullableWithAggregatesFilter<"Vaccination"> | Date | string | null
     photoUrl?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
     reaction?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
-    veterinarianId?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Vaccination"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Vaccination"> | Date | string
     farmId?: StringWithAggregatesFilter<"Vaccination"> | string
+    animalId?: StringWithAggregatesFilter<"Vaccination"> | string
+    veterinarianId?: StringNullableWithAggregatesFilter<"Vaccination"> | string | null
   }
 
   export type ManagementWhereInput = {
@@ -19596,7 +21790,6 @@ export namespace Prisma {
     OR?: ManagementWhereInput[]
     NOT?: ManagementWhereInput | ManagementWhereInput[]
     id?: StringFilter<"Management"> | string
-    animalId?: StringFilter<"Management"> | string
     originPasture?: StringFilter<"Management"> | string
     destinationPasture?: StringFilter<"Management"> | string
     movementDate?: DateTimeFilter<"Management"> | Date | string
@@ -19606,11 +21799,13 @@ export namespace Prisma {
     batchTotal?: IntNullableFilter<"Management"> | number | null
     createdAt?: DateTimeFilter<"Management"> | Date | string
     farmId?: StringFilter<"Management"> | string
+    animalId?: StringFilter<"Management"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
   }
 
   export type ManagementOrderByWithRelationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     originPasture?: SortOrder
     destinationPasture?: SortOrder
     movementDate?: SortOrder
@@ -19620,6 +21815,9 @@ export namespace Prisma {
     batchTotal?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    farm?: FarmOrderByWithRelationInput
+    animal?: AnimalOrderByWithRelationInput
   }
 
   export type ManagementWhereUniqueInput = Prisma.AtLeast<{
@@ -19627,7 +21825,6 @@ export namespace Prisma {
     AND?: ManagementWhereInput | ManagementWhereInput[]
     OR?: ManagementWhereInput[]
     NOT?: ManagementWhereInput | ManagementWhereInput[]
-    animalId?: StringFilter<"Management"> | string
     originPasture?: StringFilter<"Management"> | string
     destinationPasture?: StringFilter<"Management"> | string
     movementDate?: DateTimeFilter<"Management"> | Date | string
@@ -19637,11 +21834,13 @@ export namespace Prisma {
     batchTotal?: IntNullableFilter<"Management"> | number | null
     createdAt?: DateTimeFilter<"Management"> | Date | string
     farmId?: StringFilter<"Management"> | string
+    animalId?: StringFilter<"Management"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
   }, "id">
 
   export type ManagementOrderByWithAggregationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     originPasture?: SortOrder
     destinationPasture?: SortOrder
     movementDate?: SortOrder
@@ -19651,6 +21850,7 @@ export namespace Prisma {
     batchTotal?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
     _count?: ManagementCountOrderByAggregateInput
     _avg?: ManagementAvgOrderByAggregateInput
     _max?: ManagementMaxOrderByAggregateInput
@@ -19663,7 +21863,6 @@ export namespace Prisma {
     OR?: ManagementScalarWhereWithAggregatesInput[]
     NOT?: ManagementScalarWhereWithAggregatesInput | ManagementScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Management"> | string
-    animalId?: StringWithAggregatesFilter<"Management"> | string
     originPasture?: StringWithAggregatesFilter<"Management"> | string
     destinationPasture?: StringWithAggregatesFilter<"Management"> | string
     movementDate?: DateTimeWithAggregatesFilter<"Management"> | Date | string
@@ -19673,6 +21872,7 @@ export namespace Prisma {
     batchTotal?: IntNullableWithAggregatesFilter<"Management"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Management"> | Date | string
     farmId?: StringWithAggregatesFilter<"Management"> | string
+    animalId?: StringWithAggregatesFilter<"Management"> | string
   }
 
   export type MortalityWhereInput = {
@@ -19680,26 +21880,30 @@ export namespace Prisma {
     OR?: MortalityWhereInput[]
     NOT?: MortalityWhereInput | MortalityWhereInput[]
     id?: StringFilter<"Mortality"> | string
-    animalId?: StringFilter<"Mortality"> | string
     deathDate?: DateTimeFilter<"Mortality"> | Date | string
     deathTime?: StringNullableFilter<"Mortality"> | string | null
     deathLocation?: StringFilter<"Mortality"> | string
     causeOfDeath?: StringFilter<"Mortality"> | string
-    severity?: StringNullableFilter<"Mortality"> | string | null
+    severity?: EnumMortalitySeverityNullableFilter<"Mortality"> | $Enums.MortalitySeverity | null
     necropsy?: BoolFilter<"Mortality"> | boolean
     disposal?: StringNullableFilter<"Mortality"> | string | null
     photos?: StringNullableListFilter<"Mortality">
     origin?: StringNullableFilter<"Mortality"> | string | null
-    birthId?: StringNullableFilter<"Mortality"> | string | null
     notes?: StringNullableFilter<"Mortality"> | string | null
     createdAt?: DateTimeFilter<"Mortality"> | Date | string
     updatedAt?: DateTimeFilter<"Mortality"> | Date | string
     farmId?: StringFilter<"Mortality"> | string
+    animalId?: StringFilter<"Mortality"> | string
+    birthId?: StringNullableFilter<"Mortality"> | string | null
+    registeredById?: StringNullableFilter<"Mortality"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    birth?: XOR<BirthNullableScalarRelationFilter, BirthWhereInput> | null
+    registeredBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type MortalityOrderByWithRelationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     deathDate?: SortOrder
     deathTime?: SortOrderInput | SortOrder
     deathLocation?: SortOrder
@@ -19709,11 +21913,17 @@ export namespace Prisma {
     disposal?: SortOrderInput | SortOrder
     photos?: SortOrder
     origin?: SortOrderInput | SortOrder
-    birthId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    birthId?: SortOrderInput | SortOrder
+    registeredById?: SortOrderInput | SortOrder
+    farm?: FarmOrderByWithRelationInput
+    animal?: AnimalOrderByWithRelationInput
+    birth?: BirthOrderByWithRelationInput
+    registeredBy?: UserOrderByWithRelationInput
   }
 
   export type MortalityWhereUniqueInput = Prisma.AtLeast<{
@@ -19721,26 +21931,30 @@ export namespace Prisma {
     AND?: MortalityWhereInput | MortalityWhereInput[]
     OR?: MortalityWhereInput[]
     NOT?: MortalityWhereInput | MortalityWhereInput[]
-    animalId?: StringFilter<"Mortality"> | string
     deathDate?: DateTimeFilter<"Mortality"> | Date | string
     deathTime?: StringNullableFilter<"Mortality"> | string | null
     deathLocation?: StringFilter<"Mortality"> | string
     causeOfDeath?: StringFilter<"Mortality"> | string
-    severity?: StringNullableFilter<"Mortality"> | string | null
+    severity?: EnumMortalitySeverityNullableFilter<"Mortality"> | $Enums.MortalitySeverity | null
     necropsy?: BoolFilter<"Mortality"> | boolean
     disposal?: StringNullableFilter<"Mortality"> | string | null
     photos?: StringNullableListFilter<"Mortality">
     origin?: StringNullableFilter<"Mortality"> | string | null
-    birthId?: StringNullableFilter<"Mortality"> | string | null
     notes?: StringNullableFilter<"Mortality"> | string | null
     createdAt?: DateTimeFilter<"Mortality"> | Date | string
     updatedAt?: DateTimeFilter<"Mortality"> | Date | string
     farmId?: StringFilter<"Mortality"> | string
+    animalId?: StringFilter<"Mortality"> | string
+    birthId?: StringNullableFilter<"Mortality"> | string | null
+    registeredById?: StringNullableFilter<"Mortality"> | string | null
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    animal?: XOR<AnimalScalarRelationFilter, AnimalWhereInput>
+    birth?: XOR<BirthNullableScalarRelationFilter, BirthWhereInput> | null
+    registeredBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type MortalityOrderByWithAggregationInput = {
     id?: SortOrder
-    animalId?: SortOrder
     deathDate?: SortOrder
     deathTime?: SortOrderInput | SortOrder
     deathLocation?: SortOrder
@@ -19750,11 +21964,13 @@ export namespace Prisma {
     disposal?: SortOrderInput | SortOrder
     photos?: SortOrder
     origin?: SortOrderInput | SortOrder
-    birthId?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    birthId?: SortOrderInput | SortOrder
+    registeredById?: SortOrderInput | SortOrder
     _count?: MortalityCountOrderByAggregateInput
     _max?: MortalityMaxOrderByAggregateInput
     _min?: MortalityMinOrderByAggregateInput
@@ -19765,21 +21981,22 @@ export namespace Prisma {
     OR?: MortalityScalarWhereWithAggregatesInput[]
     NOT?: MortalityScalarWhereWithAggregatesInput | MortalityScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Mortality"> | string
-    animalId?: StringWithAggregatesFilter<"Mortality"> | string
     deathDate?: DateTimeWithAggregatesFilter<"Mortality"> | Date | string
     deathTime?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
     deathLocation?: StringWithAggregatesFilter<"Mortality"> | string
     causeOfDeath?: StringWithAggregatesFilter<"Mortality"> | string
-    severity?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
+    severity?: EnumMortalitySeverityNullableWithAggregatesFilter<"Mortality"> | $Enums.MortalitySeverity | null
     necropsy?: BoolWithAggregatesFilter<"Mortality"> | boolean
     disposal?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
     photos?: StringNullableListFilter<"Mortality">
     origin?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
-    birthId?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Mortality"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Mortality"> | Date | string
     farmId?: StringWithAggregatesFilter<"Mortality"> | string
+    animalId?: StringWithAggregatesFilter<"Mortality"> | string
+    birthId?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
+    registeredById?: StringNullableWithAggregatesFilter<"Mortality"> | string | null
   }
 
   export type PasswordResetTokenWhereInput = {
@@ -19787,22 +22004,26 @@ export namespace Prisma {
     OR?: PasswordResetTokenWhereInput[]
     NOT?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
     id?: StringFilter<"PasswordResetToken"> | string
-    userId?: StringFilter<"PasswordResetToken"> | string
     code?: StringFilter<"PasswordResetToken"> | string
     expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used?: BoolFilter<"PasswordResetToken"> | boolean
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     farmId?: StringFilter<"PasswordResetToken"> | string
+    userId?: StringFilter<"PasswordResetToken"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PasswordResetTokenOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrder
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    userId?: SortOrder
+    farm?: FarmOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type PasswordResetTokenWhereUniqueInput = Prisma.AtLeast<{
@@ -19811,21 +22032,23 @@ export namespace Prisma {
     AND?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
     OR?: PasswordResetTokenWhereInput[]
     NOT?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
-    userId?: StringFilter<"PasswordResetToken"> | string
     expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used?: BoolFilter<"PasswordResetToken"> | boolean
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     farmId?: StringFilter<"PasswordResetToken"> | string
+    userId?: StringFilter<"PasswordResetToken"> | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "code">
 
   export type PasswordResetTokenOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrder
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    userId?: SortOrder
     _count?: PasswordResetTokenCountOrderByAggregateInput
     _max?: PasswordResetTokenMaxOrderByAggregateInput
     _min?: PasswordResetTokenMinOrderByAggregateInput
@@ -19836,12 +22059,12 @@ export namespace Prisma {
     OR?: PasswordResetTokenScalarWhereWithAggregatesInput[]
     NOT?: PasswordResetTokenScalarWhereWithAggregatesInput | PasswordResetTokenScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PasswordResetToken"> | string
-    userId?: StringWithAggregatesFilter<"PasswordResetToken"> | string
     code?: StringWithAggregatesFilter<"PasswordResetToken"> | string
     expiresAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
     used?: BoolWithAggregatesFilter<"PasswordResetToken"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
     farmId?: StringWithAggregatesFilter<"PasswordResetToken"> | string
+    userId?: StringWithAggregatesFilter<"PasswordResetToken"> | string
   }
 
   export type FarmCreateInput = {
@@ -19856,6 +22079,14 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutFarmInput
     animals?: AnimalCreateNestedManyWithoutFarmInput
     pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
   }
 
   export type FarmUncheckedCreateInput = {
@@ -19870,6 +22101,14 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutFarmInput
     animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
     pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
   }
 
   export type FarmUpdateInput = {
@@ -19884,6 +22123,14 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutFarmNestedInput
     animals?: AnimalUpdateManyWithoutFarmNestedInput
     pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
   }
 
   export type FarmUncheckedUpdateInput = {
@@ -19898,6 +22145,14 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutFarmNestedInput
     animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
     pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
   }
 
   export type FarmCreateManyInput = {
@@ -19936,12 +22191,12 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     fullName: string
+    username: string
     email: string
     phone?: string | null
     password: string
     role?: $Enums.Permission
     active?: boolean
-    crv?: string | null
     crmv?: string | null
     graduationDate?: Date | string | null
     specialties?: UserCreatespecialtiesInput | string[]
@@ -19951,17 +22206,23 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     farm: FarmCreateNestedOneWithoutUsersInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     fullName: string
+    username: string
     email: string
     phone?: string | null
     password: string
     role?: $Enums.Permission
     active?: boolean
-    crv?: string | null
     crmv?: string | null
     graduationDate?: Date | string | null
     specialties?: UserCreatespecialtiesInput | string[]
@@ -19971,17 +22232,23 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -19991,17 +22258,23 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -20011,17 +22284,23 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     fullName: string
+    username: string
     email: string
     phone?: string | null
     password: string
     role?: $Enums.Permission
     active?: boolean
-    crv?: string | null
     crmv?: string | null
     graduationDate?: Date | string | null
     specialties?: UserCreatespecialtiesInput | string[]
@@ -20036,12 +22315,12 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -20055,12 +22334,12 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -20078,18 +22357,27 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
-    sireId?: string | null
-    damId?: string | null
-    pastureId?: string | null
-    pastureName?: string | null
-    status?: string
+    status?: $Enums.AnimalStatus
     deathDate?: Date | string | null
+    pastureName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
     farm: FarmCreateNestedOneWithoutAnimalsInput
     earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateInput = {
@@ -20098,18 +22386,27 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
     sireId?: string | null
     damId?: string | null
     pastureId?: string | null
     pastureName?: string | null
-    status?: string
-    deathDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
     earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUpdateInput = {
@@ -20118,18 +22415,27 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    sireId?: NullableStringFieldUpdateOperationsInput | string | null
-    damId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
     farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
     earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateInput = {
@@ -20138,18 +22444,27 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sireId?: NullableStringFieldUpdateOperationsInput | string | null
     damId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
     earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalCreateManyInput = {
@@ -20158,14 +22473,14 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
     sireId?: string | null
     damId?: string | null
     pastureId?: string | null
     pastureName?: string | null
-    status?: string
-    deathDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
@@ -20177,14 +22492,11 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    sireId?: NullableStringFieldUpdateOperationsInput | string | null
-    damId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20195,14 +22507,14 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sireId?: NullableStringFieldUpdateOperationsInput | string | null
     damId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
@@ -20215,7 +22527,7 @@ export namespace Prisma {
     removalDate?: Date | string | null
     reason?: string | null
     createdAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutEarTagHistoryInput
     animal: AnimalCreateNestedOneWithoutEarTagHistoryInput
   }
 
@@ -20237,7 +22549,7 @@ export namespace Prisma {
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutEarTagHistoryNestedInput
     animal?: AnimalUpdateOneRequiredWithoutEarTagHistoryNestedInput
   }
 
@@ -20270,7 +22582,6 @@ export namespace Prisma {
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EarTagHistoryUncheckedUpdateManyInput = {
@@ -20295,6 +22606,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     farm: FarmCreateNestedOneWithoutPasturesInput
+    animals?: AnimalCreateNestedManyWithoutPastureInput
   }
 
   export type PastureUncheckedCreateInput = {
@@ -20308,6 +22620,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animals?: AnimalUncheckedCreateNestedManyWithoutPastureInput
   }
 
   export type PastureUpdateInput = {
@@ -20321,6 +22634,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farm?: FarmUpdateOneRequiredWithoutPasturesNestedInput
+    animals?: AnimalUpdateManyWithoutPastureNestedInput
   }
 
   export type PastureUncheckedUpdateInput = {
@@ -20334,6 +22648,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animals?: AnimalUncheckedUpdateManyWithoutPastureNestedInput
   }
 
   export type PastureCreateManyInput = {
@@ -20376,243 +22691,237 @@ export namespace Prisma {
 
   export type EstrusCreateInput = {
     id?: string
-    animalId: string
     date: Date | string
-    intensity: string
-    detectedBy: string
+    intensity: $Enums.EstrusIntensity
     nextEstrus: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutEstrusInput
+    animal: AnimalCreateNestedOneWithoutEstrusInput
+    detectedBy?: UserCreateNestedOneWithoutEstrusInput
   }
 
   export type EstrusUncheckedCreateInput = {
     id?: string
-    animalId: string
     date: Date | string
-    intensity: string
-    detectedBy: string
+    intensity: $Enums.EstrusIntensity
     nextEstrus: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
+    detectedById?: string | null
   }
 
   export type EstrusUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    intensity?: StringFieldUpdateOperationsInput | string
-    detectedBy?: StringFieldUpdateOperationsInput | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutEstrusNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutEstrusNestedInput
+    detectedBy?: UserUpdateOneWithoutEstrusNestedInput
   }
 
   export type EstrusUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    intensity?: StringFieldUpdateOperationsInput | string
-    detectedBy?: StringFieldUpdateOperationsInput | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    detectedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EstrusCreateManyInput = {
     id?: string
-    animalId: string
     date: Date | string
-    intensity: string
-    detectedBy: string
+    intensity: $Enums.EstrusIntensity
     nextEstrus: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
+    detectedById?: string | null
   }
 
   export type EstrusUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    intensity?: StringFieldUpdateOperationsInput | string
-    detectedBy?: StringFieldUpdateOperationsInput | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EstrusUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    intensity?: StringFieldUpdateOperationsInput | string
-    detectedBy?: StringFieldUpdateOperationsInput | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
     nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    detectedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PregnancyCreateInput = {
     id?: string
-    animalId: string
-    currentStatus?: string
+    currentStatus?: $Enums.PregnancyStatus
     currentStatusDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutPregnanciesInput
+    animal: AnimalCreateNestedOneWithoutPregnanciesInput
     attempts?: AttemptCreateNestedManyWithoutPregnancyInput
   }
 
   export type PregnancyUncheckedCreateInput = {
     id?: string
-    animalId: string
-    currentStatus?: string
+    currentStatus?: $Enums.PregnancyStatus
     currentStatusDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
     attempts?: AttemptUncheckedCreateNestedManyWithoutPregnancyInput
   }
 
   export type PregnancyUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
-    currentStatus?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutPregnanciesNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutPregnanciesNestedInput
     attempts?: AttemptUpdateManyWithoutPregnancyNestedInput
   }
 
   export type PregnancyUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
-    currentStatus?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
     attempts?: AttemptUncheckedUpdateManyWithoutPregnancyNestedInput
   }
 
   export type PregnancyCreateManyInput = {
     id?: string
-    animalId: string
-    currentStatus?: string
+    currentStatus?: $Enums.PregnancyStatus
     currentStatusDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
   }
 
   export type PregnancyUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
-    currentStatus?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PregnancyUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
-    currentStatus?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AttemptCreateInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bull?: AnimalCreateNestedOneWithoutBullInAttemptsInput
     pregnancy: PregnancyCreateNestedOneWithoutAttemptsInput
     ultrasounds?: UltrasoundCreateNestedManyWithoutAttemptInput
+    births?: BirthCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptUncheckedCreateInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bullId?: string | null
     pregnancyId: string
     ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutAttemptInput
+    births?: BirthUncheckedCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bull?: AnimalUpdateOneWithoutBullInAttemptsNestedInput
     pregnancy?: PregnancyUpdateOneRequiredWithoutAttemptsNestedInput
     ultrasounds?: UltrasoundUpdateManyWithoutAttemptNestedInput
+    births?: BirthUpdateManyWithoutAttemptNestedInput
   }
 
   export type AttemptUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bullId?: NullableStringFieldUpdateOperationsInput | string | null
     pregnancyId?: StringFieldUpdateOperationsInput | string
     ultrasounds?: UltrasoundUncheckedUpdateManyWithoutAttemptNestedInput
+    births?: BirthUncheckedUpdateManyWithoutAttemptNestedInput
   }
 
   export type AttemptCreateManyInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bullId?: string | null
     pregnancyId: string
   }
 
@@ -20620,13 +22929,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20635,251 +22942,241 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bullId?: NullableStringFieldUpdateOperationsInput | string | null
     pregnancyId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UltrasoundCreateInput = {
     id?: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes?: string | null
-    veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    createdAt?: Date | string
     attempt: AttemptCreateNestedOneWithoutUltrasoundsInput
+    veterinarian?: UserCreateNestedOneWithoutUltrasoundsInput
   }
 
   export type UltrasoundUncheckedCreateInput = {
     id?: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes?: string | null
-    veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    createdAt?: Date | string
     attemptId: string
+    veterinarianId?: string | null
   }
 
   export type UltrasoundUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attempt?: AttemptUpdateOneRequiredWithoutUltrasoundsNestedInput
+    veterinarian?: UserUpdateOneWithoutUltrasoundsNestedInput
   }
 
   export type UltrasoundUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attemptId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UltrasoundCreateManyInput = {
     id?: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes?: string | null
-    veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    createdAt?: Date | string
     attemptId: string
+    veterinarianId?: string | null
   }
 
   export type UltrasoundUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UltrasoundUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attemptId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BirthCreateInput = {
     id?: string
-    damId: string
-    pregnancyId?: string | null
     birthDate: Date | string
     birthTime?: string | null
-    birthType: string
-    veterinarianId?: string | null
-    veterinarianName?: string | null
-    veterinarianCrv?: string | null
-    calfGender?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
     calfWeight?: number | null
     calfEarTag?: string | null
     calfChip?: string | null
-    calfStatus?: string
-    situation?: string
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
     deathReason?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutBirthsInput
+    dam: AnimalCreateNestedOneWithoutBirthsInput
+    attempt?: AttemptCreateNestedOneWithoutBirthsInput
+    veterinarian?: UserCreateNestedOneWithoutBirthsInput
+    mortalities?: MortalityCreateNestedManyWithoutBirthInput
   }
 
   export type BirthUncheckedCreateInput = {
     id?: string
-    damId: string
-    pregnancyId?: string | null
     birthDate: Date | string
     birthTime?: string | null
-    birthType: string
-    veterinarianId?: string | null
-    veterinarianName?: string | null
-    veterinarianCrv?: string | null
-    calfGender?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
     calfWeight?: number | null
     calfEarTag?: string | null
     calfChip?: string | null
-    calfStatus?: string
-    situation?: string
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
     deathReason?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    damId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutBirthInput
   }
 
   export type BirthUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    damId?: StringFieldUpdateOperationsInput | string
-    pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     birthTime?: NullableStringFieldUpdateOperationsInput | string | null
-    birthType?: StringFieldUpdateOperationsInput | string
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianName?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianCrv?: NullableStringFieldUpdateOperationsInput | string | null
-    calfGender?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
     calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
     calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     calfChip?: NullableStringFieldUpdateOperationsInput | string | null
-    calfStatus?: StringFieldUpdateOperationsInput | string
-    situation?: StringFieldUpdateOperationsInput | string
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutBirthsNestedInput
+    dam?: AnimalUpdateOneRequiredWithoutBirthsNestedInput
+    attempt?: AttemptUpdateOneWithoutBirthsNestedInput
+    veterinarian?: UserUpdateOneWithoutBirthsNestedInput
+    mortalities?: MortalityUpdateManyWithoutBirthNestedInput
   }
 
   export type BirthUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    damId?: StringFieldUpdateOperationsInput | string
-    pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     birthTime?: NullableStringFieldUpdateOperationsInput | string | null
-    birthType?: StringFieldUpdateOperationsInput | string
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianName?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianCrv?: NullableStringFieldUpdateOperationsInput | string | null
-    calfGender?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
     calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
     calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     calfChip?: NullableStringFieldUpdateOperationsInput | string | null
-    calfStatus?: StringFieldUpdateOperationsInput | string
-    situation?: StringFieldUpdateOperationsInput | string
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+    mortalities?: MortalityUncheckedUpdateManyWithoutBirthNestedInput
   }
 
   export type BirthCreateManyInput = {
     id?: string
-    damId: string
-    pregnancyId?: string | null
     birthDate: Date | string
     birthTime?: string | null
-    birthType: string
-    veterinarianId?: string | null
-    veterinarianName?: string | null
-    veterinarianCrv?: string | null
-    calfGender?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
     calfWeight?: number | null
     calfEarTag?: string | null
     calfChip?: string | null
-    calfStatus?: string
-    situation?: string
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
     deathReason?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    damId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
   }
 
   export type BirthUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    damId?: StringFieldUpdateOperationsInput | string
-    pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     birthTime?: NullableStringFieldUpdateOperationsInput | string | null
-    birthType?: StringFieldUpdateOperationsInput | string
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianName?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianCrv?: NullableStringFieldUpdateOperationsInput | string | null
-    calfGender?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
     calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
     calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     calfChip?: NullableStringFieldUpdateOperationsInput | string | null
-    calfStatus?: StringFieldUpdateOperationsInput | string
-    situation?: StringFieldUpdateOperationsInput | string
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BirthUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    damId?: StringFieldUpdateOperationsInput | string
-    pregnancyId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     birthTime?: NullableStringFieldUpdateOperationsInput | string | null
-    birthType?: StringFieldUpdateOperationsInput | string
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianName?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianCrv?: NullableStringFieldUpdateOperationsInput | string | null
-    calfGender?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
     calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
     calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     calfChip?: NullableStringFieldUpdateOperationsInput | string | null
-    calfStatus?: StringFieldUpdateOperationsInput | string
-    situation?: StringFieldUpdateOperationsInput | string
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
     deathReason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VaccinationCreateInput = {
     id?: string
-    animalId: string
     vaccineType: string
     brand: string
     batch: string
@@ -20888,15 +23185,15 @@ export namespace Prisma {
     nextDoseDate?: Date | string | null
     photoUrl?: string | null
     reaction?: string | null
-    veterinarianId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutVaccinationsInput
+    animal: AnimalCreateNestedOneWithoutVaccinationsInput
+    veterinarian?: UserCreateNestedOneWithoutVaccinationsInput
   }
 
   export type VaccinationUncheckedCreateInput = {
     id?: string
-    animalId: string
     vaccineType: string
     brand: string
     batch: string
@@ -20905,15 +23202,15 @@ export namespace Prisma {
     nextDoseDate?: Date | string | null
     photoUrl?: string | null
     reaction?: string | null
-    veterinarianId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
+    veterinarianId?: string | null
   }
 
   export type VaccinationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
     batch?: StringFieldUpdateOperationsInput | string
@@ -20922,15 +23219,15 @@ export namespace Prisma {
     nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutVaccinationsNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutVaccinationsNestedInput
+    veterinarian?: UserUpdateOneWithoutVaccinationsNestedInput
   }
 
   export type VaccinationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
     batch?: StringFieldUpdateOperationsInput | string
@@ -20939,15 +23236,15 @@ export namespace Prisma {
     nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VaccinationCreateManyInput = {
     id?: string
-    animalId: string
     vaccineType: string
     brand: string
     batch: string
@@ -20956,15 +23253,15 @@ export namespace Prisma {
     nextDoseDate?: Date | string | null
     photoUrl?: string | null
     reaction?: string | null
-    veterinarianId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
+    veterinarianId?: string | null
   }
 
   export type VaccinationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
     batch?: StringFieldUpdateOperationsInput | string
@@ -20973,15 +23270,12 @@ export namespace Prisma {
     nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type VaccinationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     vaccineType?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
     batch?: StringFieldUpdateOperationsInput | string
@@ -20990,15 +23284,15 @@ export namespace Prisma {
     nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ManagementCreateInput = {
     id?: string
-    animalId: string
     originPasture: string
     destinationPasture: string
     movementDate: Date | string
@@ -21007,12 +23301,12 @@ export namespace Prisma {
     batchId?: string | null
     batchTotal?: number | null
     createdAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutManagementsInput
+    animal: AnimalCreateNestedOneWithoutManagementsInput
   }
 
   export type ManagementUncheckedCreateInput = {
     id?: string
-    animalId: string
     originPasture: string
     destinationPasture: string
     movementDate: Date | string
@@ -21022,11 +23316,11 @@ export namespace Prisma {
     batchTotal?: number | null
     createdAt?: Date | string
     farmId: string
+    animalId: string
   }
 
   export type ManagementUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
     movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21035,12 +23329,12 @@ export namespace Prisma {
     batchId?: NullableStringFieldUpdateOperationsInput | string | null
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutManagementsNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutManagementsNestedInput
   }
 
   export type ManagementUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
     movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21050,11 +23344,11 @@ export namespace Prisma {
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ManagementCreateManyInput = {
     id?: string
-    animalId: string
     originPasture: string
     destinationPasture: string
     movementDate: Date | string
@@ -21064,11 +23358,11 @@ export namespace Prisma {
     batchTotal?: number | null
     createdAt?: Date | string
     farmId: string
+    animalId: string
   }
 
   export type ManagementUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
     movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21077,12 +23371,10 @@ export namespace Prisma {
     batchId?: NullableStringFieldUpdateOperationsInput | string | null
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ManagementUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     originPasture?: StringFieldUpdateOperationsInput | string
     destinationPasture?: StringFieldUpdateOperationsInput | string
     movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21092,209 +23384,211 @@ export namespace Prisma {
     batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MortalityCreateInput = {
     id?: string
-    animalId: string
     deathDate: Date | string
     deathTime?: string | null
     deathLocation: string
     causeOfDeath: string
-    severity?: string | null
+    severity?: $Enums.MortalitySeverity | null
     necropsy?: boolean
     disposal?: string | null
     photos?: MortalityCreatephotosInput | string[]
     origin?: string | null
-    birthId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutMortalitiesInput
+    animal: AnimalCreateNestedOneWithoutMortalitiesInput
+    birth?: BirthCreateNestedOneWithoutMortalitiesInput
+    registeredBy?: UserCreateNestedOneWithoutMortalitiesInput
   }
 
   export type MortalityUncheckedCreateInput = {
     id?: string
-    animalId: string
     deathDate: Date | string
     deathTime?: string | null
     deathLocation: string
     causeOfDeath: string
-    severity?: string | null
+    severity?: $Enums.MortalitySeverity | null
     necropsy?: boolean
     disposal?: string | null
     photos?: MortalityCreatephotosInput | string[]
     origin?: string | null
-    birthId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
+    birthId?: string | null
+    registeredById?: string | null
   }
 
   export type MortalityUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
     deathLocation?: StringFieldUpdateOperationsInput | string
     causeOfDeath?: StringFieldUpdateOperationsInput | string
-    severity?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
     necropsy?: BoolFieldUpdateOperationsInput | boolean
     disposal?: NullableStringFieldUpdateOperationsInput | string | null
     photos?: MortalityUpdatephotosInput | string[]
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutMortalitiesNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutMortalitiesNestedInput
+    birth?: BirthUpdateOneWithoutMortalitiesNestedInput
+    registeredBy?: UserUpdateOneWithoutMortalitiesNestedInput
   }
 
   export type MortalityUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
     deathLocation?: StringFieldUpdateOperationsInput | string
     causeOfDeath?: StringFieldUpdateOperationsInput | string
-    severity?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
     necropsy?: BoolFieldUpdateOperationsInput | boolean
     disposal?: NullableStringFieldUpdateOperationsInput | string | null
     photos?: MortalityUpdatephotosInput | string[]
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MortalityCreateManyInput = {
     id?: string
-    animalId: string
     deathDate: Date | string
     deathTime?: string | null
     deathLocation: string
     causeOfDeath: string
-    severity?: string | null
+    severity?: $Enums.MortalitySeverity | null
     necropsy?: boolean
     disposal?: string | null
     photos?: MortalityCreatephotosInput | string[]
     origin?: string | null
-    birthId?: string | null
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
+    birthId?: string | null
+    registeredById?: string | null
   }
 
   export type MortalityUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
     deathLocation?: StringFieldUpdateOperationsInput | string
     causeOfDeath?: StringFieldUpdateOperationsInput | string
-    severity?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
     necropsy?: BoolFieldUpdateOperationsInput | boolean
     disposal?: NullableStringFieldUpdateOperationsInput | string | null
     photos?: MortalityUpdatephotosInput | string[]
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MortalityUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
     deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
     deathTime?: NullableStringFieldUpdateOperationsInput | string | null
     deathLocation?: StringFieldUpdateOperationsInput | string
     causeOfDeath?: StringFieldUpdateOperationsInput | string
-    severity?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
     necropsy?: BoolFieldUpdateOperationsInput | boolean
     disposal?: NullableStringFieldUpdateOperationsInput | string | null
     photos?: MortalityUpdatephotosInput | string[]
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PasswordResetTokenCreateInput = {
     id?: string
-    userId: string
     code: string
     expiresAt: Date | string
     used?: boolean
     createdAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutPasswordResetTokensInput
+    user: UserCreateNestedOneWithoutPasswordResetTokensInput
   }
 
   export type PasswordResetTokenUncheckedCreateInput = {
     id?: string
-    userId: string
     code: string
     expiresAt: Date | string
     used?: boolean
     createdAt?: Date | string
     farmId: string
+    userId: string
   }
 
   export type PasswordResetTokenUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutPasswordResetTokensNestedInput
+    user?: UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput
   }
 
   export type PasswordResetTokenUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PasswordResetTokenCreateManyInput = {
     id?: string
-    userId: string
     code: string
     expiresAt: Date | string
     used?: boolean
     createdAt?: Date | string
     farmId: string
+    userId: string
   }
 
   export type PasswordResetTokenUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PasswordResetTokenUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -21361,6 +23655,54 @@ export namespace Prisma {
     none?: PastureWhereInput
   }
 
+  export type EstrusListRelationFilter = {
+    every?: EstrusWhereInput
+    some?: EstrusWhereInput
+    none?: EstrusWhereInput
+  }
+
+  export type PregnancyListRelationFilter = {
+    every?: PregnancyWhereInput
+    some?: PregnancyWhereInput
+    none?: PregnancyWhereInput
+  }
+
+  export type BirthListRelationFilter = {
+    every?: BirthWhereInput
+    some?: BirthWhereInput
+    none?: BirthWhereInput
+  }
+
+  export type VaccinationListRelationFilter = {
+    every?: VaccinationWhereInput
+    some?: VaccinationWhereInput
+    none?: VaccinationWhereInput
+  }
+
+  export type ManagementListRelationFilter = {
+    every?: ManagementWhereInput
+    some?: ManagementWhereInput
+    none?: ManagementWhereInput
+  }
+
+  export type MortalityListRelationFilter = {
+    every?: MortalityWhereInput
+    some?: MortalityWhereInput
+    none?: MortalityWhereInput
+  }
+
+  export type PasswordResetTokenListRelationFilter = {
+    every?: PasswordResetTokenWhereInput
+    some?: PasswordResetTokenWhereInput
+    none?: PasswordResetTokenWhereInput
+  }
+
+  export type EarTagHistoryListRelationFilter = {
+    every?: EarTagHistoryWhereInput
+    some?: EarTagHistoryWhereInput
+    none?: EarTagHistoryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -21375,6 +23717,38 @@ export namespace Prisma {
   }
 
   export type PastureOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EstrusOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PregnancyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BirthOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VaccinationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ManagementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MortalityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EarTagHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21500,20 +23874,30 @@ export namespace Prisma {
     isNot?: FarmWhereInput
   }
 
-  export type UserFarmIdEmailCompoundUniqueInput = {
+  export type UltrasoundListRelationFilter = {
+    every?: UltrasoundWhereInput
+    some?: UltrasoundWhereInput
+    none?: UltrasoundWhereInput
+  }
+
+  export type UltrasoundOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserFarmIdUsernameCompoundUniqueInput = {
     farmId: string
-    email: string
+    username: string
   }
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     fullName?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrder
     crmv?: SortOrder
     graduationDate?: SortOrder
     specialties?: SortOrder
@@ -21528,12 +23912,12 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     fullName?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrder
     crmv?: SortOrder
     graduationDate?: SortOrder
     resetPasswordToken?: SortOrder
@@ -21547,12 +23931,12 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     fullName?: SortOrder
+    username?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
     active?: SortOrder
-    crv?: SortOrder
     crmv?: SortOrder
     graduationDate?: SortOrder
     resetPasswordToken?: SortOrder
@@ -21587,13 +23971,37 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type EarTagHistoryListRelationFilter = {
-    every?: EarTagHistoryWhereInput
-    some?: EarTagHistoryWhereInput
-    none?: EarTagHistoryWhereInput
+  export type EnumGenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
   }
 
-  export type EarTagHistoryOrderByRelationAggregateInput = {
+  export type EnumAnimalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusFilter<$PrismaModel> | $Enums.AnimalStatus
+  }
+
+  export type AnimalNullableScalarRelationFilter = {
+    is?: AnimalWhereInput | null
+    isNot?: AnimalWhereInput | null
+  }
+
+  export type AttemptListRelationFilter = {
+    every?: AttemptWhereInput
+    some?: AttemptWhereInput
+    none?: AttemptWhereInput
+  }
+
+  export type PastureNullableScalarRelationFilter = {
+    is?: PastureWhereInput | null
+    isNot?: PastureWhereInput | null
+  }
+
+  export type AttemptOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21610,12 +24018,12 @@ export namespace Prisma {
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
+    status?: SortOrder
+    deathDate?: SortOrder
     sireId?: SortOrder
     damId?: SortOrder
     pastureId?: SortOrder
     pastureName?: SortOrder
-    status?: SortOrder
-    deathDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
@@ -21629,12 +24037,12 @@ export namespace Prisma {
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
+    status?: SortOrder
+    deathDate?: SortOrder
     sireId?: SortOrder
     damId?: SortOrder
     pastureId?: SortOrder
     pastureName?: SortOrder
-    status?: SortOrder
-    deathDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
@@ -21648,15 +24056,35 @@ export namespace Prisma {
     breed?: SortOrder
     gender?: SortOrder
     birthDate?: SortOrder
+    status?: SortOrder
+    deathDate?: SortOrder
     sireId?: SortOrder
     damId?: SortOrder
     pastureId?: SortOrder
     pastureName?: SortOrder
-    status?: SortOrder
-    deathDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+  }
+
+  export type EnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
+  }
+
+  export type EnumAnimalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusWithAggregatesFilter<$PrismaModel> | $Enums.AnimalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAnimalStatusFilter<$PrismaModel>
+    _max?: NestedEnumAnimalStatusFilter<$PrismaModel>
   }
 
   export type AnimalScalarRelationFilter = {
@@ -21807,80 +24235,123 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type EnumEstrusIntensityFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstrusIntensity | EnumEstrusIntensityFieldRefInput<$PrismaModel>
+    in?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstrusIntensityFilter<$PrismaModel> | $Enums.EstrusIntensity
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type EstrusCountOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     date?: SortOrder
     intensity?: SortOrder
-    detectedBy?: SortOrder
     nextEstrus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    detectedById?: SortOrder
   }
 
   export type EstrusMaxOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     date?: SortOrder
     intensity?: SortOrder
-    detectedBy?: SortOrder
     nextEstrus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    detectedById?: SortOrder
   }
 
   export type EstrusMinOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     date?: SortOrder
     intensity?: SortOrder
-    detectedBy?: SortOrder
     nextEstrus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    detectedById?: SortOrder
   }
 
-  export type AttemptListRelationFilter = {
-    every?: AttemptWhereInput
-    some?: AttemptWhereInput
-    none?: AttemptWhereInput
+  export type EnumEstrusIntensityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstrusIntensity | EnumEstrusIntensityFieldRefInput<$PrismaModel>
+    in?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstrusIntensityWithAggregatesFilter<$PrismaModel> | $Enums.EstrusIntensity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEstrusIntensityFilter<$PrismaModel>
+    _max?: NestedEnumEstrusIntensityFilter<$PrismaModel>
   }
 
-  export type AttemptOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type EnumPregnancyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusFilter<$PrismaModel> | $Enums.PregnancyStatus
   }
 
   export type PregnancyCountOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type PregnancyMaxOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type PregnancyMinOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     currentStatus?: SortOrder
     currentStatusDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+  }
+
+  export type EnumPregnancyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusWithAggregatesFilter<$PrismaModel> | $Enums.PregnancyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+    _max?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+  }
+
+  export type EnumMatingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatingType | EnumMatingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatingTypeFilter<$PrismaModel> | $Enums.MatingType
+  }
+
+  export type EnumAttemptStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttemptStatus | EnumAttemptStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttemptStatusFilter<$PrismaModel> | $Enums.AttemptStatus
   }
 
   export type PregnancyScalarRelationFilter = {
@@ -21888,29 +24359,18 @@ export namespace Prisma {
     isNot?: PregnancyWhereInput
   }
 
-  export type UltrasoundListRelationFilter = {
-    every?: UltrasoundWhereInput
-    some?: UltrasoundWhereInput
-    none?: UltrasoundWhereInput
-  }
-
-  export type UltrasoundOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type AttemptCountOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrder
     semenName?: SortOrder
     technician?: SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrder
     attemptStatus?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
+    bullId?: SortOrder
     pregnancyId?: SortOrder
   }
 
@@ -21923,14 +24383,13 @@ export namespace Prisma {
     number?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrder
     semenName?: SortOrder
     technician?: SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrder
     attemptStatus?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
+    bullId?: SortOrder
     pregnancyId?: SortOrder
   }
 
@@ -21939,19 +24398,45 @@ export namespace Prisma {
     number?: SortOrder
     matingDate?: SortOrder
     matingType?: SortOrder
-    bullId?: SortOrder
     semenName?: SortOrder
     technician?: SortOrder
     estimatedBirthDate?: SortOrder
-    birthId?: SortOrder
     attemptStatus?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
+    bullId?: SortOrder
     pregnancyId?: SortOrder
   }
 
   export type AttemptSumOrderByAggregateInput = {
     number?: SortOrder
+  }
+
+  export type EnumMatingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatingType | EnumMatingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatingTypeWithAggregatesFilter<$PrismaModel> | $Enums.MatingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMatingTypeFilter<$PrismaModel>
+    _max?: NestedEnumMatingTypeFilter<$PrismaModel>
+  }
+
+  export type EnumAttemptStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttemptStatus | EnumAttemptStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttemptStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttemptStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAttemptStatusFilter<$PrismaModel>
+    _max?: NestedEnumAttemptStatusFilter<$PrismaModel>
+  }
+
+  export type EnumUltrasoundResultFilter<$PrismaModel = never> = {
+    equals?: $Enums.UltrasoundResult | EnumUltrasoundResultFieldRefInput<$PrismaModel>
+    in?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumUltrasoundResultFilter<$PrismaModel> | $Enums.UltrasoundResult
   }
 
   export type AttemptScalarRelationFilter = {
@@ -21964,9 +24449,10 @@ export namespace Prisma {
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrder
-    veterinarianId?: SortOrder
     ultrasoundDate?: SortOrder
+    createdAt?: SortOrder
     attemptId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type UltrasoundAvgOrderByAggregateInput = {
@@ -21978,9 +24464,10 @@ export namespace Prisma {
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrder
-    veterinarianId?: SortOrder
     ultrasoundDate?: SortOrder
+    createdAt?: SortOrder
     attemptId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type UltrasoundMinOrderByAggregateInput = {
@@ -21988,13 +24475,38 @@ export namespace Prisma {
     days?: SortOrder
     result?: SortOrder
     notes?: SortOrder
-    veterinarianId?: SortOrder
     ultrasoundDate?: SortOrder
+    createdAt?: SortOrder
     attemptId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type UltrasoundSumOrderByAggregateInput = {
     days?: SortOrder
+  }
+
+  export type EnumUltrasoundResultWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UltrasoundResult | EnumUltrasoundResultFieldRefInput<$PrismaModel>
+    in?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumUltrasoundResultWithAggregatesFilter<$PrismaModel> | $Enums.UltrasoundResult
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUltrasoundResultFilter<$PrismaModel>
+    _max?: NestedEnumUltrasoundResultFilter<$PrismaModel>
+  }
+
+  export type EnumBirthTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthType | EnumBirthTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthTypeFilter<$PrismaModel> | $Enums.BirthType
+  }
+
+  export type EnumGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -22008,16 +24520,30 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumCalfStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CalfStatus | EnumCalfStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCalfStatusFilter<$PrismaModel> | $Enums.CalfStatus
+  }
+
+  export type EnumBirthSituationFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthSituation | EnumBirthSituationFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthSituationFilter<$PrismaModel> | $Enums.BirthSituation
+  }
+
+  export type AttemptNullableScalarRelationFilter = {
+    is?: AttemptWhereInput | null
+    isNot?: AttemptWhereInput | null
+  }
+
   export type BirthCountOrderByAggregateInput = {
     id?: SortOrder
-    damId?: SortOrder
-    pregnancyId?: SortOrder
     birthDate?: SortOrder
     birthTime?: SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrder
-    veterinarianName?: SortOrder
-    veterinarianCrv?: SortOrder
     calfGender?: SortOrder
     calfWeight?: SortOrder
     calfEarTag?: SortOrder
@@ -22029,6 +24555,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    damId?: SortOrder
+    attemptId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type BirthAvgOrderByAggregateInput = {
@@ -22037,14 +24566,9 @@ export namespace Prisma {
 
   export type BirthMaxOrderByAggregateInput = {
     id?: SortOrder
-    damId?: SortOrder
-    pregnancyId?: SortOrder
     birthDate?: SortOrder
     birthTime?: SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrder
-    veterinarianName?: SortOrder
-    veterinarianCrv?: SortOrder
     calfGender?: SortOrder
     calfWeight?: SortOrder
     calfEarTag?: SortOrder
@@ -22056,18 +24580,16 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    damId?: SortOrder
+    attemptId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type BirthMinOrderByAggregateInput = {
     id?: SortOrder
-    damId?: SortOrder
-    pregnancyId?: SortOrder
     birthDate?: SortOrder
     birthTime?: SortOrder
     birthType?: SortOrder
-    veterinarianId?: SortOrder
-    veterinarianName?: SortOrder
-    veterinarianCrv?: SortOrder
     calfGender?: SortOrder
     calfWeight?: SortOrder
     calfEarTag?: SortOrder
@@ -22079,10 +24601,33 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    damId?: SortOrder
+    attemptId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type BirthSumOrderByAggregateInput = {
     calfWeight?: SortOrder
+  }
+
+  export type EnumBirthTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthType | EnumBirthTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthTypeWithAggregatesFilter<$PrismaModel> | $Enums.BirthType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBirthTypeFilter<$PrismaModel>
+    _max?: NestedEnumBirthTypeFilter<$PrismaModel>
+  }
+
+  export type EnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.Gender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumGenderNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22101,9 +24646,28 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type EnumCalfStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CalfStatus | EnumCalfStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCalfStatusWithAggregatesFilter<$PrismaModel> | $Enums.CalfStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCalfStatusFilter<$PrismaModel>
+    _max?: NestedEnumCalfStatusFilter<$PrismaModel>
+  }
+
+  export type EnumBirthSituationWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthSituation | EnumBirthSituationFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthSituationWithAggregatesFilter<$PrismaModel> | $Enums.BirthSituation
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBirthSituationFilter<$PrismaModel>
+    _max?: NestedEnumBirthSituationFilter<$PrismaModel>
+  }
+
   export type VaccinationCountOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     vaccineType?: SortOrder
     brand?: SortOrder
     batch?: SortOrder
@@ -22112,15 +24676,15 @@ export namespace Prisma {
     nextDoseDate?: SortOrder
     photoUrl?: SortOrder
     reaction?: SortOrder
-    veterinarianId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type VaccinationMaxOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     vaccineType?: SortOrder
     brand?: SortOrder
     batch?: SortOrder
@@ -22129,15 +24693,15 @@ export namespace Prisma {
     nextDoseDate?: SortOrder
     photoUrl?: SortOrder
     reaction?: SortOrder
-    veterinarianId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type VaccinationMinOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     vaccineType?: SortOrder
     brand?: SortOrder
     batch?: SortOrder
@@ -22146,10 +24710,11 @@ export namespace Prisma {
     nextDoseDate?: SortOrder
     photoUrl?: SortOrder
     reaction?: SortOrder
-    veterinarianId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    veterinarianId?: SortOrder
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -22165,7 +24730,6 @@ export namespace Prisma {
 
   export type ManagementCountOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     originPasture?: SortOrder
     destinationPasture?: SortOrder
     movementDate?: SortOrder
@@ -22175,6 +24739,7 @@ export namespace Prisma {
     batchTotal?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type ManagementAvgOrderByAggregateInput = {
@@ -22183,7 +24748,6 @@ export namespace Prisma {
 
   export type ManagementMaxOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     originPasture?: SortOrder
     destinationPasture?: SortOrder
     movementDate?: SortOrder
@@ -22193,11 +24757,11 @@ export namespace Prisma {
     batchTotal?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type ManagementMinOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     originPasture?: SortOrder
     destinationPasture?: SortOrder
     movementDate?: SortOrder
@@ -22207,6 +24771,7 @@ export namespace Prisma {
     batchTotal?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
   }
 
   export type ManagementSumOrderByAggregateInput = {
@@ -22229,9 +24794,20 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type EnumMortalitySeverityNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MortalitySeverity | EnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMortalitySeverityNullableFilter<$PrismaModel> | $Enums.MortalitySeverity | null
+  }
+
+  export type BirthNullableScalarRelationFilter = {
+    is?: BirthWhereInput | null
+    isNot?: BirthWhereInput | null
+  }
+
   export type MortalityCountOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     deathDate?: SortOrder
     deathTime?: SortOrder
     deathLocation?: SortOrder
@@ -22241,16 +24817,17 @@ export namespace Prisma {
     disposal?: SortOrder
     photos?: SortOrder
     origin?: SortOrder
-    birthId?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    birthId?: SortOrder
+    registeredById?: SortOrder
   }
 
   export type MortalityMaxOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     deathDate?: SortOrder
     deathTime?: SortOrder
     deathLocation?: SortOrder
@@ -22259,16 +24836,17 @@ export namespace Prisma {
     necropsy?: SortOrder
     disposal?: SortOrder
     origin?: SortOrder
-    birthId?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    birthId?: SortOrder
+    registeredById?: SortOrder
   }
 
   export type MortalityMinOrderByAggregateInput = {
     id?: SortOrder
-    animalId?: SortOrder
     deathDate?: SortOrder
     deathTime?: SortOrder
     deathLocation?: SortOrder
@@ -22277,41 +24855,58 @@ export namespace Prisma {
     necropsy?: SortOrder
     disposal?: SortOrder
     origin?: SortOrder
-    birthId?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     farmId?: SortOrder
+    animalId?: SortOrder
+    birthId?: SortOrder
+    registeredById?: SortOrder
+  }
+
+  export type EnumMortalitySeverityNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MortalitySeverity | EnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMortalitySeverityNullableWithAggregatesFilter<$PrismaModel> | $Enums.MortalitySeverity | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMortalitySeverityNullableFilter<$PrismaModel>
+    _max?: NestedEnumMortalitySeverityNullableFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type PasswordResetTokenCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    userId?: SortOrder
   }
 
   export type PasswordResetTokenMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    userId?: SortOrder
   }
 
   export type PasswordResetTokenMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     code?: SortOrder
     expiresAt?: SortOrder
     used?: SortOrder
     createdAt?: SortOrder
     farmId?: SortOrder
+    userId?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutFarmInput = {
@@ -22335,6 +24930,62 @@ export namespace Prisma {
     connect?: PastureWhereUniqueInput | PastureWhereUniqueInput[]
   }
 
+  export type EstrusCreateNestedManyWithoutFarmInput = {
+    create?: XOR<EstrusCreateWithoutFarmInput, EstrusUncheckedCreateWithoutFarmInput> | EstrusCreateWithoutFarmInput[] | EstrusUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutFarmInput | EstrusCreateOrConnectWithoutFarmInput[]
+    createMany?: EstrusCreateManyFarmInputEnvelope
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+  }
+
+  export type PregnancyCreateNestedManyWithoutFarmInput = {
+    create?: XOR<PregnancyCreateWithoutFarmInput, PregnancyUncheckedCreateWithoutFarmInput> | PregnancyCreateWithoutFarmInput[] | PregnancyUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutFarmInput | PregnancyCreateOrConnectWithoutFarmInput[]
+    createMany?: PregnancyCreateManyFarmInputEnvelope
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+  }
+
+  export type BirthCreateNestedManyWithoutFarmInput = {
+    create?: XOR<BirthCreateWithoutFarmInput, BirthUncheckedCreateWithoutFarmInput> | BirthCreateWithoutFarmInput[] | BirthUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutFarmInput | BirthCreateOrConnectWithoutFarmInput[]
+    createMany?: BirthCreateManyFarmInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type VaccinationCreateNestedManyWithoutFarmInput = {
+    create?: XOR<VaccinationCreateWithoutFarmInput, VaccinationUncheckedCreateWithoutFarmInput> | VaccinationCreateWithoutFarmInput[] | VaccinationUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutFarmInput | VaccinationCreateOrConnectWithoutFarmInput[]
+    createMany?: VaccinationCreateManyFarmInputEnvelope
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+  }
+
+  export type ManagementCreateNestedManyWithoutFarmInput = {
+    create?: XOR<ManagementCreateWithoutFarmInput, ManagementUncheckedCreateWithoutFarmInput> | ManagementCreateWithoutFarmInput[] | ManagementUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutFarmInput | ManagementCreateOrConnectWithoutFarmInput[]
+    createMany?: ManagementCreateManyFarmInputEnvelope
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+  }
+
+  export type MortalityCreateNestedManyWithoutFarmInput = {
+    create?: XOR<MortalityCreateWithoutFarmInput, MortalityUncheckedCreateWithoutFarmInput> | MortalityCreateWithoutFarmInput[] | MortalityUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutFarmInput | MortalityCreateOrConnectWithoutFarmInput[]
+    createMany?: MortalityCreateManyFarmInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type PasswordResetTokenCreateNestedManyWithoutFarmInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutFarmInput, PasswordResetTokenUncheckedCreateWithoutFarmInput> | PasswordResetTokenCreateWithoutFarmInput[] | PasswordResetTokenUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutFarmInput | PasswordResetTokenCreateOrConnectWithoutFarmInput[]
+    createMany?: PasswordResetTokenCreateManyFarmInputEnvelope
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type EarTagHistoryCreateNestedManyWithoutFarmInput = {
+    create?: XOR<EarTagHistoryCreateWithoutFarmInput, EarTagHistoryUncheckedCreateWithoutFarmInput> | EarTagHistoryCreateWithoutFarmInput[] | EarTagHistoryUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EarTagHistoryCreateOrConnectWithoutFarmInput | EarTagHistoryCreateOrConnectWithoutFarmInput[]
+    createMany?: EarTagHistoryCreateManyFarmInputEnvelope
+    connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutFarmInput = {
     create?: XOR<UserCreateWithoutFarmInput, UserUncheckedCreateWithoutFarmInput> | UserCreateWithoutFarmInput[] | UserUncheckedCreateWithoutFarmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFarmInput | UserCreateOrConnectWithoutFarmInput[]
@@ -22354,6 +25005,62 @@ export namespace Prisma {
     connectOrCreate?: PastureCreateOrConnectWithoutFarmInput | PastureCreateOrConnectWithoutFarmInput[]
     createMany?: PastureCreateManyFarmInputEnvelope
     connect?: PastureWhereUniqueInput | PastureWhereUniqueInput[]
+  }
+
+  export type EstrusUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<EstrusCreateWithoutFarmInput, EstrusUncheckedCreateWithoutFarmInput> | EstrusCreateWithoutFarmInput[] | EstrusUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutFarmInput | EstrusCreateOrConnectWithoutFarmInput[]
+    createMany?: EstrusCreateManyFarmInputEnvelope
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+  }
+
+  export type PregnancyUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<PregnancyCreateWithoutFarmInput, PregnancyUncheckedCreateWithoutFarmInput> | PregnancyCreateWithoutFarmInput[] | PregnancyUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutFarmInput | PregnancyCreateOrConnectWithoutFarmInput[]
+    createMany?: PregnancyCreateManyFarmInputEnvelope
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+  }
+
+  export type BirthUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<BirthCreateWithoutFarmInput, BirthUncheckedCreateWithoutFarmInput> | BirthCreateWithoutFarmInput[] | BirthUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutFarmInput | BirthCreateOrConnectWithoutFarmInput[]
+    createMany?: BirthCreateManyFarmInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type VaccinationUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<VaccinationCreateWithoutFarmInput, VaccinationUncheckedCreateWithoutFarmInput> | VaccinationCreateWithoutFarmInput[] | VaccinationUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutFarmInput | VaccinationCreateOrConnectWithoutFarmInput[]
+    createMany?: VaccinationCreateManyFarmInputEnvelope
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+  }
+
+  export type ManagementUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<ManagementCreateWithoutFarmInput, ManagementUncheckedCreateWithoutFarmInput> | ManagementCreateWithoutFarmInput[] | ManagementUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutFarmInput | ManagementCreateOrConnectWithoutFarmInput[]
+    createMany?: ManagementCreateManyFarmInputEnvelope
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+  }
+
+  export type MortalityUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<MortalityCreateWithoutFarmInput, MortalityUncheckedCreateWithoutFarmInput> | MortalityCreateWithoutFarmInput[] | MortalityUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutFarmInput | MortalityCreateOrConnectWithoutFarmInput[]
+    createMany?: MortalityCreateManyFarmInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutFarmInput, PasswordResetTokenUncheckedCreateWithoutFarmInput> | PasswordResetTokenCreateWithoutFarmInput[] | PasswordResetTokenUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutFarmInput | PasswordResetTokenCreateOrConnectWithoutFarmInput[]
+    createMany?: PasswordResetTokenCreateManyFarmInputEnvelope
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<EarTagHistoryCreateWithoutFarmInput, EarTagHistoryUncheckedCreateWithoutFarmInput> | EarTagHistoryCreateWithoutFarmInput[] | EarTagHistoryUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EarTagHistoryCreateOrConnectWithoutFarmInput | EarTagHistoryCreateOrConnectWithoutFarmInput[]
+    createMany?: EarTagHistoryCreateManyFarmInputEnvelope
+    connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -22414,6 +25121,118 @@ export namespace Prisma {
     deleteMany?: PastureScalarWhereInput | PastureScalarWhereInput[]
   }
 
+  export type EstrusUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<EstrusCreateWithoutFarmInput, EstrusUncheckedCreateWithoutFarmInput> | EstrusCreateWithoutFarmInput[] | EstrusUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutFarmInput | EstrusCreateOrConnectWithoutFarmInput[]
+    upsert?: EstrusUpsertWithWhereUniqueWithoutFarmInput | EstrusUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: EstrusCreateManyFarmInputEnvelope
+    set?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    disconnect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    delete?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    update?: EstrusUpdateWithWhereUniqueWithoutFarmInput | EstrusUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: EstrusUpdateManyWithWhereWithoutFarmInput | EstrusUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+  }
+
+  export type PregnancyUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<PregnancyCreateWithoutFarmInput, PregnancyUncheckedCreateWithoutFarmInput> | PregnancyCreateWithoutFarmInput[] | PregnancyUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutFarmInput | PregnancyCreateOrConnectWithoutFarmInput[]
+    upsert?: PregnancyUpsertWithWhereUniqueWithoutFarmInput | PregnancyUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: PregnancyCreateManyFarmInputEnvelope
+    set?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    disconnect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    delete?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    update?: PregnancyUpdateWithWhereUniqueWithoutFarmInput | PregnancyUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: PregnancyUpdateManyWithWhereWithoutFarmInput | PregnancyUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: PregnancyScalarWhereInput | PregnancyScalarWhereInput[]
+  }
+
+  export type BirthUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<BirthCreateWithoutFarmInput, BirthUncheckedCreateWithoutFarmInput> | BirthCreateWithoutFarmInput[] | BirthUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutFarmInput | BirthCreateOrConnectWithoutFarmInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutFarmInput | BirthUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: BirthCreateManyFarmInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutFarmInput | BirthUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutFarmInput | BirthUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
+  export type VaccinationUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<VaccinationCreateWithoutFarmInput, VaccinationUncheckedCreateWithoutFarmInput> | VaccinationCreateWithoutFarmInput[] | VaccinationUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutFarmInput | VaccinationCreateOrConnectWithoutFarmInput[]
+    upsert?: VaccinationUpsertWithWhereUniqueWithoutFarmInput | VaccinationUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: VaccinationCreateManyFarmInputEnvelope
+    set?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    disconnect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    delete?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    update?: VaccinationUpdateWithWhereUniqueWithoutFarmInput | VaccinationUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: VaccinationUpdateManyWithWhereWithoutFarmInput | VaccinationUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+  }
+
+  export type ManagementUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<ManagementCreateWithoutFarmInput, ManagementUncheckedCreateWithoutFarmInput> | ManagementCreateWithoutFarmInput[] | ManagementUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutFarmInput | ManagementCreateOrConnectWithoutFarmInput[]
+    upsert?: ManagementUpsertWithWhereUniqueWithoutFarmInput | ManagementUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: ManagementCreateManyFarmInputEnvelope
+    set?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    disconnect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    delete?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    update?: ManagementUpdateWithWhereUniqueWithoutFarmInput | ManagementUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: ManagementUpdateManyWithWhereWithoutFarmInput | ManagementUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: ManagementScalarWhereInput | ManagementScalarWhereInput[]
+  }
+
+  export type MortalityUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<MortalityCreateWithoutFarmInput, MortalityUncheckedCreateWithoutFarmInput> | MortalityCreateWithoutFarmInput[] | MortalityUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutFarmInput | MortalityCreateOrConnectWithoutFarmInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutFarmInput | MortalityUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: MortalityCreateManyFarmInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutFarmInput | MortalityUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutFarmInput | MortalityUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type PasswordResetTokenUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutFarmInput, PasswordResetTokenUncheckedCreateWithoutFarmInput> | PasswordResetTokenCreateWithoutFarmInput[] | PasswordResetTokenUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutFarmInput | PasswordResetTokenCreateOrConnectWithoutFarmInput[]
+    upsert?: PasswordResetTokenUpsertWithWhereUniqueWithoutFarmInput | PasswordResetTokenUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: PasswordResetTokenCreateManyFarmInputEnvelope
+    set?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    disconnect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    delete?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    update?: PasswordResetTokenUpdateWithWhereUniqueWithoutFarmInput | PasswordResetTokenUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutFarmInput | PasswordResetTokenUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type EarTagHistoryUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<EarTagHistoryCreateWithoutFarmInput, EarTagHistoryUncheckedCreateWithoutFarmInput> | EarTagHistoryCreateWithoutFarmInput[] | EarTagHistoryUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EarTagHistoryCreateOrConnectWithoutFarmInput | EarTagHistoryCreateOrConnectWithoutFarmInput[]
+    upsert?: EarTagHistoryUpsertWithWhereUniqueWithoutFarmInput | EarTagHistoryUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: EarTagHistoryCreateManyFarmInputEnvelope
+    set?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    disconnect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    delete?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    update?: EarTagHistoryUpdateWithWhereUniqueWithoutFarmInput | EarTagHistoryUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: EarTagHistoryUpdateManyWithWhereWithoutFarmInput | EarTagHistoryUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutFarmNestedInput = {
     create?: XOR<UserCreateWithoutFarmInput, UserUncheckedCreateWithoutFarmInput> | UserCreateWithoutFarmInput[] | UserUncheckedCreateWithoutFarmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFarmInput | UserCreateOrConnectWithoutFarmInput[]
@@ -22456,6 +25275,118 @@ export namespace Prisma {
     deleteMany?: PastureScalarWhereInput | PastureScalarWhereInput[]
   }
 
+  export type EstrusUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<EstrusCreateWithoutFarmInput, EstrusUncheckedCreateWithoutFarmInput> | EstrusCreateWithoutFarmInput[] | EstrusUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutFarmInput | EstrusCreateOrConnectWithoutFarmInput[]
+    upsert?: EstrusUpsertWithWhereUniqueWithoutFarmInput | EstrusUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: EstrusCreateManyFarmInputEnvelope
+    set?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    disconnect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    delete?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    update?: EstrusUpdateWithWhereUniqueWithoutFarmInput | EstrusUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: EstrusUpdateManyWithWhereWithoutFarmInput | EstrusUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+  }
+
+  export type PregnancyUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<PregnancyCreateWithoutFarmInput, PregnancyUncheckedCreateWithoutFarmInput> | PregnancyCreateWithoutFarmInput[] | PregnancyUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutFarmInput | PregnancyCreateOrConnectWithoutFarmInput[]
+    upsert?: PregnancyUpsertWithWhereUniqueWithoutFarmInput | PregnancyUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: PregnancyCreateManyFarmInputEnvelope
+    set?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    disconnect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    delete?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    update?: PregnancyUpdateWithWhereUniqueWithoutFarmInput | PregnancyUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: PregnancyUpdateManyWithWhereWithoutFarmInput | PregnancyUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: PregnancyScalarWhereInput | PregnancyScalarWhereInput[]
+  }
+
+  export type BirthUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<BirthCreateWithoutFarmInput, BirthUncheckedCreateWithoutFarmInput> | BirthCreateWithoutFarmInput[] | BirthUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutFarmInput | BirthCreateOrConnectWithoutFarmInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutFarmInput | BirthUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: BirthCreateManyFarmInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutFarmInput | BirthUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutFarmInput | BirthUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
+  export type VaccinationUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<VaccinationCreateWithoutFarmInput, VaccinationUncheckedCreateWithoutFarmInput> | VaccinationCreateWithoutFarmInput[] | VaccinationUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutFarmInput | VaccinationCreateOrConnectWithoutFarmInput[]
+    upsert?: VaccinationUpsertWithWhereUniqueWithoutFarmInput | VaccinationUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: VaccinationCreateManyFarmInputEnvelope
+    set?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    disconnect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    delete?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    update?: VaccinationUpdateWithWhereUniqueWithoutFarmInput | VaccinationUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: VaccinationUpdateManyWithWhereWithoutFarmInput | VaccinationUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+  }
+
+  export type ManagementUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<ManagementCreateWithoutFarmInput, ManagementUncheckedCreateWithoutFarmInput> | ManagementCreateWithoutFarmInput[] | ManagementUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutFarmInput | ManagementCreateOrConnectWithoutFarmInput[]
+    upsert?: ManagementUpsertWithWhereUniqueWithoutFarmInput | ManagementUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: ManagementCreateManyFarmInputEnvelope
+    set?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    disconnect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    delete?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    update?: ManagementUpdateWithWhereUniqueWithoutFarmInput | ManagementUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: ManagementUpdateManyWithWhereWithoutFarmInput | ManagementUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: ManagementScalarWhereInput | ManagementScalarWhereInput[]
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<MortalityCreateWithoutFarmInput, MortalityUncheckedCreateWithoutFarmInput> | MortalityCreateWithoutFarmInput[] | MortalityUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutFarmInput | MortalityCreateOrConnectWithoutFarmInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutFarmInput | MortalityUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: MortalityCreateManyFarmInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutFarmInput | MortalityUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutFarmInput | MortalityUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutFarmInput, PasswordResetTokenUncheckedCreateWithoutFarmInput> | PasswordResetTokenCreateWithoutFarmInput[] | PasswordResetTokenUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutFarmInput | PasswordResetTokenCreateOrConnectWithoutFarmInput[]
+    upsert?: PasswordResetTokenUpsertWithWhereUniqueWithoutFarmInput | PasswordResetTokenUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: PasswordResetTokenCreateManyFarmInputEnvelope
+    set?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    disconnect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    delete?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    update?: PasswordResetTokenUpdateWithWhereUniqueWithoutFarmInput | PasswordResetTokenUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutFarmInput | PasswordResetTokenUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<EarTagHistoryCreateWithoutFarmInput, EarTagHistoryUncheckedCreateWithoutFarmInput> | EarTagHistoryCreateWithoutFarmInput[] | EarTagHistoryUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: EarTagHistoryCreateOrConnectWithoutFarmInput | EarTagHistoryCreateOrConnectWithoutFarmInput[]
+    upsert?: EarTagHistoryUpsertWithWhereUniqueWithoutFarmInput | EarTagHistoryUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: EarTagHistoryCreateManyFarmInputEnvelope
+    set?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    disconnect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    delete?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+    update?: EarTagHistoryUpdateWithWhereUniqueWithoutFarmInput | EarTagHistoryUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: EarTagHistoryUpdateManyWithWhereWithoutFarmInput | EarTagHistoryUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
+  }
+
   export type UserCreatespecialtiesInput = {
     set: string[]
   }
@@ -22464,6 +25395,90 @@ export namespace Prisma {
     create?: XOR<FarmCreateWithoutUsersInput, FarmUncheckedCreateWithoutUsersInput>
     connectOrCreate?: FarmCreateOrConnectWithoutUsersInput
     connect?: FarmWhereUniqueInput
+  }
+
+  export type PasswordResetTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type VaccinationCreateNestedManyWithoutVeterinarianInput = {
+    create?: XOR<VaccinationCreateWithoutVeterinarianInput, VaccinationUncheckedCreateWithoutVeterinarianInput> | VaccinationCreateWithoutVeterinarianInput[] | VaccinationUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutVeterinarianInput | VaccinationCreateOrConnectWithoutVeterinarianInput[]
+    createMany?: VaccinationCreateManyVeterinarianInputEnvelope
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+  }
+
+  export type UltrasoundCreateNestedManyWithoutVeterinarianInput = {
+    create?: XOR<UltrasoundCreateWithoutVeterinarianInput, UltrasoundUncheckedCreateWithoutVeterinarianInput> | UltrasoundCreateWithoutVeterinarianInput[] | UltrasoundUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: UltrasoundCreateOrConnectWithoutVeterinarianInput | UltrasoundCreateOrConnectWithoutVeterinarianInput[]
+    createMany?: UltrasoundCreateManyVeterinarianInputEnvelope
+    connect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+  }
+
+  export type BirthCreateNestedManyWithoutVeterinarianInput = {
+    create?: XOR<BirthCreateWithoutVeterinarianInput, BirthUncheckedCreateWithoutVeterinarianInput> | BirthCreateWithoutVeterinarianInput[] | BirthUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutVeterinarianInput | BirthCreateOrConnectWithoutVeterinarianInput[]
+    createMany?: BirthCreateManyVeterinarianInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type MortalityCreateNestedManyWithoutRegisteredByInput = {
+    create?: XOR<MortalityCreateWithoutRegisteredByInput, MortalityUncheckedCreateWithoutRegisteredByInput> | MortalityCreateWithoutRegisteredByInput[] | MortalityUncheckedCreateWithoutRegisteredByInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutRegisteredByInput | MortalityCreateOrConnectWithoutRegisteredByInput[]
+    createMany?: MortalityCreateManyRegisteredByInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type EstrusCreateNestedManyWithoutDetectedByInput = {
+    create?: XOR<EstrusCreateWithoutDetectedByInput, EstrusUncheckedCreateWithoutDetectedByInput> | EstrusCreateWithoutDetectedByInput[] | EstrusUncheckedCreateWithoutDetectedByInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutDetectedByInput | EstrusCreateOrConnectWithoutDetectedByInput[]
+    createMany?: EstrusCreateManyDetectedByInputEnvelope
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+  }
+
+  export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput = {
+    create?: XOR<VaccinationCreateWithoutVeterinarianInput, VaccinationUncheckedCreateWithoutVeterinarianInput> | VaccinationCreateWithoutVeterinarianInput[] | VaccinationUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutVeterinarianInput | VaccinationCreateOrConnectWithoutVeterinarianInput[]
+    createMany?: VaccinationCreateManyVeterinarianInputEnvelope
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+  }
+
+  export type UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput = {
+    create?: XOR<UltrasoundCreateWithoutVeterinarianInput, UltrasoundUncheckedCreateWithoutVeterinarianInput> | UltrasoundCreateWithoutVeterinarianInput[] | UltrasoundUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: UltrasoundCreateOrConnectWithoutVeterinarianInput | UltrasoundCreateOrConnectWithoutVeterinarianInput[]
+    createMany?: UltrasoundCreateManyVeterinarianInputEnvelope
+    connect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+  }
+
+  export type BirthUncheckedCreateNestedManyWithoutVeterinarianInput = {
+    create?: XOR<BirthCreateWithoutVeterinarianInput, BirthUncheckedCreateWithoutVeterinarianInput> | BirthCreateWithoutVeterinarianInput[] | BirthUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutVeterinarianInput | BirthCreateOrConnectWithoutVeterinarianInput[]
+    createMany?: BirthCreateManyVeterinarianInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type MortalityUncheckedCreateNestedManyWithoutRegisteredByInput = {
+    create?: XOR<MortalityCreateWithoutRegisteredByInput, MortalityUncheckedCreateWithoutRegisteredByInput> | MortalityCreateWithoutRegisteredByInput[] | MortalityUncheckedCreateWithoutRegisteredByInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutRegisteredByInput | MortalityCreateOrConnectWithoutRegisteredByInput[]
+    createMany?: MortalityCreateManyRegisteredByInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type EstrusUncheckedCreateNestedManyWithoutDetectedByInput = {
+    create?: XOR<EstrusCreateWithoutDetectedByInput, EstrusUncheckedCreateWithoutDetectedByInput> | EstrusCreateWithoutDetectedByInput[] | EstrusUncheckedCreateWithoutDetectedByInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutDetectedByInput | EstrusCreateOrConnectWithoutDetectedByInput[]
+    createMany?: EstrusCreateManyDetectedByInputEnvelope
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
   }
 
   export type EnumPermissionFieldUpdateOperationsInput = {
@@ -22487,6 +25502,213 @@ export namespace Prisma {
     update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutUsersInput, FarmUpdateWithoutUsersInput>, FarmUncheckedUpdateWithoutUsersInput>
   }
 
+  export type PasswordResetTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput | PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    set?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    disconnect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    delete?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type VaccinationUpdateManyWithoutVeterinarianNestedInput = {
+    create?: XOR<VaccinationCreateWithoutVeterinarianInput, VaccinationUncheckedCreateWithoutVeterinarianInput> | VaccinationCreateWithoutVeterinarianInput[] | VaccinationUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutVeterinarianInput | VaccinationCreateOrConnectWithoutVeterinarianInput[]
+    upsert?: VaccinationUpsertWithWhereUniqueWithoutVeterinarianInput | VaccinationUpsertWithWhereUniqueWithoutVeterinarianInput[]
+    createMany?: VaccinationCreateManyVeterinarianInputEnvelope
+    set?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    disconnect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    delete?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    update?: VaccinationUpdateWithWhereUniqueWithoutVeterinarianInput | VaccinationUpdateWithWhereUniqueWithoutVeterinarianInput[]
+    updateMany?: VaccinationUpdateManyWithWhereWithoutVeterinarianInput | VaccinationUpdateManyWithWhereWithoutVeterinarianInput[]
+    deleteMany?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+  }
+
+  export type UltrasoundUpdateManyWithoutVeterinarianNestedInput = {
+    create?: XOR<UltrasoundCreateWithoutVeterinarianInput, UltrasoundUncheckedCreateWithoutVeterinarianInput> | UltrasoundCreateWithoutVeterinarianInput[] | UltrasoundUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: UltrasoundCreateOrConnectWithoutVeterinarianInput | UltrasoundCreateOrConnectWithoutVeterinarianInput[]
+    upsert?: UltrasoundUpsertWithWhereUniqueWithoutVeterinarianInput | UltrasoundUpsertWithWhereUniqueWithoutVeterinarianInput[]
+    createMany?: UltrasoundCreateManyVeterinarianInputEnvelope
+    set?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    disconnect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    delete?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    connect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    update?: UltrasoundUpdateWithWhereUniqueWithoutVeterinarianInput | UltrasoundUpdateWithWhereUniqueWithoutVeterinarianInput[]
+    updateMany?: UltrasoundUpdateManyWithWhereWithoutVeterinarianInput | UltrasoundUpdateManyWithWhereWithoutVeterinarianInput[]
+    deleteMany?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
+  }
+
+  export type BirthUpdateManyWithoutVeterinarianNestedInput = {
+    create?: XOR<BirthCreateWithoutVeterinarianInput, BirthUncheckedCreateWithoutVeterinarianInput> | BirthCreateWithoutVeterinarianInput[] | BirthUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutVeterinarianInput | BirthCreateOrConnectWithoutVeterinarianInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutVeterinarianInput | BirthUpsertWithWhereUniqueWithoutVeterinarianInput[]
+    createMany?: BirthCreateManyVeterinarianInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutVeterinarianInput | BirthUpdateWithWhereUniqueWithoutVeterinarianInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutVeterinarianInput | BirthUpdateManyWithWhereWithoutVeterinarianInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
+  export type MortalityUpdateManyWithoutRegisteredByNestedInput = {
+    create?: XOR<MortalityCreateWithoutRegisteredByInput, MortalityUncheckedCreateWithoutRegisteredByInput> | MortalityCreateWithoutRegisteredByInput[] | MortalityUncheckedCreateWithoutRegisteredByInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutRegisteredByInput | MortalityCreateOrConnectWithoutRegisteredByInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutRegisteredByInput | MortalityUpsertWithWhereUniqueWithoutRegisteredByInput[]
+    createMany?: MortalityCreateManyRegisteredByInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutRegisteredByInput | MortalityUpdateWithWhereUniqueWithoutRegisteredByInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutRegisteredByInput | MortalityUpdateManyWithWhereWithoutRegisteredByInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type EstrusUpdateManyWithoutDetectedByNestedInput = {
+    create?: XOR<EstrusCreateWithoutDetectedByInput, EstrusUncheckedCreateWithoutDetectedByInput> | EstrusCreateWithoutDetectedByInput[] | EstrusUncheckedCreateWithoutDetectedByInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutDetectedByInput | EstrusCreateOrConnectWithoutDetectedByInput[]
+    upsert?: EstrusUpsertWithWhereUniqueWithoutDetectedByInput | EstrusUpsertWithWhereUniqueWithoutDetectedByInput[]
+    createMany?: EstrusCreateManyDetectedByInputEnvelope
+    set?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    disconnect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    delete?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    update?: EstrusUpdateWithWhereUniqueWithoutDetectedByInput | EstrusUpdateWithWhereUniqueWithoutDetectedByInput[]
+    updateMany?: EstrusUpdateManyWithWhereWithoutDetectedByInput | EstrusUpdateManyWithWhereWithoutDetectedByInput[]
+    deleteMany?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+  }
+
+  export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput | PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    set?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    disconnect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    delete?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput = {
+    create?: XOR<VaccinationCreateWithoutVeterinarianInput, VaccinationUncheckedCreateWithoutVeterinarianInput> | VaccinationCreateWithoutVeterinarianInput[] | VaccinationUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutVeterinarianInput | VaccinationCreateOrConnectWithoutVeterinarianInput[]
+    upsert?: VaccinationUpsertWithWhereUniqueWithoutVeterinarianInput | VaccinationUpsertWithWhereUniqueWithoutVeterinarianInput[]
+    createMany?: VaccinationCreateManyVeterinarianInputEnvelope
+    set?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    disconnect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    delete?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    update?: VaccinationUpdateWithWhereUniqueWithoutVeterinarianInput | VaccinationUpdateWithWhereUniqueWithoutVeterinarianInput[]
+    updateMany?: VaccinationUpdateManyWithWhereWithoutVeterinarianInput | VaccinationUpdateManyWithWhereWithoutVeterinarianInput[]
+    deleteMany?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+  }
+
+  export type UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput = {
+    create?: XOR<UltrasoundCreateWithoutVeterinarianInput, UltrasoundUncheckedCreateWithoutVeterinarianInput> | UltrasoundCreateWithoutVeterinarianInput[] | UltrasoundUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: UltrasoundCreateOrConnectWithoutVeterinarianInput | UltrasoundCreateOrConnectWithoutVeterinarianInput[]
+    upsert?: UltrasoundUpsertWithWhereUniqueWithoutVeterinarianInput | UltrasoundUpsertWithWhereUniqueWithoutVeterinarianInput[]
+    createMany?: UltrasoundCreateManyVeterinarianInputEnvelope
+    set?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    disconnect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    delete?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    connect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+    update?: UltrasoundUpdateWithWhereUniqueWithoutVeterinarianInput | UltrasoundUpdateWithWhereUniqueWithoutVeterinarianInput[]
+    updateMany?: UltrasoundUpdateManyWithWhereWithoutVeterinarianInput | UltrasoundUpdateManyWithWhereWithoutVeterinarianInput[]
+    deleteMany?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
+  }
+
+  export type BirthUncheckedUpdateManyWithoutVeterinarianNestedInput = {
+    create?: XOR<BirthCreateWithoutVeterinarianInput, BirthUncheckedCreateWithoutVeterinarianInput> | BirthCreateWithoutVeterinarianInput[] | BirthUncheckedCreateWithoutVeterinarianInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutVeterinarianInput | BirthCreateOrConnectWithoutVeterinarianInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutVeterinarianInput | BirthUpsertWithWhereUniqueWithoutVeterinarianInput[]
+    createMany?: BirthCreateManyVeterinarianInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutVeterinarianInput | BirthUpdateWithWhereUniqueWithoutVeterinarianInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutVeterinarianInput | BirthUpdateManyWithWhereWithoutVeterinarianInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput = {
+    create?: XOR<MortalityCreateWithoutRegisteredByInput, MortalityUncheckedCreateWithoutRegisteredByInput> | MortalityCreateWithoutRegisteredByInput[] | MortalityUncheckedCreateWithoutRegisteredByInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutRegisteredByInput | MortalityCreateOrConnectWithoutRegisteredByInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutRegisteredByInput | MortalityUpsertWithWhereUniqueWithoutRegisteredByInput[]
+    createMany?: MortalityCreateManyRegisteredByInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutRegisteredByInput | MortalityUpdateWithWhereUniqueWithoutRegisteredByInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutRegisteredByInput | MortalityUpdateManyWithWhereWithoutRegisteredByInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type EstrusUncheckedUpdateManyWithoutDetectedByNestedInput = {
+    create?: XOR<EstrusCreateWithoutDetectedByInput, EstrusUncheckedCreateWithoutDetectedByInput> | EstrusCreateWithoutDetectedByInput[] | EstrusUncheckedCreateWithoutDetectedByInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutDetectedByInput | EstrusCreateOrConnectWithoutDetectedByInput[]
+    upsert?: EstrusUpsertWithWhereUniqueWithoutDetectedByInput | EstrusUpsertWithWhereUniqueWithoutDetectedByInput[]
+    createMany?: EstrusCreateManyDetectedByInputEnvelope
+    set?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    disconnect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    delete?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    update?: EstrusUpdateWithWhereUniqueWithoutDetectedByInput | EstrusUpdateWithWhereUniqueWithoutDetectedByInput[]
+    updateMany?: EstrusUpdateManyWithWhereWithoutDetectedByInput | EstrusUpdateManyWithWhereWithoutDetectedByInput[]
+    deleteMany?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+  }
+
+  export type AnimalCreateNestedOneWithoutSireOfInput = {
+    create?: XOR<AnimalCreateWithoutSireOfInput, AnimalUncheckedCreateWithoutSireOfInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutSireOfInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedManyWithoutSireInput = {
+    create?: XOR<AnimalCreateWithoutSireInput, AnimalUncheckedCreateWithoutSireInput> | AnimalCreateWithoutSireInput[] | AnimalUncheckedCreateWithoutSireInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutSireInput | AnimalCreateOrConnectWithoutSireInput[]
+    createMany?: AnimalCreateManySireInputEnvelope
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type AnimalCreateNestedOneWithoutDamOfInput = {
+    create?: XOR<AnimalCreateWithoutDamOfInput, AnimalUncheckedCreateWithoutDamOfInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutDamOfInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedManyWithoutDamInput = {
+    create?: XOR<AnimalCreateWithoutDamInput, AnimalUncheckedCreateWithoutDamInput> | AnimalCreateWithoutDamInput[] | AnimalUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutDamInput | AnimalCreateOrConnectWithoutDamInput[]
+    createMany?: AnimalCreateManyDamInputEnvelope
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type AttemptCreateNestedManyWithoutBullInput = {
+    create?: XOR<AttemptCreateWithoutBullInput, AttemptUncheckedCreateWithoutBullInput> | AttemptCreateWithoutBullInput[] | AttemptUncheckedCreateWithoutBullInput[]
+    connectOrCreate?: AttemptCreateOrConnectWithoutBullInput | AttemptCreateOrConnectWithoutBullInput[]
+    createMany?: AttemptCreateManyBullInputEnvelope
+    connect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+  }
+
+  export type PastureCreateNestedOneWithoutAnimalsInput = {
+    create?: XOR<PastureCreateWithoutAnimalsInput, PastureUncheckedCreateWithoutAnimalsInput>
+    connectOrCreate?: PastureCreateOrConnectWithoutAnimalsInput
+    connect?: PastureWhereUniqueInput
+  }
+
   export type FarmCreateNestedOneWithoutAnimalsInput = {
     create?: XOR<FarmCreateWithoutAnimalsInput, FarmUncheckedCreateWithoutAnimalsInput>
     connectOrCreate?: FarmCreateOrConnectWithoutAnimalsInput
@@ -22500,11 +25722,196 @@ export namespace Prisma {
     connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
   }
 
+  export type EstrusCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<EstrusCreateWithoutAnimalInput, EstrusUncheckedCreateWithoutAnimalInput> | EstrusCreateWithoutAnimalInput[] | EstrusUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutAnimalInput | EstrusCreateOrConnectWithoutAnimalInput[]
+    createMany?: EstrusCreateManyAnimalInputEnvelope
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+  }
+
+  export type PregnancyCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<PregnancyCreateWithoutAnimalInput, PregnancyUncheckedCreateWithoutAnimalInput> | PregnancyCreateWithoutAnimalInput[] | PregnancyUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutAnimalInput | PregnancyCreateOrConnectWithoutAnimalInput[]
+    createMany?: PregnancyCreateManyAnimalInputEnvelope
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+  }
+
+  export type BirthCreateNestedManyWithoutDamInput = {
+    create?: XOR<BirthCreateWithoutDamInput, BirthUncheckedCreateWithoutDamInput> | BirthCreateWithoutDamInput[] | BirthUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutDamInput | BirthCreateOrConnectWithoutDamInput[]
+    createMany?: BirthCreateManyDamInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type VaccinationCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<VaccinationCreateWithoutAnimalInput, VaccinationUncheckedCreateWithoutAnimalInput> | VaccinationCreateWithoutAnimalInput[] | VaccinationUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutAnimalInput | VaccinationCreateOrConnectWithoutAnimalInput[]
+    createMany?: VaccinationCreateManyAnimalInputEnvelope
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+  }
+
+  export type ManagementCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<ManagementCreateWithoutAnimalInput, ManagementUncheckedCreateWithoutAnimalInput> | ManagementCreateWithoutAnimalInput[] | ManagementUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutAnimalInput | ManagementCreateOrConnectWithoutAnimalInput[]
+    createMany?: ManagementCreateManyAnimalInputEnvelope
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+  }
+
+  export type MortalityCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<MortalityCreateWithoutAnimalInput, MortalityUncheckedCreateWithoutAnimalInput> | MortalityCreateWithoutAnimalInput[] | MortalityUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutAnimalInput | MortalityCreateOrConnectWithoutAnimalInput[]
+    createMany?: MortalityCreateManyAnimalInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type AnimalUncheckedCreateNestedManyWithoutSireInput = {
+    create?: XOR<AnimalCreateWithoutSireInput, AnimalUncheckedCreateWithoutSireInput> | AnimalCreateWithoutSireInput[] | AnimalUncheckedCreateWithoutSireInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutSireInput | AnimalCreateOrConnectWithoutSireInput[]
+    createMany?: AnimalCreateManySireInputEnvelope
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type AnimalUncheckedCreateNestedManyWithoutDamInput = {
+    create?: XOR<AnimalCreateWithoutDamInput, AnimalUncheckedCreateWithoutDamInput> | AnimalCreateWithoutDamInput[] | AnimalUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutDamInput | AnimalCreateOrConnectWithoutDamInput[]
+    createMany?: AnimalCreateManyDamInputEnvelope
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type AttemptUncheckedCreateNestedManyWithoutBullInput = {
+    create?: XOR<AttemptCreateWithoutBullInput, AttemptUncheckedCreateWithoutBullInput> | AttemptCreateWithoutBullInput[] | AttemptUncheckedCreateWithoutBullInput[]
+    connectOrCreate?: AttemptCreateOrConnectWithoutBullInput | AttemptCreateOrConnectWithoutBullInput[]
+    createMany?: AttemptCreateManyBullInputEnvelope
+    connect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+  }
+
   export type EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput = {
     create?: XOR<EarTagHistoryCreateWithoutAnimalInput, EarTagHistoryUncheckedCreateWithoutAnimalInput> | EarTagHistoryCreateWithoutAnimalInput[] | EarTagHistoryUncheckedCreateWithoutAnimalInput[]
     connectOrCreate?: EarTagHistoryCreateOrConnectWithoutAnimalInput | EarTagHistoryCreateOrConnectWithoutAnimalInput[]
     createMany?: EarTagHistoryCreateManyAnimalInputEnvelope
     connect?: EarTagHistoryWhereUniqueInput | EarTagHistoryWhereUniqueInput[]
+  }
+
+  export type EstrusUncheckedCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<EstrusCreateWithoutAnimalInput, EstrusUncheckedCreateWithoutAnimalInput> | EstrusCreateWithoutAnimalInput[] | EstrusUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutAnimalInput | EstrusCreateOrConnectWithoutAnimalInput[]
+    createMany?: EstrusCreateManyAnimalInputEnvelope
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+  }
+
+  export type PregnancyUncheckedCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<PregnancyCreateWithoutAnimalInput, PregnancyUncheckedCreateWithoutAnimalInput> | PregnancyCreateWithoutAnimalInput[] | PregnancyUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutAnimalInput | PregnancyCreateOrConnectWithoutAnimalInput[]
+    createMany?: PregnancyCreateManyAnimalInputEnvelope
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+  }
+
+  export type BirthUncheckedCreateNestedManyWithoutDamInput = {
+    create?: XOR<BirthCreateWithoutDamInput, BirthUncheckedCreateWithoutDamInput> | BirthCreateWithoutDamInput[] | BirthUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutDamInput | BirthCreateOrConnectWithoutDamInput[]
+    createMany?: BirthCreateManyDamInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type VaccinationUncheckedCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<VaccinationCreateWithoutAnimalInput, VaccinationUncheckedCreateWithoutAnimalInput> | VaccinationCreateWithoutAnimalInput[] | VaccinationUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutAnimalInput | VaccinationCreateOrConnectWithoutAnimalInput[]
+    createMany?: VaccinationCreateManyAnimalInputEnvelope
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+  }
+
+  export type ManagementUncheckedCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<ManagementCreateWithoutAnimalInput, ManagementUncheckedCreateWithoutAnimalInput> | ManagementCreateWithoutAnimalInput[] | ManagementUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutAnimalInput | ManagementCreateOrConnectWithoutAnimalInput[]
+    createMany?: ManagementCreateManyAnimalInputEnvelope
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+  }
+
+  export type MortalityUncheckedCreateNestedManyWithoutAnimalInput = {
+    create?: XOR<MortalityCreateWithoutAnimalInput, MortalityUncheckedCreateWithoutAnimalInput> | MortalityCreateWithoutAnimalInput[] | MortalityUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutAnimalInput | MortalityCreateOrConnectWithoutAnimalInput[]
+    createMany?: MortalityCreateManyAnimalInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type EnumGenderFieldUpdateOperationsInput = {
+    set?: $Enums.Gender
+  }
+
+  export type EnumAnimalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AnimalStatus
+  }
+
+  export type AnimalUpdateOneWithoutSireOfNestedInput = {
+    create?: XOR<AnimalCreateWithoutSireOfInput, AnimalUncheckedCreateWithoutSireOfInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutSireOfInput
+    upsert?: AnimalUpsertWithoutSireOfInput
+    disconnect?: AnimalWhereInput | boolean
+    delete?: AnimalWhereInput | boolean
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutSireOfInput, AnimalUpdateWithoutSireOfInput>, AnimalUncheckedUpdateWithoutSireOfInput>
+  }
+
+  export type AnimalUpdateManyWithoutSireNestedInput = {
+    create?: XOR<AnimalCreateWithoutSireInput, AnimalUncheckedCreateWithoutSireInput> | AnimalCreateWithoutSireInput[] | AnimalUncheckedCreateWithoutSireInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutSireInput | AnimalCreateOrConnectWithoutSireInput[]
+    upsert?: AnimalUpsertWithWhereUniqueWithoutSireInput | AnimalUpsertWithWhereUniqueWithoutSireInput[]
+    createMany?: AnimalCreateManySireInputEnvelope
+    set?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    disconnect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    delete?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    update?: AnimalUpdateWithWhereUniqueWithoutSireInput | AnimalUpdateWithWhereUniqueWithoutSireInput[]
+    updateMany?: AnimalUpdateManyWithWhereWithoutSireInput | AnimalUpdateManyWithWhereWithoutSireInput[]
+    deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
+  }
+
+  export type AnimalUpdateOneWithoutDamOfNestedInput = {
+    create?: XOR<AnimalCreateWithoutDamOfInput, AnimalUncheckedCreateWithoutDamOfInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutDamOfInput
+    upsert?: AnimalUpsertWithoutDamOfInput
+    disconnect?: AnimalWhereInput | boolean
+    delete?: AnimalWhereInput | boolean
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutDamOfInput, AnimalUpdateWithoutDamOfInput>, AnimalUncheckedUpdateWithoutDamOfInput>
+  }
+
+  export type AnimalUpdateManyWithoutDamNestedInput = {
+    create?: XOR<AnimalCreateWithoutDamInput, AnimalUncheckedCreateWithoutDamInput> | AnimalCreateWithoutDamInput[] | AnimalUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutDamInput | AnimalCreateOrConnectWithoutDamInput[]
+    upsert?: AnimalUpsertWithWhereUniqueWithoutDamInput | AnimalUpsertWithWhereUniqueWithoutDamInput[]
+    createMany?: AnimalCreateManyDamInputEnvelope
+    set?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    disconnect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    delete?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    update?: AnimalUpdateWithWhereUniqueWithoutDamInput | AnimalUpdateWithWhereUniqueWithoutDamInput[]
+    updateMany?: AnimalUpdateManyWithWhereWithoutDamInput | AnimalUpdateManyWithWhereWithoutDamInput[]
+    deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
+  }
+
+  export type AttemptUpdateManyWithoutBullNestedInput = {
+    create?: XOR<AttemptCreateWithoutBullInput, AttemptUncheckedCreateWithoutBullInput> | AttemptCreateWithoutBullInput[] | AttemptUncheckedCreateWithoutBullInput[]
+    connectOrCreate?: AttemptCreateOrConnectWithoutBullInput | AttemptCreateOrConnectWithoutBullInput[]
+    upsert?: AttemptUpsertWithWhereUniqueWithoutBullInput | AttemptUpsertWithWhereUniqueWithoutBullInput[]
+    createMany?: AttemptCreateManyBullInputEnvelope
+    set?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    disconnect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    delete?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    connect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    update?: AttemptUpdateWithWhereUniqueWithoutBullInput | AttemptUpdateWithWhereUniqueWithoutBullInput[]
+    updateMany?: AttemptUpdateManyWithWhereWithoutBullInput | AttemptUpdateManyWithWhereWithoutBullInput[]
+    deleteMany?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
+  }
+
+  export type PastureUpdateOneWithoutAnimalsNestedInput = {
+    create?: XOR<PastureCreateWithoutAnimalsInput, PastureUncheckedCreateWithoutAnimalsInput>
+    connectOrCreate?: PastureCreateOrConnectWithoutAnimalsInput
+    upsert?: PastureUpsertWithoutAnimalsInput
+    disconnect?: PastureWhereInput | boolean
+    delete?: PastureWhereInput | boolean
+    connect?: PastureWhereUniqueInput
+    update?: XOR<XOR<PastureUpdateToOneWithWhereWithoutAnimalsInput, PastureUpdateWithoutAnimalsInput>, PastureUncheckedUpdateWithoutAnimalsInput>
   }
 
   export type FarmUpdateOneRequiredWithoutAnimalsNestedInput = {
@@ -22529,6 +25936,132 @@ export namespace Prisma {
     deleteMany?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
   }
 
+  export type EstrusUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<EstrusCreateWithoutAnimalInput, EstrusUncheckedCreateWithoutAnimalInput> | EstrusCreateWithoutAnimalInput[] | EstrusUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutAnimalInput | EstrusCreateOrConnectWithoutAnimalInput[]
+    upsert?: EstrusUpsertWithWhereUniqueWithoutAnimalInput | EstrusUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: EstrusCreateManyAnimalInputEnvelope
+    set?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    disconnect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    delete?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    update?: EstrusUpdateWithWhereUniqueWithoutAnimalInput | EstrusUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: EstrusUpdateManyWithWhereWithoutAnimalInput | EstrusUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+  }
+
+  export type PregnancyUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<PregnancyCreateWithoutAnimalInput, PregnancyUncheckedCreateWithoutAnimalInput> | PregnancyCreateWithoutAnimalInput[] | PregnancyUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutAnimalInput | PregnancyCreateOrConnectWithoutAnimalInput[]
+    upsert?: PregnancyUpsertWithWhereUniqueWithoutAnimalInput | PregnancyUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: PregnancyCreateManyAnimalInputEnvelope
+    set?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    disconnect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    delete?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    update?: PregnancyUpdateWithWhereUniqueWithoutAnimalInput | PregnancyUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: PregnancyUpdateManyWithWhereWithoutAnimalInput | PregnancyUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: PregnancyScalarWhereInput | PregnancyScalarWhereInput[]
+  }
+
+  export type BirthUpdateManyWithoutDamNestedInput = {
+    create?: XOR<BirthCreateWithoutDamInput, BirthUncheckedCreateWithoutDamInput> | BirthCreateWithoutDamInput[] | BirthUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutDamInput | BirthCreateOrConnectWithoutDamInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutDamInput | BirthUpsertWithWhereUniqueWithoutDamInput[]
+    createMany?: BirthCreateManyDamInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutDamInput | BirthUpdateWithWhereUniqueWithoutDamInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutDamInput | BirthUpdateManyWithWhereWithoutDamInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
+  export type VaccinationUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<VaccinationCreateWithoutAnimalInput, VaccinationUncheckedCreateWithoutAnimalInput> | VaccinationCreateWithoutAnimalInput[] | VaccinationUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutAnimalInput | VaccinationCreateOrConnectWithoutAnimalInput[]
+    upsert?: VaccinationUpsertWithWhereUniqueWithoutAnimalInput | VaccinationUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: VaccinationCreateManyAnimalInputEnvelope
+    set?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    disconnect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    delete?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    update?: VaccinationUpdateWithWhereUniqueWithoutAnimalInput | VaccinationUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: VaccinationUpdateManyWithWhereWithoutAnimalInput | VaccinationUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+  }
+
+  export type ManagementUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<ManagementCreateWithoutAnimalInput, ManagementUncheckedCreateWithoutAnimalInput> | ManagementCreateWithoutAnimalInput[] | ManagementUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutAnimalInput | ManagementCreateOrConnectWithoutAnimalInput[]
+    upsert?: ManagementUpsertWithWhereUniqueWithoutAnimalInput | ManagementUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: ManagementCreateManyAnimalInputEnvelope
+    set?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    disconnect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    delete?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    update?: ManagementUpdateWithWhereUniqueWithoutAnimalInput | ManagementUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: ManagementUpdateManyWithWhereWithoutAnimalInput | ManagementUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: ManagementScalarWhereInput | ManagementScalarWhereInput[]
+  }
+
+  export type MortalityUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<MortalityCreateWithoutAnimalInput, MortalityUncheckedCreateWithoutAnimalInput> | MortalityCreateWithoutAnimalInput[] | MortalityUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutAnimalInput | MortalityCreateOrConnectWithoutAnimalInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutAnimalInput | MortalityUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: MortalityCreateManyAnimalInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutAnimalInput | MortalityUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutAnimalInput | MortalityUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type AnimalUncheckedUpdateManyWithoutSireNestedInput = {
+    create?: XOR<AnimalCreateWithoutSireInput, AnimalUncheckedCreateWithoutSireInput> | AnimalCreateWithoutSireInput[] | AnimalUncheckedCreateWithoutSireInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutSireInput | AnimalCreateOrConnectWithoutSireInput[]
+    upsert?: AnimalUpsertWithWhereUniqueWithoutSireInput | AnimalUpsertWithWhereUniqueWithoutSireInput[]
+    createMany?: AnimalCreateManySireInputEnvelope
+    set?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    disconnect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    delete?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    update?: AnimalUpdateWithWhereUniqueWithoutSireInput | AnimalUpdateWithWhereUniqueWithoutSireInput[]
+    updateMany?: AnimalUpdateManyWithWhereWithoutSireInput | AnimalUpdateManyWithWhereWithoutSireInput[]
+    deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
+  }
+
+  export type AnimalUncheckedUpdateManyWithoutDamNestedInput = {
+    create?: XOR<AnimalCreateWithoutDamInput, AnimalUncheckedCreateWithoutDamInput> | AnimalCreateWithoutDamInput[] | AnimalUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutDamInput | AnimalCreateOrConnectWithoutDamInput[]
+    upsert?: AnimalUpsertWithWhereUniqueWithoutDamInput | AnimalUpsertWithWhereUniqueWithoutDamInput[]
+    createMany?: AnimalCreateManyDamInputEnvelope
+    set?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    disconnect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    delete?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    update?: AnimalUpdateWithWhereUniqueWithoutDamInput | AnimalUpdateWithWhereUniqueWithoutDamInput[]
+    updateMany?: AnimalUpdateManyWithWhereWithoutDamInput | AnimalUpdateManyWithWhereWithoutDamInput[]
+    deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
+  }
+
+  export type AttemptUncheckedUpdateManyWithoutBullNestedInput = {
+    create?: XOR<AttemptCreateWithoutBullInput, AttemptUncheckedCreateWithoutBullInput> | AttemptCreateWithoutBullInput[] | AttemptUncheckedCreateWithoutBullInput[]
+    connectOrCreate?: AttemptCreateOrConnectWithoutBullInput | AttemptCreateOrConnectWithoutBullInput[]
+    upsert?: AttemptUpsertWithWhereUniqueWithoutBullInput | AttemptUpsertWithWhereUniqueWithoutBullInput[]
+    createMany?: AttemptCreateManyBullInputEnvelope
+    set?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    disconnect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    delete?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    connect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+    update?: AttemptUpdateWithWhereUniqueWithoutBullInput | AttemptUpdateWithWhereUniqueWithoutBullInput[]
+    updateMany?: AttemptUpdateManyWithWhereWithoutBullInput | AttemptUpdateManyWithWhereWithoutBullInput[]
+    deleteMany?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
+  }
+
   export type EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput = {
     create?: XOR<EarTagHistoryCreateWithoutAnimalInput, EarTagHistoryUncheckedCreateWithoutAnimalInput> | EarTagHistoryCreateWithoutAnimalInput[] | EarTagHistoryUncheckedCreateWithoutAnimalInput[]
     connectOrCreate?: EarTagHistoryCreateOrConnectWithoutAnimalInput | EarTagHistoryCreateOrConnectWithoutAnimalInput[]
@@ -22543,10 +26076,108 @@ export namespace Prisma {
     deleteMany?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
   }
 
+  export type EstrusUncheckedUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<EstrusCreateWithoutAnimalInput, EstrusUncheckedCreateWithoutAnimalInput> | EstrusCreateWithoutAnimalInput[] | EstrusUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: EstrusCreateOrConnectWithoutAnimalInput | EstrusCreateOrConnectWithoutAnimalInput[]
+    upsert?: EstrusUpsertWithWhereUniqueWithoutAnimalInput | EstrusUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: EstrusCreateManyAnimalInputEnvelope
+    set?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    disconnect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    delete?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    connect?: EstrusWhereUniqueInput | EstrusWhereUniqueInput[]
+    update?: EstrusUpdateWithWhereUniqueWithoutAnimalInput | EstrusUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: EstrusUpdateManyWithWhereWithoutAnimalInput | EstrusUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+  }
+
+  export type PregnancyUncheckedUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<PregnancyCreateWithoutAnimalInput, PregnancyUncheckedCreateWithoutAnimalInput> | PregnancyCreateWithoutAnimalInput[] | PregnancyUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: PregnancyCreateOrConnectWithoutAnimalInput | PregnancyCreateOrConnectWithoutAnimalInput[]
+    upsert?: PregnancyUpsertWithWhereUniqueWithoutAnimalInput | PregnancyUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: PregnancyCreateManyAnimalInputEnvelope
+    set?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    disconnect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    delete?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    connect?: PregnancyWhereUniqueInput | PregnancyWhereUniqueInput[]
+    update?: PregnancyUpdateWithWhereUniqueWithoutAnimalInput | PregnancyUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: PregnancyUpdateManyWithWhereWithoutAnimalInput | PregnancyUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: PregnancyScalarWhereInput | PregnancyScalarWhereInput[]
+  }
+
+  export type BirthUncheckedUpdateManyWithoutDamNestedInput = {
+    create?: XOR<BirthCreateWithoutDamInput, BirthUncheckedCreateWithoutDamInput> | BirthCreateWithoutDamInput[] | BirthUncheckedCreateWithoutDamInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutDamInput | BirthCreateOrConnectWithoutDamInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutDamInput | BirthUpsertWithWhereUniqueWithoutDamInput[]
+    createMany?: BirthCreateManyDamInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutDamInput | BirthUpdateWithWhereUniqueWithoutDamInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutDamInput | BirthUpdateManyWithWhereWithoutDamInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
+  export type VaccinationUncheckedUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<VaccinationCreateWithoutAnimalInput, VaccinationUncheckedCreateWithoutAnimalInput> | VaccinationCreateWithoutAnimalInput[] | VaccinationUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: VaccinationCreateOrConnectWithoutAnimalInput | VaccinationCreateOrConnectWithoutAnimalInput[]
+    upsert?: VaccinationUpsertWithWhereUniqueWithoutAnimalInput | VaccinationUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: VaccinationCreateManyAnimalInputEnvelope
+    set?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    disconnect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    delete?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    connect?: VaccinationWhereUniqueInput | VaccinationWhereUniqueInput[]
+    update?: VaccinationUpdateWithWhereUniqueWithoutAnimalInput | VaccinationUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: VaccinationUpdateManyWithWhereWithoutAnimalInput | VaccinationUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+  }
+
+  export type ManagementUncheckedUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<ManagementCreateWithoutAnimalInput, ManagementUncheckedCreateWithoutAnimalInput> | ManagementCreateWithoutAnimalInput[] | ManagementUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: ManagementCreateOrConnectWithoutAnimalInput | ManagementCreateOrConnectWithoutAnimalInput[]
+    upsert?: ManagementUpsertWithWhereUniqueWithoutAnimalInput | ManagementUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: ManagementCreateManyAnimalInputEnvelope
+    set?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    disconnect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    delete?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    connect?: ManagementWhereUniqueInput | ManagementWhereUniqueInput[]
+    update?: ManagementUpdateWithWhereUniqueWithoutAnimalInput | ManagementUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: ManagementUpdateManyWithWhereWithoutAnimalInput | ManagementUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: ManagementScalarWhereInput | ManagementScalarWhereInput[]
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutAnimalNestedInput = {
+    create?: XOR<MortalityCreateWithoutAnimalInput, MortalityUncheckedCreateWithoutAnimalInput> | MortalityCreateWithoutAnimalInput[] | MortalityUncheckedCreateWithoutAnimalInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutAnimalInput | MortalityCreateOrConnectWithoutAnimalInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutAnimalInput | MortalityUpsertWithWhereUniqueWithoutAnimalInput[]
+    createMany?: MortalityCreateManyAnimalInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutAnimalInput | MortalityUpdateWithWhereUniqueWithoutAnimalInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutAnimalInput | MortalityUpdateManyWithWhereWithoutAnimalInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type FarmCreateNestedOneWithoutEarTagHistoryInput = {
+    create?: XOR<FarmCreateWithoutEarTagHistoryInput, FarmUncheckedCreateWithoutEarTagHistoryInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutEarTagHistoryInput
+    connect?: FarmWhereUniqueInput
+  }
+
   export type AnimalCreateNestedOneWithoutEarTagHistoryInput = {
     create?: XOR<AnimalCreateWithoutEarTagHistoryInput, AnimalUncheckedCreateWithoutEarTagHistoryInput>
     connectOrCreate?: AnimalCreateOrConnectWithoutEarTagHistoryInput
     connect?: AnimalWhereUniqueInput
+  }
+
+  export type FarmUpdateOneRequiredWithoutEarTagHistoryNestedInput = {
+    create?: XOR<FarmCreateWithoutEarTagHistoryInput, FarmUncheckedCreateWithoutEarTagHistoryInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutEarTagHistoryInput
+    upsert?: FarmUpsertWithoutEarTagHistoryInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutEarTagHistoryInput, FarmUpdateWithoutEarTagHistoryInput>, FarmUncheckedUpdateWithoutEarTagHistoryInput>
   }
 
   export type AnimalUpdateOneRequiredWithoutEarTagHistoryNestedInput = {
@@ -22561,6 +26192,20 @@ export namespace Prisma {
     create?: XOR<FarmCreateWithoutPasturesInput, FarmUncheckedCreateWithoutPasturesInput>
     connectOrCreate?: FarmCreateOrConnectWithoutPasturesInput
     connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedManyWithoutPastureInput = {
+    create?: XOR<AnimalCreateWithoutPastureInput, AnimalUncheckedCreateWithoutPastureInput> | AnimalCreateWithoutPastureInput[] | AnimalUncheckedCreateWithoutPastureInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutPastureInput | AnimalCreateOrConnectWithoutPastureInput[]
+    createMany?: AnimalCreateManyPastureInputEnvelope
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+  }
+
+  export type AnimalUncheckedCreateNestedManyWithoutPastureInput = {
+    create?: XOR<AnimalCreateWithoutPastureInput, AnimalUncheckedCreateWithoutPastureInput> | AnimalCreateWithoutPastureInput[] | AnimalUncheckedCreateWithoutPastureInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutPastureInput | AnimalCreateOrConnectWithoutPastureInput[]
+    createMany?: AnimalCreateManyPastureInputEnvelope
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -22587,6 +26232,94 @@ export namespace Prisma {
     update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutPasturesInput, FarmUpdateWithoutPasturesInput>, FarmUncheckedUpdateWithoutPasturesInput>
   }
 
+  export type AnimalUpdateManyWithoutPastureNestedInput = {
+    create?: XOR<AnimalCreateWithoutPastureInput, AnimalUncheckedCreateWithoutPastureInput> | AnimalCreateWithoutPastureInput[] | AnimalUncheckedCreateWithoutPastureInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutPastureInput | AnimalCreateOrConnectWithoutPastureInput[]
+    upsert?: AnimalUpsertWithWhereUniqueWithoutPastureInput | AnimalUpsertWithWhereUniqueWithoutPastureInput[]
+    createMany?: AnimalCreateManyPastureInputEnvelope
+    set?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    disconnect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    delete?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    update?: AnimalUpdateWithWhereUniqueWithoutPastureInput | AnimalUpdateWithWhereUniqueWithoutPastureInput[]
+    updateMany?: AnimalUpdateManyWithWhereWithoutPastureInput | AnimalUpdateManyWithWhereWithoutPastureInput[]
+    deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
+  }
+
+  export type AnimalUncheckedUpdateManyWithoutPastureNestedInput = {
+    create?: XOR<AnimalCreateWithoutPastureInput, AnimalUncheckedCreateWithoutPastureInput> | AnimalCreateWithoutPastureInput[] | AnimalUncheckedCreateWithoutPastureInput[]
+    connectOrCreate?: AnimalCreateOrConnectWithoutPastureInput | AnimalCreateOrConnectWithoutPastureInput[]
+    upsert?: AnimalUpsertWithWhereUniqueWithoutPastureInput | AnimalUpsertWithWhereUniqueWithoutPastureInput[]
+    createMany?: AnimalCreateManyPastureInputEnvelope
+    set?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    disconnect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    delete?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    connect?: AnimalWhereUniqueInput | AnimalWhereUniqueInput[]
+    update?: AnimalUpdateWithWhereUniqueWithoutPastureInput | AnimalUpdateWithWhereUniqueWithoutPastureInput[]
+    updateMany?: AnimalUpdateManyWithWhereWithoutPastureInput | AnimalUpdateManyWithWhereWithoutPastureInput[]
+    deleteMany?: AnimalScalarWhereInput | AnimalScalarWhereInput[]
+  }
+
+  export type FarmCreateNestedOneWithoutEstrusInput = {
+    create?: XOR<FarmCreateWithoutEstrusInput, FarmUncheckedCreateWithoutEstrusInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutEstrusInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutEstrusInput = {
+    create?: XOR<AnimalCreateWithoutEstrusInput, AnimalUncheckedCreateWithoutEstrusInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutEstrusInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutEstrusInput = {
+    create?: XOR<UserCreateWithoutEstrusInput, UserUncheckedCreateWithoutEstrusInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEstrusInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumEstrusIntensityFieldUpdateOperationsInput = {
+    set?: $Enums.EstrusIntensity
+  }
+
+  export type FarmUpdateOneRequiredWithoutEstrusNestedInput = {
+    create?: XOR<FarmCreateWithoutEstrusInput, FarmUncheckedCreateWithoutEstrusInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutEstrusInput
+    upsert?: FarmUpsertWithoutEstrusInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutEstrusInput, FarmUpdateWithoutEstrusInput>, FarmUncheckedUpdateWithoutEstrusInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutEstrusNestedInput = {
+    create?: XOR<AnimalCreateWithoutEstrusInput, AnimalUncheckedCreateWithoutEstrusInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutEstrusInput
+    upsert?: AnimalUpsertWithoutEstrusInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutEstrusInput, AnimalUpdateWithoutEstrusInput>, AnimalUncheckedUpdateWithoutEstrusInput>
+  }
+
+  export type UserUpdateOneWithoutEstrusNestedInput = {
+    create?: XOR<UserCreateWithoutEstrusInput, UserUncheckedCreateWithoutEstrusInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEstrusInput
+    upsert?: UserUpsertWithoutEstrusInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEstrusInput, UserUpdateWithoutEstrusInput>, UserUncheckedUpdateWithoutEstrusInput>
+  }
+
+  export type FarmCreateNestedOneWithoutPregnanciesInput = {
+    create?: XOR<FarmCreateWithoutPregnanciesInput, FarmUncheckedCreateWithoutPregnanciesInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutPregnanciesInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutPregnanciesInput = {
+    create?: XOR<AnimalCreateWithoutPregnanciesInput, AnimalUncheckedCreateWithoutPregnanciesInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutPregnanciesInput
+    connect?: AnimalWhereUniqueInput
+  }
+
   export type AttemptCreateNestedManyWithoutPregnancyInput = {
     create?: XOR<AttemptCreateWithoutPregnancyInput, AttemptUncheckedCreateWithoutPregnancyInput> | AttemptCreateWithoutPregnancyInput[] | AttemptUncheckedCreateWithoutPregnancyInput[]
     connectOrCreate?: AttemptCreateOrConnectWithoutPregnancyInput | AttemptCreateOrConnectWithoutPregnancyInput[]
@@ -22599,6 +26332,26 @@ export namespace Prisma {
     connectOrCreate?: AttemptCreateOrConnectWithoutPregnancyInput | AttemptCreateOrConnectWithoutPregnancyInput[]
     createMany?: AttemptCreateManyPregnancyInputEnvelope
     connect?: AttemptWhereUniqueInput | AttemptWhereUniqueInput[]
+  }
+
+  export type EnumPregnancyStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PregnancyStatus
+  }
+
+  export type FarmUpdateOneRequiredWithoutPregnanciesNestedInput = {
+    create?: XOR<FarmCreateWithoutPregnanciesInput, FarmUncheckedCreateWithoutPregnanciesInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutPregnanciesInput
+    upsert?: FarmUpsertWithoutPregnanciesInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutPregnanciesInput, FarmUpdateWithoutPregnanciesInput>, FarmUncheckedUpdateWithoutPregnanciesInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutPregnanciesNestedInput = {
+    create?: XOR<AnimalCreateWithoutPregnanciesInput, AnimalUncheckedCreateWithoutPregnanciesInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutPregnanciesInput
+    upsert?: AnimalUpsertWithoutPregnanciesInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutPregnanciesInput, AnimalUpdateWithoutPregnanciesInput>, AnimalUncheckedUpdateWithoutPregnanciesInput>
   }
 
   export type AttemptUpdateManyWithoutPregnancyNestedInput = {
@@ -22629,6 +26382,12 @@ export namespace Prisma {
     deleteMany?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
   }
 
+  export type AnimalCreateNestedOneWithoutBullInAttemptsInput = {
+    create?: XOR<AnimalCreateWithoutBullInAttemptsInput, AnimalUncheckedCreateWithoutBullInAttemptsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutBullInAttemptsInput
+    connect?: AnimalWhereUniqueInput
+  }
+
   export type PregnancyCreateNestedOneWithoutAttemptsInput = {
     create?: XOR<PregnancyCreateWithoutAttemptsInput, PregnancyUncheckedCreateWithoutAttemptsInput>
     connectOrCreate?: PregnancyCreateOrConnectWithoutAttemptsInput
@@ -22642,11 +26401,43 @@ export namespace Prisma {
     connect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
   }
 
+  export type BirthCreateNestedManyWithoutAttemptInput = {
+    create?: XOR<BirthCreateWithoutAttemptInput, BirthUncheckedCreateWithoutAttemptInput> | BirthCreateWithoutAttemptInput[] | BirthUncheckedCreateWithoutAttemptInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutAttemptInput | BirthCreateOrConnectWithoutAttemptInput[]
+    createMany?: BirthCreateManyAttemptInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
   export type UltrasoundUncheckedCreateNestedManyWithoutAttemptInput = {
     create?: XOR<UltrasoundCreateWithoutAttemptInput, UltrasoundUncheckedCreateWithoutAttemptInput> | UltrasoundCreateWithoutAttemptInput[] | UltrasoundUncheckedCreateWithoutAttemptInput[]
     connectOrCreate?: UltrasoundCreateOrConnectWithoutAttemptInput | UltrasoundCreateOrConnectWithoutAttemptInput[]
     createMany?: UltrasoundCreateManyAttemptInputEnvelope
     connect?: UltrasoundWhereUniqueInput | UltrasoundWhereUniqueInput[]
+  }
+
+  export type BirthUncheckedCreateNestedManyWithoutAttemptInput = {
+    create?: XOR<BirthCreateWithoutAttemptInput, BirthUncheckedCreateWithoutAttemptInput> | BirthCreateWithoutAttemptInput[] | BirthUncheckedCreateWithoutAttemptInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutAttemptInput | BirthCreateOrConnectWithoutAttemptInput[]
+    createMany?: BirthCreateManyAttemptInputEnvelope
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+  }
+
+  export type EnumMatingTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MatingType
+  }
+
+  export type EnumAttemptStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AttemptStatus
+  }
+
+  export type AnimalUpdateOneWithoutBullInAttemptsNestedInput = {
+    create?: XOR<AnimalCreateWithoutBullInAttemptsInput, AnimalUncheckedCreateWithoutBullInAttemptsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutBullInAttemptsInput
+    upsert?: AnimalUpsertWithoutBullInAttemptsInput
+    disconnect?: AnimalWhereInput | boolean
+    delete?: AnimalWhereInput | boolean
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutBullInAttemptsInput, AnimalUpdateWithoutBullInAttemptsInput>, AnimalUncheckedUpdateWithoutBullInAttemptsInput>
   }
 
   export type PregnancyUpdateOneRequiredWithoutAttemptsNestedInput = {
@@ -22671,6 +26462,20 @@ export namespace Prisma {
     deleteMany?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
   }
 
+  export type BirthUpdateManyWithoutAttemptNestedInput = {
+    create?: XOR<BirthCreateWithoutAttemptInput, BirthUncheckedCreateWithoutAttemptInput> | BirthCreateWithoutAttemptInput[] | BirthUncheckedCreateWithoutAttemptInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutAttemptInput | BirthCreateOrConnectWithoutAttemptInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutAttemptInput | BirthUpsertWithWhereUniqueWithoutAttemptInput[]
+    createMany?: BirthCreateManyAttemptInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutAttemptInput | BirthUpdateWithWhereUniqueWithoutAttemptInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutAttemptInput | BirthUpdateManyWithWhereWithoutAttemptInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
   export type UltrasoundUncheckedUpdateManyWithoutAttemptNestedInput = {
     create?: XOR<UltrasoundCreateWithoutAttemptInput, UltrasoundUncheckedCreateWithoutAttemptInput> | UltrasoundCreateWithoutAttemptInput[] | UltrasoundUncheckedCreateWithoutAttemptInput[]
     connectOrCreate?: UltrasoundCreateOrConnectWithoutAttemptInput | UltrasoundCreateOrConnectWithoutAttemptInput[]
@@ -22685,10 +26490,34 @@ export namespace Prisma {
     deleteMany?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
   }
 
+  export type BirthUncheckedUpdateManyWithoutAttemptNestedInput = {
+    create?: XOR<BirthCreateWithoutAttemptInput, BirthUncheckedCreateWithoutAttemptInput> | BirthCreateWithoutAttemptInput[] | BirthUncheckedCreateWithoutAttemptInput[]
+    connectOrCreate?: BirthCreateOrConnectWithoutAttemptInput | BirthCreateOrConnectWithoutAttemptInput[]
+    upsert?: BirthUpsertWithWhereUniqueWithoutAttemptInput | BirthUpsertWithWhereUniqueWithoutAttemptInput[]
+    createMany?: BirthCreateManyAttemptInputEnvelope
+    set?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    disconnect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    delete?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    connect?: BirthWhereUniqueInput | BirthWhereUniqueInput[]
+    update?: BirthUpdateWithWhereUniqueWithoutAttemptInput | BirthUpdateWithWhereUniqueWithoutAttemptInput[]
+    updateMany?: BirthUpdateManyWithWhereWithoutAttemptInput | BirthUpdateManyWithWhereWithoutAttemptInput[]
+    deleteMany?: BirthScalarWhereInput | BirthScalarWhereInput[]
+  }
+
   export type AttemptCreateNestedOneWithoutUltrasoundsInput = {
     create?: XOR<AttemptCreateWithoutUltrasoundsInput, AttemptUncheckedCreateWithoutUltrasoundsInput>
     connectOrCreate?: AttemptCreateOrConnectWithoutUltrasoundsInput
     connect?: AttemptWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutUltrasoundsInput = {
+    create?: XOR<UserCreateWithoutUltrasoundsInput, UserUncheckedCreateWithoutUltrasoundsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUltrasoundsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumUltrasoundResultFieldUpdateOperationsInput = {
+    set?: $Enums.UltrasoundResult
   }
 
   export type AttemptUpdateOneRequiredWithoutUltrasoundsNestedInput = {
@@ -22699,12 +26528,196 @@ export namespace Prisma {
     update?: XOR<XOR<AttemptUpdateToOneWithWhereWithoutUltrasoundsInput, AttemptUpdateWithoutUltrasoundsInput>, AttemptUncheckedUpdateWithoutUltrasoundsInput>
   }
 
+  export type UserUpdateOneWithoutUltrasoundsNestedInput = {
+    create?: XOR<UserCreateWithoutUltrasoundsInput, UserUncheckedCreateWithoutUltrasoundsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUltrasoundsInput
+    upsert?: UserUpsertWithoutUltrasoundsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUltrasoundsInput, UserUpdateWithoutUltrasoundsInput>, UserUncheckedUpdateWithoutUltrasoundsInput>
+  }
+
+  export type FarmCreateNestedOneWithoutBirthsInput = {
+    create?: XOR<FarmCreateWithoutBirthsInput, FarmUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutBirthsInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutBirthsInput = {
+    create?: XOR<AnimalCreateWithoutBirthsInput, AnimalUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutBirthsInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type AttemptCreateNestedOneWithoutBirthsInput = {
+    create?: XOR<AttemptCreateWithoutBirthsInput, AttemptUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: AttemptCreateOrConnectWithoutBirthsInput
+    connect?: AttemptWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutBirthsInput = {
+    create?: XOR<UserCreateWithoutBirthsInput, UserUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBirthsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MortalityCreateNestedManyWithoutBirthInput = {
+    create?: XOR<MortalityCreateWithoutBirthInput, MortalityUncheckedCreateWithoutBirthInput> | MortalityCreateWithoutBirthInput[] | MortalityUncheckedCreateWithoutBirthInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutBirthInput | MortalityCreateOrConnectWithoutBirthInput[]
+    createMany?: MortalityCreateManyBirthInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type MortalityUncheckedCreateNestedManyWithoutBirthInput = {
+    create?: XOR<MortalityCreateWithoutBirthInput, MortalityUncheckedCreateWithoutBirthInput> | MortalityCreateWithoutBirthInput[] | MortalityUncheckedCreateWithoutBirthInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutBirthInput | MortalityCreateOrConnectWithoutBirthInput[]
+    createMany?: MortalityCreateManyBirthInputEnvelope
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+  }
+
+  export type EnumBirthTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BirthType
+  }
+
+  export type NullableEnumGenderFieldUpdateOperationsInput = {
+    set?: $Enums.Gender | null
+  }
+
   export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumCalfStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CalfStatus
+  }
+
+  export type EnumBirthSituationFieldUpdateOperationsInput = {
+    set?: $Enums.BirthSituation
+  }
+
+  export type FarmUpdateOneRequiredWithoutBirthsNestedInput = {
+    create?: XOR<FarmCreateWithoutBirthsInput, FarmUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutBirthsInput
+    upsert?: FarmUpsertWithoutBirthsInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutBirthsInput, FarmUpdateWithoutBirthsInput>, FarmUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutBirthsNestedInput = {
+    create?: XOR<AnimalCreateWithoutBirthsInput, AnimalUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutBirthsInput
+    upsert?: AnimalUpsertWithoutBirthsInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutBirthsInput, AnimalUpdateWithoutBirthsInput>, AnimalUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type AttemptUpdateOneWithoutBirthsNestedInput = {
+    create?: XOR<AttemptCreateWithoutBirthsInput, AttemptUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: AttemptCreateOrConnectWithoutBirthsInput
+    upsert?: AttemptUpsertWithoutBirthsInput
+    disconnect?: AttemptWhereInput | boolean
+    delete?: AttemptWhereInput | boolean
+    connect?: AttemptWhereUniqueInput
+    update?: XOR<XOR<AttemptUpdateToOneWithWhereWithoutBirthsInput, AttemptUpdateWithoutBirthsInput>, AttemptUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type UserUpdateOneWithoutBirthsNestedInput = {
+    create?: XOR<UserCreateWithoutBirthsInput, UserUncheckedCreateWithoutBirthsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBirthsInput
+    upsert?: UserUpsertWithoutBirthsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBirthsInput, UserUpdateWithoutBirthsInput>, UserUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type MortalityUpdateManyWithoutBirthNestedInput = {
+    create?: XOR<MortalityCreateWithoutBirthInput, MortalityUncheckedCreateWithoutBirthInput> | MortalityCreateWithoutBirthInput[] | MortalityUncheckedCreateWithoutBirthInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutBirthInput | MortalityCreateOrConnectWithoutBirthInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutBirthInput | MortalityUpsertWithWhereUniqueWithoutBirthInput[]
+    createMany?: MortalityCreateManyBirthInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutBirthInput | MortalityUpdateWithWhereUniqueWithoutBirthInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutBirthInput | MortalityUpdateManyWithWhereWithoutBirthInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutBirthNestedInput = {
+    create?: XOR<MortalityCreateWithoutBirthInput, MortalityUncheckedCreateWithoutBirthInput> | MortalityCreateWithoutBirthInput[] | MortalityUncheckedCreateWithoutBirthInput[]
+    connectOrCreate?: MortalityCreateOrConnectWithoutBirthInput | MortalityCreateOrConnectWithoutBirthInput[]
+    upsert?: MortalityUpsertWithWhereUniqueWithoutBirthInput | MortalityUpsertWithWhereUniqueWithoutBirthInput[]
+    createMany?: MortalityCreateManyBirthInputEnvelope
+    set?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    disconnect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    delete?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    connect?: MortalityWhereUniqueInput | MortalityWhereUniqueInput[]
+    update?: MortalityUpdateWithWhereUniqueWithoutBirthInput | MortalityUpdateWithWhereUniqueWithoutBirthInput[]
+    updateMany?: MortalityUpdateManyWithWhereWithoutBirthInput | MortalityUpdateManyWithWhereWithoutBirthInput[]
+    deleteMany?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+  }
+
+  export type FarmCreateNestedOneWithoutVaccinationsInput = {
+    create?: XOR<FarmCreateWithoutVaccinationsInput, FarmUncheckedCreateWithoutVaccinationsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutVaccinationsInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutVaccinationsInput = {
+    create?: XOR<AnimalCreateWithoutVaccinationsInput, AnimalUncheckedCreateWithoutVaccinationsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutVaccinationsInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutVaccinationsInput = {
+    create?: XOR<UserCreateWithoutVaccinationsInput, UserUncheckedCreateWithoutVaccinationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVaccinationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FarmUpdateOneRequiredWithoutVaccinationsNestedInput = {
+    create?: XOR<FarmCreateWithoutVaccinationsInput, FarmUncheckedCreateWithoutVaccinationsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutVaccinationsInput
+    upsert?: FarmUpsertWithoutVaccinationsInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutVaccinationsInput, FarmUpdateWithoutVaccinationsInput>, FarmUncheckedUpdateWithoutVaccinationsInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutVaccinationsNestedInput = {
+    create?: XOR<AnimalCreateWithoutVaccinationsInput, AnimalUncheckedCreateWithoutVaccinationsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutVaccinationsInput
+    upsert?: AnimalUpsertWithoutVaccinationsInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutVaccinationsInput, AnimalUpdateWithoutVaccinationsInput>, AnimalUncheckedUpdateWithoutVaccinationsInput>
+  }
+
+  export type UserUpdateOneWithoutVaccinationsNestedInput = {
+    create?: XOR<UserCreateWithoutVaccinationsInput, UserUncheckedCreateWithoutVaccinationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVaccinationsInput
+    upsert?: UserUpsertWithoutVaccinationsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVaccinationsInput, UserUpdateWithoutVaccinationsInput>, UserUncheckedUpdateWithoutVaccinationsInput>
+  }
+
+  export type FarmCreateNestedOneWithoutManagementsInput = {
+    create?: XOR<FarmCreateWithoutManagementsInput, FarmUncheckedCreateWithoutManagementsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutManagementsInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutManagementsInput = {
+    create?: XOR<AnimalCreateWithoutManagementsInput, AnimalUncheckedCreateWithoutManagementsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutManagementsInput
+    connect?: AnimalWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -22715,13 +26728,121 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type FarmUpdateOneRequiredWithoutManagementsNestedInput = {
+    create?: XOR<FarmCreateWithoutManagementsInput, FarmUncheckedCreateWithoutManagementsInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutManagementsInput
+    upsert?: FarmUpsertWithoutManagementsInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutManagementsInput, FarmUpdateWithoutManagementsInput>, FarmUncheckedUpdateWithoutManagementsInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutManagementsNestedInput = {
+    create?: XOR<AnimalCreateWithoutManagementsInput, AnimalUncheckedCreateWithoutManagementsInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutManagementsInput
+    upsert?: AnimalUpsertWithoutManagementsInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutManagementsInput, AnimalUpdateWithoutManagementsInput>, AnimalUncheckedUpdateWithoutManagementsInput>
+  }
+
   export type MortalityCreatephotosInput = {
     set: string[]
+  }
+
+  export type FarmCreateNestedOneWithoutMortalitiesInput = {
+    create?: XOR<FarmCreateWithoutMortalitiesInput, FarmUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutMortalitiesInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type AnimalCreateNestedOneWithoutMortalitiesInput = {
+    create?: XOR<AnimalCreateWithoutMortalitiesInput, AnimalUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutMortalitiesInput
+    connect?: AnimalWhereUniqueInput
+  }
+
+  export type BirthCreateNestedOneWithoutMortalitiesInput = {
+    create?: XOR<BirthCreateWithoutMortalitiesInput, BirthUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: BirthCreateOrConnectWithoutMortalitiesInput
+    connect?: BirthWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMortalitiesInput = {
+    create?: XOR<UserCreateWithoutMortalitiesInput, UserUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMortalitiesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableEnumMortalitySeverityFieldUpdateOperationsInput = {
+    set?: $Enums.MortalitySeverity | null
   }
 
   export type MortalityUpdatephotosInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type FarmUpdateOneRequiredWithoutMortalitiesNestedInput = {
+    create?: XOR<FarmCreateWithoutMortalitiesInput, FarmUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutMortalitiesInput
+    upsert?: FarmUpsertWithoutMortalitiesInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutMortalitiesInput, FarmUpdateWithoutMortalitiesInput>, FarmUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type AnimalUpdateOneRequiredWithoutMortalitiesNestedInput = {
+    create?: XOR<AnimalCreateWithoutMortalitiesInput, AnimalUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: AnimalCreateOrConnectWithoutMortalitiesInput
+    upsert?: AnimalUpsertWithoutMortalitiesInput
+    connect?: AnimalWhereUniqueInput
+    update?: XOR<XOR<AnimalUpdateToOneWithWhereWithoutMortalitiesInput, AnimalUpdateWithoutMortalitiesInput>, AnimalUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type BirthUpdateOneWithoutMortalitiesNestedInput = {
+    create?: XOR<BirthCreateWithoutMortalitiesInput, BirthUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: BirthCreateOrConnectWithoutMortalitiesInput
+    upsert?: BirthUpsertWithoutMortalitiesInput
+    disconnect?: BirthWhereInput | boolean
+    delete?: BirthWhereInput | boolean
+    connect?: BirthWhereUniqueInput
+    update?: XOR<XOR<BirthUpdateToOneWithWhereWithoutMortalitiesInput, BirthUpdateWithoutMortalitiesInput>, BirthUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type UserUpdateOneWithoutMortalitiesNestedInput = {
+    create?: XOR<UserCreateWithoutMortalitiesInput, UserUncheckedCreateWithoutMortalitiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMortalitiesInput
+    upsert?: UserUpsertWithoutMortalitiesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMortalitiesInput, UserUpdateWithoutMortalitiesInput>, UserUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type FarmCreateNestedOneWithoutPasswordResetTokensInput = {
+    create?: XOR<FarmCreateWithoutPasswordResetTokensInput, FarmUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutPasswordResetTokensInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+    create?: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPasswordResetTokensInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FarmUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+    create?: XOR<FarmCreateWithoutPasswordResetTokensInput, FarmUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutPasswordResetTokensInput
+    upsert?: FarmUpsertWithoutPasswordResetTokensInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutPasswordResetTokensInput, FarmUpdateWithoutPasswordResetTokensInput>, FarmUncheckedUpdateWithoutPasswordResetTokensInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+    create?: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPasswordResetTokensInput
+    upsert?: UserUpsertWithoutPasswordResetTokensInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, UserUpdateWithoutPasswordResetTokensInput>, UserUncheckedUpdateWithoutPasswordResetTokensInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -22888,6 +27009,40 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumGenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
+  }
+
+  export type NestedEnumAnimalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusFilter<$PrismaModel> | $Enums.AnimalStatus
+  }
+
+  export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAnimalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusWithAggregatesFilter<$PrismaModel> | $Enums.AnimalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAnimalStatusFilter<$PrismaModel>
+    _max?: NestedEnumAnimalStatusFilter<$PrismaModel>
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -22931,6 +27086,105 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type NestedEnumEstrusIntensityFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstrusIntensity | EnumEstrusIntensityFieldRefInput<$PrismaModel>
+    in?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstrusIntensityFilter<$PrismaModel> | $Enums.EstrusIntensity
+  }
+
+  export type NestedEnumEstrusIntensityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstrusIntensity | EnumEstrusIntensityFieldRefInput<$PrismaModel>
+    in?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstrusIntensity[] | ListEnumEstrusIntensityFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstrusIntensityWithAggregatesFilter<$PrismaModel> | $Enums.EstrusIntensity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEstrusIntensityFilter<$PrismaModel>
+    _max?: NestedEnumEstrusIntensityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPregnancyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusFilter<$PrismaModel> | $Enums.PregnancyStatus
+  }
+
+  export type NestedEnumPregnancyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusWithAggregatesFilter<$PrismaModel> | $Enums.PregnancyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+    _max?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMatingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatingType | EnumMatingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatingTypeFilter<$PrismaModel> | $Enums.MatingType
+  }
+
+  export type NestedEnumAttemptStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttemptStatus | EnumAttemptStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttemptStatusFilter<$PrismaModel> | $Enums.AttemptStatus
+  }
+
+  export type NestedEnumMatingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatingType | EnumMatingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatingType[] | ListEnumMatingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatingTypeWithAggregatesFilter<$PrismaModel> | $Enums.MatingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMatingTypeFilter<$PrismaModel>
+    _max?: NestedEnumMatingTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAttemptStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AttemptStatus | EnumAttemptStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AttemptStatus[] | ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAttemptStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttemptStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAttemptStatusFilter<$PrismaModel>
+    _max?: NestedEnumAttemptStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUltrasoundResultFilter<$PrismaModel = never> = {
+    equals?: $Enums.UltrasoundResult | EnumUltrasoundResultFieldRefInput<$PrismaModel>
+    in?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumUltrasoundResultFilter<$PrismaModel> | $Enums.UltrasoundResult
+  }
+
+  export type NestedEnumUltrasoundResultWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UltrasoundResult | EnumUltrasoundResultFieldRefInput<$PrismaModel>
+    in?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UltrasoundResult[] | ListEnumUltrasoundResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumUltrasoundResultWithAggregatesFilter<$PrismaModel> | $Enums.UltrasoundResult
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUltrasoundResultFilter<$PrismaModel>
+    _max?: NestedEnumUltrasoundResultFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBirthTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthType | EnumBirthTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthTypeFilter<$PrismaModel> | $Enums.BirthType
+  }
+
+  export type NestedEnumGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
+  }
+
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -22940,6 +27194,40 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumCalfStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CalfStatus | EnumCalfStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCalfStatusFilter<$PrismaModel> | $Enums.CalfStatus
+  }
+
+  export type NestedEnumBirthSituationFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthSituation | EnumBirthSituationFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthSituationFilter<$PrismaModel> | $Enums.BirthSituation
+  }
+
+  export type NestedEnumBirthTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthType | EnumBirthTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthType[] | ListEnumBirthTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthTypeWithAggregatesFilter<$PrismaModel> | $Enums.BirthType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBirthTypeFilter<$PrismaModel>
+    _max?: NestedEnumBirthTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.Gender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumGenderNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22958,6 +27246,26 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumCalfStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CalfStatus | EnumCalfStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CalfStatus[] | ListEnumCalfStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCalfStatusWithAggregatesFilter<$PrismaModel> | $Enums.CalfStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCalfStatusFilter<$PrismaModel>
+    _max?: NestedEnumCalfStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBirthSituationWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthSituation | EnumBirthSituationFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthSituation[] | ListEnumBirthSituationFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthSituationWithAggregatesFilter<$PrismaModel> | $Enums.BirthSituation
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBirthSituationFilter<$PrismaModel>
+    _max?: NestedEnumBirthSituationFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -22974,15 +27282,32 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumMortalitySeverityNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MortalitySeverity | EnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMortalitySeverityNullableFilter<$PrismaModel> | $Enums.MortalitySeverity | null
+  }
+
+  export type NestedEnumMortalitySeverityNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MortalitySeverity | EnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MortalitySeverity[] | ListEnumMortalitySeverityFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMortalitySeverityNullableWithAggregatesFilter<$PrismaModel> | $Enums.MortalitySeverity | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMortalitySeverityNullableFilter<$PrismaModel>
+    _max?: NestedEnumMortalitySeverityNullableFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutFarmInput = {
     id?: string
     fullName: string
+    username: string
     email: string
     phone?: string | null
     password: string
     role?: $Enums.Permission
     active?: boolean
-    crv?: string | null
     crmv?: string | null
     graduationDate?: Date | string | null
     specialties?: UserCreatespecialtiesInput | string[]
@@ -22991,17 +27316,23 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
   }
 
   export type UserUncheckedCreateWithoutFarmInput = {
     id?: string
     fullName: string
+    username: string
     email: string
     phone?: string | null
     password: string
     role?: $Enums.Permission
     active?: boolean
-    crv?: string | null
     crmv?: string | null
     graduationDate?: Date | string | null
     specialties?: UserCreatespecialtiesInput | string[]
@@ -23010,6 +27341,12 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
   }
 
   export type UserCreateOrConnectWithoutFarmInput = {
@@ -23028,17 +27365,26 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
-    sireId?: string | null
-    damId?: string | null
-    pastureId?: string | null
-    pastureName?: string | null
-    status?: string
+    status?: $Enums.AnimalStatus
     deathDate?: Date | string | null
+    pastureName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
     earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutFarmInput = {
@@ -23047,17 +27393,26 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
     sireId?: string | null
     damId?: string | null
     pastureId?: string | null
     pastureName?: string | null
-    status?: string
-    deathDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
     earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutFarmInput = {
@@ -23080,6 +27435,7 @@ export namespace Prisma {
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    animals?: AnimalCreateNestedManyWithoutPastureInput
   }
 
   export type PastureUncheckedCreateWithoutFarmInput = {
@@ -23092,6 +27448,7 @@ export namespace Prisma {
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    animals?: AnimalUncheckedCreateNestedManyWithoutPastureInput
   }
 
   export type PastureCreateOrConnectWithoutFarmInput = {
@@ -23101,6 +27458,304 @@ export namespace Prisma {
 
   export type PastureCreateManyFarmInputEnvelope = {
     data: PastureCreateManyFarmInput | PastureCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EstrusCreateWithoutFarmInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animal: AnimalCreateNestedOneWithoutEstrusInput
+    detectedBy?: UserCreateNestedOneWithoutEstrusInput
+  }
+
+  export type EstrusUncheckedCreateWithoutFarmInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    detectedById?: string | null
+  }
+
+  export type EstrusCreateOrConnectWithoutFarmInput = {
+    where: EstrusWhereUniqueInput
+    create: XOR<EstrusCreateWithoutFarmInput, EstrusUncheckedCreateWithoutFarmInput>
+  }
+
+  export type EstrusCreateManyFarmInputEnvelope = {
+    data: EstrusCreateManyFarmInput | EstrusCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PregnancyCreateWithoutFarmInput = {
+    id?: string
+    currentStatus?: $Enums.PregnancyStatus
+    currentStatusDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animal: AnimalCreateNestedOneWithoutPregnanciesInput
+    attempts?: AttemptCreateNestedManyWithoutPregnancyInput
+  }
+
+  export type PregnancyUncheckedCreateWithoutFarmInput = {
+    id?: string
+    currentStatus?: $Enums.PregnancyStatus
+    currentStatusDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    attempts?: AttemptUncheckedCreateNestedManyWithoutPregnancyInput
+  }
+
+  export type PregnancyCreateOrConnectWithoutFarmInput = {
+    where: PregnancyWhereUniqueInput
+    create: XOR<PregnancyCreateWithoutFarmInput, PregnancyUncheckedCreateWithoutFarmInput>
+  }
+
+  export type PregnancyCreateManyFarmInputEnvelope = {
+    data: PregnancyCreateManyFarmInput | PregnancyCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BirthCreateWithoutFarmInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dam: AnimalCreateNestedOneWithoutBirthsInput
+    attempt?: AttemptCreateNestedOneWithoutBirthsInput
+    veterinarian?: UserCreateNestedOneWithoutBirthsInput
+    mortalities?: MortalityCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthUncheckedCreateWithoutFarmInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    damId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthCreateOrConnectWithoutFarmInput = {
+    where: BirthWhereUniqueInput
+    create: XOR<BirthCreateWithoutFarmInput, BirthUncheckedCreateWithoutFarmInput>
+  }
+
+  export type BirthCreateManyFarmInputEnvelope = {
+    data: BirthCreateManyFarmInput | BirthCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VaccinationCreateWithoutFarmInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animal: AnimalCreateNestedOneWithoutVaccinationsInput
+    veterinarian?: UserCreateNestedOneWithoutVaccinationsInput
+  }
+
+  export type VaccinationUncheckedCreateWithoutFarmInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    veterinarianId?: string | null
+  }
+
+  export type VaccinationCreateOrConnectWithoutFarmInput = {
+    where: VaccinationWhereUniqueInput
+    create: XOR<VaccinationCreateWithoutFarmInput, VaccinationUncheckedCreateWithoutFarmInput>
+  }
+
+  export type VaccinationCreateManyFarmInputEnvelope = {
+    data: VaccinationCreateManyFarmInput | VaccinationCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ManagementCreateWithoutFarmInput = {
+    id?: string
+    originPasture: string
+    destinationPasture: string
+    movementDate: Date | string
+    reason: string
+    employee: string
+    batchId?: string | null
+    batchTotal?: number | null
+    createdAt?: Date | string
+    animal: AnimalCreateNestedOneWithoutManagementsInput
+  }
+
+  export type ManagementUncheckedCreateWithoutFarmInput = {
+    id?: string
+    originPasture: string
+    destinationPasture: string
+    movementDate: Date | string
+    reason: string
+    employee: string
+    batchId?: string | null
+    batchTotal?: number | null
+    createdAt?: Date | string
+    animalId: string
+  }
+
+  export type ManagementCreateOrConnectWithoutFarmInput = {
+    where: ManagementWhereUniqueInput
+    create: XOR<ManagementCreateWithoutFarmInput, ManagementUncheckedCreateWithoutFarmInput>
+  }
+
+  export type ManagementCreateManyFarmInputEnvelope = {
+    data: ManagementCreateManyFarmInput | ManagementCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MortalityCreateWithoutFarmInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animal: AnimalCreateNestedOneWithoutMortalitiesInput
+    birth?: BirthCreateNestedOneWithoutMortalitiesInput
+    registeredBy?: UserCreateNestedOneWithoutMortalitiesInput
+  }
+
+  export type MortalityUncheckedCreateWithoutFarmInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    birthId?: string | null
+    registeredById?: string | null
+  }
+
+  export type MortalityCreateOrConnectWithoutFarmInput = {
+    where: MortalityWhereUniqueInput
+    create: XOR<MortalityCreateWithoutFarmInput, MortalityUncheckedCreateWithoutFarmInput>
+  }
+
+  export type MortalityCreateManyFarmInputEnvelope = {
+    data: MortalityCreateManyFarmInput | MortalityCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PasswordResetTokenCreateWithoutFarmInput = {
+    id?: string
+    code: string
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPasswordResetTokensInput
+  }
+
+  export type PasswordResetTokenUncheckedCreateWithoutFarmInput = {
+    id?: string
+    code: string
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type PasswordResetTokenCreateOrConnectWithoutFarmInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    create: XOR<PasswordResetTokenCreateWithoutFarmInput, PasswordResetTokenUncheckedCreateWithoutFarmInput>
+  }
+
+  export type PasswordResetTokenCreateManyFarmInputEnvelope = {
+    data: PasswordResetTokenCreateManyFarmInput | PasswordResetTokenCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EarTagHistoryCreateWithoutFarmInput = {
+    id?: string
+    earTagNumber: string
+    placementDate: Date | string
+    removalDate?: Date | string | null
+    reason?: string | null
+    createdAt?: Date | string
+    animal: AnimalCreateNestedOneWithoutEarTagHistoryInput
+  }
+
+  export type EarTagHistoryUncheckedCreateWithoutFarmInput = {
+    id?: string
+    earTagNumber: string
+    placementDate: Date | string
+    removalDate?: Date | string | null
+    reason?: string | null
+    createdAt?: Date | string
+    animalId: string
+  }
+
+  export type EarTagHistoryCreateOrConnectWithoutFarmInput = {
+    where: EarTagHistoryWhereUniqueInput
+    create: XOR<EarTagHistoryCreateWithoutFarmInput, EarTagHistoryUncheckedCreateWithoutFarmInput>
+  }
+
+  export type EarTagHistoryCreateManyFarmInputEnvelope = {
+    data: EarTagHistoryCreateManyFarmInput | EarTagHistoryCreateManyFarmInput[]
     skipDuplicates?: boolean
   }
 
@@ -23126,12 +27781,12 @@ export namespace Prisma {
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
     id?: StringFilter<"User"> | string
     fullName?: StringFilter<"User"> | string
+    username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumPermissionFilter<"User"> | $Enums.Permission
     active?: BoolFilter<"User"> | boolean
-    crv?: StringNullableFilter<"User"> | string | null
     crmv?: StringNullableFilter<"User"> | string | null
     graduationDate?: DateTimeNullableFilter<"User"> | Date | string | null
     specialties?: StringNullableListFilter<"User">
@@ -23168,14 +27823,14 @@ export namespace Prisma {
     currentEarTag?: StringNullableFilter<"Animal"> | string | null
     name?: StringFilter<"Animal"> | string
     breed?: StringFilter<"Animal"> | string
-    gender?: StringFilter<"Animal"> | string
+    gender?: EnumGenderFilter<"Animal"> | $Enums.Gender
     birthDate?: DateTimeFilter<"Animal"> | Date | string
+    status?: EnumAnimalStatusFilter<"Animal"> | $Enums.AnimalStatus
+    deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     sireId?: StringNullableFilter<"Animal"> | string | null
     damId?: StringNullableFilter<"Animal"> | string | null
     pastureId?: StringNullableFilter<"Animal"> | string | null
     pastureName?: StringNullableFilter<"Animal"> | string | null
-    status?: StringFilter<"Animal"> | string
-    deathDate?: DateTimeNullableFilter<"Animal"> | Date | string | null
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
     farmId?: StringFilter<"Animal"> | string
@@ -23213,6 +27868,273 @@ export namespace Prisma {
     farmId?: StringFilter<"Pasture"> | string
   }
 
+  export type EstrusUpsertWithWhereUniqueWithoutFarmInput = {
+    where: EstrusWhereUniqueInput
+    update: XOR<EstrusUpdateWithoutFarmInput, EstrusUncheckedUpdateWithoutFarmInput>
+    create: XOR<EstrusCreateWithoutFarmInput, EstrusUncheckedCreateWithoutFarmInput>
+  }
+
+  export type EstrusUpdateWithWhereUniqueWithoutFarmInput = {
+    where: EstrusWhereUniqueInput
+    data: XOR<EstrusUpdateWithoutFarmInput, EstrusUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type EstrusUpdateManyWithWhereWithoutFarmInput = {
+    where: EstrusScalarWhereInput
+    data: XOR<EstrusUpdateManyMutationInput, EstrusUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type EstrusScalarWhereInput = {
+    AND?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+    OR?: EstrusScalarWhereInput[]
+    NOT?: EstrusScalarWhereInput | EstrusScalarWhereInput[]
+    id?: StringFilter<"Estrus"> | string
+    date?: DateTimeFilter<"Estrus"> | Date | string
+    intensity?: EnumEstrusIntensityFilter<"Estrus"> | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFilter<"Estrus"> | Date | string
+    createdAt?: DateTimeFilter<"Estrus"> | Date | string
+    updatedAt?: DateTimeFilter<"Estrus"> | Date | string
+    farmId?: StringFilter<"Estrus"> | string
+    animalId?: StringFilter<"Estrus"> | string
+    detectedById?: StringNullableFilter<"Estrus"> | string | null
+  }
+
+  export type PregnancyUpsertWithWhereUniqueWithoutFarmInput = {
+    where: PregnancyWhereUniqueInput
+    update: XOR<PregnancyUpdateWithoutFarmInput, PregnancyUncheckedUpdateWithoutFarmInput>
+    create: XOR<PregnancyCreateWithoutFarmInput, PregnancyUncheckedCreateWithoutFarmInput>
+  }
+
+  export type PregnancyUpdateWithWhereUniqueWithoutFarmInput = {
+    where: PregnancyWhereUniqueInput
+    data: XOR<PregnancyUpdateWithoutFarmInput, PregnancyUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type PregnancyUpdateManyWithWhereWithoutFarmInput = {
+    where: PregnancyScalarWhereInput
+    data: XOR<PregnancyUpdateManyMutationInput, PregnancyUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type PregnancyScalarWhereInput = {
+    AND?: PregnancyScalarWhereInput | PregnancyScalarWhereInput[]
+    OR?: PregnancyScalarWhereInput[]
+    NOT?: PregnancyScalarWhereInput | PregnancyScalarWhereInput[]
+    id?: StringFilter<"Pregnancy"> | string
+    currentStatus?: EnumPregnancyStatusFilter<"Pregnancy"> | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFilter<"Pregnancy"> | Date | string
+    createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
+    updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
+    farmId?: StringFilter<"Pregnancy"> | string
+    animalId?: StringFilter<"Pregnancy"> | string
+  }
+
+  export type BirthUpsertWithWhereUniqueWithoutFarmInput = {
+    where: BirthWhereUniqueInput
+    update: XOR<BirthUpdateWithoutFarmInput, BirthUncheckedUpdateWithoutFarmInput>
+    create: XOR<BirthCreateWithoutFarmInput, BirthUncheckedCreateWithoutFarmInput>
+  }
+
+  export type BirthUpdateWithWhereUniqueWithoutFarmInput = {
+    where: BirthWhereUniqueInput
+    data: XOR<BirthUpdateWithoutFarmInput, BirthUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type BirthUpdateManyWithWhereWithoutFarmInput = {
+    where: BirthScalarWhereInput
+    data: XOR<BirthUpdateManyMutationInput, BirthUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type BirthScalarWhereInput = {
+    AND?: BirthScalarWhereInput | BirthScalarWhereInput[]
+    OR?: BirthScalarWhereInput[]
+    NOT?: BirthScalarWhereInput | BirthScalarWhereInput[]
+    id?: StringFilter<"Birth"> | string
+    birthDate?: DateTimeFilter<"Birth"> | Date | string
+    birthTime?: StringNullableFilter<"Birth"> | string | null
+    birthType?: EnumBirthTypeFilter<"Birth"> | $Enums.BirthType
+    calfGender?: EnumGenderNullableFilter<"Birth"> | $Enums.Gender | null
+    calfWeight?: FloatNullableFilter<"Birth"> | number | null
+    calfEarTag?: StringNullableFilter<"Birth"> | string | null
+    calfChip?: StringNullableFilter<"Birth"> | string | null
+    calfStatus?: EnumCalfStatusFilter<"Birth"> | $Enums.CalfStatus
+    situation?: EnumBirthSituationFilter<"Birth"> | $Enums.BirthSituation
+    deathReason?: StringNullableFilter<"Birth"> | string | null
+    notes?: StringNullableFilter<"Birth"> | string | null
+    createdAt?: DateTimeFilter<"Birth"> | Date | string
+    updatedAt?: DateTimeFilter<"Birth"> | Date | string
+    farmId?: StringFilter<"Birth"> | string
+    damId?: StringFilter<"Birth"> | string
+    attemptId?: StringNullableFilter<"Birth"> | string | null
+    veterinarianId?: StringNullableFilter<"Birth"> | string | null
+  }
+
+  export type VaccinationUpsertWithWhereUniqueWithoutFarmInput = {
+    where: VaccinationWhereUniqueInput
+    update: XOR<VaccinationUpdateWithoutFarmInput, VaccinationUncheckedUpdateWithoutFarmInput>
+    create: XOR<VaccinationCreateWithoutFarmInput, VaccinationUncheckedCreateWithoutFarmInput>
+  }
+
+  export type VaccinationUpdateWithWhereUniqueWithoutFarmInput = {
+    where: VaccinationWhereUniqueInput
+    data: XOR<VaccinationUpdateWithoutFarmInput, VaccinationUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type VaccinationUpdateManyWithWhereWithoutFarmInput = {
+    where: VaccinationScalarWhereInput
+    data: XOR<VaccinationUpdateManyMutationInput, VaccinationUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type VaccinationScalarWhereInput = {
+    AND?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+    OR?: VaccinationScalarWhereInput[]
+    NOT?: VaccinationScalarWhereInput | VaccinationScalarWhereInput[]
+    id?: StringFilter<"Vaccination"> | string
+    vaccineType?: StringFilter<"Vaccination"> | string
+    brand?: StringFilter<"Vaccination"> | string
+    batch?: StringFilter<"Vaccination"> | string
+    vaccinationDate?: DateTimeFilter<"Vaccination"> | Date | string
+    expirationDate?: DateTimeFilter<"Vaccination"> | Date | string
+    nextDoseDate?: DateTimeNullableFilter<"Vaccination"> | Date | string | null
+    photoUrl?: StringNullableFilter<"Vaccination"> | string | null
+    reaction?: StringNullableFilter<"Vaccination"> | string | null
+    createdAt?: DateTimeFilter<"Vaccination"> | Date | string
+    updatedAt?: DateTimeFilter<"Vaccination"> | Date | string
+    farmId?: StringFilter<"Vaccination"> | string
+    animalId?: StringFilter<"Vaccination"> | string
+    veterinarianId?: StringNullableFilter<"Vaccination"> | string | null
+  }
+
+  export type ManagementUpsertWithWhereUniqueWithoutFarmInput = {
+    where: ManagementWhereUniqueInput
+    update: XOR<ManagementUpdateWithoutFarmInput, ManagementUncheckedUpdateWithoutFarmInput>
+    create: XOR<ManagementCreateWithoutFarmInput, ManagementUncheckedCreateWithoutFarmInput>
+  }
+
+  export type ManagementUpdateWithWhereUniqueWithoutFarmInput = {
+    where: ManagementWhereUniqueInput
+    data: XOR<ManagementUpdateWithoutFarmInput, ManagementUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type ManagementUpdateManyWithWhereWithoutFarmInput = {
+    where: ManagementScalarWhereInput
+    data: XOR<ManagementUpdateManyMutationInput, ManagementUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type ManagementScalarWhereInput = {
+    AND?: ManagementScalarWhereInput | ManagementScalarWhereInput[]
+    OR?: ManagementScalarWhereInput[]
+    NOT?: ManagementScalarWhereInput | ManagementScalarWhereInput[]
+    id?: StringFilter<"Management"> | string
+    originPasture?: StringFilter<"Management"> | string
+    destinationPasture?: StringFilter<"Management"> | string
+    movementDate?: DateTimeFilter<"Management"> | Date | string
+    reason?: StringFilter<"Management"> | string
+    employee?: StringFilter<"Management"> | string
+    batchId?: StringNullableFilter<"Management"> | string | null
+    batchTotal?: IntNullableFilter<"Management"> | number | null
+    createdAt?: DateTimeFilter<"Management"> | Date | string
+    farmId?: StringFilter<"Management"> | string
+    animalId?: StringFilter<"Management"> | string
+  }
+
+  export type MortalityUpsertWithWhereUniqueWithoutFarmInput = {
+    where: MortalityWhereUniqueInput
+    update: XOR<MortalityUpdateWithoutFarmInput, MortalityUncheckedUpdateWithoutFarmInput>
+    create: XOR<MortalityCreateWithoutFarmInput, MortalityUncheckedCreateWithoutFarmInput>
+  }
+
+  export type MortalityUpdateWithWhereUniqueWithoutFarmInput = {
+    where: MortalityWhereUniqueInput
+    data: XOR<MortalityUpdateWithoutFarmInput, MortalityUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type MortalityUpdateManyWithWhereWithoutFarmInput = {
+    where: MortalityScalarWhereInput
+    data: XOR<MortalityUpdateManyMutationInput, MortalityUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type MortalityScalarWhereInput = {
+    AND?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+    OR?: MortalityScalarWhereInput[]
+    NOT?: MortalityScalarWhereInput | MortalityScalarWhereInput[]
+    id?: StringFilter<"Mortality"> | string
+    deathDate?: DateTimeFilter<"Mortality"> | Date | string
+    deathTime?: StringNullableFilter<"Mortality"> | string | null
+    deathLocation?: StringFilter<"Mortality"> | string
+    causeOfDeath?: StringFilter<"Mortality"> | string
+    severity?: EnumMortalitySeverityNullableFilter<"Mortality"> | $Enums.MortalitySeverity | null
+    necropsy?: BoolFilter<"Mortality"> | boolean
+    disposal?: StringNullableFilter<"Mortality"> | string | null
+    photos?: StringNullableListFilter<"Mortality">
+    origin?: StringNullableFilter<"Mortality"> | string | null
+    notes?: StringNullableFilter<"Mortality"> | string | null
+    createdAt?: DateTimeFilter<"Mortality"> | Date | string
+    updatedAt?: DateTimeFilter<"Mortality"> | Date | string
+    farmId?: StringFilter<"Mortality"> | string
+    animalId?: StringFilter<"Mortality"> | string
+    birthId?: StringNullableFilter<"Mortality"> | string | null
+    registeredById?: StringNullableFilter<"Mortality"> | string | null
+  }
+
+  export type PasswordResetTokenUpsertWithWhereUniqueWithoutFarmInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    update: XOR<PasswordResetTokenUpdateWithoutFarmInput, PasswordResetTokenUncheckedUpdateWithoutFarmInput>
+    create: XOR<PasswordResetTokenCreateWithoutFarmInput, PasswordResetTokenUncheckedCreateWithoutFarmInput>
+  }
+
+  export type PasswordResetTokenUpdateWithWhereUniqueWithoutFarmInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    data: XOR<PasswordResetTokenUpdateWithoutFarmInput, PasswordResetTokenUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type PasswordResetTokenUpdateManyWithWhereWithoutFarmInput = {
+    where: PasswordResetTokenScalarWhereInput
+    data: XOR<PasswordResetTokenUpdateManyMutationInput, PasswordResetTokenUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type PasswordResetTokenScalarWhereInput = {
+    AND?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+    OR?: PasswordResetTokenScalarWhereInput[]
+    NOT?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+    id?: StringFilter<"PasswordResetToken"> | string
+    code?: StringFilter<"PasswordResetToken"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    used?: BoolFilter<"PasswordResetToken"> | boolean
+    createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    farmId?: StringFilter<"PasswordResetToken"> | string
+    userId?: StringFilter<"PasswordResetToken"> | string
+  }
+
+  export type EarTagHistoryUpsertWithWhereUniqueWithoutFarmInput = {
+    where: EarTagHistoryWhereUniqueInput
+    update: XOR<EarTagHistoryUpdateWithoutFarmInput, EarTagHistoryUncheckedUpdateWithoutFarmInput>
+    create: XOR<EarTagHistoryCreateWithoutFarmInput, EarTagHistoryUncheckedCreateWithoutFarmInput>
+  }
+
+  export type EarTagHistoryUpdateWithWhereUniqueWithoutFarmInput = {
+    where: EarTagHistoryWhereUniqueInput
+    data: XOR<EarTagHistoryUpdateWithoutFarmInput, EarTagHistoryUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type EarTagHistoryUpdateManyWithWhereWithoutFarmInput = {
+    where: EarTagHistoryScalarWhereInput
+    data: XOR<EarTagHistoryUpdateManyMutationInput, EarTagHistoryUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type EarTagHistoryScalarWhereInput = {
+    AND?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
+    OR?: EarTagHistoryScalarWhereInput[]
+    NOT?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
+    id?: StringFilter<"EarTagHistory"> | string
+    earTagNumber?: StringFilter<"EarTagHistory"> | string
+    placementDate?: DateTimeFilter<"EarTagHistory"> | Date | string
+    removalDate?: DateTimeNullableFilter<"EarTagHistory"> | Date | string | null
+    reason?: StringNullableFilter<"EarTagHistory"> | string | null
+    createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
+    farmId?: StringFilter<"EarTagHistory"> | string
+    animalId?: StringFilter<"EarTagHistory"> | string
+  }
+
   export type FarmCreateWithoutUsersInput = {
     id?: string
     name: string
@@ -23224,6 +28146,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     animals?: AnimalCreateNestedManyWithoutFarmInput
     pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
   }
 
   export type FarmUncheckedCreateWithoutUsersInput = {
@@ -23237,11 +28167,251 @@ export namespace Prisma {
     updatedAt?: Date | string
     animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
     pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
   }
 
   export type FarmCreateOrConnectWithoutUsersInput = {
     where: FarmWhereUniqueInput
     create: XOR<FarmCreateWithoutUsersInput, FarmUncheckedCreateWithoutUsersInput>
+  }
+
+  export type PasswordResetTokenCreateWithoutUserInput = {
+    id?: string
+    code: string
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    farm: FarmCreateNestedOneWithoutPasswordResetTokensInput
+  }
+
+  export type PasswordResetTokenUncheckedCreateWithoutUserInput = {
+    id?: string
+    code: string
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    farmId: string
+  }
+
+  export type PasswordResetTokenCreateOrConnectWithoutUserInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    create: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetTokenCreateManyUserInputEnvelope = {
+    data: PasswordResetTokenCreateManyUserInput | PasswordResetTokenCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VaccinationCreateWithoutVeterinarianInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutVaccinationsInput
+    animal: AnimalCreateNestedOneWithoutVaccinationsInput
+  }
+
+  export type VaccinationUncheckedCreateWithoutVeterinarianInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+  }
+
+  export type VaccinationCreateOrConnectWithoutVeterinarianInput = {
+    where: VaccinationWhereUniqueInput
+    create: XOR<VaccinationCreateWithoutVeterinarianInput, VaccinationUncheckedCreateWithoutVeterinarianInput>
+  }
+
+  export type VaccinationCreateManyVeterinarianInputEnvelope = {
+    data: VaccinationCreateManyVeterinarianInput | VaccinationCreateManyVeterinarianInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UltrasoundCreateWithoutVeterinarianInput = {
+    id?: string
+    days: number
+    result: $Enums.UltrasoundResult
+    notes?: string | null
+    ultrasoundDate?: Date | string
+    createdAt?: Date | string
+    attempt: AttemptCreateNestedOneWithoutUltrasoundsInput
+  }
+
+  export type UltrasoundUncheckedCreateWithoutVeterinarianInput = {
+    id?: string
+    days: number
+    result: $Enums.UltrasoundResult
+    notes?: string | null
+    ultrasoundDate?: Date | string
+    createdAt?: Date | string
+    attemptId: string
+  }
+
+  export type UltrasoundCreateOrConnectWithoutVeterinarianInput = {
+    where: UltrasoundWhereUniqueInput
+    create: XOR<UltrasoundCreateWithoutVeterinarianInput, UltrasoundUncheckedCreateWithoutVeterinarianInput>
+  }
+
+  export type UltrasoundCreateManyVeterinarianInputEnvelope = {
+    data: UltrasoundCreateManyVeterinarianInput | UltrasoundCreateManyVeterinarianInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BirthCreateWithoutVeterinarianInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutBirthsInput
+    dam: AnimalCreateNestedOneWithoutBirthsInput
+    attempt?: AttemptCreateNestedOneWithoutBirthsInput
+    mortalities?: MortalityCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthUncheckedCreateWithoutVeterinarianInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    damId: string
+    attemptId?: string | null
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthCreateOrConnectWithoutVeterinarianInput = {
+    where: BirthWhereUniqueInput
+    create: XOR<BirthCreateWithoutVeterinarianInput, BirthUncheckedCreateWithoutVeterinarianInput>
+  }
+
+  export type BirthCreateManyVeterinarianInputEnvelope = {
+    data: BirthCreateManyVeterinarianInput | BirthCreateManyVeterinarianInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MortalityCreateWithoutRegisteredByInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutMortalitiesInput
+    animal: AnimalCreateNestedOneWithoutMortalitiesInput
+    birth?: BirthCreateNestedOneWithoutMortalitiesInput
+  }
+
+  export type MortalityUncheckedCreateWithoutRegisteredByInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+    birthId?: string | null
+  }
+
+  export type MortalityCreateOrConnectWithoutRegisteredByInput = {
+    where: MortalityWhereUniqueInput
+    create: XOR<MortalityCreateWithoutRegisteredByInput, MortalityUncheckedCreateWithoutRegisteredByInput>
+  }
+
+  export type MortalityCreateManyRegisteredByInputEnvelope = {
+    data: MortalityCreateManyRegisteredByInput | MortalityCreateManyRegisteredByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EstrusCreateWithoutDetectedByInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutEstrusInput
+    animal: AnimalCreateNestedOneWithoutEstrusInput
+  }
+
+  export type EstrusUncheckedCreateWithoutDetectedByInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+  }
+
+  export type EstrusCreateOrConnectWithoutDetectedByInput = {
+    where: EstrusWhereUniqueInput
+    create: XOR<EstrusCreateWithoutDetectedByInput, EstrusUncheckedCreateWithoutDetectedByInput>
+  }
+
+  export type EstrusCreateManyDetectedByInputEnvelope = {
+    data: EstrusCreateManyDetectedByInput | EstrusCreateManyDetectedByInput[]
+    skipDuplicates?: boolean
   }
 
   export type FarmUpsertWithoutUsersInput = {
@@ -23266,6 +28436,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     animals?: AnimalUpdateManyWithoutFarmNestedInput
     pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
   }
 
   export type FarmUncheckedUpdateWithoutUsersInput = {
@@ -23279,6 +28457,451 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
     pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    data: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PasswordResetTokenUpdateManyWithWhereWithoutUserInput = {
+    where: PasswordResetTokenScalarWhereInput
+    data: XOR<PasswordResetTokenUpdateManyMutationInput, PasswordResetTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type VaccinationUpsertWithWhereUniqueWithoutVeterinarianInput = {
+    where: VaccinationWhereUniqueInput
+    update: XOR<VaccinationUpdateWithoutVeterinarianInput, VaccinationUncheckedUpdateWithoutVeterinarianInput>
+    create: XOR<VaccinationCreateWithoutVeterinarianInput, VaccinationUncheckedCreateWithoutVeterinarianInput>
+  }
+
+  export type VaccinationUpdateWithWhereUniqueWithoutVeterinarianInput = {
+    where: VaccinationWhereUniqueInput
+    data: XOR<VaccinationUpdateWithoutVeterinarianInput, VaccinationUncheckedUpdateWithoutVeterinarianInput>
+  }
+
+  export type VaccinationUpdateManyWithWhereWithoutVeterinarianInput = {
+    where: VaccinationScalarWhereInput
+    data: XOR<VaccinationUpdateManyMutationInput, VaccinationUncheckedUpdateManyWithoutVeterinarianInput>
+  }
+
+  export type UltrasoundUpsertWithWhereUniqueWithoutVeterinarianInput = {
+    where: UltrasoundWhereUniqueInput
+    update: XOR<UltrasoundUpdateWithoutVeterinarianInput, UltrasoundUncheckedUpdateWithoutVeterinarianInput>
+    create: XOR<UltrasoundCreateWithoutVeterinarianInput, UltrasoundUncheckedCreateWithoutVeterinarianInput>
+  }
+
+  export type UltrasoundUpdateWithWhereUniqueWithoutVeterinarianInput = {
+    where: UltrasoundWhereUniqueInput
+    data: XOR<UltrasoundUpdateWithoutVeterinarianInput, UltrasoundUncheckedUpdateWithoutVeterinarianInput>
+  }
+
+  export type UltrasoundUpdateManyWithWhereWithoutVeterinarianInput = {
+    where: UltrasoundScalarWhereInput
+    data: XOR<UltrasoundUpdateManyMutationInput, UltrasoundUncheckedUpdateManyWithoutVeterinarianInput>
+  }
+
+  export type UltrasoundScalarWhereInput = {
+    AND?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
+    OR?: UltrasoundScalarWhereInput[]
+    NOT?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
+    id?: StringFilter<"Ultrasound"> | string
+    days?: IntFilter<"Ultrasound"> | number
+    result?: EnumUltrasoundResultFilter<"Ultrasound"> | $Enums.UltrasoundResult
+    notes?: StringNullableFilter<"Ultrasound"> | string | null
+    ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
+    createdAt?: DateTimeFilter<"Ultrasound"> | Date | string
+    attemptId?: StringFilter<"Ultrasound"> | string
+    veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
+  }
+
+  export type BirthUpsertWithWhereUniqueWithoutVeterinarianInput = {
+    where: BirthWhereUniqueInput
+    update: XOR<BirthUpdateWithoutVeterinarianInput, BirthUncheckedUpdateWithoutVeterinarianInput>
+    create: XOR<BirthCreateWithoutVeterinarianInput, BirthUncheckedCreateWithoutVeterinarianInput>
+  }
+
+  export type BirthUpdateWithWhereUniqueWithoutVeterinarianInput = {
+    where: BirthWhereUniqueInput
+    data: XOR<BirthUpdateWithoutVeterinarianInput, BirthUncheckedUpdateWithoutVeterinarianInput>
+  }
+
+  export type BirthUpdateManyWithWhereWithoutVeterinarianInput = {
+    where: BirthScalarWhereInput
+    data: XOR<BirthUpdateManyMutationInput, BirthUncheckedUpdateManyWithoutVeterinarianInput>
+  }
+
+  export type MortalityUpsertWithWhereUniqueWithoutRegisteredByInput = {
+    where: MortalityWhereUniqueInput
+    update: XOR<MortalityUpdateWithoutRegisteredByInput, MortalityUncheckedUpdateWithoutRegisteredByInput>
+    create: XOR<MortalityCreateWithoutRegisteredByInput, MortalityUncheckedCreateWithoutRegisteredByInput>
+  }
+
+  export type MortalityUpdateWithWhereUniqueWithoutRegisteredByInput = {
+    where: MortalityWhereUniqueInput
+    data: XOR<MortalityUpdateWithoutRegisteredByInput, MortalityUncheckedUpdateWithoutRegisteredByInput>
+  }
+
+  export type MortalityUpdateManyWithWhereWithoutRegisteredByInput = {
+    where: MortalityScalarWhereInput
+    data: XOR<MortalityUpdateManyMutationInput, MortalityUncheckedUpdateManyWithoutRegisteredByInput>
+  }
+
+  export type EstrusUpsertWithWhereUniqueWithoutDetectedByInput = {
+    where: EstrusWhereUniqueInput
+    update: XOR<EstrusUpdateWithoutDetectedByInput, EstrusUncheckedUpdateWithoutDetectedByInput>
+    create: XOR<EstrusCreateWithoutDetectedByInput, EstrusUncheckedCreateWithoutDetectedByInput>
+  }
+
+  export type EstrusUpdateWithWhereUniqueWithoutDetectedByInput = {
+    where: EstrusWhereUniqueInput
+    data: XOR<EstrusUpdateWithoutDetectedByInput, EstrusUncheckedUpdateWithoutDetectedByInput>
+  }
+
+  export type EstrusUpdateManyWithWhereWithoutDetectedByInput = {
+    where: EstrusScalarWhereInput
+    data: XOR<EstrusUpdateManyMutationInput, EstrusUncheckedUpdateManyWithoutDetectedByInput>
+  }
+
+  export type AnimalCreateWithoutSireOfInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutSireOfInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutSireOfInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutSireOfInput, AnimalUncheckedCreateWithoutSireOfInput>
+  }
+
+  export type AnimalCreateWithoutSireInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutSireInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutSireInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutSireInput, AnimalUncheckedCreateWithoutSireInput>
+  }
+
+  export type AnimalCreateManySireInputEnvelope = {
+    data: AnimalCreateManySireInput | AnimalCreateManySireInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnimalCreateWithoutDamOfInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutDamOfInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutDamOfInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutDamOfInput, AnimalUncheckedCreateWithoutDamOfInput>
+  }
+
+  export type AnimalCreateWithoutDamInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutDamInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutDamInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutDamInput, AnimalUncheckedCreateWithoutDamInput>
+  }
+
+  export type AnimalCreateManyDamInputEnvelope = {
+    data: AnimalCreateManyDamInput | AnimalCreateManyDamInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AttemptCreateWithoutBullInput = {
+    id?: string
+    number: number
+    matingDate: Date | string
+    matingType: $Enums.MatingType
+    semenName?: string | null
+    technician?: string | null
+    estimatedBirthDate: Date | string
+    attemptStatus?: $Enums.AttemptStatus
+    notes?: string | null
+    createdAt?: Date | string
+    pregnancy: PregnancyCreateNestedOneWithoutAttemptsInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutAttemptInput
+    births?: BirthCreateNestedManyWithoutAttemptInput
+  }
+
+  export type AttemptUncheckedCreateWithoutBullInput = {
+    id?: string
+    number: number
+    matingDate: Date | string
+    matingType: $Enums.MatingType
+    semenName?: string | null
+    technician?: string | null
+    estimatedBirthDate: Date | string
+    attemptStatus?: $Enums.AttemptStatus
+    notes?: string | null
+    createdAt?: Date | string
+    pregnancyId: string
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutAttemptInput
+    births?: BirthUncheckedCreateNestedManyWithoutAttemptInput
+  }
+
+  export type AttemptCreateOrConnectWithoutBullInput = {
+    where: AttemptWhereUniqueInput
+    create: XOR<AttemptCreateWithoutBullInput, AttemptUncheckedCreateWithoutBullInput>
+  }
+
+  export type AttemptCreateManyBullInputEnvelope = {
+    data: AttemptCreateManyBullInput | AttemptCreateManyBullInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PastureCreateWithoutAnimalsInput = {
+    id?: string
+    name: string
+    hectares: number
+    type: string
+    animalCapacity: number
+    currentAnimals?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutPasturesInput
+  }
+
+  export type PastureUncheckedCreateWithoutAnimalsInput = {
+    id?: string
+    name: string
+    hectares: number
+    type: string
+    animalCapacity: number
+    currentAnimals?: number
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+  }
+
+  export type PastureCreateOrConnectWithoutAnimalsInput = {
+    where: PastureWhereUniqueInput
+    create: XOR<PastureCreateWithoutAnimalsInput, PastureUncheckedCreateWithoutAnimalsInput>
   }
 
   export type FarmCreateWithoutAnimalsInput = {
@@ -23292,6 +28915,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutFarmInput
     pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
   }
 
   export type FarmUncheckedCreateWithoutAnimalsInput = {
@@ -23305,6 +28936,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutFarmInput
     pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
   }
 
   export type FarmCreateOrConnectWithoutAnimalsInput = {
@@ -23319,7 +28958,7 @@ export namespace Prisma {
     removalDate?: Date | string | null
     reason?: string | null
     createdAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutEarTagHistoryInput
   }
 
   export type EarTagHistoryUncheckedCreateWithoutAnimalInput = {
@@ -23340,6 +28979,483 @@ export namespace Prisma {
   export type EarTagHistoryCreateManyAnimalInputEnvelope = {
     data: EarTagHistoryCreateManyAnimalInput | EarTagHistoryCreateManyAnimalInput[]
     skipDuplicates?: boolean
+  }
+
+  export type EstrusCreateWithoutAnimalInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutEstrusInput
+    detectedBy?: UserCreateNestedOneWithoutEstrusInput
+  }
+
+  export type EstrusUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    detectedById?: string | null
+  }
+
+  export type EstrusCreateOrConnectWithoutAnimalInput = {
+    where: EstrusWhereUniqueInput
+    create: XOR<EstrusCreateWithoutAnimalInput, EstrusUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type EstrusCreateManyAnimalInputEnvelope = {
+    data: EstrusCreateManyAnimalInput | EstrusCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PregnancyCreateWithoutAnimalInput = {
+    id?: string
+    currentStatus?: $Enums.PregnancyStatus
+    currentStatusDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutPregnanciesInput
+    attempts?: AttemptCreateNestedManyWithoutPregnancyInput
+  }
+
+  export type PregnancyUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    currentStatus?: $Enums.PregnancyStatus
+    currentStatusDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    attempts?: AttemptUncheckedCreateNestedManyWithoutPregnancyInput
+  }
+
+  export type PregnancyCreateOrConnectWithoutAnimalInput = {
+    where: PregnancyWhereUniqueInput
+    create: XOR<PregnancyCreateWithoutAnimalInput, PregnancyUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type PregnancyCreateManyAnimalInputEnvelope = {
+    data: PregnancyCreateManyAnimalInput | PregnancyCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BirthCreateWithoutDamInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutBirthsInput
+    attempt?: AttemptCreateNestedOneWithoutBirthsInput
+    veterinarian?: UserCreateNestedOneWithoutBirthsInput
+    mortalities?: MortalityCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthUncheckedCreateWithoutDamInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthCreateOrConnectWithoutDamInput = {
+    where: BirthWhereUniqueInput
+    create: XOR<BirthCreateWithoutDamInput, BirthUncheckedCreateWithoutDamInput>
+  }
+
+  export type BirthCreateManyDamInputEnvelope = {
+    data: BirthCreateManyDamInput | BirthCreateManyDamInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VaccinationCreateWithoutAnimalInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutVaccinationsInput
+    veterinarian?: UserCreateNestedOneWithoutVaccinationsInput
+  }
+
+  export type VaccinationUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    veterinarianId?: string | null
+  }
+
+  export type VaccinationCreateOrConnectWithoutAnimalInput = {
+    where: VaccinationWhereUniqueInput
+    create: XOR<VaccinationCreateWithoutAnimalInput, VaccinationUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type VaccinationCreateManyAnimalInputEnvelope = {
+    data: VaccinationCreateManyAnimalInput | VaccinationCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ManagementCreateWithoutAnimalInput = {
+    id?: string
+    originPasture: string
+    destinationPasture: string
+    movementDate: Date | string
+    reason: string
+    employee: string
+    batchId?: string | null
+    batchTotal?: number | null
+    createdAt?: Date | string
+    farm: FarmCreateNestedOneWithoutManagementsInput
+  }
+
+  export type ManagementUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    originPasture: string
+    destinationPasture: string
+    movementDate: Date | string
+    reason: string
+    employee: string
+    batchId?: string | null
+    batchTotal?: number | null
+    createdAt?: Date | string
+    farmId: string
+  }
+
+  export type ManagementCreateOrConnectWithoutAnimalInput = {
+    where: ManagementWhereUniqueInput
+    create: XOR<ManagementCreateWithoutAnimalInput, ManagementUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type ManagementCreateManyAnimalInputEnvelope = {
+    data: ManagementCreateManyAnimalInput | ManagementCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MortalityCreateWithoutAnimalInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutMortalitiesInput
+    birth?: BirthCreateNestedOneWithoutMortalitiesInput
+    registeredBy?: UserCreateNestedOneWithoutMortalitiesInput
+  }
+
+  export type MortalityUncheckedCreateWithoutAnimalInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    birthId?: string | null
+    registeredById?: string | null
+  }
+
+  export type MortalityCreateOrConnectWithoutAnimalInput = {
+    where: MortalityWhereUniqueInput
+    create: XOR<MortalityCreateWithoutAnimalInput, MortalityUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type MortalityCreateManyAnimalInputEnvelope = {
+    data: MortalityCreateManyAnimalInput | MortalityCreateManyAnimalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnimalUpsertWithoutSireOfInput = {
+    update: XOR<AnimalUpdateWithoutSireOfInput, AnimalUncheckedUpdateWithoutSireOfInput>
+    create: XOR<AnimalCreateWithoutSireOfInput, AnimalUncheckedCreateWithoutSireOfInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutSireOfInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutSireOfInput, AnimalUncheckedUpdateWithoutSireOfInput>
+  }
+
+  export type AnimalUpdateWithoutSireOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutSireOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUpsertWithWhereUniqueWithoutSireInput = {
+    where: AnimalWhereUniqueInput
+    update: XOR<AnimalUpdateWithoutSireInput, AnimalUncheckedUpdateWithoutSireInput>
+    create: XOR<AnimalCreateWithoutSireInput, AnimalUncheckedCreateWithoutSireInput>
+  }
+
+  export type AnimalUpdateWithWhereUniqueWithoutSireInput = {
+    where: AnimalWhereUniqueInput
+    data: XOR<AnimalUpdateWithoutSireInput, AnimalUncheckedUpdateWithoutSireInput>
+  }
+
+  export type AnimalUpdateManyWithWhereWithoutSireInput = {
+    where: AnimalScalarWhereInput
+    data: XOR<AnimalUpdateManyMutationInput, AnimalUncheckedUpdateManyWithoutSireInput>
+  }
+
+  export type AnimalUpsertWithoutDamOfInput = {
+    update: XOR<AnimalUpdateWithoutDamOfInput, AnimalUncheckedUpdateWithoutDamOfInput>
+    create: XOR<AnimalCreateWithoutDamOfInput, AnimalUncheckedCreateWithoutDamOfInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutDamOfInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutDamOfInput, AnimalUncheckedUpdateWithoutDamOfInput>
+  }
+
+  export type AnimalUpdateWithoutDamOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutDamOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUpsertWithWhereUniqueWithoutDamInput = {
+    where: AnimalWhereUniqueInput
+    update: XOR<AnimalUpdateWithoutDamInput, AnimalUncheckedUpdateWithoutDamInput>
+    create: XOR<AnimalCreateWithoutDamInput, AnimalUncheckedCreateWithoutDamInput>
+  }
+
+  export type AnimalUpdateWithWhereUniqueWithoutDamInput = {
+    where: AnimalWhereUniqueInput
+    data: XOR<AnimalUpdateWithoutDamInput, AnimalUncheckedUpdateWithoutDamInput>
+  }
+
+  export type AnimalUpdateManyWithWhereWithoutDamInput = {
+    where: AnimalScalarWhereInput
+    data: XOR<AnimalUpdateManyMutationInput, AnimalUncheckedUpdateManyWithoutDamInput>
+  }
+
+  export type AttemptUpsertWithWhereUniqueWithoutBullInput = {
+    where: AttemptWhereUniqueInput
+    update: XOR<AttemptUpdateWithoutBullInput, AttemptUncheckedUpdateWithoutBullInput>
+    create: XOR<AttemptCreateWithoutBullInput, AttemptUncheckedCreateWithoutBullInput>
+  }
+
+  export type AttemptUpdateWithWhereUniqueWithoutBullInput = {
+    where: AttemptWhereUniqueInput
+    data: XOR<AttemptUpdateWithoutBullInput, AttemptUncheckedUpdateWithoutBullInput>
+  }
+
+  export type AttemptUpdateManyWithWhereWithoutBullInput = {
+    where: AttemptScalarWhereInput
+    data: XOR<AttemptUpdateManyMutationInput, AttemptUncheckedUpdateManyWithoutBullInput>
+  }
+
+  export type AttemptScalarWhereInput = {
+    AND?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
+    OR?: AttemptScalarWhereInput[]
+    NOT?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
+    id?: StringFilter<"Attempt"> | string
+    number?: IntFilter<"Attempt"> | number
+    matingDate?: DateTimeFilter<"Attempt"> | Date | string
+    matingType?: EnumMatingTypeFilter<"Attempt"> | $Enums.MatingType
+    semenName?: StringNullableFilter<"Attempt"> | string | null
+    technician?: StringNullableFilter<"Attempt"> | string | null
+    estimatedBirthDate?: DateTimeFilter<"Attempt"> | Date | string
+    attemptStatus?: EnumAttemptStatusFilter<"Attempt"> | $Enums.AttemptStatus
+    notes?: StringNullableFilter<"Attempt"> | string | null
+    createdAt?: DateTimeFilter<"Attempt"> | Date | string
+    bullId?: StringNullableFilter<"Attempt"> | string | null
+    pregnancyId?: StringFilter<"Attempt"> | string
+  }
+
+  export type PastureUpsertWithoutAnimalsInput = {
+    update: XOR<PastureUpdateWithoutAnimalsInput, PastureUncheckedUpdateWithoutAnimalsInput>
+    create: XOR<PastureCreateWithoutAnimalsInput, PastureUncheckedCreateWithoutAnimalsInput>
+    where?: PastureWhereInput
+  }
+
+  export type PastureUpdateToOneWithWhereWithoutAnimalsInput = {
+    where?: PastureWhereInput
+    data: XOR<PastureUpdateWithoutAnimalsInput, PastureUncheckedUpdateWithoutAnimalsInput>
+  }
+
+  export type PastureUpdateWithoutAnimalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hectares?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    animalCapacity?: IntFieldUpdateOperationsInput | number
+    currentAnimals?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutPasturesNestedInput
+  }
+
+  export type PastureUncheckedUpdateWithoutAnimalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hectares?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    animalCapacity?: IntFieldUpdateOperationsInput | number
+    currentAnimals?: IntFieldUpdateOperationsInput | number
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FarmUpsertWithoutAnimalsInput = {
@@ -23364,6 +29480,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutFarmNestedInput
     pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
   }
 
   export type FarmUncheckedUpdateWithoutAnimalsInput = {
@@ -23377,6 +29501,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutFarmNestedInput
     pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
   }
 
   export type EarTagHistoryUpsertWithWhereUniqueWithoutAnimalInput = {
@@ -23395,18 +29527,147 @@ export namespace Prisma {
     data: XOR<EarTagHistoryUpdateManyMutationInput, EarTagHistoryUncheckedUpdateManyWithoutAnimalInput>
   }
 
-  export type EarTagHistoryScalarWhereInput = {
-    AND?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
-    OR?: EarTagHistoryScalarWhereInput[]
-    NOT?: EarTagHistoryScalarWhereInput | EarTagHistoryScalarWhereInput[]
-    id?: StringFilter<"EarTagHistory"> | string
-    earTagNumber?: StringFilter<"EarTagHistory"> | string
-    placementDate?: DateTimeFilter<"EarTagHistory"> | Date | string
-    removalDate?: DateTimeNullableFilter<"EarTagHistory"> | Date | string | null
-    reason?: StringNullableFilter<"EarTagHistory"> | string | null
-    createdAt?: DateTimeFilter<"EarTagHistory"> | Date | string
-    farmId?: StringFilter<"EarTagHistory"> | string
-    animalId?: StringFilter<"EarTagHistory"> | string
+  export type EstrusUpsertWithWhereUniqueWithoutAnimalInput = {
+    where: EstrusWhereUniqueInput
+    update: XOR<EstrusUpdateWithoutAnimalInput, EstrusUncheckedUpdateWithoutAnimalInput>
+    create: XOR<EstrusCreateWithoutAnimalInput, EstrusUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type EstrusUpdateWithWhereUniqueWithoutAnimalInput = {
+    where: EstrusWhereUniqueInput
+    data: XOR<EstrusUpdateWithoutAnimalInput, EstrusUncheckedUpdateWithoutAnimalInput>
+  }
+
+  export type EstrusUpdateManyWithWhereWithoutAnimalInput = {
+    where: EstrusScalarWhereInput
+    data: XOR<EstrusUpdateManyMutationInput, EstrusUncheckedUpdateManyWithoutAnimalInput>
+  }
+
+  export type PregnancyUpsertWithWhereUniqueWithoutAnimalInput = {
+    where: PregnancyWhereUniqueInput
+    update: XOR<PregnancyUpdateWithoutAnimalInput, PregnancyUncheckedUpdateWithoutAnimalInput>
+    create: XOR<PregnancyCreateWithoutAnimalInput, PregnancyUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type PregnancyUpdateWithWhereUniqueWithoutAnimalInput = {
+    where: PregnancyWhereUniqueInput
+    data: XOR<PregnancyUpdateWithoutAnimalInput, PregnancyUncheckedUpdateWithoutAnimalInput>
+  }
+
+  export type PregnancyUpdateManyWithWhereWithoutAnimalInput = {
+    where: PregnancyScalarWhereInput
+    data: XOR<PregnancyUpdateManyMutationInput, PregnancyUncheckedUpdateManyWithoutAnimalInput>
+  }
+
+  export type BirthUpsertWithWhereUniqueWithoutDamInput = {
+    where: BirthWhereUniqueInput
+    update: XOR<BirthUpdateWithoutDamInput, BirthUncheckedUpdateWithoutDamInput>
+    create: XOR<BirthCreateWithoutDamInput, BirthUncheckedCreateWithoutDamInput>
+  }
+
+  export type BirthUpdateWithWhereUniqueWithoutDamInput = {
+    where: BirthWhereUniqueInput
+    data: XOR<BirthUpdateWithoutDamInput, BirthUncheckedUpdateWithoutDamInput>
+  }
+
+  export type BirthUpdateManyWithWhereWithoutDamInput = {
+    where: BirthScalarWhereInput
+    data: XOR<BirthUpdateManyMutationInput, BirthUncheckedUpdateManyWithoutDamInput>
+  }
+
+  export type VaccinationUpsertWithWhereUniqueWithoutAnimalInput = {
+    where: VaccinationWhereUniqueInput
+    update: XOR<VaccinationUpdateWithoutAnimalInput, VaccinationUncheckedUpdateWithoutAnimalInput>
+    create: XOR<VaccinationCreateWithoutAnimalInput, VaccinationUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type VaccinationUpdateWithWhereUniqueWithoutAnimalInput = {
+    where: VaccinationWhereUniqueInput
+    data: XOR<VaccinationUpdateWithoutAnimalInput, VaccinationUncheckedUpdateWithoutAnimalInput>
+  }
+
+  export type VaccinationUpdateManyWithWhereWithoutAnimalInput = {
+    where: VaccinationScalarWhereInput
+    data: XOR<VaccinationUpdateManyMutationInput, VaccinationUncheckedUpdateManyWithoutAnimalInput>
+  }
+
+  export type ManagementUpsertWithWhereUniqueWithoutAnimalInput = {
+    where: ManagementWhereUniqueInput
+    update: XOR<ManagementUpdateWithoutAnimalInput, ManagementUncheckedUpdateWithoutAnimalInput>
+    create: XOR<ManagementCreateWithoutAnimalInput, ManagementUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type ManagementUpdateWithWhereUniqueWithoutAnimalInput = {
+    where: ManagementWhereUniqueInput
+    data: XOR<ManagementUpdateWithoutAnimalInput, ManagementUncheckedUpdateWithoutAnimalInput>
+  }
+
+  export type ManagementUpdateManyWithWhereWithoutAnimalInput = {
+    where: ManagementScalarWhereInput
+    data: XOR<ManagementUpdateManyMutationInput, ManagementUncheckedUpdateManyWithoutAnimalInput>
+  }
+
+  export type MortalityUpsertWithWhereUniqueWithoutAnimalInput = {
+    where: MortalityWhereUniqueInput
+    update: XOR<MortalityUpdateWithoutAnimalInput, MortalityUncheckedUpdateWithoutAnimalInput>
+    create: XOR<MortalityCreateWithoutAnimalInput, MortalityUncheckedCreateWithoutAnimalInput>
+  }
+
+  export type MortalityUpdateWithWhereUniqueWithoutAnimalInput = {
+    where: MortalityWhereUniqueInput
+    data: XOR<MortalityUpdateWithoutAnimalInput, MortalityUncheckedUpdateWithoutAnimalInput>
+  }
+
+  export type MortalityUpdateManyWithWhereWithoutAnimalInput = {
+    where: MortalityScalarWhereInput
+    data: XOR<MortalityUpdateManyMutationInput, MortalityUncheckedUpdateManyWithoutAnimalInput>
+  }
+
+  export type FarmCreateWithoutEarTagHistoryInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutEarTagHistoryInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutEarTagHistoryInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutEarTagHistoryInput, FarmUncheckedCreateWithoutEarTagHistoryInput>
   }
 
   export type AnimalCreateWithoutEarTagHistoryInput = {
@@ -23415,17 +29676,26 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
-    sireId?: string | null
-    damId?: string | null
-    pastureId?: string | null
-    pastureName?: string | null
-    status?: string
+    status?: $Enums.AnimalStatus
     deathDate?: Date | string | null
+    pastureName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
     farm: FarmCreateNestedOneWithoutAnimalsInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalUncheckedCreateWithoutEarTagHistoryInput = {
@@ -23434,22 +29704,84 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
     sireId?: string | null
     damId?: string | null
     pastureId?: string | null
     pastureName?: string | null
-    status?: string
-    deathDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
   }
 
   export type AnimalCreateOrConnectWithoutEarTagHistoryInput = {
     where: AnimalWhereUniqueInput
     create: XOR<AnimalCreateWithoutEarTagHistoryInput, AnimalUncheckedCreateWithoutEarTagHistoryInput>
+  }
+
+  export type FarmUpsertWithoutEarTagHistoryInput = {
+    update: XOR<FarmUpdateWithoutEarTagHistoryInput, FarmUncheckedUpdateWithoutEarTagHistoryInput>
+    create: XOR<FarmCreateWithoutEarTagHistoryInput, FarmUncheckedCreateWithoutEarTagHistoryInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutEarTagHistoryInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutEarTagHistoryInput, FarmUncheckedUpdateWithoutEarTagHistoryInput>
+  }
+
+  export type FarmUpdateWithoutEarTagHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutEarTagHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
   }
 
   export type AnimalUpsertWithoutEarTagHistoryInput = {
@@ -23469,17 +29801,26 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    sireId?: NullableStringFieldUpdateOperationsInput | string | null
-    damId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
     farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutEarTagHistoryInput = {
@@ -23488,17 +29829,26 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sireId?: NullableStringFieldUpdateOperationsInput | string | null
     damId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type FarmCreateWithoutPasturesInput = {
@@ -23512,6 +29862,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserCreateNestedManyWithoutFarmInput
     animals?: AnimalCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
   }
 
   export type FarmUncheckedCreateWithoutPasturesInput = {
@@ -23525,11 +29883,85 @@ export namespace Prisma {
     updatedAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutFarmInput
     animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
   }
 
   export type FarmCreateOrConnectWithoutPasturesInput = {
     where: FarmWhereUniqueInput
     create: XOR<FarmCreateWithoutPasturesInput, FarmUncheckedCreateWithoutPasturesInput>
+  }
+
+  export type AnimalCreateWithoutPastureInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutPastureInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutPastureInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutPastureInput, AnimalUncheckedCreateWithoutPastureInput>
+  }
+
+  export type AnimalCreateManyPastureInputEnvelope = {
+    data: AnimalCreateManyPastureInput | AnimalCreateManyPastureInput[]
+    skipDuplicates?: boolean
   }
 
   export type FarmUpsertWithoutPasturesInput = {
@@ -23554,6 +29986,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutFarmNestedInput
     animals?: AnimalUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
   }
 
   export type FarmUncheckedUpdateWithoutPasturesInput = {
@@ -23567,38 +30007,514 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutFarmNestedInput
     animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithWhereUniqueWithoutPastureInput = {
+    where: AnimalWhereUniqueInput
+    update: XOR<AnimalUpdateWithoutPastureInput, AnimalUncheckedUpdateWithoutPastureInput>
+    create: XOR<AnimalCreateWithoutPastureInput, AnimalUncheckedCreateWithoutPastureInput>
+  }
+
+  export type AnimalUpdateWithWhereUniqueWithoutPastureInput = {
+    where: AnimalWhereUniqueInput
+    data: XOR<AnimalUpdateWithoutPastureInput, AnimalUncheckedUpdateWithoutPastureInput>
+  }
+
+  export type AnimalUpdateManyWithWhereWithoutPastureInput = {
+    where: AnimalScalarWhereInput
+    data: XOR<AnimalUpdateManyMutationInput, AnimalUncheckedUpdateManyWithoutPastureInput>
+  }
+
+  export type FarmCreateWithoutEstrusInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutEstrusInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutEstrusInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutEstrusInput, FarmUncheckedCreateWithoutEstrusInput>
+  }
+
+  export type AnimalCreateWithoutEstrusInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutEstrusInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutEstrusInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutEstrusInput, AnimalUncheckedCreateWithoutEstrusInput>
+  }
+
+  export type UserCreateWithoutEstrusInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutUsersInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+  }
+
+  export type UserUncheckedCreateWithoutEstrusInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+  }
+
+  export type UserCreateOrConnectWithoutEstrusInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEstrusInput, UserUncheckedCreateWithoutEstrusInput>
+  }
+
+  export type FarmUpsertWithoutEstrusInput = {
+    update: XOR<FarmUpdateWithoutEstrusInput, FarmUncheckedUpdateWithoutEstrusInput>
+    create: XOR<FarmCreateWithoutEstrusInput, FarmUncheckedCreateWithoutEstrusInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutEstrusInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutEstrusInput, FarmUncheckedUpdateWithoutEstrusInput>
+  }
+
+  export type FarmUpdateWithoutEstrusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutEstrusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithoutEstrusInput = {
+    update: XOR<AnimalUpdateWithoutEstrusInput, AnimalUncheckedUpdateWithoutEstrusInput>
+    create: XOR<AnimalCreateWithoutEstrusInput, AnimalUncheckedCreateWithoutEstrusInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutEstrusInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutEstrusInput, AnimalUncheckedUpdateWithoutEstrusInput>
+  }
+
+  export type AnimalUpdateWithoutEstrusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutEstrusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type UserUpsertWithoutEstrusInput = {
+    update: XOR<UserUpdateWithoutEstrusInput, UserUncheckedUpdateWithoutEstrusInput>
+    create: XOR<UserCreateWithoutEstrusInput, UserUncheckedCreateWithoutEstrusInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEstrusInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEstrusInput, UserUncheckedUpdateWithoutEstrusInput>
+  }
+
+  export type UserUpdateWithoutEstrusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEstrusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+  }
+
+  export type FarmCreateWithoutPregnanciesInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutPregnanciesInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutPregnanciesInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutPregnanciesInput, FarmUncheckedCreateWithoutPregnanciesInput>
+  }
+
+  export type AnimalCreateWithoutPregnanciesInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutPregnanciesInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutPregnanciesInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutPregnanciesInput, AnimalUncheckedCreateWithoutPregnanciesInput>
   }
 
   export type AttemptCreateWithoutPregnancyInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bull?: AnimalCreateNestedOneWithoutBullInAttemptsInput
     ultrasounds?: UltrasoundCreateNestedManyWithoutAttemptInput
+    births?: BirthCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptUncheckedCreateWithoutPregnancyInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bullId?: string | null
     ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutAttemptInput
+    births?: BirthUncheckedCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptCreateOrConnectWithoutPregnancyInput = {
@@ -23609,6 +30525,126 @@ export namespace Prisma {
   export type AttemptCreateManyPregnancyInputEnvelope = {
     data: AttemptCreateManyPregnancyInput | AttemptCreateManyPregnancyInput[]
     skipDuplicates?: boolean
+  }
+
+  export type FarmUpsertWithoutPregnanciesInput = {
+    update: XOR<FarmUpdateWithoutPregnanciesInput, FarmUncheckedUpdateWithoutPregnanciesInput>
+    create: XOR<FarmCreateWithoutPregnanciesInput, FarmUncheckedCreateWithoutPregnanciesInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutPregnanciesInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutPregnanciesInput, FarmUncheckedUpdateWithoutPregnanciesInput>
+  }
+
+  export type FarmUpdateWithoutPregnanciesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutPregnanciesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithoutPregnanciesInput = {
+    update: XOR<AnimalUpdateWithoutPregnanciesInput, AnimalUncheckedUpdateWithoutPregnanciesInput>
+    create: XOR<AnimalCreateWithoutPregnanciesInput, AnimalUncheckedCreateWithoutPregnanciesInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutPregnanciesInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutPregnanciesInput, AnimalUncheckedUpdateWithoutPregnanciesInput>
+  }
+
+  export type AnimalUpdateWithoutPregnanciesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutPregnanciesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AttemptUpsertWithWhereUniqueWithoutPregnancyInput = {
@@ -23627,43 +30663,85 @@ export namespace Prisma {
     data: XOR<AttemptUpdateManyMutationInput, AttemptUncheckedUpdateManyWithoutPregnancyInput>
   }
 
-  export type AttemptScalarWhereInput = {
-    AND?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
-    OR?: AttemptScalarWhereInput[]
-    NOT?: AttemptScalarWhereInput | AttemptScalarWhereInput[]
-    id?: StringFilter<"Attempt"> | string
-    number?: IntFilter<"Attempt"> | number
-    matingDate?: DateTimeFilter<"Attempt"> | Date | string
-    matingType?: StringFilter<"Attempt"> | string
-    bullId?: StringNullableFilter<"Attempt"> | string | null
-    semenName?: StringNullableFilter<"Attempt"> | string | null
-    technician?: StringNullableFilter<"Attempt"> | string | null
-    estimatedBirthDate?: DateTimeFilter<"Attempt"> | Date | string
-    birthId?: StringNullableFilter<"Attempt"> | string | null
-    attemptStatus?: StringFilter<"Attempt"> | string
-    notes?: StringNullableFilter<"Attempt"> | string | null
-    createdAt?: DateTimeFilter<"Attempt"> | Date | string
-    pregnancyId?: StringFilter<"Attempt"> | string
+  export type AnimalCreateWithoutBullInAttemptsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutBullInAttemptsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutBullInAttemptsInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutBullInAttemptsInput, AnimalUncheckedCreateWithoutBullInAttemptsInput>
   }
 
   export type PregnancyCreateWithoutAttemptsInput = {
     id?: string
-    animalId: string
-    currentStatus?: string
+    currentStatus?: $Enums.PregnancyStatus
     currentStatusDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    farmId: string
+    farm: FarmCreateNestedOneWithoutPregnanciesInput
+    animal: AnimalCreateNestedOneWithoutPregnanciesInput
   }
 
   export type PregnancyUncheckedCreateWithoutAttemptsInput = {
     id?: string
-    animalId: string
-    currentStatus?: string
+    currentStatus?: $Enums.PregnancyStatus
     currentStatusDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     farmId: string
+    animalId: string
   }
 
   export type PregnancyCreateOrConnectWithoutAttemptsInput = {
@@ -23674,19 +30752,21 @@ export namespace Prisma {
   export type UltrasoundCreateWithoutAttemptInput = {
     id?: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes?: string | null
-    veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    createdAt?: Date | string
+    veterinarian?: UserCreateNestedOneWithoutUltrasoundsInput
   }
 
   export type UltrasoundUncheckedCreateWithoutAttemptInput = {
     id?: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes?: string | null
-    veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    createdAt?: Date | string
+    veterinarianId?: string | null
   }
 
   export type UltrasoundCreateOrConnectWithoutAttemptInput = {
@@ -23697,6 +30777,125 @@ export namespace Prisma {
   export type UltrasoundCreateManyAttemptInputEnvelope = {
     data: UltrasoundCreateManyAttemptInput | UltrasoundCreateManyAttemptInput[]
     skipDuplicates?: boolean
+  }
+
+  export type BirthCreateWithoutAttemptInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutBirthsInput
+    dam: AnimalCreateNestedOneWithoutBirthsInput
+    veterinarian?: UserCreateNestedOneWithoutBirthsInput
+    mortalities?: MortalityCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthUncheckedCreateWithoutAttemptInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    damId: string
+    veterinarianId?: string | null
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutBirthInput
+  }
+
+  export type BirthCreateOrConnectWithoutAttemptInput = {
+    where: BirthWhereUniqueInput
+    create: XOR<BirthCreateWithoutAttemptInput, BirthUncheckedCreateWithoutAttemptInput>
+  }
+
+  export type BirthCreateManyAttemptInputEnvelope = {
+    data: BirthCreateManyAttemptInput | BirthCreateManyAttemptInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnimalUpsertWithoutBullInAttemptsInput = {
+    update: XOR<AnimalUpdateWithoutBullInAttemptsInput, AnimalUncheckedUpdateWithoutBullInAttemptsInput>
+    create: XOR<AnimalCreateWithoutBullInAttemptsInput, AnimalUncheckedCreateWithoutBullInAttemptsInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutBullInAttemptsInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutBullInAttemptsInput, AnimalUncheckedUpdateWithoutBullInAttemptsInput>
+  }
+
+  export type AnimalUpdateWithoutBullInAttemptsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutBullInAttemptsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type PregnancyUpsertWithoutAttemptsInput = {
@@ -23712,22 +30911,22 @@ export namespace Prisma {
 
   export type PregnancyUpdateWithoutAttemptsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
-    currentStatus?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutPregnanciesNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutPregnanciesNestedInput
   }
 
   export type PregnancyUncheckedUpdateWithoutAttemptsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    animalId?: StringFieldUpdateOperationsInput | string
-    currentStatus?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UltrasoundUpsertWithWhereUniqueWithoutAttemptInput = {
@@ -23746,54 +30945,112 @@ export namespace Prisma {
     data: XOR<UltrasoundUpdateManyMutationInput, UltrasoundUncheckedUpdateManyWithoutAttemptInput>
   }
 
-  export type UltrasoundScalarWhereInput = {
-    AND?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
-    OR?: UltrasoundScalarWhereInput[]
-    NOT?: UltrasoundScalarWhereInput | UltrasoundScalarWhereInput[]
-    id?: StringFilter<"Ultrasound"> | string
-    days?: IntFilter<"Ultrasound"> | number
-    result?: StringFilter<"Ultrasound"> | string
-    notes?: StringNullableFilter<"Ultrasound"> | string | null
-    veterinarianId?: StringNullableFilter<"Ultrasound"> | string | null
-    ultrasoundDate?: DateTimeFilter<"Ultrasound"> | Date | string
-    attemptId?: StringFilter<"Ultrasound"> | string
+  export type BirthUpsertWithWhereUniqueWithoutAttemptInput = {
+    where: BirthWhereUniqueInput
+    update: XOR<BirthUpdateWithoutAttemptInput, BirthUncheckedUpdateWithoutAttemptInput>
+    create: XOR<BirthCreateWithoutAttemptInput, BirthUncheckedCreateWithoutAttemptInput>
+  }
+
+  export type BirthUpdateWithWhereUniqueWithoutAttemptInput = {
+    where: BirthWhereUniqueInput
+    data: XOR<BirthUpdateWithoutAttemptInput, BirthUncheckedUpdateWithoutAttemptInput>
+  }
+
+  export type BirthUpdateManyWithWhereWithoutAttemptInput = {
+    where: BirthScalarWhereInput
+    data: XOR<BirthUpdateManyMutationInput, BirthUncheckedUpdateManyWithoutAttemptInput>
   }
 
   export type AttemptCreateWithoutUltrasoundsInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bull?: AnimalCreateNestedOneWithoutBullInAttemptsInput
     pregnancy: PregnancyCreateNestedOneWithoutAttemptsInput
+    births?: BirthCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptUncheckedCreateWithoutUltrasoundsInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bullId?: string | null
     pregnancyId: string
+    births?: BirthUncheckedCreateNestedManyWithoutAttemptInput
   }
 
   export type AttemptCreateOrConnectWithoutUltrasoundsInput = {
     where: AttemptWhereUniqueInput
     create: XOR<AttemptCreateWithoutUltrasoundsInput, AttemptUncheckedCreateWithoutUltrasoundsInput>
+  }
+
+  export type UserCreateWithoutUltrasoundsInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutUsersInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutUltrasoundsInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutUltrasoundsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUltrasoundsInput, UserUncheckedCreateWithoutUltrasoundsInput>
   }
 
   export type AttemptUpsertWithoutUltrasoundsInput = {
@@ -23811,43 +31068,1824 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bull?: AnimalUpdateOneWithoutBullInAttemptsNestedInput
     pregnancy?: PregnancyUpdateOneRequiredWithoutAttemptsNestedInput
+    births?: BirthUpdateManyWithoutAttemptNestedInput
   }
 
   export type AttemptUncheckedUpdateWithoutUltrasoundsInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bullId?: NullableStringFieldUpdateOperationsInput | string | null
     pregnancyId?: StringFieldUpdateOperationsInput | string
+    births?: BirthUncheckedUpdateManyWithoutAttemptNestedInput
   }
 
-  export type UserCreateManyFarmInput = {
+  export type UserUpsertWithoutUltrasoundsInput = {
+    update: XOR<UserUpdateWithoutUltrasoundsInput, UserUncheckedUpdateWithoutUltrasoundsInput>
+    create: XOR<UserCreateWithoutUltrasoundsInput, UserUncheckedCreateWithoutUltrasoundsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUltrasoundsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUltrasoundsInput, UserUncheckedUpdateWithoutUltrasoundsInput>
+  }
+
+  export type UserUpdateWithoutUltrasoundsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUltrasoundsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type FarmCreateWithoutBirthsInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutBirthsInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutBirthsInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutBirthsInput, FarmUncheckedCreateWithoutBirthsInput>
+  }
+
+  export type AnimalCreateWithoutBirthsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutBirthsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutBirthsInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutBirthsInput, AnimalUncheckedCreateWithoutBirthsInput>
+  }
+
+  export type AttemptCreateWithoutBirthsInput = {
+    id?: string
+    number: number
+    matingDate: Date | string
+    matingType: $Enums.MatingType
+    semenName?: string | null
+    technician?: string | null
+    estimatedBirthDate: Date | string
+    attemptStatus?: $Enums.AttemptStatus
+    notes?: string | null
+    createdAt?: Date | string
+    bull?: AnimalCreateNestedOneWithoutBullInAttemptsInput
+    pregnancy: PregnancyCreateNestedOneWithoutAttemptsInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutAttemptInput
+  }
+
+  export type AttemptUncheckedCreateWithoutBirthsInput = {
+    id?: string
+    number: number
+    matingDate: Date | string
+    matingType: $Enums.MatingType
+    semenName?: string | null
+    technician?: string | null
+    estimatedBirthDate: Date | string
+    attemptStatus?: $Enums.AttemptStatus
+    notes?: string | null
+    createdAt?: Date | string
+    bullId?: string | null
+    pregnancyId: string
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutAttemptInput
+  }
+
+  export type AttemptCreateOrConnectWithoutBirthsInput = {
+    where: AttemptWhereUniqueInput
+    create: XOR<AttemptCreateWithoutBirthsInput, AttemptUncheckedCreateWithoutBirthsInput>
+  }
+
+  export type UserCreateWithoutBirthsInput = {
     id?: string
     fullName: string
+    username: string
     email: string
     phone?: string | null
     password: string
     role?: $Enums.Permission
     active?: boolean
-    crv?: string | null
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutUsersInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutBirthsInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutBirthsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBirthsInput, UserUncheckedCreateWithoutBirthsInput>
+  }
+
+  export type MortalityCreateWithoutBirthInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutMortalitiesInput
+    animal: AnimalCreateNestedOneWithoutMortalitiesInput
+    registeredBy?: UserCreateNestedOneWithoutMortalitiesInput
+  }
+
+  export type MortalityUncheckedCreateWithoutBirthInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+    registeredById?: string | null
+  }
+
+  export type MortalityCreateOrConnectWithoutBirthInput = {
+    where: MortalityWhereUniqueInput
+    create: XOR<MortalityCreateWithoutBirthInput, MortalityUncheckedCreateWithoutBirthInput>
+  }
+
+  export type MortalityCreateManyBirthInputEnvelope = {
+    data: MortalityCreateManyBirthInput | MortalityCreateManyBirthInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FarmUpsertWithoutBirthsInput = {
+    update: XOR<FarmUpdateWithoutBirthsInput, FarmUncheckedUpdateWithoutBirthsInput>
+    create: XOR<FarmCreateWithoutBirthsInput, FarmUncheckedCreateWithoutBirthsInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutBirthsInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutBirthsInput, FarmUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type FarmUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithoutBirthsInput = {
+    update: XOR<AnimalUpdateWithoutBirthsInput, AnimalUncheckedUpdateWithoutBirthsInput>
+    create: XOR<AnimalCreateWithoutBirthsInput, AnimalUncheckedCreateWithoutBirthsInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutBirthsInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutBirthsInput, AnimalUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type AnimalUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AttemptUpsertWithoutBirthsInput = {
+    update: XOR<AttemptUpdateWithoutBirthsInput, AttemptUncheckedUpdateWithoutBirthsInput>
+    create: XOR<AttemptCreateWithoutBirthsInput, AttemptUncheckedCreateWithoutBirthsInput>
+    where?: AttemptWhereInput
+  }
+
+  export type AttemptUpdateToOneWithWhereWithoutBirthsInput = {
+    where?: AttemptWhereInput
+    data: XOR<AttemptUpdateWithoutBirthsInput, AttemptUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type AttemptUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
+    semenName?: NullableStringFieldUpdateOperationsInput | string | null
+    technician?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bull?: AnimalUpdateOneWithoutBullInAttemptsNestedInput
+    pregnancy?: PregnancyUpdateOneRequiredWithoutAttemptsNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutAttemptNestedInput
+  }
+
+  export type AttemptUncheckedUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
+    semenName?: NullableStringFieldUpdateOperationsInput | string | null
+    technician?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    pregnancyId?: StringFieldUpdateOperationsInput | string
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutAttemptNestedInput
+  }
+
+  export type UserUpsertWithoutBirthsInput = {
+    update: XOR<UserUpdateWithoutBirthsInput, UserUncheckedUpdateWithoutBirthsInput>
+    create: XOR<UserCreateWithoutBirthsInput, UserUncheckedCreateWithoutBirthsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBirthsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBirthsInput, UserUncheckedUpdateWithoutBirthsInput>
+  }
+
+  export type UserUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBirthsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type MortalityUpsertWithWhereUniqueWithoutBirthInput = {
+    where: MortalityWhereUniqueInput
+    update: XOR<MortalityUpdateWithoutBirthInput, MortalityUncheckedUpdateWithoutBirthInput>
+    create: XOR<MortalityCreateWithoutBirthInput, MortalityUncheckedCreateWithoutBirthInput>
+  }
+
+  export type MortalityUpdateWithWhereUniqueWithoutBirthInput = {
+    where: MortalityWhereUniqueInput
+    data: XOR<MortalityUpdateWithoutBirthInput, MortalityUncheckedUpdateWithoutBirthInput>
+  }
+
+  export type MortalityUpdateManyWithWhereWithoutBirthInput = {
+    where: MortalityScalarWhereInput
+    data: XOR<MortalityUpdateManyMutationInput, MortalityUncheckedUpdateManyWithoutBirthInput>
+  }
+
+  export type FarmCreateWithoutVaccinationsInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutVaccinationsInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutVaccinationsInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutVaccinationsInput, FarmUncheckedCreateWithoutVaccinationsInput>
+  }
+
+  export type AnimalCreateWithoutVaccinationsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutVaccinationsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutVaccinationsInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutVaccinationsInput, AnimalUncheckedCreateWithoutVaccinationsInput>
+  }
+
+  export type UserCreateWithoutVaccinationsInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutUsersInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutVaccinationsInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutVaccinationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVaccinationsInput, UserUncheckedCreateWithoutVaccinationsInput>
+  }
+
+  export type FarmUpsertWithoutVaccinationsInput = {
+    update: XOR<FarmUpdateWithoutVaccinationsInput, FarmUncheckedUpdateWithoutVaccinationsInput>
+    create: XOR<FarmCreateWithoutVaccinationsInput, FarmUncheckedCreateWithoutVaccinationsInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutVaccinationsInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutVaccinationsInput, FarmUncheckedUpdateWithoutVaccinationsInput>
+  }
+
+  export type FarmUpdateWithoutVaccinationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutVaccinationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithoutVaccinationsInput = {
+    update: XOR<AnimalUpdateWithoutVaccinationsInput, AnimalUncheckedUpdateWithoutVaccinationsInput>
+    create: XOR<AnimalCreateWithoutVaccinationsInput, AnimalUncheckedCreateWithoutVaccinationsInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutVaccinationsInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutVaccinationsInput, AnimalUncheckedUpdateWithoutVaccinationsInput>
+  }
+
+  export type AnimalUpdateWithoutVaccinationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutVaccinationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type UserUpsertWithoutVaccinationsInput = {
+    update: XOR<UserUpdateWithoutVaccinationsInput, UserUncheckedUpdateWithoutVaccinationsInput>
+    create: XOR<UserCreateWithoutVaccinationsInput, UserUncheckedCreateWithoutVaccinationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVaccinationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVaccinationsInput, UserUncheckedUpdateWithoutVaccinationsInput>
+  }
+
+  export type UserUpdateWithoutVaccinationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVaccinationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type FarmCreateWithoutManagementsInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutManagementsInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutManagementsInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutManagementsInput, FarmUncheckedCreateWithoutManagementsInput>
+  }
+
+  export type AnimalCreateWithoutManagementsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutManagementsInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutManagementsInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutManagementsInput, AnimalUncheckedCreateWithoutManagementsInput>
+  }
+
+  export type FarmUpsertWithoutManagementsInput = {
+    update: XOR<FarmUpdateWithoutManagementsInput, FarmUncheckedUpdateWithoutManagementsInput>
+    create: XOR<FarmCreateWithoutManagementsInput, FarmUncheckedCreateWithoutManagementsInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutManagementsInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutManagementsInput, FarmUncheckedUpdateWithoutManagementsInput>
+  }
+
+  export type FarmUpdateWithoutManagementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutManagementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithoutManagementsInput = {
+    update: XOR<AnimalUpdateWithoutManagementsInput, AnimalUncheckedUpdateWithoutManagementsInput>
+    create: XOR<AnimalCreateWithoutManagementsInput, AnimalUncheckedCreateWithoutManagementsInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutManagementsInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutManagementsInput, AnimalUncheckedUpdateWithoutManagementsInput>
+  }
+
+  export type AnimalUpdateWithoutManagementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutManagementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type FarmCreateWithoutMortalitiesInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutMortalitiesInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutMortalitiesInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutMortalitiesInput, FarmUncheckedCreateWithoutMortalitiesInput>
+  }
+
+  export type AnimalCreateWithoutMortalitiesInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sire?: AnimalCreateNestedOneWithoutSireOfInput
+    sireOf?: AnimalCreateNestedManyWithoutSireInput
+    dam?: AnimalCreateNestedOneWithoutDamOfInput
+    damOf?: AnimalCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptCreateNestedManyWithoutBullInput
+    pasture?: PastureCreateNestedOneWithoutAnimalsInput
+    farm: FarmCreateNestedOneWithoutAnimalsInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyCreateNestedManyWithoutAnimalInput
+    births?: BirthCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationCreateNestedManyWithoutAnimalInput
+    managements?: ManagementCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalUncheckedCreateWithoutMortalitiesInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    sireOf?: AnimalUncheckedCreateNestedManyWithoutSireInput
+    damOf?: AnimalUncheckedCreateNestedManyWithoutDamInput
+    bullInAttempts?: AttemptUncheckedCreateNestedManyWithoutBullInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutAnimalInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutAnimalInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutAnimalInput
+    births?: BirthUncheckedCreateNestedManyWithoutDamInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutAnimalInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutAnimalInput
+  }
+
+  export type AnimalCreateOrConnectWithoutMortalitiesInput = {
+    where: AnimalWhereUniqueInput
+    create: XOR<AnimalCreateWithoutMortalitiesInput, AnimalUncheckedCreateWithoutMortalitiesInput>
+  }
+
+  export type BirthCreateWithoutMortalitiesInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutBirthsInput
+    dam: AnimalCreateNestedOneWithoutBirthsInput
+    attempt?: AttemptCreateNestedOneWithoutBirthsInput
+    veterinarian?: UserCreateNestedOneWithoutBirthsInput
+  }
+
+  export type BirthUncheckedCreateWithoutMortalitiesInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    damId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
+  }
+
+  export type BirthCreateOrConnectWithoutMortalitiesInput = {
+    where: BirthWhereUniqueInput
+    create: XOR<BirthCreateWithoutMortalitiesInput, BirthUncheckedCreateWithoutMortalitiesInput>
+  }
+
+  export type UserCreateWithoutMortalitiesInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutUsersInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutMortalitiesInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutMortalitiesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMortalitiesInput, UserUncheckedCreateWithoutMortalitiesInput>
+  }
+
+  export type FarmUpsertWithoutMortalitiesInput = {
+    update: XOR<FarmUpdateWithoutMortalitiesInput, FarmUncheckedUpdateWithoutMortalitiesInput>
+    create: XOR<FarmCreateWithoutMortalitiesInput, FarmUncheckedCreateWithoutMortalitiesInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutMortalitiesInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutMortalitiesInput, FarmUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type FarmUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type AnimalUpsertWithoutMortalitiesInput = {
+    update: XOR<AnimalUpdateWithoutMortalitiesInput, AnimalUncheckedUpdateWithoutMortalitiesInput>
+    create: XOR<AnimalCreateWithoutMortalitiesInput, AnimalUncheckedCreateWithoutMortalitiesInput>
+    where?: AnimalWhereInput
+  }
+
+  export type AnimalUpdateToOneWithWhereWithoutMortalitiesInput = {
+    where?: AnimalWhereInput
+    data: XOR<AnimalUpdateWithoutMortalitiesInput, AnimalUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type AnimalUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type BirthUpsertWithoutMortalitiesInput = {
+    update: XOR<BirthUpdateWithoutMortalitiesInput, BirthUncheckedUpdateWithoutMortalitiesInput>
+    create: XOR<BirthCreateWithoutMortalitiesInput, BirthUncheckedCreateWithoutMortalitiesInput>
+    where?: BirthWhereInput
+  }
+
+  export type BirthUpdateToOneWithWhereWithoutMortalitiesInput = {
+    where?: BirthWhereInput
+    data: XOR<BirthUpdateWithoutMortalitiesInput, BirthUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type BirthUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutBirthsNestedInput
+    dam?: AnimalUpdateOneRequiredWithoutBirthsNestedInput
+    attempt?: AttemptUpdateOneWithoutBirthsNestedInput
+    veterinarian?: UserUpdateOneWithoutBirthsNestedInput
+  }
+
+  export type BirthUncheckedUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserUpsertWithoutMortalitiesInput = {
+    update: XOR<UserUpdateWithoutMortalitiesInput, UserUncheckedUpdateWithoutMortalitiesInput>
+    create: XOR<UserCreateWithoutMortalitiesInput, UserUncheckedCreateWithoutMortalitiesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMortalitiesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMortalitiesInput, UserUncheckedUpdateWithoutMortalitiesInput>
+  }
+
+  export type UserUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMortalitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type FarmCreateWithoutPasswordResetTokensInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserCreateNestedManyWithoutFarmInput
+    animals?: AnimalCreateNestedManyWithoutFarmInput
+    pastures?: PastureCreateNestedManyWithoutFarmInput
+    estrus?: EstrusCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyCreateNestedManyWithoutFarmInput
+    births?: BirthCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationCreateNestedManyWithoutFarmInput
+    managements?: ManagementCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutPasswordResetTokensInput = {
+    id?: string
+    name: string
+    location: string
+    cnpj?: string | null
+    logoUrl?: string | null
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutFarmInput
+    animals?: AnimalUncheckedCreateNestedManyWithoutFarmInput
+    pastures?: PastureUncheckedCreateNestedManyWithoutFarmInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutFarmInput
+    pregnancies?: PregnancyUncheckedCreateNestedManyWithoutFarmInput
+    births?: BirthUncheckedCreateNestedManyWithoutFarmInput
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutFarmInput
+    managements?: ManagementUncheckedCreateNestedManyWithoutFarmInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutFarmInput
+    earTagHistory?: EarTagHistoryUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutPasswordResetTokensInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutPasswordResetTokensInput, FarmUncheckedCreateWithoutPasswordResetTokensInput>
+  }
+
+  export type UserCreateWithoutPasswordResetTokensInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutUsersInput
+    vaccinations?: VaccinationCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundCreateNestedManyWithoutVeterinarianInput
+    births?: BirthCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
+    crmv?: string | null
+    graduationDate?: Date | string | null
+    specialties?: UserCreatespecialtiesInput | string[]
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    lastLogin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    vaccinations?: VaccinationUncheckedCreateNestedManyWithoutVeterinarianInput
+    ultrasounds?: UltrasoundUncheckedCreateNestedManyWithoutVeterinarianInput
+    births?: BirthUncheckedCreateNestedManyWithoutVeterinarianInput
+    mortalities?: MortalityUncheckedCreateNestedManyWithoutRegisteredByInput
+    estrus?: EstrusUncheckedCreateNestedManyWithoutDetectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+  }
+
+  export type FarmUpsertWithoutPasswordResetTokensInput = {
+    update: XOR<FarmUpdateWithoutPasswordResetTokensInput, FarmUncheckedUpdateWithoutPasswordResetTokensInput>
+    create: XOR<FarmCreateWithoutPasswordResetTokensInput, FarmUncheckedCreateWithoutPasswordResetTokensInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutPasswordResetTokensInput, FarmUncheckedUpdateWithoutPasswordResetTokensInput>
+  }
+
+  export type FarmUpdateWithoutPasswordResetTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutFarmNestedInput
+    births?: BirthUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutPasswordResetTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutFarmNestedInput
+    animals?: AnimalUncheckedUpdateManyWithoutFarmNestedInput
+    pastures?: PastureUncheckedUpdateManyWithoutFarmNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutFarmNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutFarmNestedInput
+    births?: BirthUncheckedUpdateManyWithoutFarmNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutFarmNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutFarmNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutFarmNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type UserUpsertWithoutPasswordResetTokensInput = {
+    update: XOR<UserUpdateWithoutPasswordResetTokensInput, UserUncheckedUpdateWithoutPasswordResetTokensInput>
+    create: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPasswordResetTokensInput, UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  }
+
+  export type UserUpdateWithoutPasswordResetTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutUsersNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
+    active?: BoolFieldUpdateOperationsInput | boolean
+    crmv?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    specialties?: UserUpdatespecialtiesInput | string[]
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
+  }
+
+  export type UserCreateManyFarmInput = {
+    id?: string
+    fullName: string
+    username: string
+    email: string
+    phone?: string | null
+    password: string
+    role?: $Enums.Permission
+    active?: boolean
     crmv?: string | null
     graduationDate?: Date | string | null
     specialties?: UserCreatespecialtiesInput | string[]
@@ -23864,14 +32902,14 @@ export namespace Prisma {
     currentEarTag?: string | null
     name: string
     breed: string
-    gender: string
+    gender: $Enums.Gender
     birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
     sireId?: string | null
     damId?: string | null
     pastureId?: string | null
     pastureName?: string | null
-    status?: string
-    deathDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23888,15 +32926,122 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type EstrusCreateManyFarmInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    detectedById?: string | null
+  }
+
+  export type PregnancyCreateManyFarmInput = {
+    id?: string
+    currentStatus?: $Enums.PregnancyStatus
+    currentStatusDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+  }
+
+  export type BirthCreateManyFarmInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    damId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
+  }
+
+  export type VaccinationCreateManyFarmInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    veterinarianId?: string | null
+  }
+
+  export type ManagementCreateManyFarmInput = {
+    id?: string
+    originPasture: string
+    destinationPasture: string
+    movementDate: Date | string
+    reason: string
+    employee: string
+    batchId?: string | null
+    batchTotal?: number | null
+    createdAt?: Date | string
+    animalId: string
+  }
+
+  export type MortalityCreateManyFarmInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    animalId: string
+    birthId?: string | null
+    registeredById?: string | null
+  }
+
+  export type PasswordResetTokenCreateManyFarmInput = {
+    id?: string
+    code: string
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type EarTagHistoryCreateManyFarmInput = {
+    id?: string
+    earTagNumber: string
+    placementDate: Date | string
+    removalDate?: Date | string | null
+    reason?: string | null
+    createdAt?: Date | string
+    animalId: string
+  }
+
   export type UserUpdateWithoutFarmInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -23905,17 +33050,23 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUpdateManyWithoutDetectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFarmInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -23924,17 +33075,23 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutVeterinarianNestedInput
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutVeterinarianNestedInput
+    births?: BirthUncheckedUpdateManyWithoutVeterinarianNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutRegisteredByNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutDetectedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFarmInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumPermissionFieldUpdateOperationsInput | $Enums.Permission
     active?: BoolFieldUpdateOperationsInput | boolean
-    crv?: NullableStringFieldUpdateOperationsInput | string | null
     crmv?: NullableStringFieldUpdateOperationsInput | string | null
     graduationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     specialties?: UserUpdatespecialtiesInput | string[]
@@ -23951,17 +33108,26 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    sireId?: NullableStringFieldUpdateOperationsInput | string | null
-    damId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
-    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
     earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateWithoutFarmInput = {
@@ -23970,17 +33136,26 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sireId?: NullableStringFieldUpdateOperationsInput | string | null
     damId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
     earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
   }
 
   export type AnimalUncheckedUpdateManyWithoutFarmInput = {
@@ -23989,14 +33164,14 @@ export namespace Prisma {
     currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     breed?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sireId?: NullableStringFieldUpdateOperationsInput | string | null
     damId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureId?: NullableStringFieldUpdateOperationsInput | string | null
     pastureName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24011,6 +33186,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animals?: AnimalUpdateManyWithoutPastureNestedInput
   }
 
   export type PastureUncheckedUpdateWithoutFarmInput = {
@@ -24023,6 +33199,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animals?: AnimalUncheckedUpdateManyWithoutPastureNestedInput
   }
 
   export type PastureUncheckedUpdateManyWithoutFarmInput = {
@@ -24037,6 +33214,723 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EstrusUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animal?: AnimalUpdateOneRequiredWithoutEstrusNestedInput
+    detectedBy?: UserUpdateOneWithoutEstrusNestedInput
+  }
+
+  export type EstrusUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    detectedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EstrusUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    detectedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PregnancyUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animal?: AnimalUpdateOneRequiredWithoutPregnanciesNestedInput
+    attempts?: AttemptUpdateManyWithoutPregnancyNestedInput
+  }
+
+  export type PregnancyUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    attempts?: AttemptUncheckedUpdateManyWithoutPregnancyNestedInput
+  }
+
+  export type PregnancyUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BirthUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dam?: AnimalUpdateOneRequiredWithoutBirthsNestedInput
+    attempt?: AttemptUpdateOneWithoutBirthsNestedInput
+    veterinarian?: UserUpdateOneWithoutBirthsNestedInput
+    mortalities?: MortalityUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+    mortalities?: MortalityUncheckedUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VaccinationUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animal?: AnimalUpdateOneRequiredWithoutVaccinationsNestedInput
+    veterinarian?: UserUpdateOneWithoutVaccinationsNestedInput
+  }
+
+  export type VaccinationUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VaccinationUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ManagementUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originPasture?: StringFieldUpdateOperationsInput | string
+    destinationPasture?: StringFieldUpdateOperationsInput | string
+    movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    employee?: StringFieldUpdateOperationsInput | string
+    batchId?: NullableStringFieldUpdateOperationsInput | string | null
+    batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animal?: AnimalUpdateOneRequiredWithoutManagementsNestedInput
+  }
+
+  export type ManagementUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originPasture?: StringFieldUpdateOperationsInput | string
+    destinationPasture?: StringFieldUpdateOperationsInput | string
+    movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    employee?: StringFieldUpdateOperationsInput | string
+    batchId?: NullableStringFieldUpdateOperationsInput | string | null
+    batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ManagementUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originPasture?: StringFieldUpdateOperationsInput | string
+    destinationPasture?: StringFieldUpdateOperationsInput | string
+    movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    employee?: StringFieldUpdateOperationsInput | string
+    batchId?: NullableStringFieldUpdateOperationsInput | string | null
+    batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MortalityUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animal?: AnimalUpdateOneRequiredWithoutMortalitiesNestedInput
+    birth?: BirthUpdateOneWithoutMortalitiesNestedInput
+    registeredBy?: UserUpdateOneWithoutMortalitiesNestedInput
+  }
+
+  export type MortalityUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PasswordResetTokenUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput
+  }
+
+  export type PasswordResetTokenUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PasswordResetTokenUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EarTagHistoryUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    earTagNumber?: StringFieldUpdateOperationsInput | string
+    placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animal?: AnimalUpdateOneRequiredWithoutEarTagHistoryNestedInput
+  }
+
+  export type EarTagHistoryUncheckedUpdateWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    earTagNumber?: StringFieldUpdateOperationsInput | string
+    placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EarTagHistoryUncheckedUpdateManyWithoutFarmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    earTagNumber?: StringFieldUpdateOperationsInput | string
+    placementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PasswordResetTokenCreateManyUserInput = {
+    id?: string
+    code: string
+    expiresAt: Date | string
+    used?: boolean
+    createdAt?: Date | string
+    farmId: string
+  }
+
+  export type VaccinationCreateManyVeterinarianInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+  }
+
+  export type UltrasoundCreateManyVeterinarianInput = {
+    id?: string
+    days: number
+    result: $Enums.UltrasoundResult
+    notes?: string | null
+    ultrasoundDate?: Date | string
+    createdAt?: Date | string
+    attemptId: string
+  }
+
+  export type BirthCreateManyVeterinarianInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    damId: string
+    attemptId?: string | null
+  }
+
+  export type MortalityCreateManyRegisteredByInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+    birthId?: string | null
+  }
+
+  export type EstrusCreateManyDetectedByInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+  }
+
+  export type PasswordResetTokenUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutPasswordResetTokensNestedInput
+  }
+
+  export type PasswordResetTokenUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PasswordResetTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VaccinationUpdateWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutVaccinationsNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutVaccinationsNestedInput
+  }
+
+  export type VaccinationUncheckedUpdateWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VaccinationUncheckedUpdateManyWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UltrasoundUpdateWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    days?: IntFieldUpdateOperationsInput | number
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attempt?: AttemptUpdateOneRequiredWithoutUltrasoundsNestedInput
+  }
+
+  export type UltrasoundUncheckedUpdateWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    days?: IntFieldUpdateOperationsInput | number
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UltrasoundUncheckedUpdateManyWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    days?: IntFieldUpdateOperationsInput | number
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BirthUpdateWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutBirthsNestedInput
+    dam?: AnimalUpdateOneRequiredWithoutBirthsNestedInput
+    attempt?: AttemptUpdateOneWithoutBirthsNestedInput
+    mortalities?: MortalityUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    mortalities?: MortalityUncheckedUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateManyWithoutVeterinarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MortalityUpdateWithoutRegisteredByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutMortalitiesNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutMortalitiesNestedInput
+    birth?: BirthUpdateOneWithoutMortalitiesNestedInput
+  }
+
+  export type MortalityUncheckedUpdateWithoutRegisteredByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutRegisteredByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EstrusUpdateWithoutDetectedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutEstrusNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutEstrusNestedInput
+  }
+
+  export type EstrusUncheckedUpdateWithoutDetectedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EstrusUncheckedUpdateManyWithoutDetectedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AnimalCreateManySireInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    damId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+  }
+
+  export type AnimalCreateManyDamInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    pastureId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+  }
+
+  export type AttemptCreateManyBullInput = {
+    id?: string
+    number: number
+    matingDate: Date | string
+    matingType: $Enums.MatingType
+    semenName?: string | null
+    technician?: string | null
+    estimatedBirthDate: Date | string
+    attemptStatus?: $Enums.AttemptStatus
+    notes?: string | null
+    createdAt?: Date | string
+    pregnancyId: string
+  }
+
   export type EarTagHistoryCreateManyAnimalInput = {
     id?: string
     earTagNumber: string
@@ -24047,6 +33941,288 @@ export namespace Prisma {
     farmId: string
   }
 
+  export type EstrusCreateManyAnimalInput = {
+    id?: string
+    date: Date | string
+    intensity: $Enums.EstrusIntensity
+    nextEstrus: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    detectedById?: string | null
+  }
+
+  export type PregnancyCreateManyAnimalInput = {
+    id?: string
+    currentStatus?: $Enums.PregnancyStatus
+    currentStatusDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+  }
+
+  export type BirthCreateManyDamInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    attemptId?: string | null
+    veterinarianId?: string | null
+  }
+
+  export type VaccinationCreateManyAnimalInput = {
+    id?: string
+    vaccineType: string
+    brand: string
+    batch: string
+    vaccinationDate: Date | string
+    expirationDate: Date | string
+    nextDoseDate?: Date | string | null
+    photoUrl?: string | null
+    reaction?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    veterinarianId?: string | null
+  }
+
+  export type ManagementCreateManyAnimalInput = {
+    id?: string
+    originPasture: string
+    destinationPasture: string
+    movementDate: Date | string
+    reason: string
+    employee: string
+    batchId?: string | null
+    batchTotal?: number | null
+    createdAt?: Date | string
+    farmId: string
+  }
+
+  export type MortalityCreateManyAnimalInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    birthId?: string | null
+    registeredById?: string | null
+  }
+
+  export type AnimalUpdateWithoutSireInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutSireInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateManyWithoutSireInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AnimalUpdateWithoutDamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    pasture?: PastureUpdateOneWithoutAnimalsNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutDamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateManyWithoutDamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AttemptUpdateWithoutBullInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
+    semenName?: NullableStringFieldUpdateOperationsInput | string | null
+    technician?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pregnancy?: PregnancyUpdateOneRequiredWithoutAttemptsNestedInput
+    ultrasounds?: UltrasoundUpdateManyWithoutAttemptNestedInput
+    births?: BirthUpdateManyWithoutAttemptNestedInput
+  }
+
+  export type AttemptUncheckedUpdateWithoutBullInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
+    semenName?: NullableStringFieldUpdateOperationsInput | string | null
+    technician?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pregnancyId?: StringFieldUpdateOperationsInput | string
+    ultrasounds?: UltrasoundUncheckedUpdateManyWithoutAttemptNestedInput
+    births?: BirthUncheckedUpdateManyWithoutAttemptNestedInput
+  }
+
+  export type AttemptUncheckedUpdateManyWithoutBullInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
+    semenName?: NullableStringFieldUpdateOperationsInput | string | null
+    technician?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pregnancyId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type EarTagHistoryUpdateWithoutAnimalInput = {
     id?: StringFieldUpdateOperationsInput | string
     earTagNumber?: StringFieldUpdateOperationsInput | string
@@ -24054,7 +34230,7 @@ export namespace Prisma {
     removalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    farmId?: StringFieldUpdateOperationsInput | string
+    farm?: FarmUpdateOneRequiredWithoutEarTagHistoryNestedInput
   }
 
   export type EarTagHistoryUncheckedUpdateWithoutAnimalInput = {
@@ -24077,102 +34253,622 @@ export namespace Prisma {
     farmId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type EstrusUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutEstrusNestedInput
+    detectedBy?: UserUpdateOneWithoutEstrusNestedInput
+  }
+
+  export type EstrusUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    detectedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EstrusUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    intensity?: EnumEstrusIntensityFieldUpdateOperationsInput | $Enums.EstrusIntensity
+    nextEstrus?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    detectedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PregnancyUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutPregnanciesNestedInput
+    attempts?: AttemptUpdateManyWithoutPregnancyNestedInput
+  }
+
+  export type PregnancyUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    attempts?: AttemptUncheckedUpdateManyWithoutPregnancyNestedInput
+  }
+
+  export type PregnancyUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currentStatus?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
+    currentStatusDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BirthUpdateWithoutDamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutBirthsNestedInput
+    attempt?: AttemptUpdateOneWithoutBirthsNestedInput
+    veterinarian?: UserUpdateOneWithoutBirthsNestedInput
+    mortalities?: MortalityUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateWithoutDamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+    mortalities?: MortalityUncheckedUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateManyWithoutDamInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    attemptId?: NullableStringFieldUpdateOperationsInput | string | null
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VaccinationUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutVaccinationsNestedInput
+    veterinarian?: UserUpdateOneWithoutVaccinationsNestedInput
+  }
+
+  export type VaccinationUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VaccinationUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vaccineType?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    batch?: StringFieldUpdateOperationsInput | string
+    vaccinationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    expirationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    nextDoseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ManagementUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originPasture?: StringFieldUpdateOperationsInput | string
+    destinationPasture?: StringFieldUpdateOperationsInput | string
+    movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    employee?: StringFieldUpdateOperationsInput | string
+    batchId?: NullableStringFieldUpdateOperationsInput | string | null
+    batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutManagementsNestedInput
+  }
+
+  export type ManagementUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originPasture?: StringFieldUpdateOperationsInput | string
+    destinationPasture?: StringFieldUpdateOperationsInput | string
+    movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    employee?: StringFieldUpdateOperationsInput | string
+    batchId?: NullableStringFieldUpdateOperationsInput | string | null
+    batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ManagementUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originPasture?: StringFieldUpdateOperationsInput | string
+    destinationPasture?: StringFieldUpdateOperationsInput | string
+    movementDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: StringFieldUpdateOperationsInput | string
+    employee?: StringFieldUpdateOperationsInput | string
+    batchId?: NullableStringFieldUpdateOperationsInput | string | null
+    batchTotal?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MortalityUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutMortalitiesNestedInput
+    birth?: BirthUpdateOneWithoutMortalitiesNestedInput
+    registeredBy?: UserUpdateOneWithoutMortalitiesNestedInput
+  }
+
+  export type MortalityUncheckedUpdateWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutAnimalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    birthId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AnimalCreateManyPastureInput = {
+    id?: string
+    chipId: string
+    currentEarTag?: string | null
+    name: string
+    breed: string
+    gender: $Enums.Gender
+    birthDate: Date | string
+    status?: $Enums.AnimalStatus
+    deathDate?: Date | string | null
+    sireId?: string | null
+    damId?: string | null
+    pastureName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+  }
+
+  export type AnimalUpdateWithoutPastureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sire?: AnimalUpdateOneWithoutSireOfNestedInput
+    sireOf?: AnimalUpdateManyWithoutSireNestedInput
+    dam?: AnimalUpdateOneWithoutDamOfNestedInput
+    damOf?: AnimalUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUpdateManyWithoutBullNestedInput
+    farm?: FarmUpdateOneRequiredWithoutAnimalsNestedInput
+    earTagHistory?: EarTagHistoryUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUpdateManyWithoutAnimalNestedInput
+    births?: BirthUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateWithoutPastureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    sireOf?: AnimalUncheckedUpdateManyWithoutSireNestedInput
+    damOf?: AnimalUncheckedUpdateManyWithoutDamNestedInput
+    bullInAttempts?: AttemptUncheckedUpdateManyWithoutBullNestedInput
+    earTagHistory?: EarTagHistoryUncheckedUpdateManyWithoutAnimalNestedInput
+    estrus?: EstrusUncheckedUpdateManyWithoutAnimalNestedInput
+    pregnancies?: PregnancyUncheckedUpdateManyWithoutAnimalNestedInput
+    births?: BirthUncheckedUpdateManyWithoutDamNestedInput
+    vaccinations?: VaccinationUncheckedUpdateManyWithoutAnimalNestedInput
+    managements?: ManagementUncheckedUpdateManyWithoutAnimalNestedInput
+    mortalities?: MortalityUncheckedUpdateManyWithoutAnimalNestedInput
+  }
+
+  export type AnimalUncheckedUpdateManyWithoutPastureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chipId?: StringFieldUpdateOperationsInput | string
+    currentEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    breed?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
+    deathDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sireId?: NullableStringFieldUpdateOperationsInput | string | null
+    damId?: NullableStringFieldUpdateOperationsInput | string | null
+    pastureName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type AttemptCreateManyPregnancyInput = {
     id?: string
     number: number
     matingDate: Date | string
-    matingType: string
-    bullId?: string | null
+    matingType: $Enums.MatingType
     semenName?: string | null
     technician?: string | null
     estimatedBirthDate: Date | string
-    birthId?: string | null
-    attemptStatus?: string
+    attemptStatus?: $Enums.AttemptStatus
     notes?: string | null
     createdAt?: Date | string
+    bullId?: string | null
   }
 
   export type AttemptUpdateWithoutPregnancyInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bull?: AnimalUpdateOneWithoutBullInAttemptsNestedInput
     ultrasounds?: UltrasoundUpdateManyWithoutAttemptNestedInput
+    births?: BirthUpdateManyWithoutAttemptNestedInput
   }
 
   export type AttemptUncheckedUpdateWithoutPregnancyInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bullId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasounds?: UltrasoundUncheckedUpdateManyWithoutAttemptNestedInput
+    births?: BirthUncheckedUpdateManyWithoutAttemptNestedInput
   }
 
   export type AttemptUncheckedUpdateManyWithoutPregnancyInput = {
     id?: StringFieldUpdateOperationsInput | string
     number?: IntFieldUpdateOperationsInput | number
     matingDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    matingType?: StringFieldUpdateOperationsInput | string
-    bullId?: NullableStringFieldUpdateOperationsInput | string | null
+    matingType?: EnumMatingTypeFieldUpdateOperationsInput | $Enums.MatingType
     semenName?: NullableStringFieldUpdateOperationsInput | string | null
     technician?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedBirthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    birthId?: NullableStringFieldUpdateOperationsInput | string | null
-    attemptStatus?: StringFieldUpdateOperationsInput | string
+    attemptStatus?: EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bullId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UltrasoundCreateManyAttemptInput = {
     id?: string
     days: number
-    result: string
+    result: $Enums.UltrasoundResult
     notes?: string | null
-    veterinarianId?: string | null
     ultrasoundDate?: Date | string
+    createdAt?: Date | string
+    veterinarianId?: string | null
+  }
+
+  export type BirthCreateManyAttemptInput = {
+    id?: string
+    birthDate: Date | string
+    birthTime?: string | null
+    birthType: $Enums.BirthType
+    calfGender?: $Enums.Gender | null
+    calfWeight?: number | null
+    calfEarTag?: string | null
+    calfChip?: string | null
+    calfStatus?: $Enums.CalfStatus
+    situation?: $Enums.BirthSituation
+    deathReason?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    damId: string
+    veterinarianId?: string | null
   }
 
   export type UltrasoundUpdateWithoutAttemptInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    veterinarian?: UserUpdateOneWithoutUltrasoundsNestedInput
   }
 
   export type UltrasoundUncheckedUpdateWithoutAttemptInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UltrasoundUncheckedUpdateManyWithoutAttemptInput = {
     id?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
-    result?: StringFieldUpdateOperationsInput | string
+    result?: EnumUltrasoundResultFieldUpdateOperationsInput | $Enums.UltrasoundResult
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
     ultrasoundDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BirthUpdateWithoutAttemptInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutBirthsNestedInput
+    dam?: AnimalUpdateOneRequiredWithoutBirthsNestedInput
+    veterinarian?: UserUpdateOneWithoutBirthsNestedInput
+    mortalities?: MortalityUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateWithoutAttemptInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+    mortalities?: MortalityUncheckedUpdateManyWithoutBirthNestedInput
+  }
+
+  export type BirthUncheckedUpdateManyWithoutAttemptInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    birthTime?: NullableStringFieldUpdateOperationsInput | string | null
+    birthType?: EnumBirthTypeFieldUpdateOperationsInput | $Enums.BirthType
+    calfGender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    calfWeight?: NullableFloatFieldUpdateOperationsInput | number | null
+    calfEarTag?: NullableStringFieldUpdateOperationsInput | string | null
+    calfChip?: NullableStringFieldUpdateOperationsInput | string | null
+    calfStatus?: EnumCalfStatusFieldUpdateOperationsInput | $Enums.CalfStatus
+    situation?: EnumBirthSituationFieldUpdateOperationsInput | $Enums.BirthSituation
+    deathReason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    damId?: StringFieldUpdateOperationsInput | string
+    veterinarianId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MortalityCreateManyBirthInput = {
+    id?: string
+    deathDate: Date | string
+    deathTime?: string | null
+    deathLocation: string
+    causeOfDeath: string
+    severity?: $Enums.MortalitySeverity | null
+    necropsy?: boolean
+    disposal?: string | null
+    photos?: MortalityCreatephotosInput | string[]
+    origin?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmId: string
+    animalId: string
+    registeredById?: string | null
+  }
+
+  export type MortalityUpdateWithoutBirthInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutMortalitiesNestedInput
+    animal?: AnimalUpdateOneRequiredWithoutMortalitiesNestedInput
+    registeredBy?: UserUpdateOneWithoutMortalitiesNestedInput
+  }
+
+  export type MortalityUncheckedUpdateWithoutBirthInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MortalityUncheckedUpdateManyWithoutBirthInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deathDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deathTime?: NullableStringFieldUpdateOperationsInput | string | null
+    deathLocation?: StringFieldUpdateOperationsInput | string
+    causeOfDeath?: StringFieldUpdateOperationsInput | string
+    severity?: NullableEnumMortalitySeverityFieldUpdateOperationsInput | $Enums.MortalitySeverity | null
+    necropsy?: BoolFieldUpdateOperationsInput | boolean
+    disposal?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: MortalityUpdatephotosInput | string[]
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmId?: StringFieldUpdateOperationsInput | string
+    animalId?: StringFieldUpdateOperationsInput | string
+    registeredById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

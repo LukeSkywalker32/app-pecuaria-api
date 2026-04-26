@@ -1,8 +1,9 @@
 import cors from "cors";
 import express from "express";
 import { CORS_ORIGIN } from "./config/env";
-import { errorHandler } from "./shared/middlewares/errorHandler";
 import authRoutes from "./modules/auth/routes/auth.routes";
+import userRoutes from "./modules/user/routes/user.routes";
+import { errorHandler } from "./shared/middlewares/errorHandler";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get("/health", (req, res) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);

@@ -122,7 +122,6 @@ model User {
   role     Permission @default(veterinarian)
   active   Boolean    @default(true)
 
-  crv            String?
   crmv           String?
   graduationDate DateTime?
   specialties    String[]
@@ -238,7 +237,7 @@ model Pasture {
 }
 
 // =====================
-// ESTRUS
+// ESTRUS = CIO
 // =====================
 model Estrus {
   id         String           @id @default(uuid())

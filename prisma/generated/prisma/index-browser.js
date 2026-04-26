@@ -134,12 +134,12 @@ exports.Prisma.FarmScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
+  username: 'username',
   email: 'email',
   phone: 'phone',
   password: 'password',
   role: 'role',
   active: 'active',
-  crv: 'crv',
   crmv: 'crmv',
   graduationDate: 'graduationDate',
   specialties: 'specialties',
@@ -159,12 +159,12 @@ exports.Prisma.AnimalScalarFieldEnum = {
   breed: 'breed',
   gender: 'gender',
   birthDate: 'birthDate',
+  status: 'status',
+  deathDate: 'deathDate',
   sireId: 'sireId',
   damId: 'damId',
   pastureId: 'pastureId',
   pastureName: 'pastureName',
-  status: 'status',
-  deathDate: 'deathDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   farmId: 'farmId'
@@ -196,24 +196,24 @@ exports.Prisma.PastureScalarFieldEnum = {
 
 exports.Prisma.EstrusScalarFieldEnum = {
   id: 'id',
-  animalId: 'animalId',
   date: 'date',
   intensity: 'intensity',
-  detectedBy: 'detectedBy',
   nextEstrus: 'nextEstrus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  animalId: 'animalId',
+  detectedById: 'detectedById'
 };
 
 exports.Prisma.PregnancyScalarFieldEnum = {
   id: 'id',
-  animalId: 'animalId',
   currentStatus: 'currentStatus',
   currentStatusDate: 'currentStatusDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  animalId: 'animalId'
 };
 
 exports.Prisma.AttemptScalarFieldEnum = {
@@ -221,14 +221,13 @@ exports.Prisma.AttemptScalarFieldEnum = {
   number: 'number',
   matingDate: 'matingDate',
   matingType: 'matingType',
-  bullId: 'bullId',
   semenName: 'semenName',
   technician: 'technician',
   estimatedBirthDate: 'estimatedBirthDate',
-  birthId: 'birthId',
   attemptStatus: 'attemptStatus',
   notes: 'notes',
   createdAt: 'createdAt',
+  bullId: 'bullId',
   pregnancyId: 'pregnancyId'
 };
 
@@ -237,21 +236,17 @@ exports.Prisma.UltrasoundScalarFieldEnum = {
   days: 'days',
   result: 'result',
   notes: 'notes',
-  veterinarianId: 'veterinarianId',
   ultrasoundDate: 'ultrasoundDate',
-  attemptId: 'attemptId'
+  createdAt: 'createdAt',
+  attemptId: 'attemptId',
+  veterinarianId: 'veterinarianId'
 };
 
 exports.Prisma.BirthScalarFieldEnum = {
   id: 'id',
-  damId: 'damId',
-  pregnancyId: 'pregnancyId',
   birthDate: 'birthDate',
   birthTime: 'birthTime',
   birthType: 'birthType',
-  veterinarianId: 'veterinarianId',
-  veterinarianName: 'veterinarianName',
-  veterinarianCrv: 'veterinarianCrv',
   calfGender: 'calfGender',
   calfWeight: 'calfWeight',
   calfEarTag: 'calfEarTag',
@@ -262,12 +257,14 @@ exports.Prisma.BirthScalarFieldEnum = {
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  damId: 'damId',
+  attemptId: 'attemptId',
+  veterinarianId: 'veterinarianId'
 };
 
 exports.Prisma.VaccinationScalarFieldEnum = {
   id: 'id',
-  animalId: 'animalId',
   vaccineType: 'vaccineType',
   brand: 'brand',
   batch: 'batch',
@@ -276,15 +273,15 @@ exports.Prisma.VaccinationScalarFieldEnum = {
   nextDoseDate: 'nextDoseDate',
   photoUrl: 'photoUrl',
   reaction: 'reaction',
-  veterinarianId: 'veterinarianId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  animalId: 'animalId',
+  veterinarianId: 'veterinarianId'
 };
 
 exports.Prisma.ManagementScalarFieldEnum = {
   id: 'id',
-  animalId: 'animalId',
   originPasture: 'originPasture',
   destinationPasture: 'destinationPasture',
   movementDate: 'movementDate',
@@ -293,12 +290,12 @@ exports.Prisma.ManagementScalarFieldEnum = {
   batchId: 'batchId',
   batchTotal: 'batchTotal',
   createdAt: 'createdAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  animalId: 'animalId'
 };
 
 exports.Prisma.MortalityScalarFieldEnum = {
   id: 'id',
-  animalId: 'animalId',
   deathDate: 'deathDate',
   deathTime: 'deathTime',
   deathLocation: 'deathLocation',
@@ -308,21 +305,23 @@ exports.Prisma.MortalityScalarFieldEnum = {
   disposal: 'disposal',
   photos: 'photos',
   origin: 'origin',
-  birthId: 'birthId',
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  animalId: 'animalId',
+  birthId: 'birthId',
+  registeredById: 'registeredById'
 };
 
 exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   code: 'code',
   expiresAt: 'expiresAt',
   used: 'used',
   createdAt: 'createdAt',
-  farmId: 'farmId'
+  farmId: 'farmId',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -344,6 +343,70 @@ exports.Permission = exports.$Enums.Permission = {
   owner: 'owner',
   farmmanager: 'farmmanager',
   veterinarian: 'veterinarian'
+};
+
+exports.Gender = exports.$Enums.Gender = {
+  M: 'M',
+  F: 'F'
+};
+
+exports.AnimalStatus = exports.$Enums.AnimalStatus = {
+  active: 'active',
+  dead: 'dead',
+  sold: 'sold'
+};
+
+exports.EstrusIntensity = exports.$Enums.EstrusIntensity = {
+  weak: 'weak',
+  normal: 'normal',
+  strong: 'strong'
+};
+
+exports.PregnancyStatus = exports.$Enums.PregnancyStatus = {
+  not_started: 'not_started',
+  in_progress: 'in_progress',
+  pregnant: 'pregnant',
+  failed: 'failed'
+};
+
+exports.MatingType = exports.$Enums.MatingType = {
+  NATURAL: 'NATURAL',
+  AI: 'AI'
+};
+
+exports.AttemptStatus = exports.$Enums.AttemptStatus = {
+  in_progress: 'in_progress',
+  success: 'success',
+  failed: 'failed'
+};
+
+exports.UltrasoundResult = exports.$Enums.UltrasoundResult = {
+  PREGNANT: 'PREGNANT',
+  EMPTY: 'EMPTY',
+  ABSORPTION: 'ABSORPTION',
+  VIABLE: 'VIABLE'
+};
+
+exports.BirthType = exports.$Enums.BirthType = {
+  normal: 'normal',
+  assisted: 'assisted',
+  c_section: 'c_section'
+};
+
+exports.CalfStatus = exports.$Enums.CalfStatus = {
+  pending: 'pending',
+  complete: 'complete'
+};
+
+exports.BirthSituation = exports.$Enums.BirthSituation = {
+  normal: 'normal',
+  dead: 'dead'
+};
+
+exports.MortalitySeverity = exports.$Enums.MortalitySeverity = {
+  mild: 'mild',
+  moderate: 'moderate',
+  severe: 'severe'
 };
 
 exports.Prisma.ModelName = {
