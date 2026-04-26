@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import { CORS_ORIGIN } from "./config/env";
 import authRoutes from "./modules/auth/routes/auth.routes";
+import farmRoutes from "./modules/farm/routes/farm.routes";
 import userRoutes from "./modules/user/routes/user.routes";
 import { errorHandler } from "./shared/middlewares/errorHandler";
 
@@ -26,6 +27,7 @@ app.get("/health", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/farms", farmRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);
