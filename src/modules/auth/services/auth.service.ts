@@ -5,7 +5,7 @@
 
 import { prisma } from "@config/database";
 import { jwtConfig } from "@config/jwt";
-import type { User } from "@prisma/client";
+import type { User } from "@prisma-client";
 import { ROLES_PERMISSIONS } from "@shared/constants/permissions";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -19,10 +19,6 @@ import type {
 import authValidator from "../validators/auth.validator";
 
 class AuthService {
-   /**
-    * Performs user login
-    * Returns access token and refresh token
-    */
    async login(request: LoginRequest): Promise<AuthenticationResponse> {
       // 1. Validate input
       authValidator.validateLogin(request);
