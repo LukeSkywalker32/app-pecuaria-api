@@ -3,7 +3,7 @@
 // ========================================
 
 import { prisma } from "@config/database";
-import type { Permission, Prisma } from "@prisma-client";
+import type { Permission, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import type {
    AdminResetPasswordRequest,

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -116,7 +115,7 @@ model User {
   id       String @id @default(uuid())
   fullName String
   username String
-  email    String
+  email    String @unique
   phone    String?
   password String
   role     Permission @default(veterinarian)
@@ -153,7 +152,7 @@ model User {
 model Animal {
   id            String       @id @default(uuid())
   chipId        String       @unique
-  currentEarTag String?      // ❌ removido @unique
+  currentEarTag String?
   name          String
   breed         String
   gender        Gender

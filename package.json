@@ -8,6 +8,7 @@
    "license": "MIT",
    "type": "module",
    "scripts": {
+      "seed": "tsx prisma/seed.ts",
       "dev": "tsx watch src/index.ts",
       "build": "tsc",
       "start": "node dist/index.js",
@@ -27,6 +28,7 @@
       "jsonwebtoken": "^9.0.3",
       "multer": "^2.1.1",
       "prisma": "^7.8.0",
+      "ws": "^8.20.0",
       "zod": "^4.3.6"
    },
    "devDependencies": {
@@ -37,6 +39,7 @@
       "@types/jsonwebtoken": "^9.0.10",
       "@types/multer": "^2.1.0",
       "@types/node": "^25.6.0",
+      "@types/ws": "^8.18.1",
       "nodemon": "^3.1.14",
       "ts-node": "^10.9.2",
       "tsx": "^4.21.0",

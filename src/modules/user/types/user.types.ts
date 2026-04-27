@@ -1,4 +1,4 @@
-import type { Permission } from "@prisma-client";
+import type { Permission } from "@prisma/client";
 
 /**
  * Payload para criação de usuário

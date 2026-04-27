@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noConsole: <explanation> */
 
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma-client";
+import { PrismaClient } from "@prisma/client";
 import { DATABASE_URL } from "./env";
 
 const globalForPrisma = globalThis as unknown as {

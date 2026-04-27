@@ -3,7 +3,7 @@
 // ========================================
 
 import { prisma } from "@config/database";
-import type { Prisma } from "@prisma-client";
+import type { Prisma } from "@prisma/client";
 import type {
    CreatePastureRequest,
    ListPasturesQuery,
