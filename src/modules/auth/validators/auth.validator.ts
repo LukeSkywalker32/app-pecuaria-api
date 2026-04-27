@@ -1,6 +1,6 @@
 import type { ConfirmResetRequest, ForgotPasswordRequest, LoginRequest } from "../types/auth.types";
 
-function validateLogin(data: LoginRequest): void {
+export function validateLogin(data: LoginRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
       throw new Error("farmId is required");
@@ -14,7 +14,7 @@ function validateLogin(data: LoginRequest): void {
       throw new Error("Invalid password (minimum 6 characters)");
    }
 }
-function validateForgotPassword(data: ForgotPasswordRequest): void {
+export function validateForgotPassword(data: ForgotPasswordRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
       throw new Error("Farm is required");
@@ -25,7 +25,7 @@ function validateForgotPassword(data: ForgotPasswordRequest): void {
       throw new Error("Invalid email");
    }
 }
-function validateConfirmReset(data: ConfirmResetRequest): void {
+export function validateConfirmReset(data: ConfirmResetRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
       throw new Error("Farm is required");
@@ -51,11 +51,11 @@ function validateConfirmReset(data: ConfirmResetRequest): void {
       throw new Error("Password must contain uppercase, lowercase, number and special character");
    }
 }
-function validateEmail(email: string): boolean {
+export function validateEmail(email: string): boolean {
    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    return regex.test(email);
 }
-function hasStrongPassword(password: string): boolean {
+export function hasStrongPassword(password: string): boolean {
    const hasUppercase = /[A-Z]/.test(password);
    const hasLowercase = /[a-z]/.test(password);
    const hasNumber = /\d/.test(password);
@@ -63,11 +63,3 @@ function hasStrongPassword(password: string): boolean {
 
    return hasUppercase && hasLowercase && hasNumber && hasSpecial;
 }
-
-export default {
-   validateLogin,
-   validateForgotPassword,
-   validateConfirmReset,
-   validateEmail,
-   hasStrongPassword,
-};

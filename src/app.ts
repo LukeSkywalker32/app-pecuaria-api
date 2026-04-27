@@ -1,5 +1,8 @@
+import { disconnect } from "node:cluster";
 import cors from "cors";
 import express from "express";
+import { da } from "zod/v4/locales";
+import { prisma } from "./config/database";
 import { CORS_ORIGIN } from "./config/env";
 import authRoutes from "./modules/auth/routes/auth.routes";
 import farmRoutes from "./modules/farm/routes/farm.routes";
@@ -21,8 +24,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Health Check
-app.get("/health", (req, res) => {
-   res.json({ status: "ok", timestamp: new Date().toISOString() });
+app.get("/health", async (req, res) => {
+   try {
+      await prisma.$queryRaw`SELECT 1`;
+      res.json({
+         status: "ok",
+         timestamp: new Date().toISOString(),
+         database: "Connectado",
+      });
+   } catch (error) {
+      res.status(503).json({
+         status: "error",
+         database: "Disconectado",
+      });
+   }
 });
 
 // Routes
