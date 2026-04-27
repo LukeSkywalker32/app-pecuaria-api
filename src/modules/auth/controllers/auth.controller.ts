@@ -12,11 +12,11 @@ class AuthController {
     */
    async login(req: Request, res: Response, next: NextFunction) {
       try {
-         const { farmId, fullName, password } = req.body;
+         const { farmId, username , password } = req.body;
 
          const response = await authService.login({
             farmId,
-            fullName,
+            username,
             password,
          });
 

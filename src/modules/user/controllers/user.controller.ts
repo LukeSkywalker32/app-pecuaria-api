@@ -22,7 +22,6 @@ class UserController {
       try {
          const farmId = req.farmId as string;
          const body = req.body as CreateUserRequest;
-
          const user = await userService.create(farmId, body);
 
          res.status(201).json(user);

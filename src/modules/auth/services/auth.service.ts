@@ -31,7 +31,7 @@ class AuthService {
       const user = await prisma.user.findFirst({
          where: {
             farmId: request.farmId,
-            fullName: request.fullName,
+            username: request.username,
             active: true,
          },
       });
@@ -63,7 +63,7 @@ class AuthService {
          accessToken,
          refreshToken,
          userId: user.id,
-         fullName: user.fullName,
+         username: user.username,
          role: user.role,
          expiresIn: jwtConfig.expiresIn,
       };
@@ -94,7 +94,7 @@ class AuthService {
             accessToken,
             refreshToken: newRefreshToken,
             userId: user.id,
-            fullName: user.fullName,
+            username: user.username,
             role: user.role,
             expiresIn: jwtConfig.expiresIn,
          };
@@ -208,7 +208,7 @@ class AuthService {
       return {
          userId: user.id,
          farmId: user.farmId,
-         fullName: user.fullName,
+         username: user.username,
          email: user.email,
          role: user.role,
          permissions,
@@ -225,7 +225,7 @@ class AuthService {
       const payload = {
          userId: data.userId,
          farmId: data.farmId,
-         fullName: data.fullName,
+         username: data.username,
          email: data.email,
          role: data.role,
          permissions: data.permissions,

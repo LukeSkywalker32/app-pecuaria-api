@@ -4,7 +4,7 @@
  */
 export interface LoginRequest {
    farmId: string;
-   fullName: string;
+   username: string;
    password: string;
 }
 
@@ -43,7 +43,7 @@ export interface AuthenticationResponse {
    accessToken: string;
    refreshToken: string;
    userId: string;
-   fullName: string;
+   username: string;
    role: "admin" | "owner" | "farmmanager" | "veterinarian";
    expiresIn: string;
 }
@@ -55,7 +55,7 @@ export interface AuthenticationResponse {
 export interface UserTokenData {
    userId: string;
    farmId: string;
-   fullName: string;
+   username: string;
    email: string;
    role: "admin" | "owner" | "farmmanager" | "veterinarian";
    permissions: string[];

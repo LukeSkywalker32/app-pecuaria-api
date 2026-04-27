@@ -3,15 +3,15 @@ import type { ConfirmResetRequest, ForgotPasswordRequest, LoginRequest } from ".
 export function validateLogin(data: LoginRequest): void {
    // Farm
    if (!data.farmId || data.farmId.trim() === "") {
-      throw new Error("farmId is required");
+      throw new Error("FarmId é obrigatório");
    }
-   // Full Name
-   if (!data.fullName || data.fullName.trim().length < 3) {
-      throw new Error("Invalid full name (minimum 3 characters)");
+   // username
+   if (!data.username || data.username.trim().length < 3) {
+      throw new Error("username deve ter pelo menos 3 caracteres");
    }
    // Password
    if (!data.password || data.password.trim().length < 6) {
-      throw new Error("Invalid password (minimum 6 characters)");
+      throw new Error("Senha deve ter pelo menos 6 caracteres");
    }
 }
 export function validateForgotPassword(data: ForgotPasswordRequest): void {
