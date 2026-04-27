@@ -16,12 +16,16 @@ import type {
    LoginRequest,
    UserTokenData,
 } from "../types/auth.types";
-import authValidator from "../validators/auth.validator";
+import {
+   validateConfirmReset,
+   validateForgotPassword,
+   validateLogin,
+} from "../validators/auth.validator";
 
 class AuthService {
    async login(request: LoginRequest): Promise<AuthenticationResponse> {
       // 1. Validate input
-      authValidator.validateLogin(request);
+      validateLogin(request);
 
       // 2. Search user in DB
       const user = await prisma.user.findFirst({
@@ -105,7 +109,7 @@ class AuthService {
     */
    async forgotPassword(request: ForgotPasswordRequest): Promise<void> {
       // 1. Validate input
-      authValidator.validateForgotPassword(request);
+      validateForgotPassword(request);
 
       // 2. Search user
       const user = await prisma.user.findFirst({
@@ -147,7 +151,7 @@ class AuthService {
     */
    async confirmReset(request: ConfirmResetRequest): Promise<void> {
       // 1. Validate input
-      authValidator.validateConfirmReset(request);
+      validateConfirmReset(request);
 
       // 2. Search token
       const resetToken = await prisma.passwordResetToken.findFirst({

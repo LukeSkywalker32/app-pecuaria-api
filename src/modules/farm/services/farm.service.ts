@@ -8,7 +8,7 @@ import type {
    ListFarmsQuery,
    UpdateFarmRequest,
 } from "../types/farm.types";
-import farmValidator from "../validators/farm.validators";
+import { validateCreate, validateUpdate } from "../validators/farm.validators";
 
 const PUBLIC_FARM_SELECT = {
    id: true,
@@ -24,7 +24,7 @@ const PUBLIC_FARM_SELECT = {
 class FarmService {
    // 1 - Criar uma fazenda
    async create(data: CreateFarmRequest): Promise<FarmResponse> {
-      farmValidator.validateCreate(data);
+      validateCreate(data);
       // 1.1 Validar campos
       const nameInUse = await prisma.farm.findFirst({
          where: {
@@ -112,7 +112,7 @@ class FarmService {
       // Verifica acesso e existência
       await this.findById(farmId, callerRole, callerFarmId);
 
-      farmValidator.validateUpdate(data);
+      validateUpdate(data);
 
       // Verifica conflito de nome (exceto a própria fazenda)
       if (data.name) {
