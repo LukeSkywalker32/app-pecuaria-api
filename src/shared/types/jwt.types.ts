@@ -1,9 +1,9 @@
 export interface JwtPayload {
    userId: string;
    farmId: string;
-   fullName: string;
+   username: string;
+   email: string;
    role: "admin" | "owner" | "farmmanager" | "veterinarian";
-   permissions: string[];
    iat?: number;
    exp?: number;
 }

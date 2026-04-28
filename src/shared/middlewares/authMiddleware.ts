@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@/config/env";
+import { ROLES_PERMISSIONS } from "../constants/permissions";
 import type { JwtPayload } from "../types/jwt.types";
 
 declare global {
@@ -20,7 +21,7 @@ export function protectRoute(req: Request, res: Response, next: NextFunction) {
 
       if (!authHeader?.startsWith("Bearer ")) {
          return res.status(401).json({
-            error: "Token not provided",
+            error: "token ausente",
          });
       }
 
@@ -30,12 +31,14 @@ export function protectRoute(req: Request, res: Response, next: NextFunction) {
       req.userId = decoded.userId;
       req.farmId = decoded.farmId;
       req.role = decoded.role;
-      req.permissions = decoded.permissions;
+
+      const roleKey = decoded.role as keyof typeof ROLES_PERMISSIONS;
+      req.permissions = ROLES_PERMISSIONS[roleKey] || [];
 
       next();
    } catch (error) {
       return res.status(401).json({
-         error: "Invalid or expired token",
+         error: "Token invalido ou expirado",
       });
    }
 }
@@ -44,7 +47,7 @@ export function requirePermission(permission: string) {
    return (req: Request, res: Response, next: NextFunction) => {
       if (!req.permissions?.includes(permission)) {
          return res.status(403).json({
-            error: `Insufficient permission: ${permission}`,
+            error: `Permissão ${permission} não autorizada`,
             your_role: req.role,
          });
       }

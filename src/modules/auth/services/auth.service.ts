@@ -202,8 +202,8 @@ class AuthService {
     * Extracts user data to place in JWT
     */
    private getTokenData(user: User): UserTokenData {
-      const roleKey = user.role as keyof typeof ROLES_PERMISSIONS;
-      const permissions = ROLES_PERMISSIONS[roleKey] || [];
+      //const roleKey = user.role as keyof typeof ROLES_PERMISSIONS;
+      //const permissions = ROLES_PERMISSIONS[roleKey] || [];
 
       return {
          userId: user.id,
@@ -211,7 +211,6 @@ class AuthService {
          username: user.username,
          email: user.email,
          role: user.role,
-         permissions,
       };
    }
 
@@ -228,7 +227,6 @@ class AuthService {
          username: data.username,
          email: data.email,
          role: data.role,
-         permissions: data.permissions,
       };
 
       const accessToken = jwt.sign(payload, jwtConfig.secret, {

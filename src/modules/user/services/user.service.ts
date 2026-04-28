@@ -55,7 +55,7 @@ class UserService {
       });
 
       if (usernameInUse) {
-         throw Object.assign(new Error("Username already in use in this farm"), {
+         throw Object.assign(new Error("Usuario já existe nesta fazenda"), {
             statusCode: 409,
          });
       }

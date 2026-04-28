@@ -6,7 +6,6 @@ import { protectRoute, requirePermission } from "@shared/middlewares/authMiddlew
 import { Router } from "express";
 import multer from "multer";
 import farmController from "../controllers/farm.controller";
-import { validateCreate, validateUpdate } from "../validators/farm.validators";
 
 const farmRoutes = Router();
 
@@ -24,12 +23,7 @@ farmRoutes.use(protectRoute);
  * POST /api/farms
  * Cria uma nova fazenda — apenas admin
  */
-farmRoutes.post(
-   "/",
-   requirePermission("create_farm"),
-   validateCreate,
-   farmController.create.bind(farmController),
-);
+farmRoutes.post("/", requirePermission("create_farm"), farmController.create.bind(farmController));
 
 /**
  * GET /api/farms
@@ -47,7 +41,7 @@ farmRoutes.get("/:id", farmController.findById.bind(farmController));
  * PUT /api/farms/:id
  * Admin: qualquer fazenda | Owner: apenas a própria
  */
-farmRoutes.put("/:id", validateUpdate, farmController.update.bind(farmController));
+farmRoutes.put("/:id", farmController.update.bind(farmController));
 
 /**
  * PATCH /api/farms/:id/logo

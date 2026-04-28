@@ -58,5 +58,4 @@ export interface UserTokenData {
    username: string;
    email: string;
    role: "admin" | "owner" | "farmmanager" | "veterinarian";
-   permissions: string[];
 }
