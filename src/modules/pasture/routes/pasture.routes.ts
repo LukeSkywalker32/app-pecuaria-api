@@ -2,7 +2,7 @@
 // PASTURE ROUTES
 // ========================================
 
-import { protectRoute, requirePermission } from "@shared/middlewares/authMiddleware";
+import { protectRoute, requirePermission } from "@/shared/middlewares/authMiddleware";
 import { Router } from "express";
 import pastureController from "../controllers/pasture.controller";
 

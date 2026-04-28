@@ -2,7 +2,7 @@
 // USER SERVICE
 // ========================================
 
-import { prisma } from "@config/database";
+import { prisma } from "@/config/database";
 import type { Permission, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import type {

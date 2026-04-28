@@ -1,8 +1,8 @@
-import { JWT_SECRET } from "@config/env";
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { ROLES_PERMISSIONS } from "../constants/permissions";
-import type { JwtPayload } from "../types/jwt.types";
+import { JWT_SECRET } from "@/config/env";
+import { ROLES_PERMISSIONS } from "@/shared/constants/permissions";
+import type { JwtPayload } from "@/shared/types/jwt.types";
 
 declare global {
    namespace Express {

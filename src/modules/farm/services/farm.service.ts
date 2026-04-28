@@ -1,6 +1,6 @@
 // FARM SERVICE
 
-import { prisma } from "@config/database";
+import { prisma } from "@/config/database";
 import type { Farm, Prisma } from "@prisma/client";
 import type {
    CreateFarmRequest,

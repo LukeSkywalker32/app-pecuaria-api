@@ -2,7 +2,7 @@
 // FARM ROUTES
 // ========================================
 
-import { protectRoute, requirePermission } from "@shared/middlewares/authMiddleware";
+import { protectRoute, requirePermission } from "@/shared/middlewares/authMiddleware";
 import { Router } from "express";
 import multer from "multer";
 import farmController from "../controllers/farm.controller";

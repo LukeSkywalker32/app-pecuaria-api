@@ -13,9 +13,9 @@ export const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
 // Validations
 if (!JWT_SECRET) {
-   throw new Error("JWT_SECRET not configured");
+   throw new Error("JWT_SECRET não configurado");
 }
 
 if (!DATABASE_URL) {
-   throw new Error("DATABASE_URL not configured");
+   throw new Error("DATABASE_URL não configurado");
 }

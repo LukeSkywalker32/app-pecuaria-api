@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/suspicious/noConsole: <explanation> */
+
+import { connectDataBase } from "@/config/database";
 import app from "./app";
-import { connectDataBase } from "./config/database";
 import { PORT } from "./config/env";
 
 async function bootStrap() {

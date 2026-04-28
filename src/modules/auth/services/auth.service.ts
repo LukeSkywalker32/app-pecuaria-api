@@ -3,10 +3,9 @@
 // AUTHENTICATION SERVICE
 // ========================================
 
-import { prisma } from "@config/database";
-import { jwtConfig } from "@config/jwt";
+import { prisma } from "@/config/database";
+import { jwtConfig } from "@/config/jwt";
 import type { User } from "@prisma/client";
-import { ROLES_PERMISSIONS } from "@shared/constants/permissions";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type {

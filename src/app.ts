@@ -1,7 +1,5 @@
-import { disconnect } from "node:cluster";
 import cors from "cors";
 import express from "express";
-import { da } from "zod/v4/locales";
 import { prisma } from "./config/database";
 import { CORS_ORIGIN } from "./config/env";
 import authRoutes from "./modules/auth/routes/auth.routes";

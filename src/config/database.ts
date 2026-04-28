@@ -2,7 +2,7 @@
 
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@prisma/client";
-import { DATABASE_URL } from "./env";
+import { DATABASE_URL } from "@/config/env";
 
 const globalForPrisma = globalThis as unknown as {
    prisma: PrismaClient | undefined;

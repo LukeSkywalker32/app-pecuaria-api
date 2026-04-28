@@ -1,4 +1,4 @@
-import { JWT_EXPIRE, JWT_REFRESH_EXPIRE, JWT_REFRESH_SECRET, JWT_SECRET } from "./env";
+import { JWT_EXPIRE, JWT_REFRESH_EXPIRE, JWT_REFRESH_SECRET, JWT_SECRET } from "@/config/env";
 
 export const jwtConfig = {
    secret: JWT_SECRET,
