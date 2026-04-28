@@ -32,6 +32,7 @@ export function protectRoute(req: Request, res: Response, next: NextFunction) {
       req.farmId = decoded.farmId;
       req.role = decoded.role;
       // FORÇA a carga das permissões dinâmicas do servidor, ignorando o que estiver no token
+      //VERIFICAR SE É A MELHOR MANEIRA
       const roleKey = decoded.role as keyof typeof ROLES_PERMISSIONS;
       const dynamicPermissions = ROLES_PERMISSIONS[roleKey] || [];
 
@@ -56,8 +57,6 @@ export function requirePermission(permission: string) {
       next();
    };
 }
-// Exige QUALQUER UMA das permissões listadas
-// Útil quando admin e owner/farmmanager têm permissões com nomes diferentes
 export function requireAnyPermission(permissions: string[]) {
    return (req: Request, res: Response, next: NextFunction) => {
       const hasAny = permissions.some(p => req.permissions?.includes(p));
