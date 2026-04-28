@@ -20,11 +20,7 @@ userRoutes.get("/", userController.list.bind(userController));
  * Cria um novo usuário
  * Permissão: admin pode criar qualquer role | owner e farmmanager só criam veterinários
  */
-userRoutes.post(
-   "/",
-   requirePermission("create_veterinarian_user"),
-   userController.create.bind(userController),
-);
+userRoutes.post("/", userController.create.bind(userController));
 
 /**
  * GET /api/users/:id

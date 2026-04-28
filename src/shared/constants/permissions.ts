@@ -47,6 +47,7 @@ export const ROLES_PERMISSIONS = {
    ],
 
    owner: [
+      "create_farmmanager_user",
       "create_veterinarian_user",
       "create_animal",
       "edit_animal",

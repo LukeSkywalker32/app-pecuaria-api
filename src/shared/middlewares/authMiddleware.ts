@@ -1,6 +1,6 @@
+import { JWT_SECRET } from "@config/env";
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "@/config/env";
 import { ROLES_PERMISSIONS } from "../constants/permissions";
 import type { JwtPayload } from "../types/jwt.types";
 
@@ -31,9 +31,11 @@ export function protectRoute(req: Request, res: Response, next: NextFunction) {
       req.userId = decoded.userId;
       req.farmId = decoded.farmId;
       req.role = decoded.role;
-
+      // FORÇA a carga das permissões dinâmicas do servidor, ignorando o que estiver no token
       const roleKey = decoded.role as keyof typeof ROLES_PERMISSIONS;
-      req.permissions = ROLES_PERMISSIONS[roleKey] || [];
+      const dynamicPermissions = ROLES_PERMISSIONS[roleKey] || [];
+
+      req.permissions = dynamicPermissions;
 
       next();
    } catch (error) {
@@ -48,6 +50,20 @@ export function requirePermission(permission: string) {
       if (!req.permissions?.includes(permission)) {
          return res.status(403).json({
             error: `Permissão ${permission} não autorizada`,
+            your_role: req.role,
+         });
+      }
+      next();
+   };
+}
+// Exige QUALQUER UMA das permissões listadas
+// Útil quando admin e owner/farmmanager têm permissões com nomes diferentes
+export function requireAnyPermission(permissions: string[]) {
+   return (req: Request, res: Response, next: NextFunction) => {
+      const hasAny = permissions.some(p => req.permissions?.includes(p));
+      if (!hasAny) {
+         return res.status(403).json({
+            error: `Nenhuma das permissões necessárias: ${permissions.join(", ")}`,
             your_role: req.role,
          });
       }

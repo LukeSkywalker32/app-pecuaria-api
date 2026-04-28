@@ -27,6 +27,11 @@ const PUBLIC_USER_SELECT = {
    role: true,
    active: true,
    farmId: true,
+   farm: {
+      select: {
+         name: true,
+      },
+   },
    crmv: true,
    graduationDate: true,
    specialties: true,
@@ -40,15 +45,21 @@ class UserService {
     * Cria um novo usuário na fazenda
     * Quem pode chamar: admin, owner, farmmanager (verificado na rota via requirePermission)
     */
-   async create(farmId: string, data: CreateUserRequest): Promise<UserResponse> {
+   async create(callerFarmId: string, data: CreateUserRequest): Promise<UserResponse> {
       // 1. Validar campos
       userValidator.validateCreate(data);
-
-      // 2. Verificar se username já existe nesta fazenda
+      // Prioriza o farmId vindo no body (para Admin), senão usa o do solicitante
+      const targetFarmId = data.farmId || callerFarmId;
+      if (!targetFarmId) {
+         throw Object.assign(new Error("FarmId não informada"), {
+            statusCode: 400,
+         });
+      }
+      // Verifica se username já existe nesta fazenda
       const usernameInUse = await prisma.user.findUnique({
          where: {
             farmId_username: {
-               farmId,
+               farmId: targetFarmId,
                username: data.username.trim(),
             },
          },
@@ -63,7 +74,7 @@ class UserService {
       // 3. Verificar se email já existe nesta fazenda
       const emailInUse = await prisma.user.findFirst({
          where: {
-            farmId,
+            farmId: targetFarmId,
             email: data.email.trim().toLowerCase(),
          },
       });
@@ -78,7 +89,7 @@ class UserService {
       // 5. Criar usuário
       const user = await prisma.user.create({
          data: {
-            farmId,
+            farmId: targetFarmId,
             fullName: data.fullName.trim(),
             username: data.username.trim(),
             email: data.email.trim().toLowerCase(),
@@ -92,7 +103,7 @@ class UserService {
          select: PUBLIC_USER_SELECT,
       });
 
-      return user as UserResponse;
+      return this.formatUserResponse(user);
    }
 
    /**
@@ -125,7 +136,7 @@ class UserService {
          orderBy: { fullName: "asc" },
       });
 
-      return users as UserResponse[];
+      return users.map(user => this.formatUserResponse(user));
    }
 
    /**
@@ -141,7 +152,7 @@ class UserService {
          throw Object.assign(new Error("User not found"), { statusCode: 404 });
       }
 
-      return user as UserResponse;
+      return this.formatUserResponse(user);
    }
 
    /**
@@ -206,7 +217,7 @@ class UserService {
          select: PUBLIC_USER_SELECT,
       });
 
-      return user as UserResponse;
+      return this.formatUserResponse(user);
    }
 
    /**
@@ -221,7 +232,7 @@ class UserService {
          select: PUBLIC_USER_SELECT,
       });
 
-      return user as UserResponse;
+      return this.formatUserResponse(user);
    }
 
    /**
@@ -291,6 +302,13 @@ class UserService {
       await prisma.user.delete({
          where: { id: userId },
       });
+   }
+   private formatUserResponse(user: any): UserResponse {
+      const { farm, ...userData } = user;
+      return {
+         ...userData,
+         farmName: farm?.name,
+      };
    }
 }
 

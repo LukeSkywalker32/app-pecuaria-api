@@ -3,6 +3,7 @@
 // ========================================
 
 import type { NextFunction, Request, Response } from "express";
+import { id } from "zod/v4/locales";
 import userService from "../services/user.service";
 import type {
    AdminResetPasswordRequest,
@@ -21,7 +22,34 @@ class UserController {
    async create(req: Request, res: Response, next: NextFunction): Promise<void> {
       try {
          const farmId = req.farmId as string;
+         const callerRole = req.role as string;
          const body = req.body as CreateUserRequest;
+
+         // Lógica de Hierarquia Simplificada (Ignora requirePermission da rota)
+         if (callerRole === "admin") {
+            // Admin pode tudo
+         } else if (callerRole === "owner") {
+            // Owner pode criar Gerente ou Veterinário na sua fazenda
+            const allowed = ["farmmanager", "veterinarian"];
+            if (!allowed.includes(body.role)) {
+               res.status(403).json({
+                  error: "Owners can only create farm managers or veterinarians",
+               });
+               return;
+            }
+            //delete body.farmId; // Força a própria fazenda
+         } else if (callerRole === "farmmanager") {
+            // Gerente só cria Veterinário na sua fazenda
+            if (body.role !== "veterinarian") {
+               res.status(403).json({ error: "Farm managers can only create veterinarian users" });
+               return;
+            }
+            //delete body.farmId; // Força a própria fazenda
+         } else {
+            res.status(403).json({ error: "Insufficient permission to create users" });
+            return;
+         }
+
          const user = await userService.create(farmId, body);
 
          res.status(201).json(user);

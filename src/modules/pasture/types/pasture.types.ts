@@ -22,7 +22,7 @@ export interface PastureResponse {
    type: string;
    animalCapacity: number;
    currentAnimals: number;
-   occupancyRate: number; //% de animales ocupados
+   occupancyRate: number; //% de animals ocupados
    active: boolean;
    farmId: string;
    createdAt: Date;

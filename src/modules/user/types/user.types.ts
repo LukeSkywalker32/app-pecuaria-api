@@ -11,6 +11,7 @@ export interface CreateUserRequest {
    phone?: string;
    password: string;
    role: Permission;
+   farmId: string;
 
    // Campos específicos para veterinários
    crmv?: string;
@@ -60,6 +61,7 @@ export interface UserResponse {
    role: Permission;
    active: boolean;
    farmId: string;
+   farmName: string;
    crmv: string | null;
    graduationDate: Date | null;
    specialties: string[];
