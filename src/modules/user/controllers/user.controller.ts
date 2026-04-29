@@ -32,20 +32,18 @@ class UserController {
             const allowed = ["farmmanager", "veterinarian"];
             if (!allowed.includes(body.role)) {
                res.status(403).json({
-                  error: "Owners can only create farm managers or veterinarians",
+                  error: "Proprietarios só podem criar gerentes ou veterinários",
                });
                return;
             }
-            //delete body.farmId; // Força a própria fazenda
          } else if (callerRole === "farmmanager") {
             // Gerente só cria Veterinário na sua fazenda
             if (body.role !== "veterinarian") {
-               res.status(403).json({ error: "Farm managers can only create veterinarian users" });
+               res.status(403).json({ error: "Gerente só pode criar veterinários" });
                return;
             }
-            //delete body.farmId; // Força a própria fazenda
          } else {
-            res.status(403).json({ error: "Insufficient permission to create users" });
+            res.status(403).json({ error: "Permissão insuficiente para criar usuários" });
             return;
          }
 
@@ -130,7 +128,7 @@ class UserController {
          // Veterinários só podem editar o próprio perfil
          if (role === "veterinarian" && id !== userId) {
             res.status(403).json({
-               error: "Veterinarians can only edit their own profile",
+               error: "Veterinario só pode editar seu próprio perfil",
             });
             return;
          }
@@ -191,7 +189,7 @@ class UserController {
 
          await userService.changePassword(farmId, userId, body);
 
-         res.status(200).json({ message: "Password changed successfully" });
+         res.status(200).json({ message: "Senha alterada com sucesso" });
       } catch (error) {
          next(error);
       }
@@ -210,7 +208,7 @@ class UserController {
 
          await userService.adminResetPassword(farmId, id, body);
 
-         res.status(200).json({ message: "Password reset successfully" });
+         res.status(200).json({ message: "Senha redefinida com sucesso" });
       } catch (error) {
          next(error);
       }

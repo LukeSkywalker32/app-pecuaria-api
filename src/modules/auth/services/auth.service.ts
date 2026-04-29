@@ -3,11 +3,11 @@
 // AUTHENTICATION SERVICE
 // ========================================
 
-import { prisma } from "@/config/database";
-import { jwtConfig } from "@/config/jwt";
 import type { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { prisma } from "@/config/database";
+import { jwtConfig } from "@/config/jwt";
 import type {
    AuthenticationResponse,
    ConfirmResetRequest,
@@ -140,9 +140,6 @@ class AuthService {
       });
 
       // 5. Send email (implement later)
-      // await emailService.sendResetCode(user.email, code);
-
-      console.log(`[DEV] Reset code for ${user.email}: ${code}`);
    }
 
    /**
