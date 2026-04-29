@@ -2,9 +2,9 @@
 // USER SERVICE
 // ========================================
 
-import { prisma } from "@/config/database";
 import type { Permission, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { prisma } from "@/config/database";
 import type {
    AdminResetPasswordRequest,
    ChangePasswordRequest,
@@ -39,6 +39,13 @@ const PUBLIC_USER_SELECT = {
    createdAt: true,
    updatedAt: true,
 } satisfies Prisma.UserSelect;
+
+const ROLE_HIERARCHY: Record<string, number> = {
+   admin: 4,
+   owner: 3,
+   farmmanager: 2,
+   veterinarian: 1,
+};
 
 class UserService {
    /**
@@ -160,14 +167,28 @@ class UserService {
     * O próprio usuário pode editar o próprio perfil (verificado no controller)
     * Admin/owner/farmmanager podem editar qualquer usuário da fazenda
     */
-   async update(farmId: string, userId: string, data: UpdateUserRequest): Promise<UserResponse> {
+   async update(
+      farmId: string,
+      userId: string,
+      data: UpdateUserRequest,
+      callerRole: string,
+      callerUserId: string,
+   ): Promise<UserResponse> {
       // 1. Verificar se o usuário existe
-      await this.findById(farmId, userId);
+      const targetUser = await this.findById(farmId, userId);
+      // 2. Valida hierarquia — impede editar role igual ou superior
+      const callerLevel = ROLE_HIERARCHY[callerRole] ?? 0;
+      const targetLevel = ROLE_HIERARCHY[targetUser.role] ?? 0;
+      if (targetLevel >= callerLevel && callerUserId !== userId) {
+         throw Object.assign(
+            new Error("Sem permissão para editar usuário de role igual ou superior"),
+            { statusCode: 403 },
+         );
+      }
 
-      // 2. Validar campos
       userValidator.validateUpdate(data);
 
-      // 3. Verificar conflito de username
+      // 3 - Verificar conflito de username
       if (data.username) {
          const conflict = await prisma.user.findFirst({
             where: {

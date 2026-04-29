@@ -3,6 +3,7 @@
 // ========================================
 
 import { Router } from "express";
+import { authRateLimiter, forgotPasswordRateLimiter } from "@/shared/middlewares/rateLimiter";
 import authController from "../controllers/auth.controller";
 
 const authRoutes = Router();
@@ -12,27 +13,35 @@ const authRoutes = Router();
  * User login
  * Body: { farmId, username, password }
  */
-authRoutes.post("/login", authController.login.bind(authController));
+authRoutes.post("/login", authRateLimiter, authController.login.bind(authController));
 
 /**
  * POST /api/auth/renew-token
  * Renews access token using refresh token
  * Body: { refreshToken }
  */
-authRoutes.post("/renew-token", authController.renewToken.bind(authController));
+authRoutes.post("/renew-token", authRateLimiter, authController.renewToken.bind(authController));
 
 /**
  * POST /api/auth/forgot-password
  * Initiates password reset process
  * Body: { farmId, email }
  */
-authRoutes.post("/forgot-password", authController.forgotPassword.bind(authController));
+authRoutes.post(
+   "/forgot-password",
+   forgotPasswordRateLimiter,
+   authController.forgotPassword.bind(authController),
+);
 
 /**
  * POST /api/auth/confirm-reset
  * Confirms reset with code
  * Body: { farmId, email, code, newPassword }
  */
-authRoutes.post("/confirm-reset", authController.confirmReset.bind(authController));
+authRoutes.post(
+   "/confirm-reset",
+   forgotPasswordRateLimiter,
+   authController.confirmReset.bind(authController),
+);
 
 export default authRoutes;

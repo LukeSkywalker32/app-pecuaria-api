@@ -1,8 +1,6 @@
-// ========================================
 /** biome-ignore-all lint/suspicious/noConsole: <explanation> */
-// AUTHENTICATION SERVICE
-// ========================================
 
+import { randomInt } from "node:crypto";
 import type { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -37,14 +35,14 @@ class AuthService {
 
       // 3. Validate if user exists
       if (!user) {
-         throw new Error("User not found in this farm");
+         throw new Error("Usuario não encontrado nesta fazenda");
       }
 
       // 4. Validate password
       const isPasswordCorrect = await bcrypt.compare(request.password, user.password);
 
       if (!isPasswordCorrect) {
-         throw new Error("Incorrect password");
+         throw new Error("Senha incorreta");
       }
 
       // 5. Generate tokens
@@ -80,9 +78,12 @@ class AuthService {
          const user = await prisma.user.findUnique({
             where: { id: decoded.userId },
          });
+         if (!user) {
+            throw new Error("Usuário não encontrado");
+         }
 
          if (!user?.active) {
-            throw new Error("User not found or inactive");
+            throw new Error("Usuario inativo");
          }
 
          // 3. Generate new access token
@@ -118,16 +119,19 @@ class AuthService {
          },
       });
 
-      if (!user) {
-         // ❌ DO NOT inform if email exists or not (security)
-         console.log(`Email not found: ${request.email}`);
-         return;
-      }
-
-      // 3. Generate 6 digit code
-      const code = this.generateResetCode();
+      //Nao importa se email existe - evita enumeração de usuarios
+      if (!user) return;
+      // Valida tokens anteriores antes de criar novo
+      await prisma.passwordResetToken.updateMany({
+         where: {
+            userId: user.id,
+            used: false,
+         },
+         data: { used: true },
+      });
 
       // 4. Save token in DB (valid for 15 minutes)
+      const code = randomInt(100000, 999999).toString();
       const expiration = new Date(Date.now() + 15 * 60 * 1000);
 
       await prisma.passwordResetToken.create({
@@ -138,8 +142,13 @@ class AuthService {
             expiresAt: expiration,
          },
       });
+      // TODO: implementar envio real por email
+      // await emailService.sendResetCode(user.email, code);
 
-      // 5. Send email (implement later)
+      // Log apenas em desenvolvimento — nunca em produção
+      if (process.env.NODE_ENV === "development") {
+         console.log(`[DEV] Código de reset para ${user.email}: ${code}`);
+      }
    }
 
    /**
@@ -156,13 +165,15 @@ class AuthService {
             farmId: request.farmId,
             used: false,
             expiresAt: {
-               gt: new Date(), // Is token still valid?
+               gt: new Date(), // O token ainda é válido?
             },
          },
       });
 
       if (!resetToken) {
-         throw new Error("Invalid or expired code");
+         throw Object.assign(new Error("Código invalido ou expirado"), {
+            statusCode: 400,
+         });
       }
 
       // 3. Search user
@@ -171,7 +182,7 @@ class AuthService {
       });
 
       if (!user || user.email !== request.email) {
-         throw new Error("Data mismatch");
+         throw new Error("Dados incorretos");
       }
 
       // 4. Hash new password
@@ -188,19 +199,11 @@ class AuthService {
             data: { used: true },
          }),
       ]);
-
-      console.log(`Password reset for user: ${user.fullName}`);
    }
 
    // ==================== PRIVATE METHODS ====================
 
-   /**
-    * Extracts user data to place in JWT
-    */
    private getTokenData(user: User): UserTokenData {
-      //const roleKey = user.role as keyof typeof ROLES_PERMISSIONS;
-      //const permissions = ROLES_PERMISSIONS[roleKey] || [];
-
       return {
          userId: user.id,
          farmId: user.farmId,
@@ -234,13 +237,6 @@ class AuthService {
       });
 
       return { accessToken, refreshToken };
-   }
-
-   /**
-    * Generates 6 digit code for reset
-    */
-   private generateResetCode(): string {
-      return Math.floor(100000 + Math.random() * 900000).toString();
    }
 }
 

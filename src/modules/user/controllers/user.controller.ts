@@ -12,21 +12,30 @@ import type {
    UpdateUserRequest,
 } from "../types/user.types";
 
+//hierarquia de roles
+const ROLE_HIERARCHY: Record<string, number> = {
+   admin: 4,
+   owner: 3,
+   farmmanager: 2,
+   veterinarian: 1,
+};
+
 class UserController {
-   /**
-    * Cria um novo usuário na fazenda
-    * POST /api/users
-    * Permissão: create_user_any_role (admin) | create_veterinarian_user (owner, farmmanager)
-    */
+   //Cria um novo usuário na fazenda
+   // POST /api/users
    async create(req: Request, res: Response, next: NextFunction): Promise<void> {
       try {
-         const farmId = req.farmId as string;
+         const callerFarmId = req.farmId as string;
          const callerRole = req.role as string;
          const body = req.body as CreateUserRequest;
 
          // Lógica de Hierarquia Simplificada (Ignora requirePermission da rota)
          if (callerRole === "admin") {
-            // Admin pode tudo
+            //Admin cria fazenda e farmId vem no token do body
+            if (!body.farmId) {
+               res.status(400).json({ error: "admin deve informar no body" });
+               return;
+            }
          } else if (callerRole === "owner") {
             // Owner pode criar Gerente ou Veterinário na sua fazenda
             const allowed = ["farmmanager", "veterinarian"];
@@ -36,19 +45,20 @@ class UserController {
                });
                return;
             }
+            body.farmId = callerFarmId;
          } else if (callerRole === "farmmanager") {
             // Gerente só cria Veterinário na sua fazenda
             if (body.role !== "veterinarian") {
                res.status(403).json({ error: "Gerente só pode criar veterinários" });
                return;
             }
+            body.farmId = callerFarmId;
          } else {
             res.status(403).json({ error: "Permissão insuficiente para criar usuários" });
             return;
          }
 
-         const user = await userService.create(farmId, body);
-
+         const user = await userService.create(body.farmId, body);
          res.status(201).json(user);
       } catch (error) {
          next(error);
@@ -120,21 +130,31 @@ class UserController {
    async update(req: Request, res: Response, next: NextFunction): Promise<void> {
       try {
          const farmId = req.farmId as string;
-         const userId = req.userId as string;
-         const role = req.role as string;
+         const callerUserId = req.userId as string;
+         const callerRole = req.role as string;
          const { id } = req.params as { id: string };
          const body = req.body as UpdateUserRequest;
 
-         // Veterinários só podem editar o próprio perfil
-         if (role === "veterinarian" && id !== userId) {
-            res.status(403).json({
-               error: "Veterinario só pode editar seu próprio perfil",
-            });
+         // Veterinário só edita o próprio perfil
+         if (callerRole === "veterinarian" && id !== callerUserId) {
+            res.status(403).json({ error: "Veterinário só pode editar o próprio perfil" });
             return;
          }
 
-         const user = await userService.update(farmId, id, body);
+         // Verifica hierarquia — impede editar usuário de role igual ou superior
+         if (body.role) {
+            const callerLevel = ROLE_HIERARCHY[callerRole] ?? 0;
+            const targetLevel = ROLE_HIERARCHY[body.role] ?? 0;
 
+            if (targetLevel >= callerLevel) {
+               res.status(403).json({
+                  error: "Não é possível atribuir role igual ou superior ao seu",
+               });
+               return;
+            }
+         }
+
+         const user = await userService.update(farmId, id, body, callerRole, callerUserId);
          res.status(200).json(user);
       } catch (error) {
          next(error);
