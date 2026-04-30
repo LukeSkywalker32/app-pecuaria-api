@@ -19,6 +19,7 @@ export const ROLES_PERMISSIONS = {
       "view_global_audit",
       "create_animal",
       "edit_animal",
+      "delete_animal",
       "register_estrus",
       "edit_estrus",
       "register_mating",
@@ -51,6 +52,7 @@ export const ROLES_PERMISSIONS = {
       "create_veterinarian_user",
       "create_animal",
       "edit_animal",
+      "delete_animal",
       "register_estrus",
       "edit_estrus",
       "register_mating",
@@ -81,6 +83,7 @@ export const ROLES_PERMISSIONS = {
    farmmanager: [
       "create_veterinarian_user",
       "edit_user",
+      "delete_animal",
       "activate_user",
       "deactivate_user",
       "view_audit",

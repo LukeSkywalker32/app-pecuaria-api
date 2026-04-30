@@ -25,6 +25,8 @@ enum AnimalStatus {
   active
   dead
   sold
+  quarantine
+  treatment
 }
 
 enum EstrusIntensity {
@@ -167,6 +169,12 @@ model Animal {
   damId String?
   dam   Animal?  @relation("AnimalDam", fields: [damId], references: [id])
   damOf Animal[] @relation("AnimalDam")
+
+ // Genealogia externa (para animais comprados ou sem registro completo)
+  sireExternalName String?
+  sireExternalChip String?
+  damExternalName  String?
+  damExternalChip  String?
 
   bullInAttempts Attempt[] @relation("AttemptBull")
 

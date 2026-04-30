@@ -2,8 +2,10 @@ import cors from "cors";
 import express from "express";
 import { prisma } from "./config/database";
 import { CORS_ORIGIN } from "./config/env";
+import animalRoutes from "./modules/animals/routes/animal.routes";
 import authRoutes from "./modules/auth/routes/auth.routes";
 import farmRoutes from "./modules/farm/routes/farm.routes";
+import managementRoutes from "./modules/management/routes/management.routes";
 import pastureRoutes from "./modules/pasture/routes/pasture.routes";
 import userRoutes from "./modules/user/routes/user.routes";
 import { errorHandler } from "./shared/middlewares/errorHandler";
@@ -43,6 +45,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/farms", farmRoutes);
 app.use("/api/pastures", pastureRoutes);
+app.use("/api/animals", animalRoutes);
+app.use("/api/management", managementRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);
