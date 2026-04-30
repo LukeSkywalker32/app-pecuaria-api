@@ -4,9 +4,11 @@ import type {
    CreateManagementRequest,
    ManagementResponse,
 } from "../types/management.types";
+import managementValidator from "../validators/management.validator";
 
 class ManagementService {
    async moveAnimal(farmId: string, data: CreateManagementRequest): Promise<ManagementResponse> {
+      managementValidator.validateMove(data);
       const { animalId, destinationPastureId, reason, employee, movementDate } = data;
 
       //1 . Validar animal
@@ -16,7 +18,8 @@ class ManagementService {
             farmId,
          },
       });
-      if (!animal) throw Object.assign(new Error("Animal não encontrado"), { StatusCode: 404 });
+      if (!animal) throw Object.assign(new Error("Animal não encontrado"), { statusCode: 404 });
+
       // 2. validar pasto de destinantionPastureId
       const destPasture = await prisma.pasture.findFirst({
          where: {
@@ -69,6 +72,7 @@ class ManagementService {
       return management as ManagementResponse;
    }
    async moveBatch(farmId: string, data: CreateBatchManagementRequest): Promise<{ count: number }> {
+      managementValidator.validateMoveBatch(data);
       const { animalIds, destinationPastureId, reason, employee, movementDate } = data;
       //1. valida pasto de destino
       const destPasture = await prisma.pasture.findFirst({

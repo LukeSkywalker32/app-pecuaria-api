@@ -6,7 +6,7 @@ export interface CreateAnimalRequest {
    name: string;
    breed: string;
    gender: Gender;
-   birthDate: string; //ISO Date String
+   birthDate: Date;
    pastureId?: string;
    status?: AnimalStatus;
    // Genealogia interna
@@ -26,7 +26,7 @@ export interface UpdateAnimalRequest {
    name?: string;
    breed?: string;
    gender?: Gender;
-   birthDate?: string;
+   birthDate?: Date;
    status?: AnimalStatus;
    pastureId?: string;
 }
@@ -38,7 +38,7 @@ export interface AnimalResponse {
    name: string;
    breed: string;
    gender: Gender;
-   birthDate: string;
+   birthDate: Date;
    ageInMonths: number;
    category: string;
    uaValue: number; //Valor em unidade animal

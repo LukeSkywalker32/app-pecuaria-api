@@ -161,6 +161,7 @@ model Animal {
   birthDate     DateTime
   status        AnimalStatus @default(active)
   deathDate     DateTime?
+  origin        String       @default("born") // "born" | "purchased"
 
   sireId String?
   sire   Animal?  @relation("AnimalSire", fields: [sireId], references: [id])

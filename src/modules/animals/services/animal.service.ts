@@ -7,6 +7,7 @@ import type {
    ListAnimalsQuery,
    UpdateAnimalRequest,
 } from "../types/animal.types";
+import animalValidator from "../validators/animal.validator";
 
 const ANIMAL_SELECT = {
    id: true,
@@ -42,6 +43,7 @@ class AnimalService {
    }
 
    async create(farmId: string, data: CreateAnimalRequest): Promise<AnimalResponse> {
+      animalValidator.validateCreate(data);
       // Verifica se chipId já existe
       const existing = await prisma.animal.findUnique({
          where: { chipId: data.chipId },
@@ -145,6 +147,7 @@ class AnimalService {
    }
 
    async update(farmId: string, id: string, data: UpdateAnimalRequest): Promise<AnimalResponse> {
+      animalValidator.validateUpdate(data);
       const current = await this.findById(farmId, id);
 
       const updateData: Prisma.AnimalUpdateInput = { ...data } as any;
