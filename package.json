@@ -16,7 +16,8 @@
       "format": "biome check --write src/",
       "prisma:generate": "prisma generate",
       "prisma:push": "prisma db push",
-      "prisma:studio": "prisma studio"
+      "prisma:studio": "prisma studio",
+      "prisma:migrate": "prisma migrate dev"
    },
    "dependencies": {
       "@prisma/adapter-neon": "^7.8.0",
