@@ -154,15 +154,24 @@ class AnimalService {
       if (data.birthDate) updateData.birthDate = new Date(data.birthDate);
 
       // Regra de Negócio: Se mudar para Quarentena ou Tratamento, o pasto pode ser removido
-      const isSpecialStatus =
-         (data.status as string) === "quarantine" || (data.status as string) === "treatment";
-      if (isSpecialStatus && data.pastureId === undefined) {
-         // Se o usuário não enviou um novo pastureId, mas mudou para status especial,
-         // mantemos o pasto atual ou permitimos que ele seja nulo se o usuário explicitamente enviar null
-      }
-
       const animal = await prisma.$transaction(async tx => {
-         // Se mudou de pasto, atualiza contadores
+         // Regra de status especial: quarantine e treatment removem o animal do pasto
+         // a menos que o usuário informe explicitamente um pastureId de destino
+         const isSpecialStatus =
+            (data.status as string) === "quarantine" || (data.status as string) === "treatment";
+         if (isSpecialStatus && data.pastureId === undefined) {
+            // Remove o animal do pasto atual
+            if (current.pastureId) {
+               await tx.pasture.update({
+                  where: { id: current.pastureId },
+                  data: { currentAnimals: { decrement: 1 } },
+               });
+            }
+            // Preciso desconectar o pastureId antes de remover o animal
+            updateData.pasture = { disconnect: true };
+            updateData.pastureName = null;
+         }
+         // Se mudou de pasto explicitamente (pastureId foi informado)
          if (data.pastureId !== undefined && data.pastureId !== current.pastureId) {
             if (current.pastureId) {
                await tx.pasture.update({
@@ -174,7 +183,10 @@ class AnimalService {
                const pasture = await tx.pasture.findFirst({
                   where: { id: data.pastureId, farmId },
                });
-               if (!pasture) throw new Error("Pasto de destino não encontrado");
+               if (!pasture)
+                  throw Object.assign(new Error("Pasto de destino não encontrado"), {
+                     statusCode: 404,
+                  });
 
                updateData.pastureName = pasture.name;
                await tx.pasture.update({
@@ -195,6 +207,7 @@ class AnimalService {
 
       return this.formatAnimal(animal);
    }
+
    async remove(farmId: string, id: string): Promise<void> {
       const animal = await this.findById(farmId, id);
 
