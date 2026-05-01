@@ -252,6 +252,7 @@ model Estrus {
   date       DateTime
   intensity  EstrusIntensity
   nextEstrus DateTime
+  notes      String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
