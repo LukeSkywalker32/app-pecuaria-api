@@ -3,9 +3,11 @@ import type { CreateEstrusRequest, UpdateEstrusRequest } from "../types/estrus.t
 
 const VALID_INTENSITIES: EstrusIntensity[] = ["weak", "normal", "strong"];
 
-function isValideDate(value: unknown): value is Date {
-   return value instanceof Date && !Number.isNaN(value.getTime());
+function isValideDate(dateStr: string): boolean {
+   const date = new Date(dateStr);
+   return !Number.isNaN(date.getTime());
 }
+
 function isNotFutureDate(value: unknown): value is Date {
    return value instanceof Date && !Number.isNaN(value.getTime()) && value.getTime() <= Date.now();
 }

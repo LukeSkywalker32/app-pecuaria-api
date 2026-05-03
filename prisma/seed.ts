@@ -1,7 +1,6 @@
 import { AnimalStatus, Gender, Permission, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
+import { prisma } from "../src/config/database";
 
 function yearsAgo(years: number) {
    const d = new Date();
