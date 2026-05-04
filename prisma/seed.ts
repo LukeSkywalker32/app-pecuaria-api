@@ -1,4 +1,4 @@
-import { AnimalStatus, Gender, Permission, PrismaClient } from "@prisma/client";
+import { AnimalStatus, Gender, Permission } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { prisma } from "../src/config/database";
 

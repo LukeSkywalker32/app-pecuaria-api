@@ -8,9 +8,11 @@ import birthRoutes from "./modules/birth/routes/birth.routes";
 import estrusRoutes from "./modules/estrus/routes/estrus.routes";
 import farmRoutes from "./modules/farm/routes/farm.routes";
 import managementRoutes from "./modules/management/routes/management.routes";
+import mortalityRoutes from "./modules/mortality/routes/mortality.routes";
 import pastureRoutes from "./modules/pasture/routes/pasture.routes";
 import pregnancyRoutes from "./modules/pregnancy/routes/pregnancy.routes";
 import userRoutes from "./modules/user/routes/user.routes";
+import vaccinationRoutes from "./modules/vaccination/routes/vaccination.routes";
 import { errorHandler } from "./shared/middlewares/errorHandler";
 
 const app = express();
@@ -53,6 +55,8 @@ app.use("/api/management", managementRoutes);
 app.use("/api/pregnancies", pregnancyRoutes);
 app.use("/api/estrus", estrusRoutes);
 app.use("/api/births", birthRoutes);
+app.use("/api/vaccinations", vaccinationRoutes);
+app.use("/api/mortalities", mortalityRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);

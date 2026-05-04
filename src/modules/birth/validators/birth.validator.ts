@@ -31,7 +31,9 @@ export function validateCreate(data: CreateBirthRequest): void {
    }
    // Hora do parto(opcional, mas se for informado deve ser HH:MM)
    if (data.birthTime !== undefined && data.birthTime !== null) {
-      throw new Error("Horário do parto inválido. Use formato HH:MM");
+      if (!/^\d{2}:\d{2}$/.test(data.birthTime)) {
+         throw new Error("Horário do parto inválido. Use formato HH:MM");
+      }  
    }
    // Tipo de parto
    if (!data.birthType || !VALID_BIRTH_TYPES.includes(data.birthType)) {

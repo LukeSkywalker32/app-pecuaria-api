@@ -8,8 +8,8 @@ function isValideDate(dateStr: string): boolean {
    return !Number.isNaN(date.getTime());
 }
 
-function isNotFutureDate(value: unknown): value is Date {
-   return value instanceof Date && !Number.isNaN(value.getTime()) && value.getTime() <= Date.now();
+function isNotFutureDate(dateStr: string): boolean {
+   return new Date(dateStr) <= new Date();
 }
 function validateCreate(date: CreateEstrusRequest): void {
    // Animal Id
