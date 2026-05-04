@@ -4,6 +4,7 @@ import { prisma } from "./config/database";
 import { CORS_ORIGIN } from "./config/env";
 import animalRoutes from "./modules/animals/routes/animal.routes";
 import authRoutes from "./modules/auth/routes/auth.routes";
+import birthRoutes from "./modules/birth/routes/birth.routes";
 import estrusRoutes from "./modules/estrus/routes/estrus.routes";
 import farmRoutes from "./modules/farm/routes/farm.routes";
 import managementRoutes from "./modules/management/routes/management.routes";
@@ -51,6 +52,7 @@ app.use("/api/animals", animalRoutes);
 app.use("/api/management", managementRoutes);
 app.use("/api/pregnancies", pregnancyRoutes);
 app.use("/api/estrus", estrusRoutes);
+app.use("/api/births", birthRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);

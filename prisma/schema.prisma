@@ -385,6 +385,7 @@ model Vaccination {
   nextDoseDate    DateTime?
   photoUrl        String?
   reaction        String?
+  notes           String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
