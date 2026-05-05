@@ -37,7 +37,7 @@ export function validateCreate(data: CreateMortalityRequest): void {
    if (!data.deathLocation || data.deathLocation.trim().length < 2) {
       throw new Error("Local da morte deve ter pelo menos 2 caracteres");
    }
-   if (data.deathLocation || data.deathLocation.trim().length > 50) {
+   if (data.deathLocation && data.deathLocation.trim().length > 50) {
       throw new Error("Local da morte deve ter no máximo 50 caracteres");
    }
    //Causa da morte - Obrigatorio

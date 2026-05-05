@@ -4,7 +4,10 @@ import { mockAnimal, mockBull } from "../helpers/auth.helper";
 
 const { prismaMock } = vi.hoisted(() => {
    const prismaMock = {
-      animal: { findFirst: vi.fn() },
+      animal: {
+         findFirst: vi.fn(),
+         update: vi.fn(),
+      },
       pregnancy: {
          findFirst: vi.fn(),
          findMany: vi.fn(),

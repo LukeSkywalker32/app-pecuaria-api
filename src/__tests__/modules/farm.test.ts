@@ -48,7 +48,7 @@ describe("Farm Module", () => {
          const res = await request(app).post("/api/farms").send({
             name: "Fazenda Teste",
             location: "Guararapes - SP",
-            cnpj: "12.345.678/0001-90",
+            //cnpj: "12.345.678/0001-90",
          });
 
          expect(res.status).toBe(201);
@@ -64,7 +64,7 @@ describe("Farm Module", () => {
          const res = await request(app).post("/api/farms").send({
             name: "Fazenda Teste",
             location: "SP",
-            cnpj: "12.345.678/0001-90",
+            //cnpj: "12.345.678/0001-90",
          });
 
          expect(res.status).toBe(409);

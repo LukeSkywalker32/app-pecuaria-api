@@ -11,7 +11,8 @@ export function errorHandler(
    res: Response,
    _next: NextFunction,
 ) {
-   const isDev = process.env.NODE_ENV === "development";
+   const env = process.env.NODE_ENV;
+   const isDev = env === "development" || env === "node";
    const statusCode = error.statusCode || 500;
 
    // em produção: mensagem generica para erros 500

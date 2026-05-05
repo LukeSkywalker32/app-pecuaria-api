@@ -1,7 +1,7 @@
 // FARM SERVICE
 
-import { prisma } from "@/config/database";
 import type { Farm, Prisma } from "@prisma/client";
+import { prisma } from "@/config/database";
 import type {
    CreateFarmRequest,
    FarmResponse,
@@ -38,7 +38,7 @@ class FarmService {
          data: {
             name: data.name.trim(),
             location: data.location.trim(),
-            cnpj: data.cnpj.trim() ?? null,
+            cnpj: data.cnpj?.trim() ?? null,
          },
          select: PUBLIC_FARM_SELECT,
       });

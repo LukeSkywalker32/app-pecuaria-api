@@ -44,7 +44,7 @@ describe("Pasture Module", () => {
          const res = await request(app).post("/api/pastures").send({
             name: "Pasto A",
             hectares: 10.5,
-            type: "Braquiária",
+            type: "native",
             animalCapacity: 30,
          });
 
@@ -58,7 +58,7 @@ describe("Pasture Module", () => {
          const res = await request(app).post("/api/pastures").send({
             name: "Pasto A",
             hectares: 5,
-            type: "Mombaça",
+            type: "irrigated",
             animalCapacity: 20,
          });
 

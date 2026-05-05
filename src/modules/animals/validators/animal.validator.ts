@@ -7,13 +7,17 @@ const VALID_STATUS: AnimalStatus[] = ["active", "dead", "sold", "quarantine", "t
 const VALID_ORIGINS = ["born", "purchased"] as const;
 
 // Valida se é uma data valida
-function isValideDate(value: unknown): value is Date {
-   return value instanceof Date && !Number.isNaN(value.getTime());
+function isValideDate(value: unknown): boolean {
+   if (!value) return false;
+   const date = new Date(value as string);
+   return !Number.isNaN(date.getTime());
 }
 
 //Valida se a data nao é futura
-function isNotFutureDate(value: unknown): value is Date {
-   return value instanceof Date && !Number.isNaN(value.getTime()) && value.getTime() <= Date.now();
+function isNotFutureDate(value: unknown): boolean {
+   if (!value) return false;
+   const date = new Date(value as string);
+   return !Number.isNaN(date.getTime()) && date.getTime() <= Date.now();
 }
 
 function validateCreate(data: CreateAnimalRequest): void {
