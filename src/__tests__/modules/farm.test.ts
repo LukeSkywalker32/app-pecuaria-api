@@ -63,7 +63,7 @@ describe("Farm Module", () => {
 
          const res = await request(app).post("/api/farms").send({
             name: "Fazenda Teste",
-            location: "SP",
+            location: "Araçatuba - SP",
             //cnpj: "12.345.678/0001-90",
          });
 
@@ -76,7 +76,7 @@ describe("Farm Module", () => {
       it("deve retornar 500 quando nome tem menos de 2 caracteres (validação)", async () => {
          const res = await request(app).post("/api/farms").send({
             name: "A",
-            location: "SP",
+            location: "Valparaiso - SP",
          });
 
          expect(res.status).toBe(500);

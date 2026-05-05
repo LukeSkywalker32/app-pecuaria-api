@@ -12,7 +12,7 @@ export function errorHandler(
    _next: NextFunction,
 ) {
    const env = process.env.NODE_ENV;
-   const isDev = env === "development" || env === "node";
+   const isDev = env === "development" || env === "node" || !!process.env.VITEST;
    const statusCode = error.statusCode || 500;
 
    // em produção: mensagem generica para erros 500
