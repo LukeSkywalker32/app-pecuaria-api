@@ -44,8 +44,15 @@ vi.mock("bcryptjs", () => ({
       compare: vi.fn().mockResolvedValue(true),
    },
 }));
+vi.mock("jsonwebtoken", () => ({
+   default: {
+      sign: vi.fn().mockReturnValue("mocked-token"),
+      verify: vi.fn().mockReturnValue({ userId: "test-user-id", role: "admin" }),
+   },
+}));
 
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import app from "@/app";
 
 const loginPayload = {
@@ -117,6 +124,51 @@ describe("Auth Module", () => {
 
          expect(res.status).toBe(500);
       });
+
+      // Validator
+      it("erro validator: username curto", async () => {
+         const res = await request(app).post("/api/auth/login").send({ farmId: "test-farm-id", username: "ab", password: "Test@1234" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro validator: password curto", async () => {
+         const res = await request(app).post("/api/auth/login").send({ farmId: "test-farm-id", username: "admin", password: "abc" });
+         expect(res.status).toBe(500);
+      });
+   });
+
+   // ─── RENEW TOKEN ───
+   describe("POST /api/auth/renew-token", () => {
+      it("deve renovar token com sucesso", async () => {
+         prismaMock.user.findUnique.mockResolvedValue(mockUserFromDb);
+         const res = await request(app).post("/api/auth/renew-token").send({ refreshToken: "valid-token" });
+         expect(res.status).toBe(200);
+         expect(res.body).toHaveProperty("accessToken");
+      });
+
+      it("deve retornar 400 se refreshToken não for enviado", async () => {
+         const res = await request(app).post("/api/auth/renew-token").send({});
+         expect(res.status).toBe(400);
+         expect(res.body.error).toContain("Refresh token is required");
+      });
+
+      it("deve falhar se refreshToken for inválido", async () => {
+         vi.mocked(jwt.verify).mockImplementationOnce(() => { throw new Error("Invalid"); });
+         const res = await request(app).post("/api/auth/renew-token").send({ refreshToken: "invalid-token" });
+         expect(res.status).toBe(500); // errorHandler
+      });
+
+      it("deve falhar se usuário não existir", async () => {
+         prismaMock.user.findUnique.mockResolvedValue(null);
+         const res = await request(app).post("/api/auth/renew-token").send({ refreshToken: "valid-token" });
+         expect(res.status).toBe(500);
+      });
+
+      it("deve falhar se usuário estiver inativo", async () => {
+         prismaMock.user.findUnique.mockResolvedValue({ ...mockUserFromDb, active: false });
+         const res = await request(app).post("/api/auth/renew-token").send({ refreshToken: "valid-token" });
+         expect(res.status).toBe(500);
+      });
    });
 
    // ─── FORGOT PASSWORD ───
@@ -151,6 +203,17 @@ describe("Auth Module", () => {
          expect(res.status).toBe(200);
          expect(prismaMock.passwordResetToken.create).toHaveBeenCalledOnce();
       });
+
+      // Validator
+      it("erro validator: farm ausente", async () => {
+         const res = await request(app).post("/api/auth/forgot-password").send({ email: "admin@test.com" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro validator: email invalido", async () => {
+         const res = await request(app).post("/api/auth/forgot-password").send({ farmId: "test-farm-id", email: "invalid-email" });
+         expect(res.status).toBe(500);
+      });
    });
 
    // ─── CONFIRM RESET ───
@@ -167,6 +230,45 @@ describe("Auth Module", () => {
 
          expect(res.status).toBe(400);
          expect(res.body.error).toContain("Código invalido ou expirado");
+      });
+
+      it("deve retornar erro para email que nao corresponde ao token", async () => {
+         prismaMock.passwordResetToken.findFirst.mockResolvedValue({ id: "token", userId: "test-user-id" });
+         prismaMock.user.findUnique.mockResolvedValue({ ...mockUserFromDb, email: "other@test.com" });
+         const res = await request(app).post("/api/auth/confirm-reset").send({
+            farmId: "test-farm-id",
+            email: "admin@test.com",
+            code: "123456",
+            newPassword: "Novo@1234",
+         });
+         expect(res.status).toBe(500);
+         expect(res.body.error).toContain("Dados incorretos");
+      });
+
+      // Validator
+      it("erro validator: farm ausente", async () => {
+         const res = await request(app).post("/api/auth/confirm-reset").send({ email: "admin@test.com", code: "123456", newPassword: "Novo@1234" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro validator: email invalido", async () => {
+         const res = await request(app).post("/api/auth/confirm-reset").send({ farmId: "test-farm-id", email: "invalid", code: "123456", newPassword: "Novo@1234" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro validator: code diferente de 6 digitos", async () => {
+         const res = await request(app).post("/api/auth/confirm-reset").send({ farmId: "test-farm-id", email: "admin@test.com", code: "123", newPassword: "Novo@1234" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro validator: password curto", async () => {
+         const res = await request(app).post("/api/auth/confirm-reset").send({ farmId: "test-farm-id", email: "admin@test.com", code: "123456", newPassword: "Short1!" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro validator: password fraco", async () => {
+         const res = await request(app).post("/api/auth/confirm-reset").send({ farmId: "test-farm-id", email: "admin@test.com", code: "123456", newPassword: "weakpassword" });
+         expect(res.status).toBe(500);
       });
    });
 });

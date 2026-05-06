@@ -53,7 +53,7 @@ function validateUpdate(data: UpdateEstrusRequest): void {
    }
 
    // Notas
-   if (data.notes !== undefined && data.notes.trim().length > 500) {
+   if (data.notes !== undefined && data.notes !== null && data.notes.trim().length > 500) {
       throw new Error("Notas devem ter no máximo 500 caracteres");
    }
 }
