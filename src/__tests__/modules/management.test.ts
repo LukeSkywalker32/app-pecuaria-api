@@ -213,6 +213,39 @@ describe("Management Module", () => {
          res = await request(app).post("/api/management/move-batch").send({ ...validBatch, movementDate: "2099-01-01" });
          expect(res.status).toBe(500);
       });
+
+      it("erro batch: animalIds não é array", async () => {
+         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, animalIds: "not-array" });
+         expect(res.status).toBe(500);
+      });
+
+      it("deve mover batch com animais que já têm pasto (decrement)", async () => {
+         prismaMock.pasture.findFirst.mockResolvedValue(destPasture);
+         prismaMock.animal.findMany.mockResolvedValue([
+            { ...mockAnimal, id: "id-1", pastureId: "pasto-a-id", pastureName: "Pasto A" },
+            { ...mockAnimal, id: "id-2", pastureId: "pasto-a-id", pastureName: "Pasto A" },
+         ]);
+         prismaMock.management.create.mockResolvedValue(mockMgmt);
+         prismaMock.animal.update.mockResolvedValue(mockAnimal);
+         prismaMock.pasture.update.mockResolvedValue({});
+
+         const res = await request(app).post("/api/management/move-batch").send(validBatch);
+         expect(res.status).toBe(201);
+      });
+
+      it("deve mover batch com animais sem pasto", async () => {
+         prismaMock.pasture.findFirst.mockResolvedValue(destPasture);
+         prismaMock.animal.findMany.mockResolvedValue([
+            { ...mockAnimal, id: "id-1", pastureId: null, pastureName: null },
+            { ...mockAnimal, id: "id-2", pastureId: null, pastureName: null },
+         ]);
+         prismaMock.management.create.mockResolvedValue(mockMgmt);
+         prismaMock.animal.update.mockResolvedValue(mockAnimal);
+         prismaMock.pasture.update.mockResolvedValue({});
+
+         const res = await request(app).post("/api/management/move-batch").send(validBatch);
+         expect(res.status).toBe(201);
+      });
    });
 
    // ─── LIST BY ANIMAL ───

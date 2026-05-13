@@ -23,6 +23,7 @@ import {
    requireAnyPermission,
 } from "@/shared/middlewares/authMiddleware";
 import { rateLimiter } from "@/shared/middlewares/rateLimiter";
+import { errorHandler } from "@/shared/middlewares/errorHandler";
 
 describe("Middlewares", () => {
    beforeEach(() => {
@@ -90,6 +91,28 @@ describe("Middlewares", () => {
          expect(res.json).toHaveBeenCalledWith({ error: "Farm não encontrada ou inativa" });
       });
 
+      it("deve pular checagem de farm se decoded.farmId for ausente", async () => {
+         const req = mockReq("Bearer valid");
+         const res = mockRes();
+         vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "admin" } as any);
+         prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: true });
+         
+         await protectRoute(req, res, mockNext);
+         expect(mockNext).toHaveBeenCalled();
+         expect(prismaMock.farm.findUnique).not.toHaveBeenCalled();
+      });
+
+      it("deve carregar permissões vazias se role for desconhecida", async () => {
+         const req = mockReq("Bearer valid");
+         const res = mockRes();
+         vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "unknown_role" } as any);
+         prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: true });
+         
+         await protectRoute(req, res, mockNext);
+         expect(mockNext).toHaveBeenCalled();
+         expect(req.permissions).toEqual([]);
+      });
+
       it("deve chamar next se tudo estiver correto e preencher req", async () => {
          const req = mockReq("Bearer valid");
          const res = mockRes();
@@ -103,6 +126,42 @@ describe("Middlewares", () => {
          expect(req.farmId).toBe("f1");
          expect(req.role).toBe("admin");
          expect(req.permissions?.length).toBeGreaterThan(0);
+      });
+   });
+
+   describe("errorHandler", () => {
+      let originalEnv: string | undefined;
+      let originalVitest: string | undefined;
+
+      beforeEach(() => {
+         originalEnv = process.env.NODE_ENV;
+         originalVitest = process.env.VITEST;
+      });
+
+      afterEach(() => {
+         process.env.NODE_ENV = originalEnv;
+         if (originalVitest) {
+             process.env.VITEST = originalVitest;
+         } else {
+             delete process.env.VITEST;
+         }
+         vi.restoreAllMocks();
+      });
+
+      it("deve logar erro genérico no console em produção", () => {
+         process.env.NODE_ENV = "production";
+         delete process.env.VITEST;
+         const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+         
+         const req: any = {};
+         const res: any = { status: vi.fn().mockReturnThis(), json: vi.fn() };
+         const next = vi.fn();
+         const error: any = new Error("Secret DB Error");
+
+         errorHandler(error, req, res, next);
+         expect(res.status).toHaveBeenCalledWith(500);
+         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: "Erro interno do servidor" }));
+         expect(consoleSpy).toHaveBeenCalled();
       });
    });
 
@@ -190,9 +249,22 @@ describe("Middlewares", () => {
 
          limiter(req, res, next);
          expect(res.status).toHaveBeenCalledWith(429);
+      });
 
-         vi.advanceTimersByTime(1001);
+      it("deve limpar IPs expirados", () => {
+         const limiter = rateLimiter({ windowMs: 1000, maxRequests: 2 });
+         const req = { ip: "127.0.0.3", path: "/test3" };
+         const next = vi.fn();
+         const res = mockRes();
 
+         limiter(req, res, next);
+         expect(next).toHaveBeenCalledTimes(1);
+
+         // Avança o tempo em 61 segundos para acionar o setInterval (que roda a cada 60s)
+         vi.advanceTimersByTime(61000);
+
+         // O IP deve ter sido limpo do mapa
+         // Um novo request deve passar e contar como 1
          limiter(req, res, next);
          expect(next).toHaveBeenCalledTimes(2);
       });

@@ -60,6 +60,18 @@ describe("User Module", () => {
          const res = await request(app).get("/api/users?role=veterinarian&active=true&search=João");
          expect(res.status).toBe(200);
       });
+
+      it("deve listar com active=false", async () => {
+         prismaMock.user.findMany.mockResolvedValue([]);
+         const res = await request(app).get("/api/users?active=false");
+         expect(res.status).toBe(200);
+      });
+
+      it("deve propagar erro de list", async () => {
+         prismaMock.user.findMany.mockRejectedValue(new Error("DB error"));
+         const res = await request(app).get("/api/users");
+         expect(res.status).toBe(500);
+      });
    });
 
    // ─── ME ───
@@ -69,6 +81,12 @@ describe("User Module", () => {
          const res = await request(app).get("/api/users/me");
          expect(res.status).toBe(200);
          expect(res.body.username).toBe("admin");
+      });
+
+      it("deve propagar erro de me", async () => {
+         prismaMock.user.findFirst.mockRejectedValue(new Error("DB error"));
+         const res = await request(app).get("/api/users/me");
+         expect(res.status).toBe(500);
       });
    });
 
@@ -95,6 +113,89 @@ describe("User Module", () => {
          prismaMock.user.create.mockResolvedValue(mockUser);
          const res = await request(app).post("/api/users").send(validCreate);
          expect(res.status).toBe(201);
+      });
+
+      it("admin sem farmId retorna 400", async () => {
+         const res = await request(app)
+            .post("/api/users")
+            .send({ ...validCreate, farmId: undefined });
+         expect(res.status).toBe(400);
+      });
+
+      it("owner pode criar veterinarian", async () => {
+         vi.mocked(protectRoute).mockImplementationOnce((req: any, _res: any, next: any) => {
+            req.userId = "owner-id";
+            req.role = "owner";
+            req.farmId = TEST_FARM_ID;
+            req.permissions = ["create_user"];
+            next();
+         });
+         prismaMock.user.findUnique.mockResolvedValue(null);
+         prismaMock.user.findFirst.mockResolvedValue(null);
+         prismaMock.user.create.mockResolvedValue(mockUser);
+         const res = await request(app)
+            .post("/api/users")
+            .send({ ...validCreate, farmId: undefined, role: "veterinarian" });
+         expect(res.status).toBe(201);
+      });
+
+      it("owner não pode criar admin", async () => {
+         vi.mocked(protectRoute).mockImplementationOnce((req: any, _res: any, next: any) => {
+            req.userId = "owner-id";
+            req.role = "owner";
+            req.farmId = TEST_FARM_ID;
+            req.permissions = ["create_user"];
+            next();
+         });
+         const res = await request(app)
+            .post("/api/users")
+            .send({ ...validCreate, role: "admin" });
+         expect(res.status).toBe(403);
+      });
+
+      it("farmmanager pode criar veterinarian", async () => {
+         vi.mocked(protectRoute).mockImplementationOnce((req: any, _res: any, next: any) => {
+            req.userId = "mgr-id";
+            req.role = "farmmanager";
+            req.farmId = TEST_FARM_ID;
+            req.permissions = ["create_user"];
+            next();
+         });
+         prismaMock.user.findUnique.mockResolvedValue(null);
+         prismaMock.user.findFirst.mockResolvedValue(null);
+         prismaMock.user.create.mockResolvedValue(mockUser);
+         const res = await request(app)
+            .post("/api/users")
+            .send({ ...validCreate, farmId: undefined, role: "veterinarian" });
+         expect(res.status).toBe(201);
+      });
+
+      it("farmmanager não pode criar owner", async () => {
+         vi.mocked(protectRoute).mockImplementationOnce((req: any, _res: any, next: any) => {
+            req.userId = "mgr-id";
+            req.role = "farmmanager";
+            req.farmId = TEST_FARM_ID;
+            req.permissions = ["create_user"];
+            next();
+         });
+         const res = await request(app)
+            .post("/api/users")
+            .send({ ...validCreate, role: "owner" });
+         expect(res.status).toBe(403);
+      });
+
+      it("veterinarian não pode criar usuários", async () => {
+         vi.mocked(protectRoute).mockImplementationOnce((req: any, _res: any, next: any) => {
+            req.userId = "vet-id";
+            req.role = "veterinarian";
+            req.farmId = TEST_FARM_ID;
+            req.permissions = [];
+            next();
+         });
+         const res = await request(app)
+            .post("/api/users")
+            .send({ ...validCreate, role: "veterinarian" });
+         expect(res.status).toBe(403);
       });
 
       it("deve 409 para username duplicado", async () => {
@@ -207,6 +308,16 @@ describe("User Module", () => {
          expect(res.status).toBe(500);
       });
 
+      it("erro update: username curto", async () => {
+         const res = await request(app).put(`/api/users/${TEST_USER_ID}`).send({ username: "AB" });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro update: username caracteres inválidos", async () => {
+         const res = await request(app).put(`/api/users/${TEST_USER_ID}`).send({ username: "bad user!" });
+         expect(res.status).toBe(500);
+      });
+
       it("erro update: email inválido", async () => {
          const res = await request(app).put(`/api/users/${TEST_USER_ID}`).send({ email: "bad" });
          expect(res.status).toBe(500);
@@ -219,6 +330,12 @@ describe("User Module", () => {
 
       it("erro update: phone inválido", async () => {
          const res = await request(app).put(`/api/users/${TEST_USER_ID}`).send({ phone: "abc" });
+         expect(res.status).toBe(500);
+      });
+
+      it("deve propagar erro do update service", async () => {
+         prismaMock.user.findFirst.mockRejectedValue(new Error("DB error"));
+         const res = await request(app).put(`/api/users/${TEST_USER_ID}`).send({ fullName: "Nome Novo" });
          expect(res.status).toBe(500);
       });
    });
@@ -298,6 +415,14 @@ describe("User Module", () => {
          });
          expect(res.status).toBe(500);
       });
+
+      it("erro: nova senha sem caracteres especiais", async () => {
+         const res = await request(app).patch("/api/users/me/change-password").send({
+            currentPassword: "Velha@1234",
+            newPassword: "Abcdefgh1",
+         });
+         expect(res.status).toBe(500);
+      });
    });
 
    // ─── ADMIN RESET PASSWORD ───
@@ -314,6 +439,13 @@ describe("User Module", () => {
       it("erro: senha fraca", async () => {
          const res = await request(app).patch(`/api/users/${TEST_USER_ID}/reset-password`).send({
             newPassword: "fraca",
+         });
+         expect(res.status).toBe(500);
+      });
+
+      it("erro: senha sem caracteres especiais", async () => {
+         const res = await request(app).patch(`/api/users/${TEST_USER_ID}/reset-password`).send({
+            newPassword: "Abcdefg1",
          });
          expect(res.status).toBe(500);
       });
