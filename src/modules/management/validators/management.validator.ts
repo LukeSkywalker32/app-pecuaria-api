@@ -8,8 +8,9 @@ import type {
 } from "../types/management.types";
 
 // Valida se é uma data valida
-function isValidDate(value: unknown): value is Date {
-   return value instanceof Date && !Number.isNaN(value.getTime());
+function isValidDate(value: unknown): boolean {
+   const date = new Date(value as string);
+   return !Number.isNaN(date.getTime());
 }
 // Valida Movimentação de Animal
 function validateMove(data: CreateManagementRequest): void {
