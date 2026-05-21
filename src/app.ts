@@ -5,6 +5,7 @@ import { CORS_ORIGIN } from "./config/env";
 import animalRoutes from "./modules/animals/routes/animal.routes";
 import authRoutes from "./modules/auth/routes/auth.routes";
 import birthRoutes from "./modules/birth/routes/birth.routes";
+import buyerRoutes from "./modules/buyers/routes/buyer.routes";
 import earTagRoutes from "./modules/earTagHistory/routes/earTagHistory.routes";
 import estrusRoutes from "./modules/estrus/routes/estrus.routes";
 import farmRoutes from "./modules/farm/routes/farm.routes";
@@ -59,6 +60,7 @@ app.use("/api/estrus", estrusRoutes);
 app.use("/api/births", birthRoutes);
 app.use("/api/vaccinations", vaccinationRoutes);
 app.use("/api/mortalities", mortalityRoutes);
+app.use("/api/buyers", buyerRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);

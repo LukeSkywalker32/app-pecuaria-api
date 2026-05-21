@@ -48,6 +48,10 @@ export const ROLES_PERMISSIONS = {
       "view_reports",
       "export_pdf",
       "export_csv",
+      "create_buyer",
+      "edit_buyer",
+      "delete_buyer",
+      "view_buyers",
    ],
 
    owner: [
@@ -84,6 +88,10 @@ export const ROLES_PERMISSIONS = {
       "view_reports",
       "export_pdf",
       "export_csv",
+      "create_buyer",
+      "edit_buyer",
+      "delete_buyer",
+      "view_buyers",
    ],
 
    farmmanager: [
