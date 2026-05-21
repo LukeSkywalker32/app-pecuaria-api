@@ -2,12 +2,17 @@
 // FARM ROUTES
 // ========================================
 
-import { protectRoute, requirePermission } from "@/shared/middlewares/authMiddleware";
 import { Router } from "express";
 import multer from "multer";
+import { protectRoute, requirePermission } from "@/shared/middlewares/authMiddleware";
 import farmController from "../controllers/farm.controller";
 
 const farmRoutes = Router();
+/**
+ * GET /api/farms/public
+ * Lista fazendas ativas para o login — sem autenticação
+ */
+farmRoutes.get("/public", farmController.listPublic.bind(farmController));
 
 // Multer em memória — o buffer é repassado direto ao Cloudinary
 // Sem salvar nada em disco

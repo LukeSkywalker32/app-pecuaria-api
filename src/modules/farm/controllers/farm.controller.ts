@@ -16,6 +16,18 @@ function queryString(value: unknown): string | undefined {
 
 class FarmController {
    /**
+    * GET /api/farms/public
+    * Lista fazendas ativas para o login — sem autenticação
+    */
+   async listPublic(_req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farms = await farmService.listPublic();
+         res.status(200).json(farms);
+      } catch (error) {
+         next(error);
+      }
+   }
+   /**
     * POST /api/farms
     * Cria uma nova fazenda — apenas admin
     */

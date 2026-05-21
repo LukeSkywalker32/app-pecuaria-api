@@ -99,7 +99,9 @@ class AuthService {
             expiresIn: jwtConfig.expiresIn,
          };
       } catch (error) {
-         throw new Error("Invalid or expired refresh token");
+         throw Object.assign(new Error("Token invalido ou expirado"), {
+            statusCode: 400,
+         });
       }
    }
 
