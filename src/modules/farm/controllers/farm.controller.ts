@@ -126,6 +126,20 @@ class FarmController {
    }
 
    /**
+    * GET /api/farms/public
+    * Lista fazendas ativas para o dropdown de login
+    * Sem autenticação
+    */
+   async listPublic(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farms = await farmService.listPublic();
+         res.status(200).json(farms);
+      } catch (error) {
+         next(error);
+      }
+   }
+
+   /**
     * PATCH /api/farms/:id/logo
     * Admin: qualquer fazenda | Owner: apenas a própria
     */

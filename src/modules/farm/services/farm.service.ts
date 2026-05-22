@@ -168,6 +168,26 @@ class FarmService {
       });
    }
 
+   /**
+    * Lista fazendas ativas para exibição no login — rota pública
+    * Expõe apenas: id, name, location, logoUrl
+    * Não exige autenticação
+    */
+   async listPublic(): Promise<
+      Array<{ id: string; name: string; location: string; logoUrl: string | null }>
+   > {
+      return prisma.farm.findMany({
+         where: { active: true },
+         select: {
+            id: true,
+            name: true,
+            location: true,
+            logoUrl: true,
+         },
+         orderBy: { name: "asc" },
+      });
+   }
+
    //Faz upload da logo para o Cloudinary e salva a URL
    // Admin: qualquer fazenda | Owner: apenas a própria
    async uploadLogo(

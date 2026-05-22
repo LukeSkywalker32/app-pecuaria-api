@@ -477,6 +477,9 @@ model PasswordResetToken {
   @@map("password_reset_tokens")
 }
 
+// =====================
+// BUYERS
+// =====================
 model Buyer {
   id        String   @id @default(uuid())
   name      String

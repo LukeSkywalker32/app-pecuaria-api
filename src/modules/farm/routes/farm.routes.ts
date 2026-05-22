@@ -20,6 +20,8 @@ const upload = multer({
    storage: multer.memoryStorage(),
    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB — validação extra no controller
 });
+// Usada no dropdown de seleção de fazenda na tela de login
+farmRoutes.get("/public", farmController.listPublic.bind(farmController));
 
 // Todas as rotas exigem autenticação
 farmRoutes.use(protectRoute);
