@@ -1,6 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/config/database";
-import { calculateAnimalUA } from "@/shared/utils/animalUtils";
+import { calculateAnimalCategory } from "@/shared/utils/animalUtils";
 import type {
    AnimalResponse,
    CreateAnimalRequest,
@@ -26,6 +26,7 @@ const ANIMAL_SELECT = {
    sireExternalChip: true,
    damExternalName: true,
    damExternalChip: true,
+   weightKg: true,
    farmId: true,
    createdAt: true,
    updatedAt: true,
@@ -33,12 +34,12 @@ const ANIMAL_SELECT = {
 
 class AnimalService {
    private formatAnimal(animal: any): AnimalResponse {
-      const { ua, category, ageMonths } = calculateAnimalUA(animal.birthDate, animal.gender);
+      const { category, ageMonths } = calculateAnimalCategory(animal.birthDate, animal.gender);
       return {
          ...animal,
          ageInMonths: ageMonths,
          category,
-         uaValue: ua,
+         weightKg: animal.weightKg ?? null,
       };
    }
 
@@ -87,6 +88,10 @@ class AnimalService {
                status: initialStatus as any,
                pastureId: data.pastureId,
                pastureName,
+
+               // Peso por Kg
+               weightKg: data.weightKg,
+
                // Genealogia interna
                sireId: data.sireId,
                damId: data.damId,

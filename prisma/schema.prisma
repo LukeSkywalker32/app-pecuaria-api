@@ -161,6 +161,7 @@ model Animal {
   gender        Gender
   birthDate     DateTime
   status        AnimalStatus @default(active)
+  weightKg      Float?
   deathDate     DateTime?
   origin        String       @default("born") // "born" | "purchased"
 

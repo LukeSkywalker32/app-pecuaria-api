@@ -9,6 +9,8 @@ export interface CreateAnimalRequest {
    birthDate: Date;
    pastureId?: string;
    status?: AnimalStatus;
+   // Peso informado pelo usuário (KG)
+   weightKg?: number;
    // Genealogia interna
    sireId?: string;
    damId?: string;
@@ -29,6 +31,7 @@ export interface UpdateAnimalRequest {
    birthDate?: Date;
    status?: AnimalStatus;
    pastureId?: string;
+   weightKg?: number;
 }
 
 export interface AnimalResponse {
@@ -39,12 +42,16 @@ export interface AnimalResponse {
    breed: string;
    gender: Gender;
    birthDate: Date;
+
    ageInMonths: number;
    category: string;
-   uaValue: number; //Valor em unidade animal
+
+   weightKg: number | null;
+
    status: AnimalStatus;
    pastureId: string | null;
    pastureName: string | null;
+
    //Genealogia
    sireId?: string | null;
    damId?: string | null;
@@ -52,6 +59,7 @@ export interface AnimalResponse {
    sireExternalChip?: string | null;
    damExternalName?: string | null;
    damExternalChip?: string | null;
+
    farmId: string;
    createdAt: Date;
    updatedAt: Date;
