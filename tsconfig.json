@@ -3,6 +3,7 @@
       "target": "ES2022",
       "module": "ESNext",
       "lib": ["ES2022"],
+      "types": ["node"],
       "moduleResolution": "bundler",
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
@@ -20,6 +21,6 @@
       },
       "ignoreDeprecations": "6.0"
    },
-   "include": ["src"],
+   "include": ["src", "prisma"],
    "exclude": ["node_modules", "dist"]
 }

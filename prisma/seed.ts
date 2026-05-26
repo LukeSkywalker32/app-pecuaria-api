@@ -176,7 +176,8 @@ async function main() {
    console.log("🌿 5 Pastos criados\n");
 
    // =========================================================
-   // ANIMAIS — Touros (M, > 24 meses → categoria: Touro)
+   // ANIMAIS — Touros (M, > 24 meses)
+   // Referência de peso: Nelore adulto 550-750 kg, Angus 700-900 kg, Brahman 600-800 kg
    // =========================================================
    const herculesNelore = await prisma.animal.create({
       data: {
@@ -189,6 +190,7 @@ async function main() {
          birthDate: yearsAgo(6),
          status: "active",
          origin: "purchased",
+         weightKg: 680,
          pastureId: pastoBois.id,
          pastureName: pastoBois.name,
       },
@@ -205,6 +207,7 @@ async function main() {
          birthDate: yearsAgo(4),
          status: "active",
          origin: "purchased",
+         weightKg: 820,
          pastureId: pastoBois.id,
          pastureName: pastoBois.name,
          sireExternalName: "Angus Importado",
@@ -223,6 +226,7 @@ async function main() {
          birthDate: yearsAgo(5),
          status: "active",
          origin: "born",
+         weightKg: 730,
          pastureId: pastoBois.id,
          pastureName: pastoBois.name,
       },
@@ -230,14 +234,14 @@ async function main() {
 
    console.log("🐂 3 Touros criados");
 
-   // ─── Incrementa pasto dos reprodutores ───
    await prisma.pasture.update({
       where: { id: pastoBois.id },
       data: { currentAnimals: { increment: 3 } },
    });
 
    // =========================================================
-   // ANIMAIS — Vacas adultas (F, > 24 meses → categoria: Vaca)
+   // ANIMAIS — Vacas adultas (F, > 24 meses)
+   // Referência de peso: Nelore 380-480 kg, Gir 400-500 kg, Girolando 450-550 kg, Angus 500-650 kg
    // =========================================================
    const estrelaNelore = await prisma.animal.create({
       data: {
@@ -250,6 +254,7 @@ async function main() {
          birthDate: yearsAgo(5),
          status: "active",
          origin: "born",
+         weightKg: 420,
          pastureId: pastoVacas.id,
          pastureName: pastoVacas.name,
          sireId: herculesNelore.id,
@@ -267,6 +272,7 @@ async function main() {
          birthDate: yearsAgo(6),
          status: "active",
          origin: "purchased",
+         weightKg: 455,
          pastureId: pastoVacas.id,
          pastureName: pastoVacas.name,
          sireExternalName: "Gir Selecionado",
@@ -285,6 +291,7 @@ async function main() {
          birthDate: yearsAgo(3),
          status: "active",
          origin: "born",
+         weightKg: 490,
          pastureId: pastoVacas.id,
          pastureName: pastoVacas.name,
       },
@@ -301,6 +308,7 @@ async function main() {
          birthDate: yearsAgo(7),
          status: "active",
          origin: "born",
+         weightKg: 440,
          pastureId: pastoVacas.id,
          pastureName: pastoVacas.name,
       },
@@ -317,6 +325,7 @@ async function main() {
          birthDate: yearsAgo(4),
          status: "active",
          origin: "purchased",
+         weightKg: 540,
          pastureId: pastoVacas.id,
          pastureName: pastoVacas.name,
       },
@@ -334,6 +343,7 @@ async function main() {
          birthDate: yearsAgo(4),
          status: "active",
          origin: "purchased",
+         weightKg: 580,
          pastureId: pastoMaternidade.id,
          pastureName: pastoMaternidade.name,
       },
@@ -352,6 +362,7 @@ async function main() {
 
    // =========================================================
    // ANIMAIS — Novilhas (F, 12-24 meses) e Garrotes (M, 12-24 meses)
+   // Referência de peso: 200-320 kg dependendo da raça e idade
    // =========================================================
    const florNelore = await prisma.animal.create({
       data: {
@@ -364,6 +375,7 @@ async function main() {
          birthDate: monthsAgo(20),
          status: "active",
          origin: "born",
+         weightKg: 285,
          pastureId: pastoRecria.id,
          pastureName: pastoRecria.name,
          damId: estrelaNelore.id,
@@ -382,6 +394,7 @@ async function main() {
          birthDate: monthsAgo(16),
          status: "active",
          origin: "born",
+         weightKg: 240,
          pastureId: pastoRecria.id,
          pastureName: pastoRecria.name,
          damId: mimosaGir.id,
@@ -399,6 +412,7 @@ async function main() {
          birthDate: monthsAgo(22),
          status: "active",
          origin: "born",
+         weightKg: 310,
          pastureId: pastoRecria.id,
          pastureName: pastoRecria.name,
          damId: belaGirolando.id,
@@ -416,6 +430,7 @@ async function main() {
          birthDate: monthsAgo(18),
          status: "active",
          origin: "born",
+         weightKg: 300,
          pastureId: pastoRecria.id,
          pastureName: pastoRecria.name,
          sireId: herculesNelore.id,
@@ -433,6 +448,7 @@ async function main() {
          birthDate: monthsAgo(14),
          status: "active",
          origin: "born",
+         weightKg: 265,
          pastureId: pastoRecria.id,
          pastureName: pastoRecria.name,
          sireId: zeusAngus.id,
@@ -449,6 +465,7 @@ async function main() {
 
    // =========================================================
    // ANIMAIS — Bezerras e Bezerros (< 12 meses)
+   // Referência de peso: 80-180 kg dependendo da raça e idade
    // =========================================================
    const pintada = await prisma.animal.create({
       data: {
@@ -461,6 +478,7 @@ async function main() {
          birthDate: monthsAgo(8),
          status: "active",
          origin: "born",
+         weightKg: 145,
          pastureId: pastoMaternidade.id,
          pastureName: pastoMaternidade.name,
          damId: rosaNelore.id,
@@ -479,6 +497,7 @@ async function main() {
          birthDate: monthsAgo(5),
          status: "active",
          origin: "born",
+         weightKg: 98,
          pastureId: pastoMaternidade.id,
          pastureName: pastoMaternidade.name,
          damId: mimosaGir.id,
@@ -496,6 +515,7 @@ async function main() {
          birthDate: monthsAgo(7),
          status: "active",
          origin: "born",
+         weightKg: 160,
          pastureId: pastoMaternidade.id,
          pastureName: pastoMaternidade.name,
          damId: luaAngus.id,
@@ -514,6 +534,7 @@ async function main() {
          birthDate: monthsAgo(3),
          status: "active",
          origin: "born",
+         weightKg: 72,
          pastureId: pastoMaternidade.id,
          pastureName: pastoMaternidade.name,
          sireId: titanBrahman.id,
@@ -541,6 +562,7 @@ async function main() {
          birthDate: yearsAgo(3),
          status: "quarantine",
          origin: "purchased",
+         weightKg: 395,
          pastureId: pastoQuarentena.id,
          pastureName: pastoQuarentena.name,
          sireExternalName: "Nelore PO",
@@ -560,6 +582,7 @@ async function main() {
          birthDate: yearsAgo(2),
          status: "quarantine",
          origin: "purchased",
+         weightKg: 480,
          pastureId: pastoQuarentena.id,
          pastureName: pastoQuarentena.name,
       },
@@ -579,7 +602,7 @@ async function main() {
       data: {
          farmId: farm.id,
          chipId: "CHIP-D001",
-         currentEarTag: null, // brinco removido no óbito
+         currentEarTag: null,
          name: "Perdida",
          breed: "Nelore",
          gender: "F",
@@ -587,6 +610,7 @@ async function main() {
          status: "dead",
          deathDate: daysAgo(45),
          origin: "born",
+         weightKg: null, // peso não relevante para animal morto
       },
    });
 
@@ -601,16 +625,16 @@ async function main() {
          birthDate: yearsAgo(5),
          status: "sold",
          origin: "born",
+         weightKg: null, // peso não relevante para animal vendido
       },
    });
 
    console.log("💀 1 Animal morto + 1 Vendido (histórico)\n");
 
    // =========================================================
-   // HISTÓRICO DE BRINCOS — Situações variadas
+   // HISTÓRICO DE BRINCOS
    // =========================================================
 
-   // Estrela: brinco inicial + substituição + brinco atual
    await prisma.earTagHistory.create({
       data: {
          farmId: farm.id,
@@ -632,7 +656,6 @@ async function main() {
       },
    });
 
-   // Mimosa: histórico único (brinco original ainda ativo)
    await prisma.earTagHistory.create({
       data: {
          farmId: farm.id,
@@ -644,7 +667,6 @@ async function main() {
       },
    });
 
-   // Hércules: brinco de leilão substituído + brinco atual
    await prisma.earTagHistory.create({
       data: {
          farmId: farm.id,
@@ -666,7 +688,6 @@ async function main() {
       },
    });
 
-   // Perdida: brinco antes do óbito
    await prisma.earTagHistory.create({
       data: {
          farmId: farm.id,
@@ -678,7 +699,6 @@ async function main() {
       },
    });
 
-   // Demais animais: brinco inicial (ativo)
    const animaisComBrinco = [
       { animal: zeusAngus, tag: "BR-T002" },
       { animal: titanBrahman, tag: "BR-T003" },
@@ -714,10 +734,9 @@ async function main() {
    console.log("🏷️  Histórico de brincos criado\n");
 
    // =========================================================
-   // REGISTROS DE CIO (Estrus) — Vacas adultas
+   // REGISTROS DE CIO (Estrus)
    // =========================================================
 
-   // Estrela — CIO recente, próximo próximo CIO em ~21 dias
    await prisma.estrus.create({
       data: {
          farmId: farm.id,
@@ -730,7 +749,6 @@ async function main() {
       },
    });
 
-   // Rosa — CIO anterior (histórico)
    await prisma.estrus.create({
       data: {
          farmId: farm.id,
@@ -753,7 +771,6 @@ async function main() {
       },
    });
 
-   // Lua — CIO detectado esta semana
    await prisma.estrus.create({
       data: {
          farmId: farm.id,
@@ -771,7 +788,6 @@ async function main() {
    // PRENHEZES E TENTATIVAS
    // =========================================================
 
-   // Diana — Prenhe (parto previsto em breve)
    const prenhez_diana = await prisma.pregnancy.create({
       data: {
          farmId: farm.id,
@@ -788,13 +804,12 @@ async function main() {
          matingDate: monthsAgo(9),
          matingType: "NATURAL",
          bullId: titanBrahman.id,
-         estimatedBirthDate: daysAgo(10), // ultrapassou — parto iminente
+         estimatedBirthDate: daysAgo(10),
          attemptStatus: "in_progress",
          notes: "Cobertura confirmada por observação",
       },
    });
 
-   // Ultrassom de 30 dias de Diana
    await prisma.ultrasound.create({
       data: {
          attemptId: tentativa_diana.id,
@@ -806,7 +821,6 @@ async function main() {
       },
    });
 
-   // Ultrassom de 60 dias de Diana
    await prisma.ultrasound.create({
       data: {
          attemptId: tentativa_diana.id,
@@ -818,7 +832,6 @@ async function main() {
       },
    });
 
-   // Bela — Prenhez encerrada com parto (histórico)
    const prenhez_bela = await prisma.pregnancy.create({
       data: {
          farmId: farm.id,
@@ -842,7 +855,6 @@ async function main() {
       },
    });
 
-   // Mimosa — Prenhez que falhou (EMPTY no ultrassom)
    const prenhez_mimosa = await prisma.pregnancy.create({
       data: {
          farmId: farm.id,
@@ -875,7 +887,6 @@ async function main() {
       },
    });
 
-   // Rosa — Nova prenhez iniciada, aguardando cobertura
    await prisma.pregnancy.create({
       data: {
          farmId: farm.id,
@@ -915,7 +926,6 @@ async function main() {
    // VACINAÇÕES
    // =========================================================
 
-   // Campanha de Febre Aftosa — animais do pasto das vacas
    const animaisVacas = [
       estrelaNelore,
       mimosaGir,
@@ -933,14 +943,13 @@ async function main() {
             brand: "Boehringer Ingelheim",
             batch: `FA-2025-${Math.floor(Math.random() * 900) + 100}`,
             vaccinationDate: monthsAgo(6),
-            expirationDate: monthsAgo(-6), // +6 meses a partir de hoje
+            expirationDate: monthsAgo(-6),
             nextDoseDate: monthsAgo(-6),
             veterinarianId: veterinarian.id,
          },
       });
    }
 
-   // Brucelose — novilhas (obrigatório entre 3-8 meses)
    for (const animal of [florNelore, margaridaGir, perola]) {
       await prisma.vaccination.create({
          data: {
@@ -957,7 +966,6 @@ async function main() {
       });
    }
 
-   // Clostridiose — touros
    for (const animal of [herculesNelore, zeusAngus, titanBrahman]) {
       await prisma.vaccination.create({
          data: {
@@ -974,7 +982,6 @@ async function main() {
       });
    }
 
-   // Raiva — reforço para toda recria
    for (const animal of [florNelore, margaridaGir, perola, trovao, corisco]) {
       await prisma.vaccination.create({
          data: {
@@ -994,10 +1001,9 @@ async function main() {
    console.log("💉 Campanhas de vacinação criadas (Aftosa, Brucelose, Clostridiose, Raiva)\n");
 
    // =========================================================
-   // MOVIMENTAÇÃO — Histórico de manejo
+   // MOVIMENTAÇÃO
    // =========================================================
 
-   // Diana foi movida para o piquete maternidade
    await prisma.management.create({
       data: {
          farmId: farm.id,
@@ -1010,7 +1016,6 @@ async function main() {
       },
    });
 
-   // Comprada01 chegou à quarentena
    await prisma.management.create({
       data: {
          farmId: farm.id,
@@ -1026,7 +1031,7 @@ async function main() {
    console.log("🚚 Registros de movimentação criados\n");
 
    // =========================================================
-   // MORTALIDADE — Perdida
+   // MORTALIDADE
    // =========================================================
    await prisma.mortality.create({
       data: {
