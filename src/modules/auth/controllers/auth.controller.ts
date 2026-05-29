@@ -7,12 +7,26 @@ import authService from "../services/auth.service";
 
 class AuthController {
    /**
+    * Login exclusivo do admin — sem seleção de fazenda
+    * POST /api/auth/admin-login
+    */
+   async adminLogin(req: Request, res: Response, next: NextFunction) {
+      try {
+         const { username, password } = req.body;
+         const response = await authService.adminLogin({ username, password });
+         res.status(200).json(response);
+      } catch (error) {
+         next(error);
+      }
+   }
+
+   /**
     * Performs user login
     * POST /api/auth/login
     */
    async login(req: Request, res: Response, next: NextFunction) {
       try {
-         const { farmId, username , password } = req.body;
+         const { farmId, username, password } = req.body;
 
          const response = await authService.login({
             farmId,

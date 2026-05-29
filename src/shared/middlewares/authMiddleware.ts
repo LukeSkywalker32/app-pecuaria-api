@@ -47,7 +47,7 @@ export async function protectRoute(req: Request, res: Response, next: NextFuncti
       }
 
       //Valida se o farmId do token ainda é valido
-      if (decoded.farmId) {
+      if (decoded.farmId && decoded.role !== "admin") {
          const farm = await prisma.farm.findUnique({
             where: { id: decoded.farmId },
             select: { id: true, active: true },

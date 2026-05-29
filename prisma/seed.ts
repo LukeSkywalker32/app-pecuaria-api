@@ -50,10 +50,28 @@ async function main() {
    await prisma.animal.deleteMany();
    await prisma.pasture.deleteMany();
    await prisma.user.deleteMany();
-   await prisma.farm.deleteMany();
+   await prisma.farm.deleteMany({
+      where: {
+         id: { not: "farm-sistema" },
+      },
+   });
    await prisma.breed.deleteMany();
 
    console.log("🗑️  Dados anteriores removidos.\n");
+
+   // =========================================================
+   // FAZENDAS
+   // =========================================================
+   const farmSistema = await prisma.farm.upsert({
+      where: { id: "farm-sistema" },
+      update: {},
+      create: {
+         id: "farm-sistema", // Id fixo pq a regra exige que um usuario tenha um farmId
+         name: "__sistema__",
+         location: "Sistema",
+         active: false, // inativa = nao aparece no dropdown
+      },
+   });
 
    // =========================================================
    // FAZENDA
@@ -68,11 +86,26 @@ async function main() {
    });
 
    console.log(`🏡 Fazenda criada: ${farm.name} (${farm.id})`);
+   console.log(`   Fazenda sistema: ${farmSistema.id}\n`);
 
    // =========================================================
    // USUÁRIOS
    // =========================================================
    const senhaHash = await bcrypt.hash("Senha@1234", 10);
+
+   await prisma.user.upsert({
+      where: { email: "admin@sistema.com" },
+      update: {},
+      create: {
+         farmId: farmSistema.id,
+         fullName: "Administrador do sistema",
+         username: "admin",
+         email: "admin@sistema.com",
+         password: await bcrypt.hash("Admin@1234", 10),
+         role: "admin",
+         active: true,
+      },
+   });
 
    const owner = await prisma.user.create({
       data: {
@@ -115,6 +148,7 @@ async function main() {
 
    console.log("👤 Usuários criados: owner, farmmanager, veterinarian");
    console.log("   Senha padrão: Senha@1234\n");
+   console.log("🔑 Admin criado: admin@sistema.com / Admin@1234\n");
 
    // =========================================================
    // RAÇAS

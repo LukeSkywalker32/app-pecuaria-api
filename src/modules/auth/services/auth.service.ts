@@ -20,6 +20,54 @@ import {
 } from "../validators/auth.validator";
 
 class AuthService {
+   async adminLogin(request: {
+      username: string;
+      password: string;
+   }): Promise<AuthenticationResponse> {
+      // 1. Validate input
+      if (!request.username || request.username.trim().length < 3) {
+         throw new Error("Username deve ter no mínimo 3 caracteres");
+      }
+      if (!request.password || request.password.trim().length < 6) {
+         throw new Error("Senha deve ter no mínimo 6 caracteres");
+      }
+
+      //2. Busca usuario admin na fazenda sistema
+      const user = await prisma.user.findFirst({
+         where: {
+            farmId: "farm-sistema",
+            username: request.username.trim(),
+            role: "admin",
+            active: true,
+         },
+      });
+      if (!user) {
+         throw new Error("Credenciais inválidas");
+      }
+      // 3 - Valida senha
+      const isPasswordCorrect = await bcrypt.compare(request.password, user.password);
+      if (!isPasswordCorrect) {
+         throw new Error("Credenciais inválidas");
+      }
+      // 4. Gera tokens
+      const data = this.getTokenData(user);
+      const { accessToken, refreshToken } = this.generateTokens(data);
+
+      // 5. Atualiza último login
+      await prisma.user.update({
+         where: { id: user.id },
+         data: { lastLogin: new Date() },
+      });
+      return {
+         accessToken,
+         refreshToken,
+         userId: user.id,
+         username: user.username,
+         role: user.role,
+         expiresIn: jwtConfig.expiresIn,
+      };
+   }
+
    async login(request: LoginRequest): Promise<AuthenticationResponse> {
       // 1. Validate input
       validateLogin(request);

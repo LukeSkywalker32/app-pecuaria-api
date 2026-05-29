@@ -9,6 +9,14 @@ import authController from "../controllers/auth.controller";
 const authRoutes = Router();
 
 /**
+ * POST /api/auth/admin-login
+ * Login exclusivo do administrador do sistema
+ * Body: { username, password }
+ * Sem rate limiter diferenciado — usa o authRateLimiter padrão
+ */
+authRoutes.post("/admin-login", authRateLimiter, authController.adminLogin.bind(authController));
+
+/**
  * POST /api/auth/login
  * User login
  * Body: { farmId, username, password }
