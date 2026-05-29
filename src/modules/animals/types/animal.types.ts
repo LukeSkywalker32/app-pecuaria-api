@@ -45,7 +45,7 @@ export interface AnimalResponse {
 
    ageInMonths: number;
    category: string;
-
+   // Peso em quilogramas, null se não informado
    weightKg: number | null;
 
    status: AnimalStatus;

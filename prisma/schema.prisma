@@ -204,6 +204,22 @@ model Animal {
 }
 
 // =====================
+// BREED (Raça)
+// =====================
+// Raças são globais — não pertencem a uma fazenda específica
+// Apenas admin pode criar/editar/deletar
+
+model Breed {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("breeds")
+}
+
+// =====================
 // EAR TAG HISTORY
 // =====================
 model EarTagHistory {

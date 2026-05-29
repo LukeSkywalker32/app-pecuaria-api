@@ -1,6 +1,7 @@
 export const ROLES_PERMISSIONS = {
    admin: [
       "manage_farms",
+      "manage_breeds",
       "create_farm",
       "edit_farm",
       "delete_farm",

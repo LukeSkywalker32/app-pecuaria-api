@@ -51,6 +51,7 @@ async function main() {
    await prisma.pasture.deleteMany();
    await prisma.user.deleteMany();
    await prisma.farm.deleteMany();
+   await prisma.breed.deleteMany();
 
    console.log("🗑️  Dados anteriores removidos.\n");
 
@@ -114,6 +115,37 @@ async function main() {
 
    console.log("👤 Usuários criados: owner, farmmanager, veterinarian");
    console.log("   Senha padrão: Senha@1234\n");
+
+   // =========================================================
+   // RAÇAS
+   // =========================================================
+   const RACAS = [
+      "Nelore",
+      "Angus",
+      "Gir",
+      "Girolando",
+      "Brahman",
+      "Simental",
+      "Hereford",
+      "Senepol",
+      "Tabapuã",
+      "Guzerá",
+      "Limousin",
+      "Charolês",
+      "Brangus",
+      "Canchim",
+      "Bonsmara",
+   ];
+
+   for (const name of RACAS) {
+      await prisma.breed.upsert({
+         where: { name },
+         update: {},
+         create: { name, active: true },
+      });
+   }
+
+   console.log(`🐄 ${RACAS.length} Raças cadastradas\n`);
 
    // =========================================================
    // PASTOS
