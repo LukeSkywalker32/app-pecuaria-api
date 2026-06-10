@@ -26,6 +26,18 @@ class ManagementController {
          next(error);
       }
    }
+   async listAll(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const history = await managementService.listAll(farmId);
+         res.setHeader("Cache-Control", "no-store");
+         res.removeHeader("ETag");
+         
+         res.status(200).json(history);
+      } catch (error) {
+         next(error);
+      }
+   }
    async listByAnimal(req: Request, res: Response, next: NextFunction): Promise<void> {
       try {
          const farmId = req.farmId as string;

@@ -17,6 +17,17 @@ managementRouters.post(
    requirePermission("register_management"),
    managementController.moveBatch.bind(managementController),
 );
+// Histotico de movimentação de todos os animais
+managementRouters.get(
+   "/",
+   (req, res, next) => {
+      res.setHeader("Cache-Control", "no-store");
+      res.setHeader("Pragma", "no-cache");
+      next();
+   },
+   managementController.listAll.bind(managementController),
+);
+
 //Historico de movimentação de um animal
 managementRouters.get(
    "/animal/:animalId",

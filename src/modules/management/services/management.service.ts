@@ -138,6 +138,22 @@ class ManagementService {
          orderBy: { movementDate: "desc" },
       })) as ManagementResponse[];
    }
+   async listAll(farmId: string): Promise<ManagementResponse[]> {
+      const records = await prisma.management.findMany({
+         where: { farmId },
+         orderBy: { movementDate: "desc" },
+         include: {
+            animal: {
+               select: { name: true },
+            },
+         },
+      });
+
+      return records.map(r => ({
+         ...r,
+         animalName: r.animal?.name ?? r.animalId,
+      })) as unknown as ManagementResponse[];
+   }
 }
 
 export default new ManagementService();
