@@ -14,6 +14,7 @@ import managementRoutes from "./modules/management/routes/management.routes";
 import mortalityRoutes from "./modules/mortality/routes/mortality.routes";
 import pastureRoutes from "./modules/pasture/routes/pasture.routes";
 import pregnancyRoutes from "./modules/pregnancy/routes/pregnancy.routes";
+import uploadRoutes from "./modules/upload/routes/upload.routes";
 import userRoutes from "./modules/user/routes/user.routes";
 import vaccinationRoutes from "./modules/vaccination/routes/vaccination.routes";
 import { errorHandler } from "./shared/middlewares/errorHandler";
@@ -63,6 +64,7 @@ app.use("/api/births", birthRoutes);
 app.use("/api/vaccinations", vaccinationRoutes);
 app.use("/api/mortalities", mortalityRoutes);
 app.use("/api/buyers", buyerRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // Error Handler (must be the last middleware)
 app.use(errorHandler);
