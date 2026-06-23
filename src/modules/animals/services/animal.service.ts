@@ -20,6 +20,7 @@ const ANIMAL_SELECT = {
    status: true,
    pastureId: true,
    pastureName: true,
+   buyerId: true,
    sireId: true,
    damId: true,
    sireExternalName: true,
@@ -201,6 +202,18 @@ class AnimalService {
             } else {
                updateData.pastureName = null;
             }
+         }
+
+         // Regra de venda: Se o animal for vendido, opcionamente remove do pasto
+         if ((data.status as string) === "sold") {
+            if (current.pastureId) {
+               await tx.pasture.update({
+                  where: { id: current.pastureId },
+                  data: { currentAnimals: { decrement: 1 } },
+               });
+            }
+            updateData.pasture = { disconnect: true };
+            updateData.pastureName = null;
          }
 
          return await tx.animal.update({

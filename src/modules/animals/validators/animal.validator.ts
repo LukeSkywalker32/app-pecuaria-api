@@ -171,6 +171,12 @@ function validateUpdate(data: UpdateAnimalRequest): void {
          throw new Error("ID do pasto não pode ser vazio");
       }
    }
+   // Comprador
+   if (data.buyerId !== undefined && data.buyerId !== null) {
+      if ( data.buyerId.trim() === "") {
+         throw new Error("ID do comprador não pode ser vazio");
+      }
+   }
 }
 
 export default { validateCreate, validateUpdate };

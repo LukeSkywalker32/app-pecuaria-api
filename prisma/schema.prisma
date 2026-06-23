@@ -185,6 +185,9 @@ model Animal {
   pasture     Pasture? @relation(fields: [pastureId], references: [id])
   pastureName String?
 
+  buyerId String?
+  buyer Buyer? @relation(fields: [buyerId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -510,6 +513,8 @@ model Buyer {
 
   farmId String
   farm   Farm @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  animals Animal[]
 
   @@map("buyers")
 }
