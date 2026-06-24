@@ -33,6 +33,8 @@ export interface UpdateAnimalRequest {
    pastureId?: string;
    weightKg?: number;
    buyerId?: string;
+   saleDate?: Date;
+   saleNotes?: string;
 }
 
 export interface AnimalResponse {
@@ -53,6 +55,8 @@ export interface AnimalResponse {
    pastureId: string | null;
    pastureName: string | null;
    buyerId: string | null;
+   saleDate: Date | null;
+   saleNotes: string | null;
 
    //Genealogia
    sireId?: string | null;

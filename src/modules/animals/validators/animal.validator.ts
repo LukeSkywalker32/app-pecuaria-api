@@ -173,8 +173,29 @@ function validateUpdate(data: UpdateAnimalRequest): void {
    }
    // Comprador
    if (data.buyerId !== undefined && data.buyerId !== null) {
-      if ( data.buyerId.trim() === "") {
+      if (data.buyerId.trim() === "") {
          throw new Error("ID do comprador não pode ser vazio");
+      }
+   }
+
+   // Data da venda — opcional, mas se informada deve ser válida e não futura
+   if (data.saleDate !== undefined && data.saleDate !== null) {
+      if (!isValideDate(data.saleDate)) {
+         throw Object.assign(new Error("Data da venda inválida. Use formato ISO (YYYY-MM-DD)"), {
+            statusCode: 400,
+         });
+      }
+      if (!isNotFutureDate(data.saleDate)) {
+         throw Object.assign(new Error("Data da venda não pode ser futura"), { statusCode: 400 });
+      }
+   }
+
+   // Observações da venda — opcional, mas com limite de tamanho
+   if (data.saleNotes !== undefined && data.saleNotes !== null) {
+      if (data.saleNotes.trim().length > 500) {
+         throw Object.assign(new Error("Observações da venda devem ter no máximo 500 caracteres"), {
+            statusCode: 400,
+         });
       }
    }
 }

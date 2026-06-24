@@ -21,6 +21,8 @@ const ANIMAL_SELECT = {
    pastureId: true,
    pastureName: true,
    buyerId: true,
+   saleDate: true,
+   saleNotes: true,
    sireId: true,
    damId: true,
    sireExternalName: true,
@@ -158,6 +160,7 @@ class AnimalService {
 
       const updateData: Prisma.AnimalUpdateInput = { ...data } as any;
       if (data.birthDate) updateData.birthDate = new Date(data.birthDate);
+      if (data.saleDate) updateData.saleDate = new Date(data.saleDate);
 
       // Regra de Negócio: Se mudar para Quarentena ou Tratamento, o pasto pode ser removido
       const animal = await prisma.$transaction(async tx => {

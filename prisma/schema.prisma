@@ -185,8 +185,10 @@ model Animal {
   pasture     Pasture? @relation(fields: [pastureId], references: [id])
   pastureName String?
 
-  buyerId String?
-  buyer Buyer? @relation(fields: [buyerId], references: [id])
+  buyerId   String?
+  buyer     Buyer?    @relation(fields: [buyerId], references: [id])
+  saleDate  DateTime?
+  saleNotes String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
