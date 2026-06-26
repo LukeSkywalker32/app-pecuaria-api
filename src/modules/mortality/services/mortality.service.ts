@@ -304,6 +304,31 @@ class MortalityService {
 
       return formatMortality(mortality);
    }
+   /**
+    * Remove uma foto especifica do registro pela URL
+    * Como o array "photos" no Postgres não suporta "remover por valor"
+    * diretamente via Prisma, buscamos o registro, filtramos em memória
+    * e gravamos o array completo (set, não push)
+    */
+   async removePhoto(farmId: string, id: string, photoUrl: string): Promise<MortalityResponse> {
+      const current = await this.getById(farmId, id);
+
+      if (!current.photos || !current.photos.includes(photoUrl)) {
+         throw Object.assign(new Error("Foto não encontrada neste registro"), {
+            statusCode: 404,
+         });
+      }
+      const updatedPhotos = current.photos.filter(url => url !== photoUrl);
+
+      const mortality = await prisma.mortality.update({
+         where: { id },
+         data: {
+            photos: { set: updatedPhotos },
+         },
+         select: MORTALITY_SELECT,
+      });
+      return formatMortality(mortality);
+   }
 }
 
 export default new MortalityService();

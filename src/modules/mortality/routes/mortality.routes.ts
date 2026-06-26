@@ -56,4 +56,14 @@ mortalityRoutes.patch(
    mortalityController.addPhotos.bind(mortalityController),
 );
 
+/**
+ * DELETE /api/mortalities/:id/photos
+ * Remove uma foto especifica do registro pela URL
+ */
+mortalityRoutes.delete(
+   "/:id/photos",
+   requirePermission("upload_mortality_photo"),
+   mortalityController.removePhoto.bind(mortalityController),
+);
+
 export default mortalityRoutes;

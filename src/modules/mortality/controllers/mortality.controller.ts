@@ -127,6 +127,28 @@ class MortalityController {
          next(error);
       }
    }
+
+   /**
+    * DELETE /api/mortalities/:id/photos
+    * Remove uma foto especifica do registro pela URL
+    * Body: { photoUrl: string }
+    */
+   async removePhoto(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const { id } = req.params as { id: string };
+         const { photoUrl } = req.body as { photoUrl: string };
+
+         if (!photoUrl || typeof photoUrl !== "string") {
+            res.status(400).json({ error: "photoUrl é obrigatório" });
+            return;
+         }
+         const mortality = await mortalityService.removePhoto(farmId, id, photoUrl);
+         res.status(200).json(mortality);
+      } catch (error) {
+         next(error);
+      }
+   }
 }
 
 export default new MortalityController();

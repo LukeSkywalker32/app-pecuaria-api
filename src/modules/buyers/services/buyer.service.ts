@@ -60,7 +60,7 @@ class BuyerService {
          select: PUBLIC_BUYER_SELECT,
       });
       if (!buyer) {
-         throw Object.assign(new Error("Comprador não encontrado."), { code: 404 });
+         throw Object.assign(new Error("Comprador não encontrado."), { statusCode: 404 });
       }
       return buyer;
    }
