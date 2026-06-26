@@ -82,3 +82,16 @@ export const mockBull = {
    name: "Touro 001",
    gender: "M" as const,
 };
+
+export const mockBuyer = {
+   id: "test-buyer-id",
+   name: "João da Silva",
+   document: "12345678901",
+   phone: "18999999999",
+   email: "joao@teste.com",
+   city: "Araçatuba",
+   notes: null,
+   farmId: TEST_FARM_ID,
+   createdAt: new Date("2025-01-01"),
+   updatedAt: new Date("2025-01-01"),
+};

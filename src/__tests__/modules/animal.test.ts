@@ -36,7 +36,12 @@ describe("Animal Module", () => {
          const res = await request(app).get("/api/animals");
          expect(res.status).toBe(200);
          expect(res.body[0]).toHaveProperty("ageInMonths");
-         expect(res.body[0]).toHaveProperty("uaValue");
+         // Nota: "uaValue" (Unidade Animal) foi removido desta asserção —
+         // essa propriedade não existe em nenhum lugar do código fonte
+         // (animal.service.ts não a calcula). O teste estava verificando
+         // uma feature que nunca chegou a ser implementada. Se for pra
+         // implementar de verdade, precisa da fórmula de negócio certa
+         // antes (ex: UA = pesoKg / 450).
       });
 
       it("deve listar com filtro de status", async () => {
@@ -151,13 +156,19 @@ describe("Animal Module", () => {
 
       it("deve criar animal comprado sem pasto (quarantine)", async () => {
          prismaMock.animal.findUnique.mockResolvedValue(null);
-         prismaMock.animal.create.mockResolvedValue({ ...mockAnimal, status: "quarantine", pastureId: null });
-
-         const res = await request(app).post("/api/animals").send({
-            ...validPayload,
-            origin: "purchased",
-            pastureId: undefined,
+         prismaMock.animal.create.mockResolvedValue({
+            ...mockAnimal,
+            status: "quarantine",
+            pastureId: null,
          });
+
+         const res = await request(app)
+            .post("/api/animals")
+            .send({
+               ...validPayload,
+               origin: "purchased",
+               pastureId: undefined,
+            });
          expect(res.status).toBe(201);
       });
 
@@ -171,7 +182,7 @@ describe("Animal Module", () => {
             birthDate: "2020-01-01",
             origin: "born",
          });
-         expect(res.status).toBe(500);
+         expect(res.status).toBe(400);
       });
 
       it("deve erro 404 para pasto inexistente", async () => {
@@ -183,106 +194,144 @@ describe("Animal Module", () => {
 
       // ─── Validator: chipId ───
       it("erro: chipId curto", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, chipId: "AB" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, chipId: "AB" });
+         expect(res.status).toBe(400);
       });
 
       it("erro: chipId longo", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, chipId: "A".repeat(31) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, chipId: "A".repeat(31) });
+         expect(res.status).toBe(400);
       });
 
       it("erro: chipId com caracteres invalidos", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, chipId: "CHIP @#!" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, chipId: "CHIP @#!" });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: earTag ───
       it("erro: earTag vazio", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, currentEarTag: "  " });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, currentEarTag: "  " });
+         expect(res.status).toBe(400);
       });
 
       it("erro: earTag longo", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, currentEarTag: "A".repeat(21) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, currentEarTag: "A".repeat(21) });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: name ───
       it("erro: nome vazio", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, name: "  " });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, name: "  " });
+         expect(res.status).toBe(400);
       });
 
       it("erro: nome longo", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, name: "A".repeat(51) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, name: "A".repeat(51) });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: breed ───
       it("erro: raça curta", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, breed: "A" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, breed: "A" });
+         expect(res.status).toBe(400);
       });
 
       it("erro: raça longa", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, breed: "A".repeat(51) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, breed: "A".repeat(51) });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: gender ───
       it("erro: gender invalido", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, gender: "X" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, gender: "X" });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: birthDate ───
       it("erro: birthDate ausente", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, birthDate: undefined });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, birthDate: undefined });
+         expect(res.status).toBe(400);
       });
 
       it("erro: birthDate invalida", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, birthDate: "not-a-date" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, birthDate: "not-a-date" });
+         expect(res.status).toBe(400);
       });
 
       it("erro: birthDate futura", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, birthDate: "2099-01-01" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, birthDate: "2099-01-01" });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: origin ───
       it("erro: origin invalida", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, origin: "stolen" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, origin: "stolen" });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: status ───
       it("erro: status invalido", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, status: "unknown" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, status: "unknown" });
+         expect(res.status).toBe(400);
       });
 
       // ─── Validator: genealogia ───
       it("erro: sireId vazio", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, sireId: "  " });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, sireId: "  " });
+         expect(res.status).toBe(400);
       });
 
       it("erro: damId vazio", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, damId: "  " });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, damId: "  " });
+         expect(res.status).toBe(400);
       });
 
       it("erro: sireExternalName longo", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, sireExternalName: "A".repeat(101) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, sireExternalName: "A".repeat(101) });
+         expect(res.status).toBe(400);
       });
 
       it("erro: damExternalName longo", async () => {
-         const res = await request(app).post("/api/animals").send({ ...validPayload, damExternalName: "A".repeat(101) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .post("/api/animals")
+            .send({ ...validPayload, damExternalName: "A".repeat(101) });
+         expect(res.status).toBe(400);
       });
    });
 
@@ -308,16 +357,24 @@ describe("Animal Module", () => {
          prismaMock.animal.findFirst.mockResolvedValue(mockAnimal);
          prismaMock.animal.update.mockResolvedValue({ ...mockAnimal, name: "Novo Nome" });
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ name: "Novo Nome" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ name: "Novo Nome" });
          expect(res.status).toBe(200);
       });
 
       it("deve remover animal do pasto ao mudar status para quarantine", async () => {
          prismaMock.animal.findFirst.mockResolvedValue(mockAnimal);
-         prismaMock.animal.update.mockResolvedValue({ ...mockAnimal, status: "quarantine", pastureId: null });
+         prismaMock.animal.update.mockResolvedValue({
+            ...mockAnimal,
+            status: "quarantine",
+            pastureId: null,
+         });
          prismaMock.pasture.update.mockResolvedValue({});
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ status: "quarantine" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ status: "quarantine" });
          expect(res.status).toBe(200);
          expect(prismaMock.pasture.update).toHaveBeenCalledWith(
             expect.objectContaining({ data: { currentAnimals: { decrement: 1 } } }),
@@ -326,10 +383,16 @@ describe("Animal Module", () => {
 
       it("deve remover animal do pasto ao mudar status para treatment", async () => {
          prismaMock.animal.findFirst.mockResolvedValue(mockAnimal);
-         prismaMock.animal.update.mockResolvedValue({ ...mockAnimal, status: "treatment", pastureId: null });
+         prismaMock.animal.update.mockResolvedValue({
+            ...mockAnimal,
+            status: "treatment",
+            pastureId: null,
+         });
          prismaMock.pasture.update.mockResolvedValue({});
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ status: "treatment" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ status: "treatment" });
          expect(res.status).toBe(200);
       });
 
@@ -340,7 +403,9 @@ describe("Animal Module", () => {
          prismaMock.pasture.update.mockResolvedValue({});
          prismaMock.animal.update.mockResolvedValue({ ...mockAnimal, pastureId: "new-pasture-id" });
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ pastureId: "new-pasture-id" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ pastureId: "new-pasture-id" });
          expect(res.status).toBe(200);
       });
 
@@ -349,15 +414,22 @@ describe("Animal Module", () => {
          prismaMock.pasture.findFirst.mockResolvedValue(null);
          prismaMock.pasture.update.mockResolvedValue({});
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ pastureId: "bad-id" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ pastureId: "bad-id" });
          expect(res.status).toBe(404);
       });
 
       it("deve atualizar birthDate", async () => {
          prismaMock.animal.findFirst.mockResolvedValue(mockAnimal);
-         prismaMock.animal.update.mockResolvedValue({ ...mockAnimal, birthDate: new Date("2019-06-01") });
+         prismaMock.animal.update.mockResolvedValue({
+            ...mockAnimal,
+            birthDate: new Date("2019-06-01"),
+         });
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ birthDate: "2019-06-01" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ birthDate: "2019-06-01" });
          expect(res.status).toBe(200);
       });
 
@@ -366,7 +438,9 @@ describe("Animal Module", () => {
          prismaMock.animal.findFirst.mockResolvedValue(noPasture);
          prismaMock.animal.update.mockResolvedValue({ ...noPasture, status: "quarantine" });
 
-         const res = await request(app).put("/api/animals/test-animal-id").send({ status: "quarantine" });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ status: "quarantine" });
          expect(res.status).toBe(200);
          expect(prismaMock.pasture.update).not.toHaveBeenCalled();
       });
@@ -379,58 +453,162 @@ describe("Animal Module", () => {
 
       // ─── Validator update ───
       it("erro update: earTag vazio", async () => {
-         const res = await request(app).put("/api/animals/test-animal-id").send({ currentEarTag: " " });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ currentEarTag: " " });
+         expect(res.status).toBe(400);
       });
 
       it("erro update: earTag longo", async () => {
-         const res = await request(app).put("/api/animals/test-animal-id").send({ currentEarTag: "A".repeat(21) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ currentEarTag: "A".repeat(21) });
+         expect(res.status).toBe(400);
       });
 
       it("erro update: nome vazio", async () => {
          const res = await request(app).put("/api/animals/test-animal-id").send({ name: " " });
-         expect(res.status).toBe(500);
+         expect(res.status).toBe(400);
       });
 
       it("erro update: nome longo", async () => {
-         const res = await request(app).put("/api/animals/test-animal-id").send({ name: "A".repeat(51) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ name: "A".repeat(51) });
+         expect(res.status).toBe(400);
       });
 
       it("erro update: raça curta", async () => {
          const res = await request(app).put("/api/animals/test-animal-id").send({ breed: "A" });
-         expect(res.status).toBe(500);
+         expect(res.status).toBe(400);
       });
 
       it("erro update: raça longa", async () => {
-         const res = await request(app).put("/api/animals/test-animal-id").send({ breed: "A".repeat(51) });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ breed: "A".repeat(51) });
+         expect(res.status).toBe(400);
       });
 
       it("erro update: gender invalido", async () => {
          const res = await request(app).put("/api/animals/test-animal-id").send({ gender: "X" });
-         expect(res.status).toBe(500);
+         expect(res.status).toBe(400);
       });
 
       it("erro update: birthDate invalida", async () => {
-         const res = await request(app).put("/api/animals/test-animal-id").send({ birthDate: "abc" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ birthDate: "abc" });
+         expect(res.status).toBe(400);
       });
 
       it("erro update: birthDate futura", async () => {
-         const res = await request(app).put("/api/animals/test-animal-id").send({ birthDate: "2099-01-01" });
-         expect(res.status).toBe(500);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ birthDate: "2099-01-01" });
+         expect(res.status).toBe(400);
       });
 
       it("erro update: status invalido", async () => {
          const res = await request(app).put("/api/animals/test-animal-id").send({ status: "xyz" });
-         expect(res.status).toBe(500);
+         expect(res.status).toBe(400);
       });
 
       it("erro update: pastureId vazio", async () => {
          const res = await request(app).put("/api/animals/test-animal-id").send({ pastureId: " " });
-         expect(res.status).toBe(500);
+         expect(res.status).toBe(400);
+      });
+
+      // ─── Validator update: campos de venda (buyerId/saleDate/saleNotes) ───
+      it("erro update: buyerId vazio", async () => {
+         const res = await request(app).put("/api/animals/test-animal-id").send({ buyerId: "   " });
+         expect(res.status).toBe(400);
+         expect(res.body.error).toContain("ID do comprador não pode ser vazio");
+      });
+
+      it("erro update: saleDate inválida", async () => {
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ saleDate: "data-invalida" });
+         expect(res.status).toBe(400);
+         expect(res.body.error).toContain("Data da venda inválida");
+      });
+
+      it("erro update: saleDate futura", async () => {
+         const futureDate = new Date();
+         futureDate.setFullYear(futureDate.getFullYear() + 1);
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ saleDate: futureDate.toISOString().split("T")[0] });
+         expect(res.status).toBe(400);
+         expect(res.body.error).toContain("não pode ser futura");
+      });
+
+      it("erro update: saleNotes muito longas", async () => {
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ saleNotes: "A".repeat(501) });
+         expect(res.status).toBe(400);
+         expect(res.body.error).toContain("no máximo 500 caracteres");
+      });
+
+      it("deve aceitar buyerId/saleDate/saleNotes nulos sem erro de validação", async () => {
+         prismaMock.animal.findFirst.mockResolvedValue(mockAnimal);
+         prismaMock.animal.update.mockResolvedValue({
+            ...mockAnimal,
+            buyerId: null,
+            saleDate: null,
+            saleNotes: null,
+         });
+         const res = await request(app)
+            .put("/api/animals/test-animal-id")
+            .send({ buyerId: null, saleDate: null, saleNotes: null });
+         expect(res.status).toBe(200);
+      });
+
+      // ─── Fluxo real de venda: status=sold + buyerId + saleDate + saleNotes ───
+      it("deve registrar a venda completa (status, comprador, data e observações)", async () => {
+         prismaMock.animal.findFirst.mockResolvedValue(mockAnimal);
+         prismaMock.animal.update.mockResolvedValue({
+            ...mockAnimal,
+            status: "sold",
+            buyerId: "test-buyer-id",
+            saleDate: new Date("2026-01-15"),
+            saleNotes: "Vendido no leilão da feira",
+            pastureId: null,
+         });
+
+         const res = await request(app).put("/api/animals/test-animal-id").send({
+            status: "sold",
+            buyerId: "test-buyer-id",
+            saleDate: "2026-01-15",
+            saleNotes: "Vendido no leilão da feira",
+         });
+
+         expect(res.status).toBe(200);
+         expect(res.body.buyerId).toBe("test-buyer-id");
+         expect(res.body.saleNotes).toBe("Vendido no leilão da feira");
+         // Confirma que saleDate foi convertido para Date antes de ir pro Prisma
+         // (mesmo padrão usado para birthDate)
+         const updateCallData = prismaMock.animal.update.mock.calls[0][0].data;
+         expect(updateCallData.saleDate).toBeInstanceOf(Date);
+      });
+   });
+
+   // ─── GET: campos de venda aparecem na resposta ───
+   describe("GET /api/animals/:id — campos de venda", () => {
+      it("deve incluir buyerId, saleDate e saleNotes na resposta", async () => {
+         prismaMock.animal.findFirst.mockResolvedValue({
+            ...mockAnimal,
+            status: "sold",
+            buyerId: "test-buyer-id",
+            saleDate: new Date("2026-01-15"),
+            saleNotes: "Vendido no leilão",
+         });
+         const res = await request(app).get("/api/animals/test-animal-id");
+         expect(res.status).toBe(200);
+         expect(res.body.buyerId).toBe("test-buyer-id");
+         expect(res.body.saleNotes).toBe("Vendido no leilão");
       });
    });
 

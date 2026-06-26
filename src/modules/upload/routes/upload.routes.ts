@@ -27,7 +27,7 @@ function handleUpload(req: Request, res: Response, next: NextFunction) {
       if (err instanceof multer.MulterError) {
          if (err.code === "LIMIT_FILE_SIZE") {
             return next(
-               Object.assign(new Error(`Arquivo muito grande. Tamanho máximo: ${MAX_SIZE_MB}`), {
+               Object.assign(new Error(`Arquivo muito grande. Tamanho máximo: ${MAX_SIZE_MB}MB`), {
                   statusCode: 400,
                }),
             );

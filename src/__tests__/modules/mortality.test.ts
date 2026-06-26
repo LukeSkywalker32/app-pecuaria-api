@@ -331,4 +331,71 @@ describe("Mortality Module", () => {
          expect(res.status).toBe(400);
       });
    });
+
+   // ─── REMOVE PHOTO ───
+   describe("DELETE /api/mortalities/:id/photos", () => {
+      it("deve remover uma foto existente", async () => {
+         const withPhotos = { ...mockMortality, photos: ["url1", "url2", "url3"] };
+         prismaMock.mortality.findFirst.mockResolvedValue(withPhotos);
+         prismaMock.mortality.update.mockResolvedValue({ ...withPhotos, photos: ["url1", "url3"] });
+
+         const res = await request(app)
+            .delete("/api/mortalities/test-mortality-id/photos")
+            .send({ photoUrl: "url2" });
+
+         expect(res.status).toBe(200);
+         expect(res.body.photos).toEqual(["url1", "url3"]);
+         // Confirma que regravou o array completo (set), não um "remove" parcial
+         expect(prismaMock.mortality.update).toHaveBeenCalledWith(
+            expect.objectContaining({ data: { photos: { set: ["url1", "url3"] } } }),
+         );
+      });
+
+      it("deve retornar 400 quando photoUrl não é enviado", async () => {
+         const res = await request(app).delete("/api/mortalities/test-mortality-id/photos").send({});
+         expect(res.status).toBe(400);
+         expect(res.body.error).toContain("photoUrl é obrigatório");
+         expect(prismaMock.mortality.update).not.toHaveBeenCalled();
+      });
+
+      it("deve retornar 400 quando photoUrl não é string", async () => {
+         const res = await request(app)
+            .delete("/api/mortalities/test-mortality-id/photos")
+            .send({ photoUrl: 123 });
+         expect(res.status).toBe(400);
+      });
+
+      it("deve retornar 404 quando a foto não existe no registro", async () => {
+         const withPhotos = { ...mockMortality, photos: ["url1", "url2"] };
+         prismaMock.mortality.findFirst.mockResolvedValue(withPhotos);
+
+         const res = await request(app)
+            .delete("/api/mortalities/test-mortality-id/photos")
+            .send({ photoUrl: "url-que-nao-existe" });
+
+         expect(res.status).toBe(404);
+         expect(res.body.error).toContain("Foto não encontrada");
+         expect(prismaMock.mortality.update).not.toHaveBeenCalled();
+      });
+
+      it("deve retornar 404 quando o registro de mortalidade não existe", async () => {
+         prismaMock.mortality.findFirst.mockResolvedValue(null);
+
+         const res = await request(app)
+            .delete("/api/mortalities/id-invalido/photos")
+            .send({ photoUrl: "url1" });
+
+         expect(res.status).toBe(404);
+      });
+
+      it("deve retornar 404 quando o registro não tem fotos", async () => {
+         prismaMock.mortality.findFirst.mockResolvedValue({ ...mockMortality, photos: [] });
+
+         const res = await request(app)
+            .delete("/api/mortalities/test-mortality-id/photos")
+            .send({ photoUrl: "url1" });
+
+         expect(res.status).toBe(404);
+      });
+   });
 });
