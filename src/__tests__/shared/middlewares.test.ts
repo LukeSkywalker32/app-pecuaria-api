@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Unmock as they are mocked in setup.ts
 vi.unmock("@/shared/middlewares/rateLimiter");
@@ -19,11 +19,11 @@ vi.mock("jsonwebtoken", () => ({
 import jwt from "jsonwebtoken";
 import {
    protectRoute,
-   requirePermission,
    requireAnyPermission,
+   requirePermission,
 } from "@/shared/middlewares/authMiddleware";
-import { rateLimiter } from "@/shared/middlewares/rateLimiter";
 import { errorHandler } from "@/shared/middlewares/errorHandler";
+import { rateLimiter } from "@/shared/middlewares/rateLimiter";
 
 describe("Middlewares", () => {
    beforeEach(() => {
@@ -31,9 +31,10 @@ describe("Middlewares", () => {
    });
 
    describe("authMiddleware - protectRoute", () => {
-      const mockReq = (authHeader?: string) => ({
-         headers: { authorization: authHeader },
-      } as any);
+      const mockReq = (authHeader?: string) =>
+         ({
+            headers: { authorization: authHeader },
+         }) as any;
       const mockRes = () => {
          const res: any = {};
          res.status = vi.fn().mockReturnValue(res);
@@ -52,7 +53,9 @@ describe("Middlewares", () => {
       it("deve retornar 401 se token for invalido", async () => {
          const req = mockReq("Bearer invalid");
          const res = mockRes();
-         vi.mocked(jwt.verify).mockImplementation(() => { throw new Error("Invalid"); });
+         vi.mocked(jwt.verify).mockImplementation(() => {
+            throw new Error("Invalid");
+         });
          await protectRoute(req, res, mockNext);
          expect(res.status).toHaveBeenCalledWith(401);
       });
@@ -62,7 +65,7 @@ describe("Middlewares", () => {
          const res = mockRes();
          vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "admin" } as any);
          prismaMock.user.findUnique.mockResolvedValue(null);
-         
+
          await protectRoute(req, res, mockNext);
          expect(res.status).toHaveBeenCalledWith(401);
          expect(res.json).toHaveBeenCalledWith({ error: "Usuário não encontrado" });
@@ -73,7 +76,7 @@ describe("Middlewares", () => {
          const res = mockRes();
          vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "admin" } as any);
          prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: false });
-         
+
          await protectRoute(req, res, mockNext);
          expect(res.status).toHaveBeenCalledWith(401);
          expect(res.json).toHaveBeenCalledWith({ error: "Usuário Inativo" });
@@ -82,10 +85,14 @@ describe("Middlewares", () => {
       it("deve retornar 401 se farm não encontrada ou inativa", async () => {
          const req = mockReq("Bearer valid");
          const res = mockRes();
-         vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "admin", farmId: "f1" } as any);
+         vi.mocked(jwt.verify).mockReturnValue({
+            userId: "1",
+            role: "veterinarian",
+            farmId: "f1",
+         } as any);
          prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: true });
          prismaMock.farm.findUnique.mockResolvedValue(null);
-         
+
          await protectRoute(req, res, mockNext);
          expect(res.status).toHaveBeenCalledWith(401);
          expect(res.json).toHaveBeenCalledWith({ error: "Farm não encontrada ou inativa" });
@@ -96,7 +103,7 @@ describe("Middlewares", () => {
          const res = mockRes();
          vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "admin" } as any);
          prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: true });
-         
+
          await protectRoute(req, res, mockNext);
          expect(mockNext).toHaveBeenCalled();
          expect(prismaMock.farm.findUnique).not.toHaveBeenCalled();
@@ -107,7 +114,7 @@ describe("Middlewares", () => {
          const res = mockRes();
          vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "unknown_role" } as any);
          prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: true });
-         
+
          await protectRoute(req, res, mockNext);
          expect(mockNext).toHaveBeenCalled();
          expect(req.permissions).toEqual([]);
@@ -119,7 +126,7 @@ describe("Middlewares", () => {
          vi.mocked(jwt.verify).mockReturnValue({ userId: "1", role: "admin", farmId: "f1" } as any);
          prismaMock.user.findUnique.mockResolvedValue({ id: "1", active: true });
          prismaMock.farm.findUnique.mockResolvedValue({ id: "f1", active: true });
-         
+
          await protectRoute(req, res, mockNext);
          expect(mockNext).toHaveBeenCalled();
          expect(req.userId).toBe("1");
@@ -141,9 +148,9 @@ describe("Middlewares", () => {
       afterEach(() => {
          process.env.NODE_ENV = originalEnv;
          if (originalVitest) {
-             process.env.VITEST = originalVitest;
+            process.env.VITEST = originalVitest;
          } else {
-             delete process.env.VITEST;
+            delete process.env.VITEST;
          }
          vi.restoreAllMocks();
       });
@@ -152,7 +159,7 @@ describe("Middlewares", () => {
          process.env.NODE_ENV = "production";
          delete process.env.VITEST;
          const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-         
+
          const req: any = {};
          const res: any = { status: vi.fn().mockReturnThis(), json: vi.fn() };
          const next = vi.fn();
@@ -160,7 +167,9 @@ describe("Middlewares", () => {
 
          errorHandler(error, req, res, next);
          expect(res.status).toHaveBeenCalledWith(500);
-         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: "Erro interno do servidor" }));
+         expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({ error: "Erro interno do servidor" }),
+         );
          expect(consoleSpy).toHaveBeenCalled();
       });
    });

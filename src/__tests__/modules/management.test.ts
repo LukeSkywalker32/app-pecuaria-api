@@ -15,6 +15,8 @@ const { prismaMock } = vi.hoisted(() => ({
 vi.mock("@/config/database", () => ({ prisma: prismaMock }));
 
 import app from "@/app";
+import managementController from "@/modules/management/controllers/management.controller";
+import managementService from "@/modules/management/services/management.service";
 
 const mockMgmt = {
    id: "mgmt-id",
@@ -87,39 +89,55 @@ describe("Management Module", () => {
 
       // Validator
       it("erro: animalId vazio", async () => {
-         const res = await request(app).post("/api/management/move").send({ ...validMove, animalId: "" });
+         const res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, animalId: "" });
          expect(res.status).toBe(500);
       });
 
       it("erro: destinationPastureId vazio", async () => {
-         const res = await request(app).post("/api/management/move").send({ ...validMove, destinationPastureId: "" });
+         const res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, destinationPastureId: "" });
          expect(res.status).toBe(500);
       });
 
       it("erro: reason curto", async () => {
-         const res = await request(app).post("/api/management/move").send({ ...validMove, reason: "AB" });
+         const res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, reason: "AB" });
          expect(res.status).toBe(500);
       });
 
       it("erro: reason longo", async () => {
-         const res = await request(app).post("/api/management/move").send({ ...validMove, reason: "A".repeat(201) });
+         const res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, reason: "A".repeat(201) });
          expect(res.status).toBe(500);
       });
 
       it("erro: employee curto", async () => {
-         const res = await request(app).post("/api/management/move").send({ ...validMove, employee: "A" });
+         const res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, employee: "A" });
          expect(res.status).toBe(500);
       });
 
       it("erro: employee longo", async () => {
-         const res = await request(app).post("/api/management/move").send({ ...validMove, employee: "A".repeat(101) });
+         const res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, employee: "A".repeat(101) });
          expect(res.status).toBe(500);
       });
 
       it("erro: movementDate futura ou invalida", async () => {
-         let res = await request(app).post("/api/management/move").send({ ...validMove, movementDate: "2099-01-01" });
+         let res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, movementDate: "2099-01-01" });
          expect(res.status).toBe(500);
-         res = await request(app).post("/api/management/move").send({ ...validMove, movementDate: "invalid" });
+         res = await request(app)
+            .post("/api/management/move")
+            .send({ ...validMove, movementDate: "invalid" });
          expect(res.status).toBe(500);
       });
    });
@@ -162,60 +180,86 @@ describe("Management Module", () => {
 
       // Validator batch
       it("erro: animalIds vazio", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, animalIds: [] });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, animalIds: [] });
          expect(res.status).toBe(500);
       });
 
       it("erro: animalIds duplicados", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, animalIds: ["id-1", "id-1"] });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, animalIds: ["id-1", "id-1"] });
          expect(res.status).toBe(500);
       });
 
       it("erro: ID vazio na lista", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, animalIds: ["id-1", ""] });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, animalIds: ["id-1", ""] });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: reason curto", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, reason: "AB" });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, reason: "AB" });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: employee curto", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, employee: "A" });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, employee: "A" });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: excesso de animais", async () => {
-         const ids = Array(501).fill(0).map((_, i) => `id-${i}`);
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, animalIds: ids });
+         const ids = Array(501)
+            .fill(0)
+            .map((_, i) => `id-${i}`);
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, animalIds: ids });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: destinationPastureId vazio", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, destinationPastureId: "" });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, destinationPastureId: "" });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: reason longo", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, reason: "A".repeat(201) });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, reason: "A".repeat(201) });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: employee longo", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, employee: "A".repeat(101) });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, employee: "A".repeat(101) });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: movementDate invalida ou futura", async () => {
-         let res = await request(app).post("/api/management/move-batch").send({ ...validBatch, movementDate: "invalid" });
+         let res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, movementDate: "invalid" });
          expect(res.status).toBe(500);
-         res = await request(app).post("/api/management/move-batch").send({ ...validBatch, movementDate: "2099-01-01" });
+         res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, movementDate: "2099-01-01" });
          expect(res.status).toBe(500);
       });
 
       it("erro batch: animalIds não é array", async () => {
-         const res = await request(app).post("/api/management/move-batch").send({ ...validBatch, animalIds: "not-array" });
+         const res = await request(app)
+            .post("/api/management/move-batch")
+            .send({ ...validBatch, animalIds: "not-array" });
          expect(res.status).toBe(500);
       });
 
@@ -249,12 +293,70 @@ describe("Management Module", () => {
    });
 
    // ─── LIST BY ANIMAL ───
+   describe("GET /api/management/", () => {
+      it("deve listar histórico geral com headers de cache", async () => {
+         prismaMock.management.findMany.mockResolvedValue([mockMgmt]);
+         const res = await request(app).get("/api/management/");
+         expect(res.status).toBe(200);
+         expect(res.headers["cache-control"]).toContain("no-store");
+         expect(res.body[0].originPasture).toBe("Pasto A");
+      });
+   });
+
    describe("GET /api/management/animal/:animalId", () => {
       it("deve retornar histórico", async () => {
          prismaMock.management.findMany.mockResolvedValue([mockMgmt]);
          const res = await request(app).get("/api/management/animal/test-animal-id");
          expect(res.status).toBe(200);
          expect(res.body[0].originPasture).toBe("Pasto A");
+      });
+   });
+
+   describe("ManagementController", () => {
+      it("deve listar todo o histórico e preencher headers", async () => {
+         const listAllSpy = vi
+            .spyOn(managementService, "listAll")
+            .mockResolvedValue([mockMgmt] as any);
+         const req = { farmId: "test-farm-id" } as any;
+         const res = {
+            setHeader: vi.fn(),
+            removeHeader: vi.fn(),
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
+         } as any;
+         const next = vi.fn();
+
+         await managementController.listAll(req, res, next);
+
+         expect(listAllSpy).toHaveBeenCalledWith("test-farm-id");
+         expect(res.setHeader).toHaveBeenCalledWith("Cache-Control", "no-store");
+         expect(res.removeHeader).toHaveBeenCalledWith("ETag");
+         expect(res.status).toHaveBeenCalledWith(200);
+         expect(res.json).toHaveBeenCalledWith([mockMgmt]);
+         listAllSpy.mockRestore();
+      });
+
+      it("deve listar histórico por animal e encaminhar erros para next", async () => {
+         const listByAnimalSpy = vi
+            .spyOn(managementService, "listByAnimal")
+            .mockResolvedValue([mockMgmt] as any);
+         const req = { farmId: "test-farm-id", params: { animalId: "animal-1" } } as any;
+         const res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
+         } as any;
+         const next = vi.fn();
+
+         await managementController.listByAnimal(req, res, next);
+
+         expect(listByAnimalSpy).toHaveBeenCalledWith("test-farm-id", "animal-1");
+         expect(res.status).toHaveBeenCalledWith(200);
+         expect(res.json).toHaveBeenCalledWith([mockMgmt]);
+
+         listByAnimalSpy.mockRejectedValueOnce(new Error("boom"));
+         await managementController.listByAnimal(req, res, next);
+         expect(next).toHaveBeenCalled();
+         listByAnimalSpy.mockRestore();
       });
    });
 });

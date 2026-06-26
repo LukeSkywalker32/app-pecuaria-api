@@ -127,11 +127,15 @@ class AuthService {
             where: { id: decoded.userId },
          });
          if (!user) {
-            throw new Error("Usuário não encontrado");
+            throw Object.assign(new Error("Usuário não encontrado"), {
+               statusCode: 400,
+            });
          }
 
          if (!user?.active) {
-            throw new Error("Usuario inativo");
+            throw Object.assign(new Error("Usuario inativo"), {
+               statusCode: 400,
+            });
          }
 
          // 3. Generate new access token
@@ -147,6 +151,10 @@ class AuthService {
             expiresIn: jwtConfig.expiresIn,
          };
       } catch (error) {
+         if (error instanceof Error && "statusCode" in error) {
+            throw error;
+         }
+
          throw Object.assign(new Error("Token invalido ou expirado"), {
             statusCode: 400,
          });
