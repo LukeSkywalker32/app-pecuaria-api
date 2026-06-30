@@ -79,11 +79,15 @@ class AnimalService {
          data.status || (!data.pastureId && data.origin === "purchased" ? "quarantine" : "active");
 
       const animal = await prisma.$transaction(async tx => {
+         const earTagNormalized = data.currentEarTag?.trim()
+            ? data.currentEarTag.trim().toUpperCase()
+            : null;
+
          const created = await tx.animal.create({
             data: {
                farmId,
                chipId: data.chipId,
-               currentEarTag: data.currentEarTag,
+               currentEarTag: earTagNormalized,
                name: data.name,
                breed: data.breed,
                gender: data.gender,
@@ -106,6 +110,25 @@ class AnimalService {
             },
             select: ANIMAL_SELECT,
          });
+
+         // Se o cadastro já veio com brinco, registrar no histórico de brincos
+         // para que o módulo de Brincos enxergue esse brinco como ativo.
+         // Sem isso, o animal tem currentEarTag preenchido mas o módulo de
+         // brincos não tem nenhum registro correspondente (bug reportado).
+         if (earTagNormalized) {
+            await tx.earTagHistory.create({
+               data: {
+                  farmId,
+                  animalId: created.id,
+                  earTagNumber: earTagNormalized,
+                  placementDate: new Date(data.birthDate),
+                  reason:
+                     data.origin === "purchased"
+                        ? "Brinco informado na compra do animal"
+                        : "Brinco informado no cadastro do animal",
+               },
+            });
+         }
 
          // Gatilho: Incrementa contador no pasto (se houver)
          if (data.pastureId) {
@@ -163,7 +186,11 @@ class AnimalService {
       // Relações devem usar connect/disconnect; campos escalares diretos devem ser listados.
       const updateData: Prisma.AnimalUpdateInput = {};
 
-      if (data.currentEarTag !== undefined) updateData.currentEarTag = data.currentEarTag;
+      // NOTA: currentEarTag NÃO é editável por aqui. A troca de brinco deve
+      // passar sempre por earTagHistory.place(), que é a única fonte de
+      // verdade do módulo de Brincos. Editar direto aqui foi a causa raiz
+      // do bug onde o módulo de Brincos não enxergava brincos cadastrados
+      // fora da tela de Brincos.
       if (data.name !== undefined) updateData.name = data.name;
       if (data.breed !== undefined) updateData.breed = data.breed;
       if (data.gender !== undefined) updateData.gender = data.gender;
