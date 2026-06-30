@@ -156,6 +156,7 @@ describe("Animal Module", () => {
 
       it("deve criar animal comprado sem pasto (quarantine)", async () => {
          prismaMock.animal.findUnique.mockResolvedValue(null);
+         prismaMock.pasture.findFirst.mockResolvedValue(null); // sem pasto de quarentena cadastrado
          prismaMock.animal.create.mockResolvedValue({
             ...mockAnimal,
             status: "quarantine",
@@ -170,6 +171,100 @@ describe("Animal Module", () => {
                pastureId: undefined,
             });
          expect(res.status).toBe(201);
+         // Confirma que tentou achar um pasto de quarentena antes de desistir
+         expect(prismaMock.pasture.findFirst).toHaveBeenCalledWith(
+            expect.objectContaining({
+               where: { farmId: "test-farm-id", type: "quarantine", active: true },
+            }),
+         );
+      });
+
+      it("deve salvar origin corretamente no banco (bug: origin sempre caía no default 'born')", async () => {
+         prismaMock.animal.findUnique.mockResolvedValue(null);
+         prismaMock.pasture.findFirst.mockResolvedValue(null);
+         prismaMock.animal.create.mockResolvedValue({
+            ...mockAnimal,
+            origin: "purchased",
+            pastureId: null,
+            status: "quarantine",
+         });
+
+         const res = await request(app)
+            .post("/api/animals")
+            .send({
+               ...validPayload,
+               origin: "purchased",
+               pastureId: undefined,
+            });
+
+         expect(res.status).toBe(201);
+         const createCallData = prismaMock.animal.create.mock.calls[0][0].data;
+         expect(createCallData.origin).toBe("purchased");
+      });
+
+      it("deve vincular automaticamente a um pasto de quarentena já cadastrado", async () => {
+         const quarantinePasture = {
+            id: "quarantine-pasture-id",
+            name: "Quarentena",
+            type: "quarantine",
+            active: true,
+            farmId: "test-farm-id",
+            currentAnimals: 0,
+            animalCapacity: 10,
+         };
+         prismaMock.animal.findUnique.mockResolvedValue(null);
+         prismaMock.pasture.findFirst.mockResolvedValue(quarantinePasture);
+         prismaMock.animal.create.mockResolvedValue({
+            ...mockAnimal,
+            origin: "purchased",
+            pastureId: quarantinePasture.id,
+            pastureName: quarantinePasture.name,
+            status: "quarantine",
+         });
+         prismaMock.pasture.update.mockResolvedValue({ ...quarantinePasture, currentAnimals: 1 });
+
+         const res = await request(app)
+            .post("/api/animals")
+            .send({
+               ...validPayload,
+               origin: "purchased",
+               pastureId: undefined,
+            });
+
+         expect(res.status).toBe(201);
+         expect(res.body.pastureId).toBe("quarantine-pasture-id");
+         expect(res.body.status).toBe("quarantine");
+         // Confirma que o contador do pasto de quarentena foi incrementado
+         expect(prismaMock.pasture.update).toHaveBeenCalledWith(
+            expect.objectContaining({
+               where: { id: "quarantine-pasture-id" },
+               data: { currentAnimals: { increment: 1 } },
+            }),
+         );
+      });
+
+      it("não deve auto-vincular a quarentena se o usuário já escolheu um pasto manualmente", async () => {
+         prismaMock.animal.findUnique.mockResolvedValue(null);
+         prismaMock.pasture.findFirst.mockResolvedValue(mockPasture); // pasto escolhido manualmente
+         prismaMock.animal.create.mockResolvedValue({ ...mockAnimal, origin: "purchased" });
+         prismaMock.pasture.update.mockResolvedValue({ ...mockPasture, currentAnimals: 1 });
+
+         const res = await request(app)
+            .post("/api/animals")
+            .send({
+               ...validPayload,
+               origin: "purchased",
+               pastureId: "test-pasture-id", // já veio com pasto escolhido
+            });
+
+         expect(res.status).toBe(201);
+         // Não deve procurar pasto de quarentena, já que o usuário escolheu um
+         expect(prismaMock.pasture.findFirst).toHaveBeenCalledWith(
+            expect.objectContaining({ where: { id: "test-pasture-id", farmId: "test-farm-id" } }),
+         );
+         expect(prismaMock.pasture.findFirst).not.toHaveBeenCalledWith(
+            expect.objectContaining({ where: expect.objectContaining({ type: "quarantine" }) }),
+         );
       });
 
       it("deve erro para born sem pasto", async () => {

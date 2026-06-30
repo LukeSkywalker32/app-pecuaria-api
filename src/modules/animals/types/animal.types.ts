@@ -35,6 +35,14 @@ export interface UpdateAnimalRequest {
    buyerId?: string;
    saleDate?: Date;
    saleNotes?: string;
+   // Genealogia interna
+   sireId?: string;
+   damId?: string;
+   // Genealogia externa
+   sireExternalName?: string;
+   sireExternalChip?: string;
+   damExternalName?: string;
+   damExternalChip?: string;
 }
 
 export interface AnimalResponse {

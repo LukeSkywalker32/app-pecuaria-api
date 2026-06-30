@@ -158,9 +158,37 @@ class AnimalService {
       animalValidator.validateUpdate(data);
       const current = await this.findById(farmId, id);
 
-      const updateData: Prisma.AnimalUpdateInput = { ...data } as any;
+      // Constrói updateData explicitamente — nunca fazer spread de 'data' diretamente,
+      // pois campos como buyerId, sireId, damId são FKs escalares que o Prisma rejeita.
+      // Relações devem usar connect/disconnect; campos escalares diretos devem ser listados.
+      const updateData: Prisma.AnimalUpdateInput = {};
+
+      if (data.currentEarTag !== undefined) updateData.currentEarTag = data.currentEarTag;
+      if (data.name !== undefined) updateData.name = data.name;
+      if (data.breed !== undefined) updateData.breed = data.breed;
+      if (data.gender !== undefined) updateData.gender = data.gender;
+      if (data.weightKg !== undefined) updateData.weightKg = data.weightKg;
+      if (data.status !== undefined) updateData.status = data.status;
       if (data.birthDate) updateData.birthDate = new Date(data.birthDate);
       if (data.saleDate) updateData.saleDate = new Date(data.saleDate);
+      if (data.saleNotes !== undefined) updateData.saleNotes = data.saleNotes;
+
+      // Relações via connect/disconnect
+      if (data.buyerId !== undefined) {
+         updateData.buyer = data.buyerId ? { connect: { id: data.buyerId } } : { disconnect: true };
+      }
+      if (data.sireId !== undefined) {
+         updateData.sire = data.sireId ? { connect: { id: data.sireId } } : { disconnect: true };
+      }
+      if (data.damId !== undefined) {
+         updateData.dam = data.damId ? { connect: { id: data.damId } } : { disconnect: true };
+      }
+
+      // Genealogia externa (campos escalares simples)
+      if (data.sireExternalName !== undefined) updateData.sireExternalName = data.sireExternalName;
+      if (data.sireExternalChip !== undefined) updateData.sireExternalChip = data.sireExternalChip;
+      if (data.damExternalName !== undefined) updateData.damExternalName = data.damExternalName;
+      if (data.damExternalChip !== undefined) updateData.damExternalChip = data.damExternalChip;
 
       // Regra de Negócio: Se mudar para Quarentena ou Tratamento, o pasto pode ser removido
       const animal = await prisma.$transaction(async tx => {
@@ -168,25 +196,31 @@ class AnimalService {
          // a menos que o usuário informe explicitamente um pastureId de destino
          const isSpecialStatus =
             (data.status as string) === "quarantine" || (data.status as string) === "treatment";
+         const isSold = (data.status as string) === "sold";
+
+         // Controle para evitar duplo decrement no pasto de origem
+         let originPastureDecremented = false;
+
          if (isSpecialStatus && data.pastureId === undefined) {
-            // Remove o animal do pasto atual
             if (current.pastureId) {
                await tx.pasture.update({
                   where: { id: current.pastureId },
                   data: { currentAnimals: { decrement: 1 } },
                });
+               originPastureDecremented = true;
             }
-            // Preciso desconectar o pastureId antes de remover o animal
             updateData.pasture = { disconnect: true };
             updateData.pastureName = null;
          }
-         // Se mudou de pasto explicitamente (pastureId foi informado)
-         if (data.pastureId !== undefined && data.pastureId !== current.pastureId) {
-            if (current.pastureId) {
+
+         // Se mudou de pasto explicitamente (pastureId foi informado) — ignorar se vendido
+         if (!isSold && data.pastureId !== undefined && data.pastureId !== current.pastureId) {
+            if (current.pastureId && !originPastureDecremented) {
                await tx.pasture.update({
                   where: { id: current.pastureId },
                   data: { currentAnimals: { decrement: 1 } },
                });
+               originPastureDecremented = true;
             }
             if (data.pastureId) {
                const pasture = await tx.pasture.findFirst({
@@ -197,19 +231,21 @@ class AnimalService {
                      statusCode: 404,
                   });
 
+               updateData.pasture = { connect: { id: data.pastureId } };
                updateData.pastureName = pasture.name;
                await tx.pasture.update({
                   where: { id: data.pastureId },
                   data: { currentAnimals: { increment: 1 } },
                });
             } else {
+               updateData.pasture = { disconnect: true };
                updateData.pastureName = null;
             }
          }
 
-         // Regra de venda: Se o animal for vendido, opcionamente remove do pasto
-         if ((data.status as string) === "sold") {
-            if (current.pastureId) {
+         // Regra de venda: animal vendido sai do pasto e perde o brinco
+         if (isSold) {
+            if (current.pastureId && !originPastureDecremented) {
                await tx.pasture.update({
                   where: { id: current.pastureId },
                   data: { currentAnimals: { decrement: 1 } },
@@ -217,6 +253,39 @@ class AnimalService {
             }
             updateData.pasture = { disconnect: true };
             updateData.pastureName = null;
+
+            // Fechar brinco ativo (se houver)
+            const brincoAtivo = await tx.earTagHistory.findFirst({
+               where: { animalId: id, farmId, removalDate: null },
+            });
+            if (brincoAtivo) {
+               await tx.earTagHistory.update({
+                  where: { id: brincoAtivo.id },
+                  data: {
+                     removalDate: data.saleDate ? new Date(data.saleDate) : new Date(),
+                     reason: "Animal vendido",
+                  },
+               });
+               updateData.currentEarTag = null;
+            }
+         }
+
+         // Regra de morte via edição direta: fechar brinco ativo
+         const isDead = (data.status as string) === "dead";
+         if (isDead) {
+            const brincoAtivo = await tx.earTagHistory.findFirst({
+               where: { animalId: id, farmId, removalDate: null },
+            });
+            if (brincoAtivo) {
+               await tx.earTagHistory.update({
+                  where: { id: brincoAtivo.id },
+                  data: {
+                     removalDate: new Date(),
+                     reason: "Animal morto",
+                  },
+               });
+               updateData.currentEarTag = null;
+            }
          }
 
          return await tx.animal.update({

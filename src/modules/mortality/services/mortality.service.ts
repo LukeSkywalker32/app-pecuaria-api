@@ -150,7 +150,25 @@ class MortalityService {
             });
          }
 
-         // 4. Encerrar prenhezes em andamento (se houver)
+         // 4. Fechar brinco ativo (se houver) — animal morto não pode ter brinco ativo
+         const brincoAtivo = await tx.earTagHistory.findFirst({
+            where: { animalId: data.animalId, farmId, removalDate: null },
+         });
+         if (brincoAtivo) {
+            await tx.earTagHistory.update({
+               where: { id: brincoAtivo.id },
+               data: {
+                  removalDate: new Date(data.deathDate),
+                  reason: "Animal morto",
+               },
+            });
+            await tx.animal.update({
+               where: { id: data.animalId },
+               data: { currentEarTag: null },
+            });
+         }
+
+         // 5. Encerrar prenhezes em andamento (se houver)
          // Animal morto não pode estar em prenhez ativa
          await tx.pregnancy.updateMany({
             where: {
