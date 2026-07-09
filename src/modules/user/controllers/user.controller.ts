@@ -31,6 +31,7 @@ class UserController {
 
          // Lógica de Hierarquia Simplificada (Ignora requirePermission da rota)
          if (callerRole === "admin") {
+            body.farmId = body.farmId ?? callerFarmId;
             //Admin cria fazenda e farmId vem no token do body
             if (!body.farmId) {
                res.status(400).json({ error: "admin deve informar no body" });

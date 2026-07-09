@@ -281,22 +281,11 @@ class FarmService {
     */
    private async sign(params: string, secret: string): Promise<string> {
       const encoder = new TextEncoder();
-      const keyData = encoder.encode(secret);
-      const msgData = encoder.encode(params);
+      const dataToHash = encoder.encode(params + secret);
 
-      // Importa chave de assinatura
-      const cryptoKey = await crypto.subtle.importKey(
-         "raw",
-         keyData,
-         { name: "HMAC", hash: "SHA-1" },
-         false,
-         ["sign"],
-      );
+      const digest = await crypto.subtle.digest("SHA-1", dataToHash);
 
-      // Gera assinatura
-      const signatureBuffer = await crypto.subtle.sign("HMAC", cryptoKey, msgData);
-
-      return Array.from(new Uint8Array(signatureBuffer))
+      return Array.from(new Uint8Array(digest))
          .map(b => b.toString(16).padStart(2, "0"))
          .join("");
    }
