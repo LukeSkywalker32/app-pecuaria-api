@@ -3,7 +3,7 @@
 export interface CreateFarmRequest {
    name: string;
    location: string;
-   cnpj: string;
+   cnpj?: string;
 }
 //Payload para atualização da fazenda
 export interface UpdateFarmRequest {

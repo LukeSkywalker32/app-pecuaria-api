@@ -39,7 +39,7 @@ export function validateCreate(data: CreateFarmRequest): void {
    if (!data.location || data.location.trim().length < 3) {
       throw new Error("Localização da fazenda deve ter pelo menos 3 caracteres");
    }
-   if (data.cnpj && data.cnpj.trim() !== "" && !isValidCNPJ(data.cnpj)) {
+   if (data.cnpj !== undefined && data.cnpj.trim() !== "" && !isValidCNPJ(data.cnpj)) {
       throw new Error("CNPJ inválido");
    }
 }

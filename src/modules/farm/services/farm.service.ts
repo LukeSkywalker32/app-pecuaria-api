@@ -22,14 +22,6 @@ const PUBLIC_FARM_SELECT = {
 } satisfies Prisma.FarmSelect;
 
 class FarmService {
-   // 0 - Listar fazendas públicas (ativas)
-   async listPublic(): Promise<FarmResponse[]> {
-      return prisma.farm.findMany({
-         where: { active: true },
-         select: PUBLIC_FARM_SELECT,
-         orderBy: { name: "asc" },
-      });
-   }
    // 1 - Criar uma fazenda
    async create(data: CreateFarmRequest): Promise<FarmResponse> {
       validateCreate(data);
@@ -46,7 +38,7 @@ class FarmService {
          data: {
             name: data.name.trim(),
             location: data.location.trim(),
-            cnpj: data.cnpj?.trim() ?? null,
+            cnpj: data.cnpj ? data.cnpj.trim() : null,
          },
          select: PUBLIC_FARM_SELECT,
       });
