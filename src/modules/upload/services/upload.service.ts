@@ -11,15 +11,8 @@
 
 async function signParams(params: string, secret: string): Promise<string> {
    const encoder = new TextEncoder();
-   const key = await crypto.subtle.importKey(
-      "raw",
-      encoder.encode(secret),
-      { name: "HMAC", hash: "SHA-1" },
-      false,
-      ["sign"],
-   );
-   const buffer = await crypto.subtle.sign("HMAC", key, encoder.encode(params));
-   return Array.from(new Uint8Array(buffer))
+   const digest = await crypto.subtle.digest("SHA-1", encoder.encode(params + secret));
+   return Array.from(new Uint8Array(digest))
       .map(b => b.toString(16).padStart(2, "0"))
       .join("");
 }

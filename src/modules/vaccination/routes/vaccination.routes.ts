@@ -57,4 +57,24 @@ vaccinationRoutes.delete(
    vaccinationController.remove.bind(vaccinationController),
 );
 
+/**
+ * PATCH /api/vaccinations/:id/photos
+ * Adiciona fotos (URLs já enviadas ao Cloudinary)
+ */
+vaccinationRoutes.patch(
+   "/:id/photos",
+   requirePermission("upload_vaccination_photo"),
+   vaccinationController.addPhotos.bind(vaccinationController),
+);
+
+/**
+ * DELETE /api/vaccinations/:id/photos
+ * Remove uma foto especifica do registro pela URL
+ */
+vaccinationRoutes.delete(
+   "/:id/photos",
+   requirePermission("upload_vaccination_photo"),
+   vaccinationController.removePhoto.bind(vaccinationController),
+);
+
 export default vaccinationRoutes;

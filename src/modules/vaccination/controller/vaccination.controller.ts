@@ -133,6 +133,54 @@ class VaccinationController {
          next(error);
       }
    }
+
+   /**
+    * PATCH /api/vaccinations/:id/photos
+    * Adiciona fotos ao registro (append — não substitui)
+    * Body: { photoUrls: string[] }
+    */
+   async addPhotos(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const { id } = req.params as { id: string };
+         const { photoUrls } = req.body as { photoUrls: string[] };
+
+         if (!Array.isArray(photoUrls) || photoUrls.length === 0) {
+            res.status(400).json({ error: "photoUrls deve ser um array com pelo menos 1 URL" });
+            return;
+         }
+
+         const vaccination = await vaccinationService.addPhotos(farmId, id, photoUrls);
+         res.status(200).json(vaccination);
+      } catch (error) {
+         next(error);
+      }
+   }
+
+   /**
+    * DELETE /api/vaccinations/:id/photos
+    * Remove uma foto especifica do registro pela URL
+    * Body: { photoUrl: string, reason?: string }
+    * OBS: "reason" ainda não é obrigatório nem persistido — reservado para
+    * a próxima sprint (log de auditoria). Aceito aqui só pra não quebrar
+    * o contrato da rota quando a validação obrigatória entrar.
+    */
+   async removePhoto(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const { id } = req.params as { id: string };
+         const { photoUrl } = req.body as { photoUrl: string; reason?: string };
+
+         if (!photoUrl || typeof photoUrl !== "string") {
+            res.status(400).json({ error: "photoUrl é obrigatório" });
+            return;
+         }
+         const vaccination = await vaccinationService.removePhoto(farmId, id, photoUrl);
+         res.status(200).json(vaccination);
+      } catch (error) {
+         next(error);
+      }
+   }
 }
 
 export default new VaccinationController();

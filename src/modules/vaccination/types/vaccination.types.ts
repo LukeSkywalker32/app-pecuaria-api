@@ -8,7 +8,7 @@ export interface CreateVaccinationRequest {
    vaccinationDate: string; //Data da vacinação ISO 8601
    expirationDate: string; // data da validado da vacina ISO 8601
    nextDoseDate?: string; // data da próxima dose ISO 8601
-   photoUrl?: string; // url da foto
+   photos?: string[]; // urls das fotos max 3
    reaction?: string; // reação da vacinação(opcional)
    notes?: string; // notas adicionais
    veterinarianId?: string;
@@ -22,7 +22,7 @@ export interface UpdateVaccinationRequest {
    vaccinationDate?: string;
    expirationDate?: string;
    nextDoseDate?: string;
-   photoUrl?: string;
+   photos?: string[];
    reaction?: string;
    notes?: string;
    veterinarianId?: string;
@@ -50,7 +50,7 @@ export interface VaccinationResponse {
    vaccinationDate: Date;
    expirationDate: Date;
    nextDoseDate: Date | null;
-   photoUrl: string | null;
+   photos: string[] | null;
    reaction: string | null;
    notes: string | null;
    veterinarianId: string | null;

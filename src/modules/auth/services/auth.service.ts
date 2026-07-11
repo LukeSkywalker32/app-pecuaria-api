@@ -78,6 +78,7 @@ class AuthService {
             farmId: request.farmId,
             username: request.username,
             active: true,
+            role: {not: "admin"}, // Admins devem logar apenas na farm-sistema
          },
       });
 

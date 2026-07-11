@@ -53,8 +53,8 @@ export async function protectRoute(req: Request, res: Response, next: NextFuncti
 
       // Preenche req com dados do token
       req.userId = decoded.userId;
-      req.role = decoded.role;
-      req.farmId = decoded.farmId;
+      req.role = user.role;
+      req.farmId = user.farmId;
 
       // ── Override de farmId para admin ──────────────────────────────────
       // Quando o admin seleciona uma fazenda no dropdown da sidebar,

@@ -406,7 +406,7 @@ model Vaccination {
   vaccinationDate DateTime
   expirationDate  DateTime
   nextDoseDate    DateTime?
-  photoUrl        String?
+  photos          String[]
   reaction        String?
   notes           String?
   createdAt       DateTime @default(now())

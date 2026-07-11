@@ -22,7 +22,7 @@ const VACCINATION_SELECT = {
    vaccinationDate: true,
    expirationDate: true,
    nextDoseDate: true,
-   photoUrl: true,
+   photos: true,
    reaction: true,
    notes: true,
    veterinarianId: true,
@@ -100,7 +100,7 @@ class VaccinationService {
             vaccinationDate: new Date(data.vaccinationDate),
             expirationDate: new Date(data.expirationDate),
             nextDoseDate: data.nextDoseDate ? new Date(data.nextDoseDate) : null,
-            photoUrl: data.photoUrl?.trim() ?? null,
+            photos: data.photos ?? [],
             reaction: data.reaction?.trim() ?? null,
             notes: data.notes?.trim() ?? null,
             veterinarianId: data.veterinarianId ?? null,
@@ -239,7 +239,7 @@ class VaccinationService {
       if (data.nextDoseDate !== undefined) {
          updateData.nextDoseDate = data.nextDoseDate ? new Date(data.nextDoseDate) : null;
       }
-      if (data.photoUrl !== undefined) updateData.photoUrl = data.photoUrl?.trim() ?? null;
+      if (data.photos !== undefined) updateData.photos = { set: data.photos };
       if (data.reaction !== undefined) updateData.reaction = data.reaction?.trim() ?? null;
       if (data.notes !== undefined) updateData.notes = data.notes?.trim() ?? null;
       if (data.veterinarianId !== undefined) {
@@ -263,6 +263,64 @@ class VaccinationService {
    async remove(farmId: string, id: string): Promise<void> {
       await this.getById(farmId, id);
       await prisma.vaccination.delete({ where: { id } });
+   }
+
+   /**
+    * Adiciona fotos ao registro (append — não substitui)
+    * Recebe array de URLs já enviadas ao Cloudinary
+    */
+   async addPhotos(farmId: string, id: string, photoUrls: string[]): Promise<VaccinationResponse> {
+      const current = await this.getById(farmId, id);
+
+      // Limite de 3 fotos total por vacinação
+      const total = (current.photos?.length ?? 0) + photoUrls.length;
+      if (total > 3) {
+         throw Object.assign(
+            new Error(
+               `Limite de 3 fotos atingido. Já existem ${current.photos?.length ?? 0} foto(s).`,
+            ),
+            { statusCode: 400 },
+         );
+      }
+
+      const vaccination = await prisma.vaccination.update({
+         where: { id },
+         data: {
+            photos: {
+               push: photoUrls,
+               // ↑ Prisma suporta push em arrays PostgreSQL nativamente
+            },
+         },
+         select: VACCINATION_SELECT,
+      });
+
+      return formatVaccination(vaccination);
+   }
+
+   /**
+    * Remove uma foto especifica do registro pela URL
+    * Como o array "photos" no Postgres não suporta "remover por valor"
+    * diretamente via Prisma, buscamos o registro, filtramos em memória
+    * e gravamos o array completo (set, não push)
+    */
+   async removePhoto(farmId: string, id: string, photoUrl: string): Promise<VaccinationResponse> {
+      const current = await this.getById(farmId, id);
+
+      if (!current.photos || !current.photos.includes(photoUrl)) {
+         throw Object.assign(new Error("Foto não encontrada neste registro"), {
+            statusCode: 404,
+         });
+      }
+      const updatedPhotos = current.photos.filter(url => url !== photoUrl);
+
+      const vaccination = await prisma.vaccination.update({
+         where: { id },
+         data: {
+            photos: { set: updatedPhotos },
+         },
+         select: VACCINATION_SELECT,
+      });
+      return formatVaccination(vaccination);
    }
 }
 export default new VaccinationService();
