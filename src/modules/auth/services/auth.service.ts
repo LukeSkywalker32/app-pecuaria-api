@@ -72,13 +72,13 @@ class AuthService {
       // 1. Validate input
       validateLogin(request);
 
-      // 2. Search user in DB
+      // 2. Busca usuario no banco de dados
       const user = await prisma.user.findFirst({
          where: {
             farmId: request.farmId,
             username: request.username,
             active: true,
-            role: {not: "admin"}, // Admins devem logar apenas na farm-sistema
+            role: { not: "admin" },
          },
       });
 

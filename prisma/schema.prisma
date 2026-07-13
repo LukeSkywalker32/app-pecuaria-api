@@ -107,6 +107,7 @@ model Farm {
   passwordResetTokens PasswordResetToken[]
   earTagHistory       EarTagHistory[]
   buyers              Buyer[]
+  weighings           Weighing[]
 
   @@map("farms")
 }
@@ -144,6 +145,7 @@ model User {
   births              Birth[]
   mortalities         Mortality[]
   estrus              Estrus[]
+  weighings           Weighing[]
 
   @@unique([farmId, username])
   @@map("users")
@@ -203,6 +205,7 @@ model Animal {
   vaccinations  Vaccination[]
   managements   Management[]
   mortalities   Mortality[]
+  weighings     Weighing[]
 
   @@unique([farmId, chipId])
   @@map("animals")
@@ -478,6 +481,30 @@ model Mortality {
   registeredBy   User? @relation(fields: [registeredById], references: [id])
 
   @@map("mortalities")
+}
+
+// =====================
+// WEIGHING (PESAGEM)
+// =====================
+model Weighing {
+  id       String   @id @default(uuid())
+  weightKg Float
+  date     DateTime
+  notes    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  farmId String
+  farm   Farm @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  animalId String
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  registeredById String?
+  registeredBy   User? @relation(fields: [registeredById], references: [id])
+
+  @@map("weighings")
 }
 
 // =====================

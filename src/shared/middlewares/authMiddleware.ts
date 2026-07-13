@@ -41,9 +41,11 @@ export async function protectRoute(req: Request, res: Response, next: NextFuncti
       }
 
       // Valida farm — admin bypassa (farm-sistema está inativa intencionalmente)
-      if (decoded.farmId && decoded.role !== "admin") {
+      // Usa user.farmId (fresco do banco) e não decoded.farmId (do token),
+      // pra não validar contra uma fazenda que o usuário já não pertence mais.
+      if (user.farmId && user.role !== "admin") {
          const farm = await prisma.farm.findUnique({
-            where: { id: decoded.farmId },
+            where: { id: user.farmId },
             select: { id: true, active: true },
          });
          if (!farm || !farm.active) {
@@ -51,7 +53,10 @@ export async function protectRoute(req: Request, res: Response, next: NextFuncti
          }
       }
 
-      // Preenche req com dados do token
+      // Preenche req com dados FRESCOS do banco — não do token.
+      // Se o role ou a farm do usuário mudarem depois do login (rebaixamento,
+      // troca de fazenda, desativação), o efeito é imediato na próxima
+      // requisição, em vez de só valer quando o token expirar.
       req.userId = decoded.userId;
       req.role = user.role;
       req.farmId = user.farmId;
@@ -61,15 +66,15 @@ export async function protectRoute(req: Request, res: Response, next: NextFuncti
       // o frontend envia X-Farm-Id em todas as requisições.
       // O middleware substitui req.farmId para que todos os services
       // retornem dados daquela fazenda transparentemente.
-      if (decoded.role === "admin") {
+      if (user.role === "admin") {
          const overrideFarmId = req.headers["x-farm-id"] as string | undefined;
          if (overrideFarmId && overrideFarmId.trim() !== "") {
             req.farmId = overrideFarmId.trim();
          }
       }
 
-      // Carrega permissões dinamicamente do servidor (ignora o que está no token)
-      const roleKey = decoded.role as keyof typeof ROLES_PERMISSIONS;
+      // Carrega permissões dinamicamente do servidor, a partir do role fresco do banco
+      const roleKey = user.role as keyof typeof ROLES_PERMISSIONS;
       req.permissions = ROLES_PERMISSIONS[roleKey] || [];
 
       next();
