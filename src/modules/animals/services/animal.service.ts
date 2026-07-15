@@ -138,6 +138,30 @@ class AnimalService {
             });
          }
 
+         // Se o cadastro já veio com peso, registrar como a primeira pesagem
+         // do animal no módulo de Pesagens. Sem isso, o peso informado aqui
+         // fica só no Animal.weightKg e nunca aparece no histórico/GMD —
+         // exatamente o mesmo bug que já tínhamos com brinco (currentEarTag
+         // vs earTagHistory), resolvido do mesmo jeito: o cadastro alimenta
+         // a tabela histórica, não só o campo solto no Animal.
+         if (data.weightKg !== undefined && data.weightKg !== null) {
+            await tx.weighing.create({
+               data: {
+                  farmId,
+                  animalId: created.id,
+                  weightKg: data.weightKg,
+                  // Nascido na fazenda: pesado ao nascer -> usa a data de nascimento.
+                  // Comprado: pesado na chegada -> usa a data do cadastro (hoje),
+                  // não a data de nascimento estimada do animal.
+                  date: data.origin === "born" ? new Date(data.birthDate) : new Date(),
+                  notes:
+                     data.origin === "purchased"
+                        ? "Peso informado na compra do animal"
+                        : "Peso informado no cadastro do animal (nascimento)",
+               },
+            });
+         }
+
          return created;
       });
 
@@ -191,10 +215,16 @@ class AnimalService {
       // verdade do módulo de Brincos. Editar direto aqui foi a causa raiz
       // do bug onde o módulo de Brincos não enxergava brincos cadastrados
       // fora da tela de Brincos.
+      //
+      // NOTA: weightKg também NÃO é editável por aqui, pelo mesmo motivo.
+      // Editar peso deve passar sempre pelo módulo de Pesagens
+      // (weighingService.create/update/remove), que é quem sincroniza
+      // Animal.weightKg com a pesagem mais recente. Permitir editar aqui
+      // direto reabriria o mesmo bug: o campo mudaria sem nenhum registro
+      // correspondente na tabela de Pesagens, e o GMD ficaria incorreto.
       if (data.name !== undefined) updateData.name = data.name;
       if (data.breed !== undefined) updateData.breed = data.breed;
       if (data.gender !== undefined) updateData.gender = data.gender;
-      if (data.weightKg !== undefined) updateData.weightKg = data.weightKg;
       if (data.status !== undefined) updateData.status = data.status;
       if (data.birthDate) updateData.birthDate = new Date(data.birthDate);
       if (data.saleDate) updateData.saleDate = new Date(data.saleDate);

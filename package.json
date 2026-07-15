@@ -21,7 +21,9 @@
       "prisma:push": "prisma db push",
       "prisma:studio": "prisma studio",
       "prisma:migrate": "prisma migrate dev",
-      "prisma:seed": "prisma db seed"
+      "prisma:seed": "prisma db seed",
+      "backfill:weighings": "tsx prisma/backfill-weighings.ts",
+      "seed:gmd-test": "tsx prisma/seed-gmd-test-data.ts"
    },
    "dependencies": {
       "@prisma/adapter-neon": "^7.8.0",

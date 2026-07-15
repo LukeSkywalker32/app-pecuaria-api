@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noConsole: <explanation> */
+// biome-ignore-all lint/suspicious/noConsole: false positive
 
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@prisma/client";

@@ -1,8 +1,8 @@
-// WEIGHING SERVICE - PESAGEM SERVICE
+// ========================================
+// WEIGHING SERVICE
+// ========================================
 
-import { register } from "node:module";
 import type { Prisma } from "@prisma/client";
-import { W } from "node_modules/vitest/dist/chunks/worker.d.ZpHpO4yb";
 import { prisma } from "@/config/database";
 import type {
    CreateWeighingRequest,
@@ -47,9 +47,10 @@ function formatWeighing(w: any, gmd: number | null = null): WeighingResponse {
       gmd,
    };
 }
+
 // Calcula o GMD (Ganho Médio Diário, kg/dia) entre duas pesagens consecutivas.
 // Retorna null se as datas forem iguais (divisão por zero) ou inválidas.
-function calculateGmg(
+function calculateGmd(
    currentWeightKg: number,
    currentDate: Date,
    previousWeightKg: number,
@@ -60,11 +61,62 @@ function calculateGmg(
    return Number(((currentWeightKg - previousWeightKg) / days).toFixed(3));
 }
 
+// Sincroniza Animal.weightKg com a pesagem mais recente (por DATA da pesagem,
+// não por ordem de criação — alguém pode registrar uma pesagem atrasada).
+// Se o animal não tem mais nenhuma pesagem (ex.: removeu a única), zera o campo.
+// Mesmo padrão de earTagHistory.place()/remove() sincronizando currentEarTag.
+async function syncAnimalCurrentWeight(farmId: string, animalId: string): Promise<void> {
+   const latest = await prisma.weighing.findFirst({
+      where: { farmId, animalId },
+      orderBy: { date: "desc" },
+      select: { weightKg: true },
+   });
+
+   await prisma.animal.update({
+      where: { id: animalId },
+      data: { weightKg: latest?.weightKg ?? null },
+   });
+}
+
+// Calcula o GMD de cada pesagem em relação à anterior do MESMO animal,
+// usando o histórico completo (sem filtros) — se calculássemos só sobre
+// um resultado filtrado (ex.: ?dateFrom=...), a pesagem "anterior" podería
+// ficar de fora do filtro e o GMD sairia errado ou sempre null.
+// Retorna um Map<weighingId, gmd>.
+async function buildGmdMap(farmId: string, animalId?: string): Promise<Map<string, number | null>> {
+   const allWeighings = await prisma.weighing.findMany({
+      where: animalId ? { farmId, animalId } : { farmId },
+      select: { id: true, animalId: true, weightKg: true, date: true },
+      orderBy: { date: "asc" },
+   });
+
+   const byAnimal = new Map<string, typeof allWeighings>();
+   for (const w of allWeighings) {
+      const list = byAnimal.get(w.animalId) ?? [];
+      list.push(w);
+      byAnimal.set(w.animalId, list);
+   }
+
+   const gmdMap = new Map<string, number | null>();
+   for (const list of byAnimal.values()) {
+      list.forEach((w, index) => {
+         if (index === 0) {
+            gmdMap.set(w.id, null);
+            return;
+         }
+         const previous = list[index - 1];
+         gmdMap.set(w.id, calculateGmd(w.weightKg, w.date, previous.weightKg, previous.date));
+      });
+   }
+
+   return gmdMap;
+}
+
 class WeighingService {
    /**
     * Registra pesagem de um animal
     * Regras:
-    *  - Animal deve existir e pertencer a fazenda
+    * - Animal deve existir e pertencer à fazenda
     */
    async create(
       farmId: string,
@@ -77,7 +129,9 @@ class WeighingService {
          where: { id: data.animalId, farmId },
       });
       if (!animal) {
-         throw Object.assign(new Error("Animal não encontrado nessa fazenda"), { statusCode: 404 });
+         throw Object.assign(new Error("Animal não encontrado nesta fazenda"), {
+            statusCode: 404,
+         });
       }
 
       const weighing = await prisma.weighing.create({
@@ -91,6 +145,9 @@ class WeighingService {
          },
          select: WEIGHING_SELECT,
       });
+
+      await syncAnimalCurrentWeight(farmId, data.animalId);
+
       return formatWeighing(weighing);
    }
 
@@ -113,11 +170,13 @@ class WeighingService {
          orderBy: { date: "desc" },
       });
 
-      return weighings.map(w => formatWeighing(w));
+      const gmdMap = await buildGmdMap(farmId, query.animalId);
+
+      return weighings.map(w => formatWeighing(w, gmdMap.get(w.id) ?? null));
    }
 
    /**
-    * Busca uma pesagem por id (especifica)
+    * Busca uma pesagem por id
     */
    async getById(farmId: string, id: string): Promise<WeighingResponse> {
       const weighing = await prisma.weighing.findFirst({
@@ -129,6 +188,7 @@ class WeighingService {
       }
       return formatWeighing(weighing);
    }
+
    /**
     * Histórico de pesagens de um animal, ordenado por data crescente,
     * com o GMD calculado entre cada pesagem e a anterior.
@@ -140,24 +200,24 @@ class WeighingService {
          where: { id: animalId, farmId },
       });
       if (!animal) {
-         throw Object.assign(new Error("Animal não encontrado nessa fazenda"), { statusCode: 404 });
+         throw Object.assign(new Error("Animal não encontrado"), { statusCode: 404 });
       }
 
       const weighings = await prisma.weighing.findMany({
-         where: { animalId, farmId },
+         where: { farmId, animalId },
          select: WEIGHING_SELECT,
-         orderBy: { date: "desc" },
+         orderBy: { date: "asc" },
       });
 
-      const withGmd: WeighingResponse[] = weighings.map((w, index) => {
-         if (index === 0) return formatWeighing(w, null);
-         const previous = weighings[index - 1];
-         const gmd = calculateGmg(w.weightKg, w.date, previous.weightKg, previous.date);
-         return formatWeighing(w, gmd);
-      });
+      const gmdMap = await buildGmdMap(farmId, animalId);
+      const withGmd: WeighingResponse[] = weighings.map(w =>
+         formatWeighing(w, gmdMap.get(w.id) ?? null),
+      );
+
       // Inverte pra manter o padrão de "mais recente primeiro" nas listas do sistema
       return withGmd.reverse();
    }
+
    /**
     * Atualiza pesagem
     */
@@ -179,6 +239,9 @@ class WeighingService {
          data: updateData,
          select: WEIGHING_SELECT,
       });
+
+      await syncAnimalCurrentWeight(farmId, weighing.animalId);
+
       return formatWeighing(weighing);
    }
 
@@ -186,8 +249,9 @@ class WeighingService {
     * Remove registro de pesagem
     */
    async remove(farmId: string, id: string): Promise<void> {
-      await this.getById(farmId, id);
+      const existing = await this.getById(farmId, id);
       await prisma.weighing.delete({ where: { id } });
+      await syncAnimalCurrentWeight(farmId, existing.animalId);
    }
 }
 

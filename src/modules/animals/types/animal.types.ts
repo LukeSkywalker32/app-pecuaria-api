@@ -31,7 +31,6 @@ export interface UpdateAnimalRequest {
    birthDate?: Date;
    status?: AnimalStatus;
    pastureId?: string;
-   weightKg?: number;
    buyerId?: string;
    saleDate?: Date;
    saleNotes?: string;
