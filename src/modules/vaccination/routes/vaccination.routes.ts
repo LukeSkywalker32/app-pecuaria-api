@@ -18,6 +18,26 @@ vaccinationRoutes.get(
 );
 
 /**
+ * GET /api/vaccinations/animal/:animalId/export/pdf
+ * Exporta o histórico de vacinações de um animal em PDF
+ */
+vaccinationRoutes.get(
+   "/animal/:animalId/export/pdf",
+   requirePermission("export_pdf"),
+   vaccinationController.exportAnimalPdf.bind(vaccinationController),
+);
+
+/**
+ * GET /api/vaccinations/export/xlsx
+ * Exporta a lista de vacinações da fazenda em XLSX
+ */
+vaccinationRoutes.get(
+   "/export/xlsx",
+   requirePermission("export_csv"),
+   vaccinationController.exportXlsx.bind(vaccinationController),
+);
+
+/**
  * POST /api/vaccinations
  * Registra vacinação — owner, farmmanager, veterinarian, admin
  */

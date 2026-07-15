@@ -17,6 +17,16 @@ mortalityRoutes.get(
 );
 
 /**
+ * GET /api/mortalities/export/xlsx
+ * Exporta a lista de mortalidades da fazenda em XLSX
+ */
+mortalityRoutes.get(
+   "/export/xlsx",
+   requirePermission("export_csv"),
+   mortalityController.exportXlsx.bind(mortalityController),
+);
+
+/**
  * POST /api/mortalities
  * Registra morte — owner, farmmanager, veterinarian, admin
  */

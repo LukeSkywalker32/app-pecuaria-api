@@ -3,6 +3,7 @@
 // ========================================
 
 import type { NextFunction, Request, Response } from "express";
+import { generateTablePdf, generateXlsx } from "@/shared/services/export.service";
 import vaccinationService from "../services/vaccination.service";
 import type {
    CreateVaccinationRequest,
@@ -177,6 +178,103 @@ class VaccinationController {
          }
          const vaccination = await vaccinationService.removePhoto(farmId, id, photoUrl);
          res.status(200).json(vaccination);
+      } catch (error) {
+         next(error);
+      }
+   }
+
+   /**
+    * GET /api/vaccinations/export/xlsx
+    * Exporta a lista de vacinações da fazenda (com os mesmos filtros de list())
+    */
+   async exportXlsx(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const query: ListVaccinationsQuery = {
+            animalId: queryString(req.query.animalId),
+            vaccineType: queryString(req.query.vaccineType),
+            dateFrom: queryString(req.query.dateFrom),
+            dateTo: queryString(req.query.dateTo),
+         };
+
+         const vaccinations = await vaccinationService.list(farmId, query);
+
+         const buffer = await generateXlsx(
+            "Vacinações",
+            [
+               { header: "Animal", key: "animal", width: 28 },
+               { header: "Vacina", key: "vaccineType", width: 20 },
+               { header: "Marca", key: "brand", width: 18 },
+               { header: "Lote", key: "batch", width: 14 },
+               { header: "Data", key: "date", width: 14 },
+               { header: "Próxima dose", key: "nextDose", width: 14 },
+               { header: "Veterinário", key: "vet", width: 22 },
+               { header: "Fotos", key: "photoCount", width: 8 },
+            ],
+            vaccinations.map(v => ({
+               animal: `${v.animalName ?? ""}${v.animalEarTag ? ` — ${v.animalEarTag}` : ""}`,
+               vaccineType: v.vaccineType,
+               brand: v.brand,
+               batch: v.batch,
+               date: new Date(v.vaccinationDate).toLocaleDateString("pt-BR"),
+               nextDose: v.nextDoseDate
+                  ? new Date(v.nextDoseDate).toLocaleDateString("pt-BR")
+                  : "-",
+               vet: v.veterinarianName ?? "-",
+               photoCount: v.photos?.length ?? 0,
+            })),
+         );
+
+         res.setHeader(
+            "Content-Type",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+         );
+         res.setHeader("Content-Disposition", 'attachment; filename="vacinacoes.xlsx"');
+         res.send(buffer);
+      } catch (error) {
+         next(error);
+      }
+   }
+
+   /**
+    * GET /api/vaccinations/animal/:animalId/export/pdf
+    * Exporta o histórico de vacinações de um animal em PDF
+    * (mesmo conjunto de dados exibido no botão de Histórico do front)
+    */
+   async exportAnimalPdf(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const { animalId } = req.params as { animalId: string };
+
+         const vaccinations = await vaccinationService.listByAnimal(farmId, animalId);
+         const animalLabel =
+            vaccinations[0]?.animalName ?? vaccinations[0]?.animalEarTag ?? "Animal sem vacinações";
+
+         const doc = generateTablePdf(
+            `Histórico de Vacinações — ${animalLabel}`,
+            `Gerado em ${new Date().toLocaleDateString("pt-BR")} · ${vaccinations.length} registro(s)`,
+            [
+               { header: "Vacina", key: "vaccineType" },
+               { header: "Marca", key: "brand" },
+               { header: "Lote", key: "batch" },
+               { header: "Data", key: "date" },
+               { header: "Veterinário", key: "vet" },
+               { header: "Fotos", key: "photoCount" },
+            ],
+            vaccinations.map(v => ({
+               vaccineType: v.vaccineType,
+               brand: v.brand,
+               batch: v.batch,
+               date: new Date(v.vaccinationDate).toLocaleDateString("pt-BR"),
+               vet: v.veterinarianName ?? "-",
+               photoCount: v.photos?.length ?? 0,
+            })),
+         );
+
+         res.setHeader("Content-Type", "application/pdf");
+         res.setHeader("Content-Disposition", `attachment; filename="vacinacoes-${animalId}.pdf"`);
+         doc.pipe(res);
+         doc.end();
       } catch (error) {
          next(error);
       }

@@ -3,6 +3,7 @@
 // ========================================
 
 import type { NextFunction, Request, Response } from "express";
+import { generateXlsx } from "@/shared/services/export.service";
 import mortalityService from "../services/mortality.service";
 import type {
    CreateMortalityRequest,
@@ -145,6 +146,57 @@ class MortalityController {
          }
          const mortality = await mortalityService.removePhoto(farmId, id, photoUrl);
          res.status(200).json(mortality);
+      } catch (error) {
+         next(error);
+      }
+   }
+
+   /**
+    * GET /api/mortalities/export/xlsx
+    * Exporta a lista de mortalidades da fazenda (com os mesmos filtros de list())
+    */
+   async exportXlsx(req: Request, res: Response, next: NextFunction): Promise<void> {
+      try {
+         const farmId = req.farmId as string;
+         const query: ListMortalitiesQuery = {
+            dateFrom: queryString(req.query.dateFrom),
+            dateTo: queryString(req.query.dateTo),
+            severity: queryString(req.query.severity) as ListMortalitiesQuery["severity"],
+            necropsy: req.query.necropsy !== undefined ? req.query.necropsy === "true" : undefined,
+         };
+
+         const mortalities = await mortalityService.list(farmId, query);
+
+         const buffer = await generateXlsx(
+            "Mortalidade",
+            [
+               { header: "Animal", key: "animal", width: 28 },
+               { header: "Data", key: "date", width: 14 },
+               { header: "Local", key: "location", width: 20 },
+               { header: "Causa", key: "cause", width: 25 },
+               { header: "Severidade", key: "severity", width: 14 },
+               { header: "Necropsia", key: "necropsy", width: 12 },
+               { header: "Destinação", key: "disposal", width: 20 },
+               { header: "Fotos", key: "photoCount", width: 8 },
+            ],
+            mortalities.map(m => ({
+               animal: `${m.animalName ?? ""}${m.animalEarTag ? ` — ${m.animalEarTag}` : ""}`,
+               date: new Date(m.deathDate).toLocaleDateString("pt-BR"),
+               location: m.deathLocation,
+               cause: m.causeOfDeath,
+               severity: m.severity ?? "-",
+               necropsy: m.necropsy ? "Sim" : "Não",
+               disposal: m.disposal ?? "-",
+               photoCount: m.photos?.length ?? 0,
+            })),
+         );
+
+         res.setHeader(
+            "Content-Type",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+         );
+         res.setHeader("Content-Disposition", 'attachment; filename="mortalidade.xlsx"');
+         res.send(buffer);
       } catch (error) {
          next(error);
       }
