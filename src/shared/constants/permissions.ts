@@ -53,6 +53,10 @@ export const ROLES_PERMISSIONS = {
       "edit_buyer",
       "delete_buyer",
       "view_buyers",
+      "register_weighing",
+      "edit_weighing",
+      "delete_weighing",
+      "view_weighing",
    ],
 
    owner: [
@@ -93,6 +97,10 @@ export const ROLES_PERMISSIONS = {
       "edit_buyer",
       "delete_buyer",
       "view_buyers",
+      "register_weighing",
+      "edit_weighing",
+      "delete_weighing",
+      "view_weighing",
    ],
 
    farmmanager: [
@@ -132,6 +140,10 @@ export const ROLES_PERMISSIONS = {
       "view_reports",
       "export_pdf",
       "export_csv",
+      "register_weighing",
+      "edit_weighing",
+      "delete_weighing",
+      "view_weighing",
    ],
 
    veterinarian: [
@@ -158,5 +170,7 @@ export const ROLES_PERMISSIONS = {
       "upload_mortality_photo",
       "view_health_reports",
       "export_health_pdf",
+      "register_weighing",
+      "view_weighing",
    ],
 };

@@ -17,6 +17,7 @@ import pregnancyRoutes from "./modules/pregnancy/routes/pregnancy.routes";
 import uploadRoutes from "./modules/upload/routes/upload.routes";
 import userRoutes from "./modules/user/routes/user.routes";
 import vaccinationRoutes from "./modules/vaccination/routes/vaccination.routes";
+import weighingRoutes from "./modules/weighing/routes/weighing.routes";
 import { errorHandler } from "./shared/middlewares/errorHandler";
 
 const app = express();
@@ -63,6 +64,7 @@ app.use("/api/estrus", estrusRoutes);
 app.use("/api/births", birthRoutes);
 app.use("/api/vaccinations", vaccinationRoutes);
 app.use("/api/mortalities", mortalityRoutes);
+app.use("/api/weighings", weighingRoutes);
 app.use("/api/buyers", buyerRoutes);
 app.use("/api/upload", uploadRoutes);
 
