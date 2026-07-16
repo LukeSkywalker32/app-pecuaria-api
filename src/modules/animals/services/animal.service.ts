@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/config/database";
 import { calculateAnimalCategory } from "@/shared/utils/animalUtils";
+import { toWeighingDate } from "@/shared/utils/dateUtils";
 import type {
    AnimalResponse,
    CreateAnimalRequest,
@@ -139,11 +140,7 @@ class AnimalService {
          }
 
          // Se o cadastro já veio com peso, registrar como a primeira pesagem
-         // do animal no módulo de Pesagens. Sem isso, o peso informado aqui
-         // fica só no Animal.weightKg e nunca aparece no histórico/GMD —
-         // exatamente o mesmo bug que já tínhamos com brinco (currentEarTag
-         // vs earTagHistory), resolvido do mesmo jeito: o cadastro alimenta
-         // a tabela histórica, não só o campo solto no Animal.
+         // do animal no módulo de Pesagens.
          if (data.weightKg !== undefined && data.weightKg !== null) {
             await tx.weighing.create({
                data: {
@@ -153,7 +150,10 @@ class AnimalService {
                   // Nascido na fazenda: pesado ao nascer -> usa a data de nascimento.
                   // Comprado: pesado na chegada -> usa a data do cadastro (hoje),
                   // não a data de nascimento estimada do animal.
-                  date: data.origin === "born" ? new Date(data.birthDate) : new Date(),
+                  date:
+                     data.origin === "born"
+                        ? toWeighingDate(data.birthDate)
+                        : toWeighingDate(new Date()),
                   notes:
                      data.origin === "purchased"
                         ? "Peso informado na compra do animal"
