@@ -22,6 +22,6 @@
       },
       "ignoreDeprecations": "6.0"
    },
-   "include": ["src", "prisma"],
+   "include": ["src", "prisma", "teste-data.ts"],
    "exclude": ["node_modules", "dist"]
 }

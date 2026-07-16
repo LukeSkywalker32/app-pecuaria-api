@@ -147,9 +147,6 @@ class AnimalService {
                   farmId,
                   animalId: created.id,
                   weightKg: data.weightKg,
-                  // Nascido na fazenda: pesado ao nascer -> usa a data de nascimento.
-                  // Comprado: pesado na chegada -> usa a data do cadastro (hoje),
-                  // não a data de nascimento estimada do animal.
                   date:
                      data.origin === "born"
                         ? toWeighingDate(data.birthDate)
