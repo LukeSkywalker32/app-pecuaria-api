@@ -3,7 +3,7 @@
 // ========================================
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/config/database";
-import { toWeighingDate } from "@/shared/utils/dateUtils"; // ✅ ADICIONADO
+import { daysBetween, toWeighingDate } from "@/shared/utils/dateUtils";
 import type {
    CreateWeighingRequest,
    ListWeighingQuery,
@@ -55,9 +55,9 @@ function calculateGmd(
    previousWeightKg: number,
    previousDate: Date,
 ): number | null {
-   // ✅ CORRIGIDO: usa helper que descarta horário, evitando dias negativos
+   // usa helper que descarta horário, evitando dias negativos
    // por diferença de minutos/horas no mesmo dia
-   const days = (currentDate.getTime() - previousDate.getTime()) / (1000 * 60 * 60 * 24);
+   const days = daysBetween(currentDate, previousDate);
    if (days <= 0) return null;
    return Number(((currentWeightKg - previousWeightKg) / days).toFixed(3));
 }
