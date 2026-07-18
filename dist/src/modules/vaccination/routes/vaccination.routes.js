@@ -1,0 +1,56 @@
+// ========================================
+// VACCINATION ROUTES
+// ========================================
+import { Router } from "express";
+import { protectRoute, requirePermission } from "@/shared/middlewares/authMiddleware";
+import vaccinationController from "../controller/vaccination.controller";
+const vaccinationRoutes = Router();
+vaccinationRoutes.use(protectRoute);
+// ⚠️ Rotas específicas ANTES de /:id
+vaccinationRoutes.get("/upcoming", vaccinationController.getUpcoming.bind(vaccinationController));
+vaccinationRoutes.get("/animal/:animalId", vaccinationController.listByAnimal.bind(vaccinationController));
+/**
+ * GET /api/vaccinations/animal/:animalId/export/pdf
+ * Exporta o histórico de vacinações de um animal em PDF
+ */
+vaccinationRoutes.get("/animal/:animalId/export/pdf", requirePermission("export_pdf"), vaccinationController.exportAnimalPdf.bind(vaccinationController));
+/**
+ * GET /api/vaccinations/export/xlsx
+ * Exporta a lista de vacinações da fazenda em XLSX
+ */
+vaccinationRoutes.get("/export/xlsx", requirePermission("export_csv"), vaccinationController.exportXlsx.bind(vaccinationController));
+/**
+ * POST /api/vaccinations
+ * Registra vacinação — owner, farmmanager, veterinarian, admin
+ */
+vaccinationRoutes.post("/", requirePermission("register_vaccination"), vaccinationController.create.bind(vaccinationController));
+/**
+ * GET /api/vaccinations
+ * Lista vacinações
+ * Query: ?animalId=x&vaccineType=Aftosa&dateFrom=2024-01-01&upcoming=true
+ */
+vaccinationRoutes.get("/", vaccinationController.list.bind(vaccinationController));
+/**
+ * GET /api/vaccinations/:id
+ */
+vaccinationRoutes.get("/:id", vaccinationController.getById.bind(vaccinationController));
+/**
+ * PUT /api/vaccinations/:id
+ */
+vaccinationRoutes.put("/:id", requirePermission("edit_vaccination"), vaccinationController.update.bind(vaccinationController));
+/**
+ * DELETE /api/vaccinations/:id
+ */
+vaccinationRoutes.delete("/:id", requirePermission("edit_vaccination"), vaccinationController.remove.bind(vaccinationController));
+/**
+ * PATCH /api/vaccinations/:id/photos
+ * Adiciona fotos (URLs já enviadas ao Cloudinary)
+ */
+vaccinationRoutes.patch("/:id/photos", requirePermission("upload_vaccination_photo"), vaccinationController.addPhotos.bind(vaccinationController));
+/**
+ * DELETE /api/vaccinations/:id/photos
+ * Remove uma foto especifica do registro pela URL
+ */
+vaccinationRoutes.delete("/:id/photos", requirePermission("upload_vaccination_photo"), vaccinationController.removePhoto.bind(vaccinationController));
+export default vaccinationRoutes;
+//# sourceMappingURL=vaccination.routes.js.map

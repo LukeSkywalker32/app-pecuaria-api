@@ -3,9 +3,11 @@
  */
 
 export function toWeighingDate(input: Date | string): Date {
-   const d = input instanceof Date ? input : new Date(input);
-   //Normaliza o UTC para meia noite - descarta horario mantem o dia
-   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+   if (input instanceof Date) {
+      return new Date(input.getFullYear(), input.getMonth(), input.getDate());
+   }
+   const [year, month, day] = input.split("-").map(Number);
+   return new Date(year, month - 1, day);
 }
 
 /**

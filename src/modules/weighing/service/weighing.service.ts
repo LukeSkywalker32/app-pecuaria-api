@@ -57,7 +57,7 @@ function calculateGmd(
 ): number | null {
    // usa helper que descarta horário, evitando dias negativos
    // por diferença de minutos/horas no mesmo dia
-   const days = daysBetween(currentDate, previousDate);
+   const days = daysBetween(previousDate, currentDate);
    if (days <= 0) return null;
    return Number(((currentWeightKg - previousWeightKg) / days).toFixed(3));
 }
@@ -170,7 +170,9 @@ class WeighingService {
       if (!weighing) {
          throw Object.assign(new Error("Pesagem não encontrada"), { statusCode: 404 });
       }
-      return formatWeighing(weighing);
+
+      const gmdMap = await buildGmdMap(farmId, weighing.animalId);
+      return formatWeighing(weighing, gmdMap.get(weighing.id) ?? null);
    }
 
    /**
