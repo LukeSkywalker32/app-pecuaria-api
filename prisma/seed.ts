@@ -7,12 +7,14 @@
  */
 
 import "dotenv/config";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
-const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! });
-const prisma = new PrismaClient({ adapter });
+// Usa o mesmo singleton que a aplicação usa em runtime (src/config/database.ts).
+// Antes o seed criava seu próprio `new PrismaClient()`, isolado do singleton
+// global — isso significa validar DATABASE_URL duas vezes com regras diferentes
+// (aqui com `!` sem checagem; lá com throw explícito) e, em teoria, abrir uma
+// segunda pool de conexões desnecessária contra o Neon.
+import { prisma } from "../src/config/database";
+import { toWeighingDate } from "../src/shared/utils/dateUtils";
 
 // ─── Helpers de data ───
 function daysAgo(n: number): Date {
@@ -33,31 +35,31 @@ function yearsAgo(n: number): Date {
    return d;
 }
 
+const SANTA_ROSA_CNPJ = "11.222.333/0001-81";
+
 async function main() {
    console.log("🌱 Iniciando seed...\n");
 
-   // ─── Limpeza prévia (ordem inversa das FKs) ───
-   await prisma.passwordResetToken.deleteMany();
-   await prisma.ultrasound.deleteMany();
-   await prisma.attempt.deleteMany();
-   await prisma.pregnancy.deleteMany();
-   await prisma.mortality.deleteMany();
-   await prisma.birth.deleteMany();
-   await prisma.vaccination.deleteMany();
-   await prisma.estrus.deleteMany();
-   await prisma.management.deleteMany();
-   await prisma.earTagHistory.deleteMany();
-   await prisma.animal.deleteMany();
-   await prisma.pasture.deleteMany();
-   await prisma.user.deleteMany();
-   await prisma.farm.deleteMany({
-      where: {
-         id: { not: "farm-sistema" },
-      },
+   // ─── Limpeza prévia — ESCOPADA à fazenda de teste, não ao banco inteiro ───
+   // Antes: deleteMany() sem filtro em cada tabela apagava os dados de
+   // QUALQUER fazenda que existisse no banco (real ou não), e ainda apagava
+   // a tabela `breeds`, que é global e compartilhada entre fazendas.
+   // Agora: localizamos a fazenda de teste por um identificador estável
+   // (cnpj fixo) e deletamos só ela. Todas as tabelas filhas têm
+   // `onDelete: Cascade` a partir de `farmId` no schema, então apagar a
+   // Farm já remove em cascata animais, pastos, vacinações, pesagens etc.
+   // — sem tocar em `farm-sistema`, em outras fazendas, nem em `breeds`.
+   const fazendaExistente = await prisma.farm.findFirst({
+      where: { cnpj: SANTA_ROSA_CNPJ },
+      select: { id: true },
    });
-   await prisma.breed.deleteMany();
 
-   console.log("🗑️  Dados anteriores removidos.\n");
+   if (fazendaExistente) {
+      await prisma.farm.delete({ where: { id: fazendaExistente.id } });
+      console.log("🗑️  Dados anteriores da Fazenda Santa Rosa removidos (cascade).\n");
+   } else {
+      console.log("ℹ️  Nenhuma execução anterior encontrada — criando do zero.\n");
+   }
 
    // =========================================================
    // FAZENDAS
@@ -80,7 +82,7 @@ async function main() {
       data: {
          name: "Fazenda Santa Rosa",
          location: "Araçatuba - SP",
-         cnpj: "11.222.333/0001-81",
+         cnpj: SANTA_ROSA_CNPJ,
          active: true,
       },
    });
@@ -300,11 +302,6 @@ async function main() {
 
    console.log("🐂 3 Touros criados");
 
-   await prisma.pasture.update({
-      where: { id: pastoBois.id },
-      data: { currentAnimals: { increment: 3 } },
-   });
-
    // =========================================================
    // ANIMAIS — Vacas adultas (F, > 24 meses)
    // Referência de peso: Nelore 380-480 kg, Gir 400-500 kg, Girolando 450-550 kg, Angus 500-650 kg
@@ -417,15 +414,6 @@ async function main() {
 
    console.log("🐄 6 Vacas adultas criadas");
 
-   await prisma.pasture.update({
-      where: { id: pastoVacas.id },
-      data: { currentAnimals: { increment: 5 } },
-   });
-   await prisma.pasture.update({
-      where: { id: pastoMaternidade.id },
-      data: { currentAnimals: { increment: 1 } },
-   });
-
    // =========================================================
    // ANIMAIS — Novilhas (F, 12-24 meses) e Garrotes (M, 12-24 meses)
    // Referência de peso: 200-320 kg dependendo da raça e idade
@@ -524,11 +512,6 @@ async function main() {
 
    console.log("🐄 3 Novilhas + 2 Garrotes criados");
 
-   await prisma.pasture.update({
-      where: { id: pastoRecria.id },
-      data: { currentAnimals: { increment: 5 } },
-   });
-
    // =========================================================
    // ANIMAIS — Bezerras e Bezerros (< 12 meses)
    // Referência de peso: 80-180 kg dependendo da raça e idade
@@ -609,11 +592,6 @@ async function main() {
 
    console.log("🐮 2 Bezerras + 2 Bezerros criados");
 
-   await prisma.pasture.update({
-      where: { id: pastoMaternidade.id },
-      data: { currentAnimals: { increment: 4 } },
-   });
-
    // =========================================================
    // ANIMAIS — Quarentena (comprados recentemente)
    // =========================================================
@@ -655,11 +633,6 @@ async function main() {
    });
 
    console.log("🔒 2 Animais em Quarentena");
-
-   await prisma.pasture.update({
-      where: { id: pastoQuarentena.id },
-      data: { currentAnimals: { increment: 2 } },
-   });
 
    // =========================================================
    // ANIMAIS — Morto e Vendido (histórico)
@@ -782,6 +755,12 @@ async function main() {
       { animal: valente, tag: "BR-B003" },
       { animal: pipoca, tag: "BR-B004" },
       { animal: comprada01, tag: "BR-Q001" },
+      // "Vendida" tinha `currentEarTag: "BR-OLD-01"` setado direto no
+      // Animal, mas nenhum EarTagHistory correspondente — exatamente o
+      // estado que o comentário em animal.service.ts (linha ~117) descreve
+      // como bug já corrigido na API ("animal tem currentEarTag preenchido
+      // mas o módulo de brincos não tem nenhum registro correspondente").
+      { animal: vendida, tag: "BR-OLD-01" },
    ];
 
    for (const { animal, tag } of animaisComBrinco) {
@@ -809,7 +788,11 @@ async function main() {
          animalId: estrelaNelore.id,
          date: daysAgo(14),
          intensity: "strong",
-         nextEstrus: daysAgo(14),
+         // Ciclo estral bovino ~21 dias — nextEstrus deve ficar 21 dias
+         // à frente de `date`, igual ao padrão usado nos registros da Rosa
+         // logo abaixo. Estava igual a `date`, como se o próximo cio fosse
+         // no mesmo dia do atual.
+         nextEstrus: daysAgo(-7),
          notes: "CIO muito visível, animal agitada",
          detectedById: veterinarian.id,
       },
@@ -843,7 +826,8 @@ async function main() {
          animalId: luaAngus.id,
          date: daysAgo(5),
          intensity: "strong",
-         nextEstrus: daysAgo(5),
+         // Mesmo ajuste: ~21 dias à frente de `date`, não igual a `date`.
+         nextEstrus: daysAgo(-16),
          detectedById: veterinarian.id,
       },
    });
@@ -1057,7 +1041,13 @@ async function main() {
             brand: "Zoetis",
             batch: `RAI-2025-${Math.floor(Math.random() * 900) + 100}`,
             vaccinationDate: monthsAgo(2),
-            expirationDate: yearsAgo(-1),
+            // Antes: yearsAgo(-1) contava 12 meses a partir de HOJE, enquanto
+            // nextDoseDate contava 12 meses a partir de `vaccinationDate`
+            // (2 meses atrás) — os dois ficavam 2 meses fora de sincronia,
+            // apesar de representarem o mesmo marco (validade = próxima dose).
+            // Segue o mesmo padrão já usado para Aftosa/Clostridiose acima,
+            // onde expirationDate e nextDoseDate coincidem.
+            expirationDate: monthsAgo(-10),
             nextDoseDate: monthsAgo(-10),
             veterinarianId: veterinarian.id,
          },
@@ -1116,6 +1106,62 @@ async function main() {
    });
 
    console.log("💀 Mortalidade registrada (Perdida — Timpanismo)\n");
+
+   // =========================================================
+   // PESAGENS INICIAIS (Weighing)
+   // =========================================================
+   // Antes, `seed.ts` só preenchia `Animal.weightKg` e a tabela `Weighing`
+   // ficava vazia — era preciso lembrar de rodar `yarn backfill:weighings`
+   // manualmente depois. Isso quebrava `seed:gmd-test`, que só considera
+   // animais que já têm pelo menos uma pesagem (`weighings: { some: {} }`):
+   // sem essa etapa, a busca de candidatos sempre voltava vazia.
+   // Replicamos aqui a mesma lógica do backfill (mesma normalização de data
+   // via `toWeighingDate`, mesmo texto de nota), então rodar só `yarn seed`
+   // já deixa a tela de Pesagens com dado e a GMD calculável — sem depender
+   // de rodar os três scripts na ordem certa.
+   const animaisComPeso = await prisma.animal.findMany({
+      where: { farmId: farm.id, weightKg: { not: null } },
+      select: { id: true, farmId: true, weightKg: true, createdAt: true },
+   });
+
+   for (const animal of animaisComPeso) {
+      await prisma.weighing.create({
+         data: {
+            farmId: animal.farmId,
+            animalId: animal.id,
+            weightKg: animal.weightKg!,
+            date: toWeighingDate(animal.createdAt),
+            notes: "Pesagem retroativa (seed) — peso do cadastro original do animal",
+         },
+      });
+   }
+
+   console.log(`⚖️  ${animaisComPeso.length} pesagens iniciais criadas\n`);
+
+   // =========================================================
+   // RECÁLCULO DE currentAnimals POR PASTO
+   // =========================================================
+   // Antes: cada bloco de criação de animais incrementava `currentAnimals`
+   // manualmente com um número fixo (`{ increment: 5 }` etc). Isso é frágil
+   // porque o número certo depende de manter, à mão, a contagem em sincronia
+   // com os animais realmente criados naquele pasto — qualquer animal
+   // adicionado, removido ou movido de pasto em uma edição futura do seed
+   // (inclusive um animal "morto"/"vendido" sem pastureId) quebra a contagem
+   // silenciosamente, sem nenhum erro. Aqui recalculamos a partir dos dados
+   // reais: contamos quantos animais cada pasto tem de fato e gravamos esse
+   // valor — a mesma lógica que a aplicação deveria usar (e usa em
+   // `pasture.service`) para manter o campo consistente.
+   const pastos = [pastoVacas, pastoBois, pastoRecria, pastoMaternidade, pastoQuarentena];
+   for (const pasto of pastos) {
+      const total = await prisma.animal.count({
+         where: { farmId: farm.id, pastureId: pasto.id },
+      });
+      await prisma.pasture.update({
+         where: { id: pasto.id },
+         data: { currentAnimals: total },
+      });
+   }
+   console.log("🌿 Contagem de animais por pasto recalculada a partir dos dados reais\n");
 
    // =========================================================
    // RESUMO FINAL
