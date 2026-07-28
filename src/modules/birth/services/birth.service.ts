@@ -4,6 +4,7 @@
 
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/config/database";
+import { toWeighingDate } from "@/shared/utils/dateUtils";
 import type {
    BirthResponse,
    CreateBirthRequest,
@@ -205,6 +206,7 @@ class BirthService {
                   birthDate: new Date(data.birthDate),
                   status: "active",
                   origin: "born",
+                  weightKg: data.calfWeight ?? null,
                   damId: data.damId,
                   pastureId: dam.pastureId,
                   pastureName: dam.pastureName,
@@ -212,6 +214,23 @@ class BirthService {
             });
 
             calfAnimalId = calf.id;
+
+            // Registra o peso de nascimento também como a 1ª pesagem do
+            // bezerro no módulo de Pesagens, igual ao que animal.service.ts
+            // já faz para animais cadastrados diretamente (nascidos/comprados
+            // com peso informado). Sem isso, o GMD nunca teria uma pesagem
+            // anterior pra usar como base de cálculo.
+            if (data.calfWeight !== undefined && data.calfWeight !== null) {
+               await tx.weighing.create({
+                  data: {
+                     farmId,
+                     animalId: calf.id,
+                     weightKg: data.calfWeight,
+                     date: toWeighingDate(data.birthDate),
+                     notes: "Peso de nascimento — registrado no parto",
+                  },
+               });
+            }
 
             // Incrementa contador do pasto (se a mãe estiver em algum)
             if (dam.pastureId) {

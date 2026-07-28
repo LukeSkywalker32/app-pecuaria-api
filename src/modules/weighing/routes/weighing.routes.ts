@@ -13,6 +13,11 @@ weighingRoutes.use(protectRoute);
  */
 weighingRoutes.get(
    "/animal/:animalId",
+   (req, res, next) => {
+      res.setHeader("Cache-Control", "no-store");
+      res.setHeader("Pragma", "no-cache");
+      next();
+   },
    requirePermission("view_weighing"),
    weighingController.listByAnimal.bind(weighingController),
 );
@@ -52,6 +57,11 @@ weighingRoutes.post(
  */
 weighingRoutes.get(
    "/",
+   (req, res, next) => {
+      res.setHeader("Cache-Control", "no-store");
+      res.setHeader("Pragma", "no-cache");
+      next();
+   },
    requirePermission("view_weighing"),
    weighingController.list.bind(weighingController),
 );
