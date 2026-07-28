@@ -104,6 +104,20 @@ async function buildGmdMap(farmId: string, animalId?: string): Promise<Map<strin
    return gmdMap;
 }
 
+// Retorna o id da primeira (mais antiga) pesagem do animal — mesmo
+// critério de ordenação do buildGmdMap (date asc, createdAt asc como
+// desempate). É essa pesagem, e só ela, que pode ter peso/data editados;
+// as seguintes só podem ser corrigidas apagando e registrando de novo,
+// pra não embaralhar a cadeia de cálculo do GMD.
+async function getFirstWeighingId(farmId: string, animalId: string): Promise<string | null> {
+   const first = await prisma.weighing.findFirst({
+      where: { farmId, animalId },
+      orderBy: [{ date: "asc" }, { createdAt: "asc" }],
+      select: { id: true },
+   });
+   return first?.id ?? null;
+}
+
 class WeighingService {
    /**
     * Registra pesagem de um animal
@@ -206,7 +220,25 @@ class WeighingService {
       data: UpdateWeighingRequest,
    ): Promise<WeighingResponse> {
       weighingValidator.validateUpdate(data);
-      await this.getById(farmId, id);
+      const current = await this.getById(farmId, id);
+
+      // Só a primeira pesagem do animal pode ter peso/data alterados.
+      // Editar uma pesagem no meio do histórico mudaria o GMD de tudo que
+      // vem depois dela silenciosamente — a correção segura é apagar e
+      // registrar de novo, não editar in-place.
+      const isWeightOrDateChange = data.weightKg !== undefined || data.date !== undefined;
+      if (isWeightOrDateChange) {
+         const firstId = await getFirstWeighingId(farmId, current.animalId);
+         if (firstId !== id) {
+            throw Object.assign(
+               new Error(
+                  "Só é possível editar peso e data da primeira pesagem do animal. Para corrigir uma pesagem mais recente, apague o registro e cadastre de novo.",
+               ),
+               { statusCode: 400 },
+            );
+         }
+      }
+
       const updateData: Prisma.WeighingUpdateInput = {};
       if (data.weightKg !== undefined) updateData.weightKg = data.weightKg;
       if (data.date !== undefined) updateData.date = toWeighingDate(data.date); // ✅
