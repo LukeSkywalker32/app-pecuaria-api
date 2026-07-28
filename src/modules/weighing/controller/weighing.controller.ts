@@ -119,27 +119,61 @@ class WeighingController {
             dateTo: queryString(req.query.dateTo),
          };
 
-         const weighings = await weighingService.list(farmId, query);
+         const allweighings = await weighingService.list(farmId, query);
 
-         const buffer = await generateXlsx(
-            "Pesagens",
-            [
-               { header: "Animal", key: "animal", width: 28 },
-               { header: "Peso (Kg)", key: "weightKg", width: 12 },
-               { header: "Data", key: "date", width: 14 },
-               { header: "GMD (kg/dia", key: "gmd", width: 14 },
-               { header: "Registrado por", key: "registeredBy", width: 22 },
-               { header: "Notas", key: "notes", width: 30 },
-            ],
-            weighings.map(w => ({
-               animal: `${w.animalName ?? ""}${w.animalEarTag ? ` - ${w.animalEarTag}` : ""}`,
-               weightKg: w.weightKg,
-               date: new Date(w.date).toLocaleDateString("pt-BR"),
-               gmd: w.gmd !== null ? w.gmd.toFixed(3) : "-",
-               registeredBy: w.registeredByName ?? "-",
-               notes: w.notes ?? "-",
-            })),
-         );
+         const weighingsByAnimal = new Map<string, typeof allweighings>();
+         for (const w of allweighings) {
+            const list = weighingsByAnimal.get(w.animalId) ?? [];
+            list.push(w);
+            weighingsByAnimal.set(w.animalId, list);
+         }
+
+         let maxWeighingsCount = 0;
+         for (const list of weighingsByAnimal.values()) {
+            if (list.length > maxWeighingsCount) {
+               maxWeighingsCount = list.length;
+            }
+         }
+
+         const columns: any[] = [
+            { header: "Animal", key: "animal", width: 30 },
+            { header: "Brinco (EarTag)", key: "earTag", width: 20 },
+         ];
+
+         // Adiciona coluna repetida para cada possivel pesagem
+         for (let i = 1; i <= maxWeighingsCount; i++) {
+            columns.push(
+               { header: `Peso ${i} (kg)`, key: `weight_${i}`, width: 15 },
+               { header: `Data ${i}`, key: `date_${i}`, width: 15 },
+               { header: `GMD ${i}`, key: `gmd_${i}`, width: 15 },
+               { header: `Notas ${i}`, key: `notes_${i}`, width: 25 },
+            );
+         }
+
+         const rowsData = Array.from(weighingsByAnimal.entries()).map(([_, weighings]) => {
+            const sortedWeighings = [...weighings].sort((a, b) => {
+               const dateDiff = new Date(a.date).getTime() - new Date(b.date).getTime();
+               if (dateDiff !== 0) return dateDiff;
+               return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+            });
+            const row: any = {
+               animal: `${sortedWeighings[0].animalName ?? ""}${sortedWeighings[0].animalEarTag ? ` - ${sortedWeighings[0].animalEarTag}` : ""}`,
+               earTag: sortedWeighings[0].animalEarTag ?? "-",
+            };
+            // Preenche as colunas dinâmicas
+            sortedWeighings.forEach((w, index) => {
+               const i = index + 1; // Começa em 1
+               row[`weight_${i}`] = w.weightKg.toFixed(1);
+               row[`date_${i}`] = new Date(w.date).toLocaleDateString("pt-BR");
+               row[`gmd_${i}`] = w.gmd !== null ? w.gmd.toFixed(3) : "-";
+               row[`notes_${i}`] = w.notes ?? "-";
+            });
+
+            return row;
+         });
+
+         const buffer = await generateXlsx("Pesagens", columns, rowsData);
+
          res.setHeader(
             "Content-Type",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

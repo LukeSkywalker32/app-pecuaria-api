@@ -167,7 +167,7 @@ class WeighingService {
       const weighings = await prisma.weighing.findMany({
          where,
          select: WEIGHING_SELECT,
-         orderBy: { date: "desc" },
+         orderBy: [{ date: "desc" }, { createdAt: "desc" }],
       });
       const gmdMap = await buildGmdMap(farmId, query.animalId);
       return weighings.map(w => formatWeighing(w, gmdMap.get(w.id) ?? null));
