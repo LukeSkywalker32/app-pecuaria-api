@@ -1,5 +1,4 @@
 import type { NextFunction, Request, Response } from "express";
-import { de } from "zod/locales";
 import { generateTablePdf, generateXlsx } from "@/shared/services/export.service";
 import weighingService from "../service/weighing.service";
 import type {
